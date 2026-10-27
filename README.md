@@ -87,18 +87,16 @@ and security headers. It is inert unless the site is served by Cloudflare Pages.
 
 1. **The domain.** `sitemap.xml` and `robots.txt` both point at `https://inputscope.com`.
    Replace with the real domain once it is bought.
-2. **The owner name.** `about.html` has one placeholder, `[Your name]`, in the H1.
-   Search for it — it appears exactly once.
-3. **The Web3Forms access key.** `contact.html` has `YOUR_ACCESS_KEY_HERE` as the
+2. **The Web3Forms access key.** `contact.html` has `YOUR_ACCESS_KEY_HERE` as the
    `access_key` value. Get one at web3forms.com by entering the inbox that should
    receive submissions. The key is public by design (an alias to the inbox), so it
    is safe to commit. Then switch hCaptcha on for that form in the Web3Forms
    dashboard — the markup is already in place.
-4. **The contact email.** `hello@inputscope.com` appears in `privacy.html` and
+2. **The contact email.** `hello@inputscope.com` appears in `privacy.html` and
    `terms.html`. Use whichever address you actually want to be reachable at.
-5. **`ads.txt`.** Contains comments only. When the AdSense account is approved, paste
+4. **`ads.txt`.** Contains comments only. When the AdSense account is approved, paste
    the real line from the AdSense dashboard in place of the placeholder comment.
-6. **Ad units.** Deliberately not added. Ads belong on the informational pages only —
+5. **Ad units.** Deliberately not added. Ads belong on the informational pages only —
    never inside a measurement surface, because a layout shift mid-test corrupts the
    readings. See `terms.html` and `privacy.html` for the wording that already
    promises this.

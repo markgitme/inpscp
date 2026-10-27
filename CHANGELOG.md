@@ -2,6 +2,35 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.3.0 — 2026-10-27
+
+### Changed
+
+- **The owner has a name.** The About page H1 is now "Hi, I'm Mark." instead of
+  the `[Your name]` placeholder.
+- **The AI disclosure is now stated, not confessed.** The "How it was built"
+  section previously opened with "I should be upfront about this", which framed
+  the disclosure as an apology. It now opens with a flat factual sentence — "The
+  code was written with AI assistance" — and pairs it with the part that
+  actually matters for a trust product: the implementation is reviewed line by
+  line, and every measurement is checked against real hardware before it ships.
+
+  The wording follows two published examples of sites that disclose AI use
+  without apologising for it: Steven Hylands' about page (a one-line tools
+  list: "Claude Code — Builds most of my software, including this site") and
+  Graaft's footer ("All imagery and video on this site is AI-generated and
+  human-edited"), whose essay argues that "the 'human-edited' half of the
+  disclosure is doing real work — it names the person responsible."
+
+### Why the disclosure stays at all
+
+Checked against current policy: Google's AI labelling rules apply to **ad
+creatives**, not to site content, and the old AdSense in-content disclosure
+clause was removed in February 2025. Nothing requires the disclosure. It stays
+because the product is trust, and a diagnostics site that a visitor later
+discovers was built differently has a credibility problem that a site whose
+product is honesty does not have.
+
 ## v1.2.0 — 2026-10-27
 
 ### Changed
