@@ -2,6 +2,18 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.4.2 — 2026-10-27
+
+### Fixed
+
+- **The mouse summary wrapped six tiles across and stranded the seventh.** The
+  page's content column is capped at 1080px and seven tiles needed about
+  1113px, so the grid broke after six and left the last one alone with a wide
+  empty gap beside it. The summary is pinned to seven equal columns instead,
+  with slightly tighter tile padding and a marginally smaller label so every
+  title still sits on one line. It steps down to four across below 980px and
+  two across below 620px. The keyboard summary is untouched.
+
 ## v1.4.1 — 2026-10-27
 
 ### Fixed

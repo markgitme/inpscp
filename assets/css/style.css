@@ -431,7 +431,16 @@ td code { color: var(--accent); }
 
 /* Result tiles */
 .tiles { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(178px, 1fr)); }
-#mouse-summary, #kbd-summary { grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); }
+#kbd-summary { grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); }
+
+/* The mouse summary is always exactly seven tiles. Left on auto-fit it
+   wrapped six across with the seventh stranded underneath and a wide gap
+   beside it, so it is pinned to one row instead. */
+#mouse-summary { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: .55rem; }
+#mouse-summary .tile { padding: .85rem .8rem; }
+#mouse-summary .tile__k { font-size: .7rem; letter-spacing: .045em; }
+@media (max-width: 980px) { #mouse-summary { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 620px) { #mouse-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .tile {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-sm);
   padding: 1rem 1.05rem;
