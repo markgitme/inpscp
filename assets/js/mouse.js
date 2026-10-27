@@ -31,6 +31,62 @@
     if (n) n.textContent = note || '';
   }
 
+  // Every measurement leads with the plain-language answer; the raw figure
+  // stays in the mini-results underneath for anyone who wants the number.
+  function verdict(id, line, detail, tone) {
+    var l = document.getElementById(id + '-verdict-line');
+    var d = document.getElementById(id + '-verdict-detail');
+    if (l) {
+      l.textContent = line;
+      l.className = 'verdict__line' + (tone ? ' ' + tone : '');
+    }
+    if (d) d.textContent = detail || '';
+  }
+
+  // A dot that follows the pointer inside a pad so it is obvious you are in
+  // the test area, plus an optional fading trail of where you have been.
+  function makeTracker(pad, dotId, withTrail) {
+    var dot = document.getElementById(dotId);
+    if (!dot) return null;
+    var TRAIL = 22, trail = [], pool = [], i;
+    if (withTrail) {
+      for (i = 0; i < TRAIL; i++) {
+        var t = document.createElement('span');
+        t.className = 'trail-dot';
+        pad.appendChild(t);
+        pool.push(t);
+      }
+    }
+    function renderTrail() {
+      for (var j = 0; j < pool.length; j++) {
+        if (j < trail.length) {
+          var p = trail[trail.length - 1 - j];
+          pool[j].style.left = p.x + 'px';
+          pool[j].style.top = p.y + 'px';
+          pool[j].style.opacity = ((1 - j / pool.length) * 0.5).toFixed(2);
+        } else {
+          pool[j].style.opacity = 0;
+        }
+      }
+    }
+    pad.addEventListener('pointerenter', function () { pad.classList.add('is-tracked'); });
+    pad.addEventListener('pointerleave', function () { pad.classList.remove('is-tracked'); });
+    pad.addEventListener('pointermove', function (e) {
+      var r = pad.getBoundingClientRect();
+      var x = e.clientX - r.left, y = e.clientY - r.top;
+      dot.style.left = x + 'px';
+      dot.style.top = y + 'px';
+      if (withTrail) {
+        trail.push({ x: x, y: y });
+        if (trail.length > TRAIL) trail.shift();
+        renderTrail();
+      }
+    });
+    return {
+      clear: function () { trail = []; renderTrail(); }
+    };
+  }
+
   function stamp() {
     var d = new Date();
     var p = function (n) { return (n < 10 ? '0' : '') + n; };
@@ -171,16 +227,20 @@
     if (!pad) return;
     var target = null, attempts = 0, hits = 0, errSum = 0, streak = 0, best = 0, radius = 13;
     var started = false;
+    var runPos = null;
 
-    function spawn() {
+    // Each run places the first target somewhere random and remembers where
+    // it went, so Reset can put the dot back exactly where the run began.
+    function spawnAt(pos) {
       var r = pad.getBoundingClientRect();
-      var x = rnd(r.width * .12, r.width * .88);
-      var y = rnd(r.height * .16, r.height * .84);
+      var x = pos ? pos.x : rnd(r.width * .12, r.width * .88);
+      var y = pos ? pos.y : rnd(r.height * .16, r.height * .84);
       target = document.createElement('div');
       target.className = 'hitpad__target';
       target.style.left = x + 'px';
       target.style.top = y + 'px';
       pad.appendChild(target);
+      return { x: x, y: y };
     }
 
     function reset() {
@@ -195,7 +255,7 @@
       var r = pad.getBoundingClientRect();
       var cx = e.clientX - r.left, cy = e.clientY - r.top;
       if (!target) {
-        spawn();
+        runPos = spawnAt(null);
         started = true;
         var hint = $('.hitpad__hint', pad);
         if (hint) hint.classList.add('hidden');
@@ -218,21 +278,47 @@
       setOut('precision-err', hit && attempts > 1 ? (errSum / hits).toFixed(1) + 'px' : '—', 'average miss radius from centre', null);
       setOut('precision-streak', best, 'longest clean run', null);
 
+      var pct = Math.round(hits / attempts * 100);
+      var vline = pct >= 95 ? 'Your aim is very accurate.'
+        : pct >= 85 ? 'Your aim is accurate.'
+        : pct >= 70 ? 'Your aim is a little loose.'
+        : 'Your aim is loose — check your mouse sensitivity.';
+      var vdetail = pct + '% of ' + attempts + ' targets hit' +
+        (hits ? ', average miss ' + (errSum / hits).toFixed(1) + 'px from the centre' : '') + '.';
+      verdict('precision', vline, vdetail, pct >= 85 ? 'ok' : pct >= 70 ? 'warn' : 'bad');
+
       setTimeout(function () {
         target.remove();
         target = null;
-        if (attempts < 20) spawn();
+        if (attempts < 20) spawnAt(null);
       }, hit ? 130 : 320);
     });
 
     var startBtn = $('#precision-start');
     if (startBtn) startBtn.addEventListener('click', function () {
       reset();
-      spawn();
+      runPos = spawnAt(null);
       started = true;
+      pad.classList.remove('hitpad--ready');
       var hint = $('.hitpad__hint', pad);
       if (hint) hint.classList.add('hidden');
       setOut('precision-acc', '0%', 'click the blue dots', null);
+      verdict('precision', 'Go on — click each blue target.', 'Twenty targets gives a reliable result.', null);
+    });
+
+    var resetBtn = $('#precision-reset');
+    if (resetBtn) resetBtn.addEventListener('click', function () {
+      reset();
+      if (runPos) spawnAt(runPos);
+      started = false;
+      pad.classList.add('hitpad--ready');
+      var hint = $('.hitpad__hint', pad);
+      if (hint) hint.classList.remove('hidden');
+      setOut('precision-acc', '—', 'click the blue dots', null);
+      setOut('precision-err', '—', 'average miss radius from centre', null);
+      setOut('precision-streak', '0', 'longest clean run', null);
+      verdict('precision', 'Ready when you are.',
+        'Press Start, then click each target — the blue dot is back where it started.', null);
     });
   })();
 
@@ -270,6 +356,11 @@
       attempts++; sumErr += d; done++;
       setOut('drag-offset', d.toFixed(1) + 'px', 'distance from target centre', d < 8 ? 'ok' : d < 20 ? 'warn' : 'bad');
       setOut('drag-score', done, 'drops measured', null);
+      var vline = d < 8 ? 'You are as accurate while dragging as while clicking.'
+        : d < 20 ? 'You are a little less accurate while dragging.'
+        : 'You lose a lot of accuracy while dragging.';
+      verdict('drag', vline, d.toFixed(1) + 'px from the centre, over ' + done +
+        (done === 1 ? ' drop.' : ' drops.'), d < 8 ? 'ok' : d < 20 ? 'warn' : 'bad');
     }
 
     handle.addEventListener('pointerdown', function (e) {
@@ -303,6 +394,8 @@
       track.classList.remove('is-dragging');
       placeHandle();
       setOut('drag-offset', '—', 'drag the block into the target zone', null);
+      setOut('drag-score', '0', 'drops measured', null);
+      verdict('drag', 'Ready when you are.', 'Drag the block into the zone and let go.', null);
     }
 
     if (start) start.addEventListener('click', reset);
@@ -328,10 +421,22 @@
         if (gap < 600) {
           intervals.push(gap);
           setOut('dbl-time', (gap < 10 ? gap.toFixed(1) : Math.round(gap)) + 'ms', 'measured interval', gap < 300 ? 'ok' : 'warn');
-          var verdict = gap < 300 ? 'Snappy — comfortably inside the 500ms window'
-            : gap < 450 ? 'Normal — typical for a healthy mouse'
-              : 'Slow — raise your double-click speed setting';
-          setOut('dbl-verdict', verdict.split(' — ')[0], verdict.split(' — ')[1], gap < 300 ? 'ok' : gap < 450 ? 'warn' : 'bad');
+          var ms = (gap < 10 ? gap.toFixed(1) : Math.round(gap));
+          setOut('dbl-time', ms + 'ms', 'measured interval', gap < 300 ? 'ok' : gap < 450 ? 'warn' : 'bad');
+          var vline = gap < 300 ? 'Your double-click is snappy.'
+            : gap < 450 ? 'Your double-click is normal.'
+              : 'Your double-click is slow.';
+          var vdetail = gap < 300
+            ? ms + 'ms between your two clicks — well inside the 500ms window.'
+            : gap < 450
+              ? ms + 'ms between your two clicks. A healthy mouse lands inside 450ms.'
+              : ms + 'ms between your two clicks — close to the 500ms limit where the system stops treating it as one click.';
+          var vtone = gap < 450 ? 'ok' : 'warn';
+          setOut('dbl-verdict', gap < 300 ? 'Snappy' : gap < 450 ? 'Normal' : 'Slow',
+            gap < 300 ? 'comfortably inside the 500ms window'
+              : gap < 450 ? 'typical for a healthy mouse'
+                : 'raise your double-click speed setting', vtone);
+          verdict('dbl', vline, vdetail, vtone);
           log(lg, 'double-click interval ' + Math.round(gap) + 'ms');
         }
       }
@@ -343,8 +448,10 @@
     var start = $('#dbl-start');
     if (start) start.addEventListener('click', function () {
       intervals = [];
+      last = 0;
       setOut('dbl-time', '—', 'double-click the pad', null);
       setOut('dbl-verdict', '—', 'no measurement yet', null);
+      verdict('dbl', 'Ready when you are.', 'Double-click the pad a few times.', null);
       if (lg) lg.innerHTML = '';
       log(lg, 'double-click the pad a few times');
     });
@@ -358,23 +465,56 @@
     if (!pad) return;
     var up = 0, down = 0, horiz = 0, lastDelta = 0;
     var lg = $('#scroll-log');
+    var dirEl = $('#scroll-dir'), arrow = $('#scroll-dir-arrow'), dirText = $('#scroll-dir-text');
+    var dirTimer = null;
+
+    // Shows which way the wheel is turning, right where the pointer is.
+    function showDir(dir) {
+      pad.classList.add('is-active');
+      if (!dirEl) return;
+      dirEl.classList.add('is-on');
+      dirEl.classList.toggle('scroll-dir--side', dir === 'side');
+      if (arrow) arrow.textContent = dir === 'up' ? '\u25B2' : dir === 'down' ? '\u25BC' : '\u25C0\u25B6';
+      if (dirText) dirText.textContent = dir === 'up' ? 'Scrolling up'
+        : dir === 'down' ? 'Scrolling down' : 'Scrolling sideways';
+      clearTimeout(dirTimer);
+      dirTimer = setTimeout(function () { dirEl.classList.remove('is-on'); }, 700);
+    }
 
     pad.addEventListener('wheel', function (e) {
       e.preventDefault();
+      var dir = e.deltaY < 0 ? 'up' : e.deltaY > 0 ? 'down' : (e.deltaX !== 0 ? 'side' : '');
       if (e.deltaY < 0) up++; else if (e.deltaY > 0) down++;
       if (e.deltaX !== 0) horiz++;
       lastDelta = Math.abs(e.deltaY);
+      if (dir) showDir(dir);
       setOut('scroll-up', up + ' / ' + down, 'notches up / down', up > 0 || down > 0 ? 'ok' : null);
       setOut('scroll-h', horiz, 'horizontal notches', horiz > 0 ? 'ok' : null);
       setOut('scroll-delta', Math.round(lastDelta), 'pixels per notch', null);
+
+      if (horiz > 0) {
+        verdict('scroll', 'Your wheel also scrolls sideways.',
+          'That is a tilt wheel, or something is intercepting the pointer.', 'warn');
+      } else if (up + down > 0) {
+        verdict('scroll', 'Your wheel is scrolling.',
+          up + ' notch' + (up === 1 ? '' : 'es') + ' up, ' + down + ' down \u00b7 ' +
+          Math.round(lastDelta) + ' pixels per notch.', 'ok');
+      } else {
+        verdict('scroll', 'No scroll events reached the page.',
+          'Nothing scrolled when you used the wheel.', 'bad');
+      }
     }, { passive: false });
 
     var start = $('#scroll-start');
     if (start) start.addEventListener('click', function () {
       up = down = horiz = 0;
+      pad.classList.remove('is-active');
+      if (dirEl) dirEl.classList.remove('is-on');
+      clearTimeout(dirTimer);
       setOut('scroll-up', '0 / 0', 'notches up / down', null);
       setOut('scroll-h', '0', 'horizontal notches', null);
       setOut('scroll-delta', '—', 'pixels per notch', null);
+      verdict('scroll', 'Ready when you are.', 'Scroll up, down, then sideways if your wheel tilts.', null);
       if (lg) lg.innerHTML = '';
       log(lg, 'scroll up, down, then sideways if you have a tilt wheel');
     });
@@ -396,6 +536,7 @@
     start.addEventListener('click', function () {
       var raw = 0, moves = 0, t0 = performance.now(), raf = 0, lastMove = 0;
       setOut('poll-hz', '…', 'sampling for 1 second', null);
+      verdict('poll', 'Keep the mouse moving…', 'Sampling for one second.', null);
       if (lg) lg.innerHTML = '';
 
       function onRaw() { raw++; }
@@ -416,14 +557,23 @@
         if (supported && raw > 20) {
           setOut('poll-hz', hz + ' Hz', 'raw input samples per second', hz >= 1000 ? 'ok' : hz >= 500 ? 'warn' : 'bad');
           setOut('poll-note', 'Hardware-grade', 'raw pointer sampling confirmed', hz >= 500 ? 'ok' : 'warn');
+          var pline = hz >= 1000 ? 'That is a pro-gaming mouse.'
+            : hz >= 500 ? 'That is a fast gaming mouse.'
+            : hz >= 125 ? 'That is a standard office mouse.'
+            : 'That is an unusually slow polling rate.';
+          verdict('poll', pline, hz + ' Hz — ' + hz + ' position reports every second.',
+            hz >= 1000 ? 'ok' : hz >= 500 ? 'warn' : 'bad');
           log(lg, 'raw polling rate: ' + hz + ' Hz');
         } else if (moves > 20) {
           setOut('poll-hz', evRate + ' ev/s', 'browser pointermove rate (not raw Hz)', 'warn');
           setOut('poll-note', 'Estimated only', 'raw sampling not exposed by this browser', 'warn');
+          verdict('poll', 'Your browser will not report the real rate.',
+            evRate + ' events per second is an estimate, not a measurement.', 'warn');
           log(lg, 'browser event rate: ' + evRate + ' ev/s — raw rate not measurable here', 'w');
         } else {
           setOut('poll-hz', '—', 'no movement detected — move the mouse', 'bad');
           setOut('poll-note', 'No signal', 'the mouse did not move during sampling', 'bad');
+          verdict('poll', 'No movement was detected.', 'The mouse did not move during the sample.', 'bad');
           log(lg, 'no pointer movement detected', 'x');
         }
         if (meter) meter.style.width = supported && raw > 20 ? Math.min(100, hz / 12.5) + '%' : '0%';
@@ -437,8 +587,9 @@
   (function motion() {
     var pad = $('#motion-pad');
     if (!pad) return;
-    var samples = [], running = false, t0 = 0;
+    var samples = [], running = false, t0 = 0, timer = null;
     var lg = $('#motion-log');
+    var tracker = makeTracker(pad, 'motion-dot', true);
 
     function onMove(e) {
       if (!running) return;
@@ -447,10 +598,13 @@
 
     function analyse() {
       running = false;
-      window.removeEventListener('pointermove', onMove, true);
+      pad.removeEventListener('pointermove', onMove);
       if (samples.length < 12) {
         setOut('motion-avg', '—', 'not enough movement data', 'bad');
         setOut('motion-jitter', '—', 'move the mouse more', null);
+        setOut('motion-smooth', '—', 'move the pointer inside the box', null);
+        verdict('motion', 'Not enough movement was captured.',
+          'Move the pointer inside the box, in slow circles, and try again.', 'bad');
         if (lg) log(lg, 'not enough samples — circle the pointer around the pad', 'x');
         return;
       }
@@ -466,6 +620,12 @@
       setOut('motion-jitter', sd.toFixed(1) + 'ms', 'standard deviation of those gaps', sd < 8 ? 'ok' : sd < 18 ? 'warn' : 'bad');
       setOut('motion-smooth', mean < 12 && sd < 8 ? 'Smooth' : sd < 18 ? 'Fair' : 'Choppy',
         'based on mean and jitter', mean < 12 && sd < 8 ? 'ok' : sd < 18 ? 'warn' : 'bad');
+      var mline = mean < 12 && sd < 8 ? 'Your movement is smooth.'
+        : sd < 18 ? 'Your movement is a little uneven.'
+        : 'Your movement is choppy.';
+      verdict('motion', mline,
+        'Mean gap ' + mean.toFixed(1) + 'ms, jitter ' + sd.toFixed(1) + 'ms.',
+        mean < 12 && sd < 8 ? 'ok' : sd < 18 ? 'warn' : 'bad');
       if (lg) log(lg, samples.length + ' samples · mean ' + mean.toFixed(1) + 'ms · jitter ' + sd.toFixed(1) + 'ms');
     }
 
@@ -475,8 +635,27 @@
       running = true;
       setOut('motion-avg', '…', 'move the mouse for 2 seconds', null);
       setOut('motion-jitter', '…', 'measuring', null);
-      window.addEventListener('pointermove', onMove, true);
-      setTimeout(analyse, 2000);
+      setOut('motion-smooth', '…', 'measuring', null);
+      verdict('motion', 'Keep moving…', 'Move the pointer inside the box for two seconds.', null);
+      pad.addEventListener('pointermove', onMove);
+      clearTimeout(timer);
+      timer = setTimeout(analyse, 2000);
+    });
+
+    var resetBtn = $('#motion-reset');
+    if (resetBtn) resetBtn.addEventListener('click', function () {
+      running = false;
+      clearTimeout(timer);
+      samples = [];
+      pad.removeEventListener('pointermove', onMove);
+      if (tracker) tracker.clear();
+      setOut('motion-avg', '—', 'not measured yet', null);
+      setOut('motion-jitter', '—', 'not measured yet', null);
+      setOut('motion-smooth', '—', 'not measured yet', null);
+      verdict('motion', 'Ready when you are.',
+        'Move the pointer into the box — the dot follows you — then press Start.', null);
+      if (lg) lg.innerHTML = '';
+      log(lg, 'reset — move the pointer inside the box and press Start');
     });
   })();
 
@@ -486,13 +665,17 @@
   (function hover() {
     var pad = $('#hover-pad');
     if (!pad) return;
-    var enterT = 0, latency = null, samples = [], active = false;
+    var enterT = 0, latency = null, samples = [], active = false, hovers = 0;
     var lg = $('#hover-log');
+    makeTracker(pad, 'hover-dot', false);
 
     pad.addEventListener('pointerenter', function () {
       enterT = performance.now();
       active = true;
+      hovers++;
       setOut('hover-state', 'Hovering', 'pointer is over the target', 'ok');
+      verdict('hover', 'You are hovering over the box.',
+        'Move away and come back a few times to measure the delay.', null);
     });
     pad.addEventListener('pointerleave', function () {
       active = false;
@@ -506,9 +689,10 @@
 
     var start = $('#hover-start');
     if (start) start.addEventListener('click', function () {
-      samples = []; latency = null;
+      samples = []; latency = null; hovers = 0;
       setOut('hover-state', '—', 'move the pointer over the pad', null);
       setOut('hover-latency', '—', 'awaiting hover', null);
+      verdict('hover', 'Ready when you are.', 'Move the pointer over the box, then away and back again.', null);
       if (lg) lg.innerHTML = '';
       log(lg, 'hover in and out of the pad a few times');
     });
@@ -517,71 +701,14 @@
       if (!samples.length) return;
       var avg = samples.reduce(function (a, b) { return a + b; }, 0) / samples.length;
       setOut('hover-latency', avg.toFixed(1) + 'ms', 'time to register a hover', avg < 25 ? 'ok' : avg < 60 ? 'warn' : 'bad');
+      var hline = avg < 25 ? 'Hover registers instantly.'
+        : avg < 60 ? 'Hover takes a moment to register.'
+        : 'Hover is slow to register.';
+      verdict('hover', hline,
+        'Average ' + avg.toFixed(1) + 'ms from arriving to the page noticing · ' +
+        hovers + ' hover' + (hovers === 1 ? '' : 's') + '.',
+        avg < 25 ? 'ok' : avg < 60 ? 'warn' : 'bad');
     }, 700);
-  })();
-
-  /* =========================================================
-     9. Acceleration / speed consistency
-     ========================================================= */
-  (function speed() {
-    var pad = $('#speed-pad');
-    if (!pad) return;
-    var x = null, dir = 0, dist = 0, swipes = [], running = false, t0 = 0;
-    var lg = $('#speed-log');
-
-    function onMove(e) {
-      if (!running) return;
-      var r = pad.getBoundingClientRect();
-      var nx = e.clientX - r.left;
-      if (x === null) { x = nx; return; }
-      var d = nx - x;
-      dist += Math.abs(d);
-      if (Math.abs(d) > 2) {
-        var nd = d > 0 ? 1 : -1;
-        if (dir !== 0 && nd !== dir) {
-          if (dist > 40) swipes.push(dist);
-          dist = 0;
-        }
-        dir = nd;
-      }
-      x = nx;
-    }
-
-    function analyse() {
-      running = false;
-      window.removeEventListener('pointermove', onMove, true);
-      if (swipes.length < 3) {
-        setOut('speed-ratio', '—', 'need at least 3 swipes — try again', 'warn');
-        setOut('speed-verdict', 'Not enough data', 'swipe back and forth more', 'bad');
-        if (lg) log(lg, 'only ' + swipes.length + ' swipe(s) captured', 'w');
-        return;
-      }
-      var sorted = swipes.slice().sort(function (a, b) { return a - b; });
-      var lo = sorted[Math.floor(sorted.length * 0.2)];
-      var hi = sorted[Math.floor(sorted.length * 0.8)];
-      var ratio = hi / Math.max(lo, 1);
-      var verdict, tone;
-      if (ratio < 1.18) { verdict = 'Linear'; tone = 'ok'; }
-      else if (ratio < 1.4) { verdict = 'Mild boost'; tone = 'warn'; }
-      else { verdict = 'Accelerated'; tone = 'bad'; }
-
-      setOut('speed-ratio', ratio.toFixed(2) + '×', 'fastest vs slowest swipe', tone);
-      setOut('speed-verdict', verdict, tone === 'ok' ? '1:1 pointer movement' : 'distance grows with speed', tone);
-      setOut('speed-swipes', swipes.length, 'swipes measured', null);
-      if (lg) log(lg, swipes.length + ' swipes · ratio ' + ratio.toFixed(2) + '× · ' + verdict);
-    }
-
-    var start = $('#speed-start');
-    if (start) start.addEventListener('click', function () {
-      swipes = []; dist = 0; x = null; dir = 0; running = true;
-      setOut('speed-ratio', '…', 'swipe back and forth for 6 seconds', null);
-      setOut('speed-verdict', '…', 'measuring', null);
-      setOut('speed-swipes', '0', 'swipes measured', null);
-      if (lg) lg.innerHTML = '';
-      log(lg, 'use the SAME hand movement every time — about 10cm each way');
-      window.addEventListener('pointermove', onMove, true);
-      setTimeout(analyse, 6000);
-    });
   })();
 
   /* =========================================================
@@ -612,10 +739,7 @@
     'motion-jitter': 'Motion jitter',
     'motion-smooth': 'Motion verdict',
     'hover-state': 'Hover state',
-    'hover-latency': 'Hover delay',
-    'speed-ratio': 'Acceleration ratio',
-    'speed-verdict': 'Acceleration',
-    'speed-swipes': 'Swipes'
+    'hover-latency': 'Hover delay'
   };
   function buildSummary() {
     if (!summary) return;

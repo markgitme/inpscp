@@ -2,6 +2,54 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.4.0 — 2026-10-27
+
+### Changed
+
+- **Every measurement now answers in a sentence before it shows a number.**
+  The complaint was that the panels showed "px", "ms", "notches" and "Hz" with
+  no reference point, while the explanation lived three screens further down
+  in "What the numbers actually mean". Each panel now carries a verdict block:
+  the plain-language answer first, the technical figure underneath it, and the
+  raw numbers still in the mini-results for anyone who wants them.
+
+  | Test | The answer | The number |
+  |---|---|---|
+  | Pointer precision | "Your aim is very accurate." | 100% of 4 targets hit, average miss 1.0px |
+  | Double-click speed | "Your double-click is snappy." | 94ms between your two clicks |
+  | Polling rate | "That is a fast gaming mouse." | 500 Hz — 500 position reports every second |
+  | Drag accuracy | "You are as accurate while dragging as while clicking." | 1.4px from the centre |
+  | Scroll encoder | "Your wheel is scrolling." | 1 notch up, 1 down · 150 pixels per notch |
+  | Motion smoothness | "Your movement is smooth." | Mean gap 8.3ms, jitter 4.1ms |
+  | Hover response | "Hover registers instantly." | Average 12ms from arriving to the page noticing |
+
+- **The Acceleration curve test is gone.** It produced a "ratio" that nobody
+  outside the page could act on, needed a six-second sweep to return one
+  number, and duplicated what the "why does my cursor jump" section already
+  explains. Nine mouse measurements are now eight. The explanation of pointer
+  acceleration stays in the prose, because it is a useful thing to know.
+- **Pointer precision has a Reset button.** It clears the score, restores the
+  instruction text, and puts the blue target back exactly where the current
+  run put it. Pressing Start still picks a fresh position, so a new run is
+  never the same test twice.
+- **The scroll encoder shows which way the wheel is turning** — a big arrow
+  and the words "Scrolling up" / "Scrolling down" / "Scrolling sideways",
+  right where the pointer is. Reset clears it and restores the prompt.
+- **Motion smoothness has a pointer tracker.** A dot follows your pointer
+  inside the box and leaves a fading trail, so it is obvious you are inside
+  the test area rather than still looking at the page. The measurement now
+  samples inside the box rather than anywhere on the page, so the visual and
+  the number describe the same thing. A Reset button clears the trail.
+- **Hover response has a pointer tracker** too, so you can see you are over
+  the target.
+
+### Fixed
+
+- The instruction inside the pointer precision box was rendering as three
+  stacked lines — "Press" / "Start" / ", then click each target." — because a
+  grid container turns each run of text into its own row. It is one line now.
+  The same trap was closed off for the other pad hints.
+
 ## v1.3.5 — 2026-10-27
 
 ### Fixed

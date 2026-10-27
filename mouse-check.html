@@ -179,7 +179,7 @@
         <div class="section__head" style="margin-bottom:1.1rem">
           <span class="eyebrow eyebrow--blue">Three quick checks</span>
           <h2 style="font-size:1.5rem">The measurements worth taking</h2>
-          <p style="margin:0">If your mouse is behaving oddly, these are the three numbers that actually tell you what is wrong. Each takes under a minute.</p>
+          <p style="margin:0">If your mouse is behaving oddly, these are the three measurements that actually tell you what is wrong. Each takes under a minute, and each one answers in a sentence you can act on.</p>
         </div>
 
         <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))">
@@ -192,6 +192,11 @@
             </div>
             <div class="check-actions">
               <button class="btn btn--primary btn--sm" type="button" id="precision-start">Start</button>
+              <button class="btn btn--sm" type="button" id="precision-reset">Reset</button>
+            </div>
+            <div class="verdict">
+              <div class="verdict__line" id="precision-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="precision-verdict-detail">Press Start, then click each blue target as it appears.</div>
             </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Accuracy</span><span class="mini-results__v" data-out="precision-acc">—</span></div>
@@ -207,6 +212,10 @@
             <div class="check-actions">
               <button class="btn btn--primary btn--sm" type="button" id="dbl-start">Reset</button>
             </div>
+            <div class="verdict">
+              <div class="verdict__line" id="dbl-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="dbl-verdict-detail">Double-click the pad a few times.</div>
+            </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Interval</span><span class="mini-results__v" data-out="dbl-time">—</span></div>
               <div><span class="mini-results__k">Verdict</span><span class="mini-results__v" data-out="dbl-verdict">—</span></div>
@@ -220,6 +229,10 @@
             <div class="meter" style="margin-top:.9rem"><div class="meter__fill" id="polling-meter" style="width:0%"></div></div>
             <div class="check-actions">
               <button class="btn btn--primary btn--sm" type="button" id="polling-start">Sample for 1s</button>
+            </div>
+            <div class="verdict">
+              <div class="verdict__line" id="poll-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="poll-verdict-detail">Press Sample, then keep the mouse moving for one second.</div>
             </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Rate</span><span class="mini-results__v" data-out="poll-hz">—</span></div>
@@ -236,7 +249,7 @@
       <details class="advanced-wrap">
         <summary>
           <span>Advanced diagnostics</span>
-          <span class="advanced-wrap__label">5 more measurements for when the basics all pass</span>
+          <span class="advanced-wrap__label">4 more measurements for when the basics all pass</span>
         </summary>
         <div class="advanced-grid">
 
@@ -248,6 +261,10 @@
               <div class="drag-target" id="drag-target"></div>
             </div>
             <div class="check-actions"><button class="btn btn--sm" type="button" id="drag-start">Reset</button></div>
+            <div class="verdict">
+              <div class="verdict__line" id="drag-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="drag-verdict-detail">Drag the block into the zone and let go.</div>
+            </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Offset</span><span class="mini-results__v" data-out="drag-offset">—</span></div>
               <div><span class="mini-results__k">Drops measured</span><span class="mini-results__v" data-out="drag-score">0</span></div>
@@ -259,8 +276,18 @@
             <p class="check-note">Scroll up, down, then sideways if your wheel tilts. The page stays still while you are inside the pad.</p>
             <div class="hitpad" id="scroll-pad" style="margin-top:.9rem">
               <div class="pad-hint">Scroll in every direction inside this area.</div>
+              <div class="scroll-dir" id="scroll-dir">
+                <div class="scroll-dir__inner">
+                  <div class="scroll-dir__arrow" id="scroll-dir-arrow">&#9650;</div>
+                  <div class="scroll-dir__text" id="scroll-dir-text">Scrolling up</div>
+                </div>
+              </div>
             </div>
             <div class="check-actions"><button class="btn btn--sm" type="button" id="scroll-start">Reset</button></div>
+            <div class="verdict">
+              <div class="verdict__line" id="scroll-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="scroll-verdict-detail">Scroll up, down, then sideways if your wheel tilts.</div>
+            </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Notches up / down</span><span class="mini-results__v" data-out="scroll-up">0 / 0</span></div>
               <div><span class="mini-results__k">Horizontal</span><span class="mini-results__v" data-out="scroll-h">0</span></div>
@@ -274,8 +301,16 @@
             <p class="check-note">Press start and move the mouse in slow circles for two seconds. Constant motion gives the tightest timing spread.</p>
             <div class="hitpad" id="motion-pad" style="margin-top:.9rem">
               <div class="pad-hint">Move the pointer in smooth circles here.</div>
+              <span class="track-dot" id="motion-dot"></span>
             </div>
-            <div class="check-actions"><button class="btn btn--sm" type="button" id="motion-start">Start 2s sample</button></div>
+            <div class="check-actions">
+              <button class="btn btn--sm" type="button" id="motion-start">Start 2s sample</button>
+              <button class="btn btn--sm" type="button" id="motion-reset">Reset</button>
+            </div>
+            <div class="verdict">
+              <div class="verdict__line" id="motion-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="motion-verdict-detail">Move the pointer into the box — the dot follows you — then press Start.</div>
+            </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Mean interval</span><span class="mini-results__v" data-out="motion-avg">—</span></div>
               <div><span class="mini-results__k">Jitter</span><span class="mini-results__v" data-out="motion-jitter">—</span></div>
@@ -289,28 +324,18 @@
             <p class="check-note">Move the pointer onto the target and off it, several times.</p>
             <div class="hitpad" id="hover-pad" style="margin-top:.9rem">
               <div class="pad-hint">Hover here, then move away and come back.</div>
+              <span class="track-dot" id="hover-dot"></span>
             </div>
             <div class="check-actions"><button class="btn btn--sm" type="button" id="hover-start">Reset</button></div>
+            <div class="verdict">
+              <div class="verdict__line" id="hover-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="hover-verdict-detail">Move the pointer over the box, then away and back again.</div>
+            </div>
             <div class="mini-results">
               <div><span class="mini-results__k">State</span><span class="mini-results__v" data-out="hover-state">—</span></div>
               <div><span class="mini-results__k">Hover delay</span><span class="mini-results__v" data-out="hover-latency">—</span></div>
             </div>
             <div class="log" id="hover-log" style="margin-top:.9rem;max-height:110px"></div>
-          </div>
-
-          <div class="panel panel--pad">
-            <h3>Acceleration curve</h3>
-            <p class="check-note">Sweep the pointer back and forth for six seconds, using the <em>same</em> hand movement each time — roughly 10&nbsp;cm each way.</p>
-            <div class="hitpad" id="speed-pad" style="margin-top:.9rem;height:170px">
-              <div class="pad-hint">Sweep back and forth at a consistent speed.</div>
-            </div>
-            <div class="check-actions"><button class="btn btn--sm" type="button" id="speed-start">Start 6s test</button></div>
-            <div class="mini-results">
-              <div><span class="mini-results__k">Ratio</span><span class="mini-results__v" data-out="speed-ratio">—</span></div>
-              <div><span class="mini-results__k">Verdict</span><span class="mini-results__v" data-out="speed-verdict">—</span></div>
-              <div><span class="mini-results__k">Swipes</span><span class="mini-results__v" data-out="speed-swipes">0</span></div>
-            </div>
-            <div class="log" id="speed-log" style="margin-top:.9rem;max-height:110px"></div>
           </div>
 
         </div>
@@ -350,7 +375,6 @@
         <p><strong>Scroll encoder</strong> counts notches in each direction and reports the pixel delta per notch. A delta that varies wildly between notches is the classic encoder warning sign.</p>
         <p><strong>Motion smoothness</strong> reports the mean gap between pointer move events and how much that gap varies. Wireless mice add variability whenever the 2.4&nbsp;GHz link renegotiates with the receiver, and a large jitter figure often disappears when you switch to the cable or move the receiver to a USB port on the same side of the desk.</p>
         <p><strong>Hover response</strong> measures the delay between the pointer entering a target and the first movement event being delivered. A delay of 60&nbsp;ms or more makes menus feel sluggish, and it is frequently caused by a high display poll rate rather than by the mouse.</p>
-        <p><strong>Acceleration curve</strong> works out how much further your fastest swipe travels compared with your slowest, using your own movement as the control. A ratio near 1.00× means the mapping is essentially linear; above about 1.40× and acceleration is clearly active. Turn it off in your system settings if you want the same physical gesture to always produce the same distance on screen.</p>
       </div>
     </div>
   </section>
@@ -514,7 +538,7 @@
     var keys = ['disp-left', 'disp-right', 'disp-middle', 'disp-side', 'disp-scroll', 'disp-last',
       'precision-acc', 'precision-err', 'dbl-time', 'dbl-verdict', 'poll-hz', 'poll-note',
       'drag-offset', 'scroll-up', 'scroll-down', 'motion-avg', 'motion-jitter', 'hover-latency',
-      'speed-ratio', 'speed-verdict'];
+      ];
     return keys.map(function (k) {
       var v = document.querySelector('[data-out="' + k + '"]');
       var n = document.querySelector('[data-note="' + k + '"]');

@@ -484,8 +484,12 @@ td code { color: var(--accent); }
   position: relative; height: 260px; border-radius: var(--radius-sm);
   background: var(--bg-2); border: 1px solid var(--line); overflow: hidden; cursor: crosshair;
 }
+/* flex, not grid: a grid container turns each text run into its own row, so
+   "Press <strong>Start</strong>, then click each target." used to stack up
+   vertically instead of reading as one line. */
 .hitpad__hint {
-  position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; flex-wrap: wrap;
   color: var(--muted); font-size: .88rem; pointer-events: none; padding: 1rem; line-height: 1.5;
 }
 .hitpad__target {
@@ -783,6 +787,56 @@ td code { color: var(--accent); }
 .check-actions { display: flex; gap: .5rem; margin-top: .8rem; flex-wrap: wrap; }
 .check-note { font-size: .8rem; color: var(--muted); margin: .6rem 0 0; }
 
+/* ---------------- Answer first ----------------
+   Every measurement leads with the plain-language answer and keeps the raw
+   figure underneath, so the page serves someone who has never heard of
+   milliseconds and someone who wants the number. */
+.verdict {
+  margin-top: .9rem; padding: .8rem .95rem; border-radius: var(--radius-sm);
+  background: var(--card-2); border: 1px solid var(--line);
+}
+.verdict__line { font-weight: 650; color: var(--text); font-size: .97rem; line-height: 1.45; }
+.verdict__line.ok { color: var(--accent); }
+.verdict__line.warn { color: var(--amber); }
+.verdict__line.bad { color: var(--red); }
+.verdict__detail { font-size: .82rem; color: var(--muted); margin-top: .3rem; line-height: 1.5; }
+.verdict__detail:empty { display: none; }
+
+/* ---------------- Pointer tracker ----------------
+   A dot that follows the pointer inside a pad, so it is obvious you are
+   inside the test area, plus an optional fading trail of where you have
+   been. */
+.track-dot {
+  position: absolute; width: 13px; height: 13px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 12px rgba(74,222,155,.9);
+  transform: translate(-50%,-50%); pointer-events: none; z-index: 4;
+  opacity: 0; transition: opacity .12s;
+}
+.hitpad.is-tracked .track-dot { opacity: 1; }
+.trail-dot {
+  position: absolute; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); transform: translate(-50%,-50%);
+  pointer-events: none; z-index: 3; opacity: 0;
+}
+
+/* ---------------- Scroll direction ---------------- */
+.scroll-dir {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  pointer-events: none; z-index: 4; opacity: 0; transition: opacity .12s;
+}
+.scroll-dir.is-on { opacity: 1; }
+.scroll-dir__inner { text-align: center; }
+.scroll-dir__arrow { font: 700 2.1rem/1 var(--mono); color: var(--blue); }
+.scroll-dir__text { margin-top: .35rem; font-size: .88rem; font-weight: 600; color: var(--blue); }
+.scroll-dir--side .scroll-dir__arrow, .scroll-dir--side .scroll-dir__text { color: var(--violet); }
+
+.pad-hint, .hitpad__hint { transition: opacity .15s; }
+.hitpad.is-tracked .pad-hint, .hitpad.is-active .pad-hint { opacity: 0; }
+
+/* When the dot is waiting at its start position the instruction moves to the
+   bottom of the pad, so the two never sit on top of each other. */
+.hitpad--ready .hitpad__hint { align-items: end; padding-bottom: .7rem; }
+
 .advanced-wrap { margin-top: 1.2rem; }
 .advanced-wrap > summary {
   cursor: pointer; list-style: none;
@@ -862,7 +916,8 @@ td code { color: var(--accent); }
 .mod-item__lamp.on { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
 
 .pad-hint {
-  position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; flex-wrap: wrap;
   color: var(--muted); font-size: .88rem; pointer-events: none; padding: 1rem; line-height: 1.5;
 }
 
