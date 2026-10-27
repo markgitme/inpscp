@@ -54,8 +54,21 @@ AUTH="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')"
 git -c "http.https://github.com/.extraheader=Authorization: Basic $AUTH" \
     push -u origin HEAD
 
+# The tags ARE the restorable release history (v1.0.0 ... v1.4.x). Push them too.
+git -c "http.https://github.com/.extraheader=Authorization: Basic $AUTH" \
+    push --tags
+
+echo
+echo "verifying what actually landed on the remote:"
+git -c "http.https://github.com/.extraheader=Authorization: Basic $AUTH" \
+    ls-remote --heads --tags origin | sed 's/^/  /'
+
 echo
 echo "Pushed. To pull it back down later:"
 echo "  git pull origin main"
+echo "  git fetch --tags"
 echo
 echo "Enable free hosting with: Settings -> Pages -> Source: Deploy from a branch -> main / (root)"
+echo "That serves index.html straight from the repo root, so the site goes live at"
+echo "  https://YOUR_USER.github.io/REPO_NAME/"
+echo "The /build/ directory is gitignored, so nothing stray gets published."
