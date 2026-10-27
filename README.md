@@ -125,6 +125,47 @@ git push -u origin main
 Either way, free hosting is one click away: **Settings → Pages → Source: Deploy
 from a branch → `main` / `(root)`.**
 
+### The token recipe (fine-grained PAT)
+
+**One token per working session — not one per update.** The agent encrypts it into a
+secret store, reuses `${GH_TOKEN}` for every push in that session, and the token is
+revoked when the session ends.
+
+GitHub → Settings → Developer settings → Personal access tokens → **Fine-grained
+tokens** → Generate new token:
+
+| Field | Value |
+|---|---|
+| Expiration | 30 days (or 90 — it is revoked manually anyway) |
+| **Repository access** | **Only select repositories** → tick `inputscope` |
+| **Repository permissions** | **Contents → Read and write** |
+| Account permissions | leave empty |
+
+**The two misclicks that cause a 403 on push:**
+
+1. Repository access left on **"Public repositories (read-only)"** — this reads every
+   public repo and writes none. It *looks* like it works, because the repo is public
+   and every read succeeds. Only the push fails.
+2. **Contents left on "Read-only"** instead of "Read and write".
+
+Symptom of either: `remote: Permission to … denied` / `403`, while `GET /repos/{owner}/{repo}`
+still reports `push: true` — that field is the *user's* role on the repo, not the token's
+scope. Confirm with a write probe: `PATCH /repos/{owner}/{repo}` → `Resource not accessible
+by personal access token` means the scope is wrong, not the git.
+
+**Editing a token's permissions does not change its token string**, so a token that
+already failed can be fixed in the UI and reused without pasting a new one.
+
+**Rules:**
+- **Never a classic PAT** (`ghp_…`) — those grant access to everything on the account.
+- **Never commit the token**, put it in the remote URL, or let it into `.git/config`.
+  The script's scoped-header method already prevents all three.
+- **Revoke when the session ends** — a pasted token sits in the chat transcript.
+- `gh` CLI is not available in the sandbox; git-over-HTTPS is the only path.
+
+**Once Cloudflare Pages is connected to this repo, every push rebuilds and redeploys
+the live site automatically.** There is no separate publish step.
+
 ## Review mode
 
 For iterating on the live site without needing a code change:
