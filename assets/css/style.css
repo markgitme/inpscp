@@ -726,7 +726,10 @@ td code { color: var(--accent); }
   filter: drop-shadow(0 0 10px rgba(110,168,254,.9));
 }
 .m-side.is-hit { fill: var(--violet); stroke: #c9b6ff; filter: drop-shadow(0 0 10px rgba(167,139,250,.9)); }
-.m-wheel.is-scroll { fill: #35405c; stroke: #6ea8fe; }
+.m-wheel.is-scroll {
+  fill: var(--amber); stroke: #fde68a;
+  filter: drop-shadow(0 0 10px rgba(251,191,36,.9));
+}
 
 .mouse-readout { display: grid; gap: 1rem; }
 .leds { display: flex; flex-wrap: wrap; gap: .5rem; }
@@ -747,6 +750,8 @@ td code { color: var(--accent); }
 .led.is-on--blue .led__dot { background: var(--blue); box-shadow: 0 0 9px var(--blue); }
 .led.is-on--violet { color: var(--violet); border-color: rgba(167,139,250,.4); background: rgba(167,139,250,.10); }
 .led.is-on--violet .led__dot { background: var(--violet); box-shadow: 0 0 9px var(--violet); }
+.led.is-on--amber { color: var(--amber); border-color: rgba(251,191,36,.4); background: rgba(251,191,36,.10); }
+.led.is-on--amber .led__dot { background: var(--amber); box-shadow: 0 0 9px var(--amber); }
 
 .mouse-counts {
   display: grid; gap: .55rem; grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));

@@ -97,21 +97,27 @@
 
     function flash(btn) {
       $$('.is-hit', stage).forEach(function (n) { n.classList.remove('is-hit'); });
-      $$('.led').forEach(function (n) { n.classList.remove('is-on', 'is-on--blue', 'is-on--violet'); });
+      $$('.is-scroll', stage).forEach(function (n) { n.classList.remove('is-scroll'); });
+      $$('.led').forEach(function (n) { n.classList.remove('is-on', 'is-on--blue', 'is-on--violet', 'is-on--amber'); });
       if (!btn) return;
-      var region = stage.querySelector('[data-btn="' + btn + '"]');
-      if (region) region.classList.add('is-hit');
-      var ledKey = (btn === 'up' || btn === 'down') ? 'scroll' : btn;
+      // Scrolling and middle-clicking both act on the wheel, so the wheel is
+      // the region that lights — in a different colour for each.
+      var scrolling = (btn === 'up' || btn === 'down');
+      var region = stage.querySelector('[data-btn="' + (scrolling ? 'middle' : btn) + '"]');
+      if (region) region.classList.add(scrolling ? 'is-scroll' : 'is-hit');
+      var ledKey = scrolling ? 'scroll' : btn;
       var led = document.querySelector('[data-led="' + ledKey + '"]');
       if (led) {
         led.classList.add('is-on');
-        if (btn === 'middle' || btn === 'up' || btn === 'down') led.classList.add('is-on--blue');
+        if (btn === 'middle') led.classList.add('is-on--blue');
+        if (scrolling) led.classList.add('is-on--amber');
         if (btn === 'side1' || btn === 'side2') led.classList.add('is-on--violet');
       }
       clearTimeout(flashTimer);
       flashTimer = setTimeout(function () {
         $$('.is-hit', stage).forEach(function (n) { n.classList.remove('is-hit'); });
-        $$('.led').forEach(function (n) { n.classList.remove('is-on', 'is-on--blue', 'is-on--violet'); });
+        $$('.is-scroll', stage).forEach(function (n) { n.classList.remove('is-scroll'); });
+        $$('.led').forEach(function (n) { n.classList.remove('is-on', 'is-on--blue', 'is-on--violet', 'is-on--amber'); });
       }, 1100);
     }
 

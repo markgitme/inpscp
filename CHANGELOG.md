@@ -2,6 +2,28 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.3.4 — 2026-10-27
+
+### Changed
+
+- **Scrolling now lights the scroll wheel in its own colour.** Middle-clicking
+  the wheel and rolling the wheel are two different actions on two different
+  parts of the mouse, and the diagram now shows that: pressing the wheel in
+  glows blue, rolling it glows amber. Previously the wheel only lit at all for
+  a middle click — scrolling lit the "Scroll" counter but left the mouse
+  diagram untouched.
+- The "Scroll" indicator lamp is now amber to match the wheel, so the lamp and
+  the diagram agree. The colour scheme across the mouse is now one meaning per
+  colour: green for left and right clicks, blue for middle click, amber for
+  scrolling, violet for the side buttons.
+
+### Note
+
+- A `.m-wheel.is-scroll` style already existed in the stylesheet for exactly
+  this purpose, but nothing ever applied it — the rule was written and then
+  left unwired. It has been given the amber treatment and connected to the
+  scroll handler.
+
 ## v1.3.3 — 2026-10-27
 
 ### Fixed
