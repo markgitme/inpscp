@@ -584,6 +584,56 @@ td code { color: var(--accent); }
 .notice svg { flex: none; margin-top: .22rem; color: var(--muted); }
 .notice code { color: var(--text-2); background: var(--card-2); border: 1px solid var(--line); border-radius: 5px; padding: .05em .35em; }
 
+/* ---------------- Coming soon ---------------- */
+.soon-panel {
+  background:
+    radial-gradient(700px 260px at 6% 0%, rgba(167,139,250,.12), transparent 68%),
+    radial-gradient(700px 260px at 94% 100%, rgba(74,222,155,.10), transparent 68%),
+    var(--card);
+  border-style: dashed;
+}
+.soon-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 1.4rem; flex-wrap: wrap; margin-bottom: 1.4rem;
+}
+.soon-head h2 { margin-bottom: .45rem; }
+.soon-head p { max-width: 58ch; margin: 0; color: var(--muted); }
+.soon-badge {
+  flex: none; display: inline-flex; align-items: center; gap: .45rem;
+  padding: .35rem .75rem; border-radius: 999px;
+  font-size: .76rem; font-weight: 650; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--violet); background: rgba(167,139,250,.12); border: 1px solid rgba(167,139,250,.3);
+}
+.soon-badge::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--violet); box-shadow: 0 0 8px var(--violet);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+.soon-grid { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); }
+.soon-card {
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 1rem 1.1rem;
+  transition: border-color .16s, transform .16s;
+}
+.soon-card:hover { border-color: var(--line-2); transform: translateY(-2px); }
+.soon-card__top { display: flex; align-items: center; gap: .55rem; margin-bottom: .5rem; }
+.soon-card__icon {
+  width: 30px; height: 30px; border-radius: 8px; flex: none;
+  display: grid; place-items: center;
+  background: rgba(167,139,250,.10); border: 1px solid rgba(167,139,250,.22); color: var(--violet);
+}
+.soon-card__icon svg { width: 16px; height: 16px; }
+.soon-card h3 { font-size: .97rem; margin: 0; }
+.soon-card p { font-size: .86rem; color: var(--muted); margin: 0; }
+.soon-card__tag {
+  display: inline-block; margin-top: .6rem;
+  font-size: .68rem; font-weight: 650; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--muted); background: var(--card-3); border: 1px solid var(--line);
+  padding: .18rem .48rem; border-radius: 5px;
+}
+.soon-foot { margin: 1.4rem 0 0; font-size: .89rem; color: var(--muted); }
+.soon-foot a { color: var(--accent); font-weight: 600; }
+
 /* ---------------- Interactive mouse display ---------------- */
 .mouse-display {
   display: grid; gap: 1.6rem; grid-template-columns: minmax(220px, 300px) 1fr;

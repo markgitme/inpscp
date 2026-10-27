@@ -2,6 +2,21 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.1.0 — 2026-10-27
+
+### Added
+
+- **"More coming soon" roadmap** on the home page — six planned diagnostics
+  (gamepad, touchpad, headset, display, webcam, printer) with a note that each
+  will run locally in the browser. Signals to visitors and to ad-network
+  reviewers that the site is actively expanding rather than abandoned.
+- Roadmap noted in the About page's revision log and project description.
+
+### Changed
+
+- Removed the closing "Start with the mouse" call-to-action band from the home
+  page — the hero already carries both tool buttons, so it was redundant.
+
 ## v1.0.0 — 2026-10-27
 
 First complete build. Site published to a temporary preview URL.
