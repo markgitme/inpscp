@@ -3,18 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About InputScope — How the Tests Work and Who Runs Them</title>
-<meta name="description" content="InputScope is an independent, ad-light lab of browser-based input device diagnostics. Here is how each test is built, how results are interpreted, and what the site deliberately does not do.">
-<meta property="og:title" content="InputScope is an independent lab of browser-based input device…">
-<meta property="og:description" content="InputScope is an independent lab of browser-based input device diagnostics. How each test is built, how results are interpreted, and what the site deliberately does not do.">
+<title>About — the person behind InputScope</title>
+<meta name="description" content="Who runs InputScope, why it was made, how it is built, and how to get in touch. A small independent project, run by one person, with AI assistance on the code.">
+<meta name="theme-color" content="#0a0b10">
+<link rel="canonical" href="about.html">
 <meta property="og:type" content="website">
+<meta property="og:title" content="About InputScope — the person behind it">
+<meta property="og:description" content="Why this site exists, who runs it, how it was built and what happens next.">
+<meta property="og:url" content="about.html">
 <meta property="og:image" content="assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="assets/og-image.png">
-<meta name="theme-color" content="#0a0b10">
-<link rel="canonical" href="about.html">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,64 +46,49 @@
     <div class="wrap">
       <div class="breadcrumb"><a href="index.html">InputScope</a><span>/</span>About</div>
       <span class="eyebrow eyebrow--violet">About</span>
-      <h1>A small lab for the two things you touch all day</h1>
-      <p>InputScope is an independent project. It exists because peripherals degrade quietly, browsers already expose everything needed to measure that degradation, and almost nobody has bothered to build the measuring tools properly.</p>
-      <p class="hero__lead">The name is the idea, more or less: an oscilloscope for the devices you touch all day. Not a scoreboard and not a click counter — a way to see what the hardware is actually doing, and to work out whether a number that feels wrong is a broken switch or a buried setting.</p>
+      <!-- OWNER: replace [Your name] below — and only here — with the name or pseudonym you publish under. -->
+      <h1>Hi, I&rsquo;m <span class="owner-name">[Your name]</span>.</h1>
+      <p class="hero__lead">I run InputScope. It&rsquo;s a small set of browser-based diagnostics for the two devices you touch every single day &mdash; your mouse and your keyboard &mdash; built because I got tired of guessing whether a problem was the hardware or my operating system.</p>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--lead">
     <div class="wrap">
       <div class="prose">
-        <h2>What InputScope is</h2>
-        <p>InputScope is a set of browser-based diagnostic tools for pointing devices and keyboards. Each tool isolates one measurable behaviour of the hardware, presents the raw number, and then explains what that number means in practice. There are fifteen tests across two suites: nine for the mouse, six for the keyboard.</p>
-        <p>The site is deliberately unfinished. A gamepad, touchpad, headset, display, webcam and printer diagnostic are in development, and they will follow the same rule as everything else here: run locally, upload nothing, and tell you what the number actually means.</p>
-        <p>The project is deliberately small. It is not a hardware review site, it does not sell anything, and it has no affiliate relationships with any manufacturer. There is no account system and no database. The whole thing is a handful of static pages and some JavaScript that talks to the browser's own input APIs.</p>
 
-        <h2>How the tests are built</h2>
-        <p>Every test uses a standard web API and nothing else. Pointer tests rely on the Pointer Events interface — <code>pointermove</code>, <code>pointerdown</code>, <code>pointerrawupdate</code> where it is available, and the <code>getCoalescedEvents</code> method. Keyboard tests rely on the Keyboard Events interface, where <code>event.code</code> gives the physical identity of a key independently of the character it produces and <code>event.key</code> gives the character the operating system believes that key should produce.</p>
-        <p>That distinction is the basis of the layout detection test. A key has a physical position that never changes and a logical character that depends on the selected layout, and comparing the two against known layouts identifies the board regardless of how the system is configured.</p>
-        <p>Timing measurements use <code>performance.now()</code>, which is monotonic and unaffected by wall-clock adjustments. Where a result cannot be a true measurement — a polling rate in a browser that does not expose raw sampling, for instance — the interface says so in the result panel instead of presenting the estimate as fact.</p>
+        <h2>Why I made this</h2>
+        <p>Peripherals die quietly. The mouse needs three clicks to open a menu. The keyboard drops one letter every so often and no amount of restarting fixes it. The scroll wheel starts skipping in the middle of a document. In every case the question is the same &mdash; is this thing broken, or is it a setting I haven&rsquo;t found yet? &mdash; and there was never a decent answer available, because the tools that might give you one either don&rsquo;t exist or tell you a number without telling you what it means.</p>
+        <p>So I made one. InputScope measures what your hardware is actually doing, and then tells you what the number means &mdash; including the times the honest answer is &ldquo;this is fine, there&rsquo;s a switch in your operating system that you should turn off.&rdquo; Every result is labelled as an estimate when it is an estimate. I would rather tell you I can&rsquo;t read your mouse&rsquo;s true DPI than hand you a confident wrong number.</p>
 
-        <h2>Editorial policy</h2>
-        <p>Every explanation on this site is written by a human who understands the hardware being described. No text is generated from product listings, no descriptions are copied from manufacturer marketing, and no result is a placeholder for a real measurement.</p>
-        <p>Where a claim is contested or hardware-dependent, the site says so. This is the main reason InputScope will not tell you your mouse's exact DPI: a browser genuinely cannot read it, and pretending otherwise would make every other number on the site less trustworthy.</p>
-        <p>If an advertisement ever appears on an informational page, it will be clearly labelled and will not be placed inside a measurement surface, because a layout shift mid-test would corrupt the readings. There will never be an advertisement on the tool pages themselves.</p>
+        <h2>How it was built</h2>
+        <p>I should be upfront about this: <strong>I built the code with AI assistance.</strong> I decide what each test should measure, what the results mean and what the site says about them; the implementation was written with AI help, and I check every measurement against my own hardware before publishing it.</p>
+        <p>That is worth stating plainly on a site like this one. The entire argument of InputScope is that the measurements are trustworthy &mdash; so the person behind it should be visible too. If you would rather talk to a human, that is what I am, and the <a href="contact.html">contact page</a> goes straight to my inbox.</p>
 
-        <h2>Corrections and updates</h2>
-        <p>Hardware behaves differently across platforms, and a result that reads correctly on one operating system may be misleading on another. If you find something inaccurate, <a href="contact.html">get in touch</a> — corrections are made promptly, and where a page has been revised the change is noted in the log below.</p>
+        <h2>What it costs you</h2>
+        <p>Nothing, and it will stay that way to use. Later on, the informational pages will carry advertising to cover the hosting. Two rules for that: the tools themselves will never have an ad on them, because an advertisement loading in the middle of a measurement shifts the layout and corrupts the readings; and nothing you do inside a test is tracked, logged or sent anywhere. The tests run entirely in your browser and the results never leave the page.</p>
+        <p>The <a href="contact.html">contact form</a> is the one place your details do travel, because the whole point of it is to get a message to me. The <a href="privacy.html">privacy policy</a> says exactly what happens to them.</p>
 
-        <h3>Revision log</h3>
+        <h2>What is next</h2>
+        <p>The bench is filling up. Gamepad, headset, display and webcam diagnostics are in development &mdash; each one gets listed only once there is a real device on the desk to test it against. After that comes the part I think actually matters: a set of written guides for the specific problems people search for when something is behaving strangely. Why a mouse stops double-clicking. Why a keyboard types the wrong letter. Why a scroll wheel starts skipping and what to do about it.</p>
+        <p>The tools are the useful part, but knowing what to do with the answer is what fixes the problem. That is the point of the site.</p>
+
+        <h2>Recently</h2>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Date</th><th>Change</th></tr>
+              <tr><th>When</th><th>What changed</th></tr>
             </thead>
             <tbody>
-              <tr><td>October 2026</td><td>Published the "more coming soon" roadmap — gamepad, touchpad, headset, display, webcam and printer diagnostics are in development, and each will run locally in the browser like the existing tools.</td></tr>
-              <tr><td>October 2026</td><td>Site launched with Mouse Check and Keyboard Check, the reference tables, and the troubleshooting guides.</td></tr>
-              <tr><td>October 2026</td><td>Added the acceleration curve test, which replaced an earlier distance-based estimate that was too sensitive to how the mouse was held.</td></tr>
-              <tr><td>October 2026</td><td>Polling rate test now distinguishes raw sampling from a browser-event fallback instead of reporting a single number.</td></tr>
+              <tr><td>October 2026</td><td>Published the roadmap of upcoming diagnostics — gamepad, headset, display and webcam.</td></tr>
+              <tr><td>October 2026</td><td>Rebuilt both tool pages around a click tester and a live key map, so the first thing you see is the hardware responding, not a list of tests.</td></tr>
+              <tr><td>October 2026</td><td>Launched with Mouse Check and Keyboard Check, the reference tables and the troubleshooting guides.</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h2>Why the site is built this way</h2>
-        <p>There is a particular kind of frustration in owning a device that is quietly failing. A mouse that needs three clicks to open a menu. A keyboard where one letter comes out wrong every so often. A scroll wheel that skips back. In every case the obvious question — <em>is it the hardware or is it the software?</em> — has no easy answer, because the tools that might answer it do not exist, or are buried in a support article written for a different device.</p>
-        <p>Building those tools properly turned out to be a manageable amount of work, so it seemed worth putting them somewhere people can find. That is the whole project.</p>
-      </div>
-    </div>
-  </section>
+        <h2>Get in touch</h2>
+        <p>Found something broken, got a device you would like tested, or just want to say it works? <a href="contact.html">Send me a message</a> &mdash; suggestions and complaints are genuinely welcome, and the roadmap above is not set in stone.</p>
 
-  <section class="section section--tight">
-    <div class="wrap">
-      <div class="cta-band">
-        <h2>Run the tests</h2>
-        <p>Two minutes each, no sign-up, and every measurement stays on your machine.</p>
-        <div class="hero__actions">
-          <a class="btn btn--primary" href="mouse-check.html">Mouse Check</a>
-          <a class="btn" href="keyboard-check.html">Keyboard Check</a>
-        </div>
       </div>
     </div>
   </section>
@@ -142,7 +128,7 @@
     </div>
     <div class="footer-bottom">
       <span>© <span data-year></span> InputScope. All rights reserved.</span>
-      <span>No data is collected. Everything runs in your browser.</span>
+      <span>The tools collect nothing. The contact form is the exception.</span>
     </div>
   </div>
 </footer>

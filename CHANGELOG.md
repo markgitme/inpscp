@@ -2,6 +2,28 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.2.0 — 2026-10-27
+
+### Changed
+
+- **About page rewritten as a personal page.** It read like a product page; it now
+  speaks in the first person, says who runs the site, why it was made, and openly
+  states that the code was written with AI assistance. Also drops the
+  company-flavoured "editorial policy" framing for plain language.
+- **Contact page now posts to Web3Forms** instead of opening the visitor's mail
+  client. Visitor's name (optional), email, subject and body go straight to the
+  owner's inbox; the reply address is set automatically so "Reply" comes back to
+  the sender. hCaptcha is wired in for spam protection, and the subject line is
+  branded "InputScope — …" before sending.
+- **Privacy policy gained a section on the contact form** — what is collected, why,
+  and that Web3Forms, CleanTalk, Akismet and hCaptcha are involved. The "no data
+  collected" claim was no longer true and now reads accurately.
+- **Footer line softened everywhere** to "The tools collect nothing. The contact
+  form is the exception." The home page FAQ now says the same thing.
+- **Roadmap narrowed.** Touchpad Test and Printer Test removed from the coming-soon
+  grid — there is no real device on the desk to test them against. Gamepad, Headset,
+  Display and Webcam remain, plus a full-width "More to come" placeholder.
+
 ## v1.1.0 — 2026-10-27
 
 ### Added

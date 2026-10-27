@@ -14,8 +14,8 @@ JavaScript. No build step, no dependencies, no framework.
 index.html            Main page — overview, tool cards, problem shortcuts, FAQ
 mouse-check.html      Mouse Check tool
 keyboard-check.html   Keyboard Check tool
-about.html            About the project, editorial policy, revision log
-contact.html          Contact form (opens the visitor's mail client, no backend)
+about.html            About the project — a personal page: who runs it and why
+contact.html          Contact form (posts to Web3Forms, which forwards to the inbox)
 privacy.html          Privacy policy
 terms.html            Terms of use
 404.html              Not found
@@ -87,11 +87,18 @@ and security headers. It is inert unless the site is served by Cloudflare Pages.
 
 1. **The domain.** `sitemap.xml` and `robots.txt` both point at `https://inputscope.com`.
    Replace with the real domain once it is bought.
-2. **The contact email.** `hello@inputscope.com` appears in `contact.html`,
-   `privacy.html` and `terms.html`. Currently a placeholder.
-3. **`ads.txt`.** Contains comments only. When the AdSense account is approved, paste
+2. **The owner name.** `about.html` has one placeholder, `[Your name]`, in the H1.
+   Search for it — it appears exactly once.
+3. **The Web3Forms access key.** `contact.html` has `YOUR_ACCESS_KEY_HERE` as the
+   `access_key` value. Get one at web3forms.com by entering the inbox that should
+   receive submissions. The key is public by design (an alias to the inbox), so it
+   is safe to commit. Then switch hCaptcha on for that form in the Web3Forms
+   dashboard — the markup is already in place.
+4. **The contact email.** `hello@inputscope.com` appears in `privacy.html` and
+   `terms.html`. Use whichever address you actually want to be reachable at.
+5. **`ads.txt`.** Contains comments only. When the AdSense account is approved, paste
    the real line from the AdSense dashboard in place of the placeholder comment.
-4. **Ad units.** Deliberately not added. Ads belong on the informational pages only —
+6. **Ad units.** Deliberately not added. Ads belong on the informational pages only —
    never inside a measurement surface, because a layout shift mid-test corrupts the
    readings. See `terms.html` and `privacy.html` for the wording that already
    promises this.

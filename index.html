@@ -48,7 +48,7 @@
         {
           "@type": "Question",
           "name": "Do these tests upload my data?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs. There is no server call, no analytics on the tool pages, and no account. Results stay in memory until you close the tab." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs. There is no server call, no telemetry, and no account. Results stay in memory until you close the tab. The one thing on this site that does send anything is the contact form, and it only sends what you choose to type into it — the privacy policy has the details." }
         },
         {
           "@type": "Question",
@@ -187,7 +187,7 @@
           <div>
             <span class="eyebrow eyebrow--violet">More coming soon</span>
             <h2>The lab is expanding</h2>
-            <p>InputScope started with a mouse and a keyboard because those are the two devices people actually get stuck with. The bench is filling up &mdash; these are the diagnostics being built next.</p>
+            <p>InputScope started with a mouse and a keyboard because those are the two devices people actually get stuck with. The bench is filling up &mdash; these are the diagnostics being built next, and each one only gets listed once there is a real device on the desk to test it on.</p>
           </div>
           <span class="soon-badge">In development</span>
         </div>
@@ -199,15 +199,6 @@
               <h3>Gamepad Test</h3>
             </div>
             <p>Every button, trigger, stick and axis on a controller, with deadzone and vibration checks.</p>
-            <span class="soon-card__tag">Planned</span>
-          </div>
-
-          <div class="soon-card">
-            <div class="soon-card__top">
-              <span class="soon-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/><path d="M14 13h.01M16.5 15.5h.01"/></svg></span>
-              <h3>Touchpad Test</h3>
-            </div>
-            <p>Multi-touch gestures, edge scrolling and palm rejection, for trackpads that misbehave.</p>
             <span class="soon-card__tag">Planned</span>
           </div>
 
@@ -238,13 +229,12 @@
             <span class="soon-card__tag">Planned</span>
           </div>
 
-          <div class="soon-card">
-            <div class="soon-card__top">
-              <span class="soon-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="2" y="9" width="20" height="8" rx="2"/><path d="M6 14h12v7H6z"/></svg></span>
-              <h3>Printer Test</h3>
+          <div class="soon-card soon-card--more">
+            <span class="soon-card__plus" aria-hidden="true">+</span>
+            <div>
+              <h3>More to come</h3>
+              <p>The bench keeps filling. New diagnostics appear here as they are finished &mdash; each one measured locally, explained properly, and only listed once there is a real device to test it on.</p>
             </div>
-            <p>Nozzle pattern, print alignment and colour banding, for diagnosing an inkjet output.</p>
-            <span class="soon-card__tag">Planned</span>
           </div>
         </div>
 
@@ -421,7 +411,7 @@
       <div class="faq prose">
         <details>
           <summary>Do these tests upload my data?</summary>
-          <div class="faq__a"><p>No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs. There is no server call, no analytics script on the tool pages, and no account to create. Results stay in memory until you close the tab.</p></div>
+          <div class="faq__a"><p>No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs. There is no server call, no telemetry, and no account to create. Results stay in memory until you close the tab. The one thing on this site that does send anything is the contact form, and it only sends what you choose to type into it &mdash; the <a href="privacy.html">privacy policy</a> has the details.</p></div>
         </details>
         <details>
           <summary>Can I really measure my mouse's true DPI in a browser?</summary>
@@ -498,7 +488,7 @@
     </div>
     <div class="footer-bottom">
       <span>© <span data-year></span> InputScope. All rights reserved.</span>
-      <span>No data is collected. Everything runs in your browser.</span>
+      <span>The tools collect nothing. The contact form is the exception.</span>
     </div>
   </div>
 </footer>
