@@ -51,27 +51,49 @@
   (function keymap() {
     var map = $('#keymap');
     if (!map) return;
-    var down = {}, ghost = [], total = 0;
+    var down = {}, fires = {}, repeatN = {}, total = 0, doubles = 0;
     var lg = $('#keymap-log');
 
-    function flash(code, repeat) {
+    function label(code) {
+      var el = map.querySelector('[data-code="' + code + '"]');
+      return el ? el.textContent.trim() : code;
+    }
+
+    function flash(code) {
       var key = map.querySelector('[data-code="' + code + '"]');
       if (!key) return;
-      if (repeat) return;
       key.classList.add('hit');
     }
 
     function onDown(e) {
+      // The operating system repeats a key you are holding down. Those are
+      // not extra presses, so they never reach the press total — they are
+      // reported separately instead.
+      if (e.repeat) {
+        repeatN[e.code] = (repeatN[e.code] || 0) + 1;
+        setOut('keymap-repeat', repeatN[e.code] + ' \u00d7 ' + label(e.code),
+               'repeats while a key was held down', 'warn');
+        return;
+      }
       total++;
       down[e.code] = true;
-      flash(e.code, e.repeat);
+      // A second keydown with no keyup in between means the key fired twice
+      // from one physical press.
+      fires[e.code] = (fires[e.code] || 0) + 1;
+      if (fires[e.code] > 1) {
+        doubles++;
+        setOut('keymap-double', String(doubles), 'keys that fired twice', 'bad');
+        log(lg, e.code + ' fired twice from one press — possible double-fire', 'x');
+      }
+      flash(e.code);
       var c = document.querySelector('[data-out="keymap-count"]');
       if (c) c.textContent = String(total);
-      if (lg && !e.repeat) log(lg, e.code + ' → ' + (e.key.length === 1 ? e.key : e.key));
+      if (lg) log(lg, e.code + ' → ' + e.key);
     }
 
     function onUp(e) {
       down[e.code] = false;
+      fires[e.code] = 0;
       var key = map.querySelector('[data-code="' + e.code + '"]');
       if (key) key.classList.remove('hit');
     }
@@ -89,21 +111,22 @@
         setOut('keymap-ghost', 'None', 'pressed but never released', 'ok');
       }
       down = {};
+      fires = {};
     });
 
     var start = $('#keymap-start');
     if (start) start.addEventListener('click', function () {
       total = 0;
+      doubles = 0;
+      fires = {};
+      repeatN = {};
       if (lg) lg.innerHTML = '';
       setOut('keymap-count', '0', 'keys pressed since reset', null);
       setOut('keymap-ghost', 'None', 'pressed but never released', 'ok');
+      setOut('keymap-repeat', 'None', 'repeats while a key was held down', null);
+      setOut('keymap-double', 'None', 'keys that fired twice', null);
       log(lg, 'press keys to test them — every key you press lights up');
     });
-
-    setInterval(function () {
-      var c = document.querySelector('[data-out="keymap-count"]');
-      if (c) c.textContent = String(total);
-    }, 500);
   })();
 
   /* =========================================================
@@ -428,6 +451,7 @@
 
     function onKey(e) {
       if (!running) return;
+      if (e.repeat) return; // a held key is one press, not thirty
       var tag = (e.target && e.target.tagName) || '';
       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
       if (!target) return;

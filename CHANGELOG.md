@@ -2,6 +2,42 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.3.3 — 2026-10-27
+
+### Fixed
+
+- **The "Keys pressed" counter counted auto-repeat.** Holding a key down
+  flooded the counter with the operating system's repeat events — about thirty
+  per second — so one physical press could read as forty. The counter now
+  counts one press per physical press, which is what the label claims and what
+  the event log beside it already showed. The two were contradicting each
+  other: the log recorded one line, the counter said forty.
+- **The response latency test counted auto-repeat as extra presses.** Holding
+  the target key filled the sample set with dozens of duplicate measurements
+  of a single press, corrupting the average and flattening the jitter figure.
+  Auto-repeat is now ignored there too, so the measurement reflects presses
+  rather than the length of a hold.
+
+### Added
+
+- **An "Auto-repeat" reading** on the key tester. It stays at "None" unless the
+  operating system repeats a key you are holding, and then shows how many
+  repeats and on which key ("24 × A"). The behaviour is now explained by the
+  panel instead of silently inflating a number.
+- **A "Double-fires" reading**, with a matching log line. A key that sends two
+  keydown events with no keyup in between is a chattering switch, and the
+  tester now reports it by name rather than relying on the raw counter to
+  reveal it by accident.
+
+### Changed
+
+- The key tester's copy now describes what the page actually does. It
+  previously promised "two flashes from one press", which the code never
+  implemented — the cap lights while a key is held, it does not flash. The
+  FAQ entry, its schema copy and the two prose references were all updated
+  to match, and to explain that holding a key is not counted as extra
+  presses.
+
 ## v1.3.2 — 2026-10-27
 
 ### Fixed

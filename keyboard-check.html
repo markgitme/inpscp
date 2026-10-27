@@ -49,7 +49,7 @@
         {
           "@type": "Question",
           "name": "How do I test if my keyboard is working?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Use the key tester at the top of this page. Press each key in turn and the matching cap lights up on the map. Keys that never light up are dead or obstructed, keys that stay lit after you have released them are mechanically stuck, and keys that flash twice for one physical press are chattering. Walk the whole keyboard once and any problem key stands out immediately." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Use the key tester at the top of this page. Press each key in turn and the matching cap lights up on the map. Keys that never light up are dead or obstructed, keys that stay lit after you have released them are mechanically stuck, and keys that fire twice for one physical press are chattering — the tester flags those as double-fires. Walk the whole keyboard once and any problem key stands out immediately." }
         },
         {
           "@type": "Question",
@@ -122,7 +122,7 @@
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
           <div style="flex:1;min-width:250px">
             <h2 style="font-size:1.25rem;margin-bottom:.3rem">Key tester</h2>
-            <p class="muted small" style="margin:0">Press keys on your keyboard and the matching cap lights up. A dead key stays dark; a key that fires twice shows two flashes from one press.</p>
+            <p class="muted small" style="margin:0">Press keys on your keyboard and the matching cap lights up. A dead key stays dark. A key that fires twice from one press is caught and reported as a double-fire. Holding a key down does not count as extra presses &mdash; the operating system&rsquo;s auto-repeat is reported on its own line.</p>
           </div>
           <button class="btn btn--sm" type="button" id="keymap-start">Reset</button>
         </div>
@@ -190,6 +190,8 @@
         <div class="mini-results" style="margin-top:1.1rem;max-width:420px">
           <div><span class="mini-results__k">Keys pressed</span><span class="mini-results__v" data-out="keymap-count">0</span></div>
           <div><span class="mini-results__k">Stuck keys</span><span class="mini-results__v" data-out="keymap-ghost">None</span></div>
+          <div><span class="mini-results__k">Auto-repeat</span><span class="mini-results__v" data-out="keymap-repeat">None</span></div>
+          <div><span class="mini-results__k">Double-fires</span><span class="mini-results__v" data-out="keymap-double">None</span></div>
         </div>
 
         <div class="log" id="keymap-log" style="margin-top:1rem"></div>
@@ -321,7 +323,7 @@
 
       <div class="prose">
         <h3>The key tester</h3>
-        <p>This is the fastest way to find out whether a keyboard is actually broken. Press every key and watch the map. Three things to look for. A key that never lights up is either disconnected, obstructed by debris, or reporting to a different input path. A key that stays lit after you have let go is mechanically stuck — a very common symptom of spilled liquid. And a key that flashes twice for one physical press is chattering, which usually means a worn switch that will eventually stop registering the key at all.</p>
+        <p>This is the fastest way to find out whether a keyboard is actually broken. Press every key and watch the map. Three things to look for. A key that never lights up is either disconnected, obstructed by debris, or reporting to a different input path. A key that stays lit after you have let go is mechanically stuck — a very common symptom of spilled liquid. And a key that fires twice for one physical press is chattering, which usually means a worn switch that will eventually stop registering the key at all.</p>
         <p>Function keys are included for reference, but many browsers and operating systems reserve them, so they will not light up. That is not a fault in your keyboard.</p>
 
         <h3>Typing speed</h3>
@@ -372,7 +374,7 @@
 
         <h3>Why does my keyboard feel laggy?</h3>
         <p>Two different things get called laggy, and they need different fixes. The first is <strong>input delay</strong> — the gap between the keypress reaching the computer and the screen responding — which is usually the display's frame rate rather than the keyboard. A 60&nbsp;Hz monitor adds up to 17&nbsp;ms to everything, which is often enough to notice in a game.</p>
-        <p>The second is <strong>key chatter</strong>, where a worn switch fires twice for one press and the duplicate character appears a moment later, which reads as the computer being slow. The response latency test measures the first and separates it from reaction time; the key tester shows you the second by counting how many times a single press registers.</p>
+        <p>The second is <strong>key chatter</strong>, where a worn switch fires twice for one press and the duplicate character appears a moment later, which reads as the computer being slow. The response latency test measures the first and separates it from reaction time; the key tester shows you the second by flagging any key that registered twice from one press.</p>
 
         <h3>Why is one key stuck down?</h3>
         <p>A key that stays pressed when you have released it is mechanically stuck. The usual causes are a swollen keycap, something sticky that has leaked under the key, or a switch that has failed closed. The symptom is usually worse than it looks: because the operating system believes the key is being held, the character repeats continuously until you can clear it.</p>
@@ -391,7 +393,7 @@
       <div class="faq prose">
         <details>
           <summary>How do I test if my keyboard is working?</summary>
-          <div class="faq__a"><p>Use the key tester at the top of the page. Press each key in turn and the matching cap lights up on the map. Keys that never light up are dead or obstructed, keys that stay lit after you have released them are mechanically stuck, and keys that flash twice for one physical press are chattering. Walk the whole keyboard once and any problem key stands out immediately — this is the fastest keyboard test there is.</p></div>
+          <div class="faq__a"><p>Use the key tester at the top of the page. Press each key in turn and the matching cap lights up on the map. Keys that never light up are dead or obstructed, keys that stay lit after you have released them are mechanically stuck, and keys that fire twice for one physical press are chattering — the tester flags those as double-fires. Walk the whole keyboard once and any problem key stands out immediately — this is the fastest keyboard test there is.</p></div>
         </details>
         <details>
           <summary>Why do my function keys never light up?</summary>
@@ -483,7 +485,8 @@
   var copyBtn = document.getElementById('kbd-copy');
   var keys = ['keymap-count', 'keymap-ghost', 'typing-wpm', 'typing-acc', 'typing-time',
     'layout-result', 'layout-score', 'layout-breakdown', 'roll-count', 'roll-state',
-    'mod-caps', 'mod-num', 'mod-scroll', 'lat-avg', 'lat-jitter', 'lat-count', 'lat-refresh'];
+    'mod-caps', 'mod-num', 'mod-scroll', 'lat-avg', 'lat-jitter', 'lat-count', 'lat-refresh',
+    'keymap-repeat', 'keymap-double'];
   var idle = ['—', '0', '0 / 4', 'None', 'Idle', 'not run yet', 'not tested yet', 'press detect to analyse'];
   setInterval(function () {
     if (!pill) return;
