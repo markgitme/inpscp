@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keyboard Check — Free Keyboard Test: Keys, Typing Speed &amp; Rollover | InputScope</title>
+<meta name="description" content="Free online keyboard test. Press any key to check it on the live key map, then run typing speed, physical layout detection, key rollover and response latency tests.">
+<meta name="theme-color" content="#0a0b10">
+<link rel="canonical" href="keyboard-check.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Keyboard Check — Free Keyboard Tester &amp; Live Key Map">
+<meta property="og:description" content="Press a key and watch the map light up. Plus typing speed, layout detection, rollover depth and response latency — all in your browser.">
+<meta property="og:url" content="keyboard-check.html">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/og-image.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/review.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "InputScope Keyboard Check",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any modern browser",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "A free browser-based keyboard test with a live key map, raw typing speed measurement, physical layout detection, key rollover testing, lock key state and per-keystroke response latency.",
+      "featureList": [
+        "Live keyboard key map",
+        "Typing speed and accuracy test",
+        "Physical layout detection",
+        "N-key rollover test",
+        "Lock key state indicator",
+        "Response latency test"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I test if my keyboard is working?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Use the key tester at the top of this page. Press each key in turn and the matching cap lights up on the map. Keys that never light up are dead or obstructed, keys that stay lit after you have released them are mechanically stuck, and keys that flash twice for one physical press are chattering. Walk the whole keyboard once and any problem key stands out immediately." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do my function keys never light up?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Because the operating system or browser has claimed them before the web page sees them. F1 to F4 frequently switch tabs, F5 reloads, and F11 toggles full screen. On a bare-metal keyboard with no OS remapping in the way, the browser will deliver the event and the cap will light. The absence of that behaviour is a browser limitation, not a hardware fault." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a normal typing speed?",
+          "acceptedAnswer": { "@type": "Answer", "text": "For everyday use, 40 to 60 words per minute with high accuracy is comfortable. Touch typists often sit at 70 to 100, and professional transcription work goes considerably higher. The useful thing to measure is your own change over time, because a sudden drop in accuracy almost always has a hardware explanation while a drop in speed usually does not." }
+        },
+        {
+          "@type": "Question",
+          "name": "My keyboard has a UK layout. Will the layout test still work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The detection reads the physical position of each key, and the UK and US boards have identical positions for the letter keys — they differ only in the symbols printed on them. A UK board will correctly report as US QWERTY, with the difference visible in the symbol keys. The test reports the base letter layout for exactly this reason." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I test a laptop's built-in keyboard?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, and it is often where problems show up first. Laptop keyboards are frequently limited to two-key rollover, and the scissor or membrane mechanism underneath behaves differently from a mechanical board. A degraded laptop keyboard is also the most likely cause of a machine that types on its own — a failing key or a corroded flex cable is usually the reason." }
+        },
+        {
+          "@type": "Question",
+          "name": "What if a key registers but produces the wrong character?",
+          "acceptedAnswer": { "@type": "Answer", "text": "That is almost always a layout mismatch rather than a broken key. Run the layout detection: it reports what your physical board is, and you can compare it with the layout your operating system has selected. If the two disagree, change the setting in the keyboard preferences and the problem disappears immediately." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a high latency figure a real hardware problem?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Rarely on its own. Most of the delay in this measurement is the operating system and the display rather than the keyboard — the panel measures your refresh rate so you can see how much of the figure belongs to the screen. Judge the hardware on the jitter figure rather than the mean: consistent timing with some baseline delay is normal, whereas a high and erratic timing is what actually affects how a keyboard feels in use." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <a href="mouse-check.html">Mouse Check</a>
+      <a href="keyboard-check.html" aria-current="page">Keyboard Check</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="tool-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="index.html">InputScope</a><span>/</span>Keyboard Check</div>
+      <span class="eyebrow eyebrow--blue"><span class="pulse"></span>Free · no download · nothing uploaded</span>
+      <h1>Keyboard Check</h1>
+      <p>Press a key. Watch it light up on the map. If every key registers and nothing fires twice, your keyboard is fine — and if one does not, the map shows you exactly which one.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+
+      <!-- ============ PRIMARY: LIVE KEY MAP ============ -->
+      <div class="panel panel--pad" id="keymap-test">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
+          <div style="flex:1;min-width:250px">
+            <h2 style="font-size:1.25rem;margin-bottom:.3rem">Key tester</h2>
+            <p class="muted small" style="margin:0">Press keys on your keyboard and the matching cap lights up. A dead key stays dark; a key that fires twice shows two flashes from one press.</p>
+          </div>
+          <button class="btn btn--sm" type="button" id="keymap-start">Reset</button>
+        </div>
+
+        <div class="kbd-map" id="keymap">
+          <div class="kbd-row">
+            <div class="kbd-key" data-code="Escape">esc</div>
+            <div class="kbd-key" data-code="F1">F1</div><div class="kbd-key" data-code="F2">F2</div><div class="kbd-key" data-code="F3">F3</div><div class="kbd-key" data-code="F4">F4</div>
+            <div class="kbd-key" data-code="F5">F5</div><div class="kbd-key" data-code="F6">F6</div><div class="kbd-key" data-code="F7">F7</div><div class="kbd-key" data-code="F8">F8</div>
+            <div class="kbd-key" data-code="F9">F9</div><div class="kbd-key" data-code="F10">F10</div><div class="kbd-key" data-code="F11">F11</div><div class="kbd-key" data-code="F12">F12</div>
+            <div class="kbd-key" data-code="PrintScreen">prt</div><div class="kbd-key" data-code="ScrollLock">scr</div><div class="kbd-key" data-code="Pause">pau</div>
+          </div>
+          <div class="kbd-row">
+            <div class="kbd-key" data-code="Backquote">~</div>
+            <div class="kbd-key" data-code="Digit1">1</div><div class="kbd-key" data-code="Digit2">2</div><div class="kbd-key" data-code="Digit3">3</div>
+            <div class="kbd-key" data-code="Digit4">4</div><div class="kbd-key" data-code="Digit5">5</div><div class="kbd-key" data-code="Digit6">6</div>
+            <div class="kbd-key" data-code="Digit7">7</div><div class="kbd-key" data-code="Digit8">8</div><div class="kbd-key" data-code="Digit9">9</div>
+            <div class="kbd-key" data-code="Digit0">0</div>
+            <div class="kbd-key" data-code="Minus">-</div><div class="kbd-key" data-code="Equal">=</div>
+            <div class="kbd-key xwide" data-code="Backspace">backspace</div>
+          </div>
+          <div class="kbd-row">
+            <div class="kbd-key wide" data-code="Tab">tab</div>
+            <div class="kbd-key" data-code="KeyQ">Q</div><div class="kbd-key" data-code="KeyW">W</div><div class="kbd-key" data-code="KeyE">E</div>
+            <div class="kbd-key" data-code="KeyR">R</div><div class="kbd-key" data-code="KeyT">T</div><div class="kbd-key" data-code="KeyY">Y</div>
+            <div class="kbd-key" data-code="KeyU">U</div><div class="kbd-key" data-code="KeyI">I</div><div class="kbd-key" data-code="KeyO">O</div>
+            <div class="kbd-key" data-code="KeyP">P</div>
+            <div class="kbd-key" data-code="BracketLeft">[</div><div class="kbd-key" data-code="BracketRight">]</div>
+            <div class="kbd-key wide" data-code="Backslash">\</div>
+          </div>
+          <div class="kbd-row">
+            <div class="kbd-key wide" data-code="CapsLock">caps</div>
+            <div class="kbd-key" data-code="KeyA">A</div><div class="kbd-key" data-code="KeyS">S</div><div class="kbd-key" data-code="KeyD">D</div>
+            <div class="kbd-key" data-code="KeyF">F</div><div class="kbd-key" data-code="KeyG">G</div><div class="kbd-key" data-code="KeyH">H</div>
+            <div class="kbd-key" data-code="KeyJ">J</div><div class="kbd-key" data-code="KeyK">K</div><div class="kbd-key" data-code="KeyL">L</div>
+            <div class="kbd-key" data-code="Semicolon">;</div><div class="kbd-key" data-code="Quote">'</div>
+            <div class="kbd-key xwide" data-code="Enter">enter</div>
+          </div>
+          <div class="kbd-row">
+            <div class="kbd-key xwide" data-code="ShiftLeft">shift</div>
+            <div class="kbd-key" data-code="KeyZ">Z</div><div class="kbd-key" data-code="KeyX">X</div><div class="kbd-key" data-code="KeyC">C</div>
+            <div class="kbd-key" data-code="KeyV">V</div><div class="kbd-key" data-code="KeyB">B</div><div class="kbd-key" data-code="KeyN">N</div>
+            <div class="kbd-key" data-code="KeyM">M</div>
+            <div class="kbd-key" data-code="Comma">,</div><div class="kbd-key" data-code="Period">.</div><div class="kbd-key" data-code="Slash">/</div>
+            <div class="kbd-key xwide" data-code="ShiftRight">shift</div>
+          </div>
+          <div class="kbd-row">
+            <div class="kbd-key wide" data-code="ControlLeft">ctrl</div>
+            <div class="kbd-key wide" data-code="MetaLeft">win</div>
+            <div class="kbd-key wide" data-code="AltLeft">alt</div>
+            <div class="kbd-key xwide" data-code="Space">space</div>
+            <div class="kbd-key wide" data-code="AltRight">alt</div>
+            <div class="kbd-key wide" data-code="MetaRight">win</div>
+            <div class="kbd-key wide" data-code="ContextMenu">menu</div>
+            <div class="kbd-key wide" data-code="ControlRight">ctrl</div>
+          </div>
+        </div>
+
+        <div class="keycap-legend" style="margin-top:1rem">
+          <span><i style="background:var(--accent)"></i> key currently held</span>
+          <span><i style="background:var(--card-2);border:1px solid var(--line-2)"></i> not pressed</span>
+          <span>Function keys are shown for reference — some browsers reserve them and will not deliver the event.</span>
+        </div>
+
+        <div class="mini-results" style="margin-top:1.1rem;max-width:420px">
+          <div><span class="mini-results__k">Keys pressed</span><span class="mini-results__v" data-out="keymap-count">0</span></div>
+          <div><span class="mini-results__k">Stuck keys</span><span class="mini-results__v" data-out="keymap-ghost">None</span></div>
+        </div>
+
+        <div class="log" id="keymap-log" style="margin-top:1rem"></div>
+      </div>
+
+      <!-- summary -->
+      <div class="toolbar" style="margin-top:1rem">
+        <span class="toolbar__label">Quick summary</span>
+        <span class="pill pill--info" id="kbd-summary-pill">nothing measured yet</span>
+        <span class="spacer"></span>
+        <button class="btn btn--sm" type="button" id="kbd-copy">Copy results</button>
+      </div>
+      <div class="tiles" id="kbd-summary"></div>
+
+      <!-- ============ QUICK CHECKS ============ -->
+      <div style="margin-top:2.6rem">
+        <div class="section__head" style="margin-bottom:1.1rem">
+          <span class="eyebrow eyebrow--blue">Three quick checks</span>
+          <h2 style="font-size:1.5rem">The measurements worth taking</h2>
+          <p style="margin:0">If your keyboard is misbehaving, these are the three numbers that tell you what is wrong. Each takes under a minute.</p>
+        </div>
+
+        <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))">
+
+          <div class="panel panel--pad check-card">
+            <h3>Typing speed</h3>
+            <p class="check-note">Type the sample below. No autocorrect, no dictionary, no word completion — so the number is the raw one.</p>
+            <div class="callout" style="margin:.9rem 0;padding:.7rem .9rem">
+              <p class="mono" style="margin:0;font-size:.82rem" data-out="typing-sample">The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs.</p>
+            </div>
+            <textarea class="typing-box" id="typing-box" placeholder="Press the start button, then type the sample here…" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" style="min-height:96px"></textarea>
+            <div class="check-actions">
+              <button class="btn btn--primary btn--sm" type="button" id="typing-start">Start timing</button>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Speed</span><span class="mini-results__v" data-out="typing-wpm">—</span></div>
+              <div><span class="mini-results__k">Accuracy</span><span class="mini-results__v" data-out="typing-acc">—</span></div>
+              <div><span class="mini-results__k">Elapsed</span><span class="mini-results__v" data-out="typing-time">—</span></div>
+            </div>
+          </div>
+
+          <div class="panel panel--pad check-card">
+            <h3>Physical layout</h3>
+            <p class="check-note">Type a sentence in whichever layout you normally use. The physical key positions identify the board, whatever the system thinks it is.</p>
+            <textarea class="typing-box" id="layout-box" placeholder="Type here, then press Detect layout…" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" style="min-height:96px;margin-top:.9rem"></textarea>
+            <div class="check-actions">
+              <button class="btn btn--sm" type="button" id="layout-start">Clear</button>
+              <button class="btn btn--primary btn--sm" type="button" id="layout-analyze">Detect layout</button>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Detected</span><span class="mini-results__v" data-out="layout-result">—</span></div>
+              <div><span class="mini-results__k">Match</span><span class="mini-results__v" data-out="layout-score">—</span></div>
+              <div><span class="mini-results__k">All candidates</span><span class="mini-results__v" data-out="layout-breakdown" style="font-size:.78rem">—</span></div>
+            </div>
+          </div>
+
+          <div class="panel panel--pad check-card">
+            <h3>Key rollover</h3>
+            <p class="check-note">Hold all four highlighted keys at the same time. Each lights up only if the keyboard actually delivered it.</p>
+            <div class="roll-keys" id="roll-pad" style="margin-top:.9rem">
+              <div class="roll-key" data-roll="ShiftLeft">shift<small>left shift</small></div>
+              <div class="roll-key" data-roll="ControlLeft">ctrl<small>left control</small></div>
+              <div class="roll-key" data-roll="AltLeft">alt<small>left alt</small></div>
+              <div class="roll-key" data-roll="KeyM">M<small>letter M</small></div>
+            </div>
+            <div class="check-actions">
+              <button class="btn btn--sm" type="button" id="roll-start">Reset</button>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Keys held</span><span class="mini-results__v" data-out="roll-count">0 / 4</span></div>
+              <div><span class="mini-results__k">Rollover level</span><span class="mini-results__v" data-out="roll-state">—</span></div>
+            </div>
+            <div class="log" id="roll-log" style="margin-top:.9rem;max-height:110px"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ============ ADVANCED ============ -->
+      <details class="advanced-wrap">
+        <summary>
+          <span>Advanced diagnostics</span>
+          <span class="advanced-wrap__label">2 more measurements for when the basics all pass</span>
+        </summary>
+        <div class="advanced-grid">
+
+          <div class="panel panel--pad">
+            <h3>Lock key state</h3>
+            <p class="check-note">Press Caps Lock, Num Lock and Scroll Lock and watch the indicators follow.</p>
+            <div class="mod-grid" id="mod-pad" style="margin-top:.9rem">
+              <div class="mod-item"><span class="mod-item__name">Caps Lock</span><span class="mod-item__lamp" id="lamp-caps"></span><span class="pill" data-out="mod-caps">Off</span></div>
+              <div class="mod-item"><span class="mod-item__name">Num Lock</span><span class="mod-item__lamp" id="lamp-num"></span><span class="pill" data-out="mod-num">Off</span></div>
+              <div class="mod-item"><span class="mod-item__name">Scroll Lock</span><span class="mod-item__lamp" id="lamp-scroll"></span><span class="pill" data-out="mod-scroll">Off</span></div>
+            </div>
+            <p class="check-note">A lock light that does not match what the browser reports usually means a remapping utility or an accessibility setting is intercepting the key.</p>
+          </div>
+
+          <div class="panel panel--pad">
+            <h3>Response latency</h3>
+            <p class="check-note">Press start, then hit the letter shown. The clock runs on the input event itself, not on your reaction.</p>
+            <div class="lat-pad" id="lat-pad" tabindex="0" style="margin-top:.9rem;height:150px">Press start</div>
+            <div class="check-actions">
+              <button class="btn btn--primary btn--sm" type="button" id="lat-start">Start</button>
+              <button class="btn btn--sm" type="button" id="lat-stop">Stop</button>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Input lag</span><span class="mini-results__v" data-out="lat-avg">—</span></div>
+              <div><span class="mini-results__k">Jitter</span><span class="mini-results__v" data-out="lat-jitter">—</span></div>
+              <div><span class="mini-results__k">Display</span><span class="mini-results__v" data-out="lat-refresh">—</span></div>
+              <div><span class="mini-results__k">Presses</span><span class="mini-results__v" data-out="lat-count">0</span></div>
+            </div>
+            <div class="log" id="lat-log" style="margin-top:.9rem;max-height:110px"></div>
+          </div>
+
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- ================= HOW TO READ ================= -->
+  <section class="section" id="how-to-read">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow eyebrow--blue">Interpretation</span>
+        <h2>What the numbers actually mean</h2>
+        <p>Each measurement below covers one part of the keyboard's behaviour, what a normal result looks like, and what a failing one tends to mean.</p>
+      </div>
+
+      <div class="prose">
+        <h3>The key tester</h3>
+        <p>This is the fastest way to find out whether a keyboard is actually broken. Press every key and watch the map. Three things to look for. A key that never lights up is either disconnected, obstructed by debris, or reporting to a different input path. A key that stays lit after you have let go is mechanically stuck — a very common symptom of spilled liquid. And a key that flashes twice for one physical press is chattering, which usually means a worn switch that will eventually stop registering the key at all.</p>
+        <p>Function keys are included for reference, but many browsers and operating systems reserve them, so they will not light up. That is not a fault in your keyboard.</p>
+
+        <h3>Typing speed</h3>
+        <p>The words-per-minute figure is calculated from correct characters only, and accuracy is reported next to it because a fast 90% accurate typist is producing errors that slow them down in real work. There is no autocorrect, no dictionary and no word completion, which is exactly why this number usually sits below the one your operating system's built-in test reports.</p>
+        <p><strong>The accuracy figure is the diagnostically interesting one.</strong> Above 97% means the switches are clean. A persistent error on one specific character, with the rest of the text perfect, is nearly always a single worn or obstructed key rather than a typing problem. Errors spread evenly across the whole text point somewhere else, usually to a hand position or a bad habit rather than to hardware.</p>
+
+        <h3>Physical layout</h3>
+        <p>Browsers report both the key you pressed and where it physically is. The second value is a property of the hardware and never changes, while the first depends on which layout the operating system has selected. Comparing the two against known layouts tells you what your board actually is.</p>
+        <p>This is worth running once on any second-hand or refurbished machine, because a mismatched layout is responsible for an enormous amount of low-grade frustration: typing <kbd>;</kbd> produces <kbd>ö</kbd>, quotation marks come out in the wrong place, and shortcuts like <kbd>Ctrl</kbd>+<kbd>Z</kbd> behave inconsistently. The fix is usually a single setting in the system's keyboard preferences.</p>
+
+        <h3>Key rollover</h3>
+        <p>Cheap membrane keyboards are usually limited to two keys at once. Press three and the third is ignored, or worse, the first two produce the wrong characters because the controller cannot tell which circuit closed. Gaming keyboards add anti-ghosting hardware and typically handle six or more simultaneously.</p>
+        <p>You will feel this long before you read about it. In a game, a three-key combination — sprint, jump and reload — silently drops the third. In a shortcut like <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>, the escape key is the one that never arrives. If that is happening, the rollover test will confirm it immediately.</p>
+
+        <h3>Response latency</h3>
+        <p>This measures the gap between the browser registering your keypress and the next moment the page is able to draw a frame. Because the clock starts on the input event rather than on the screen changing, the number reflects input handling and your display's refresh rate rather than how quickly you can react — you cannot press faster than your own reflexes, so a reaction-timed test would only ever measure you.</p>
+        <p>A healthy setup lands somewhere inside a single frame interval: under about 9&nbsp;ms on a 120&nbsp;Hz display, under 17&nbsp;ms on a 60&nbsp;Hz one. The panel measures your actual refresh rate and shows it next to the result, so you can see how much of the figure is the display rather than the keyboard.</p>
+        <p><strong>Jitter is the more useful half of this result.</strong> A keyboard with a 12&nbsp;ms average and a 2&nbsp;ms jitter feels precise. One with a 9&nbsp;ms average and a 25&nbsp;ms jitter feels unpredictable, because input arrives in bursts. High jitter on a wired keyboard usually points to polling interference, a busy system, or a controller that is struggling.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMMON PROBLEMS ================= -->
+  <section class="section" id="problems">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow eyebrow--violet">Common problems</span>
+        <h2>Why is my keyboard doing that?</h2>
+        <p>Keyboard faults fall into a small number of recurring categories, and the same symptom can come from very different causes. Here is how to tell them apart.</p>
+      </div>
+
+      <div class="prose">
+        <h3>Why is my keyboard not typing?</h3>
+        <p>If nothing types at all, the first thing to establish is whether the computer can see the keyboard at all. The <a href="#keymap-test">key tester</a> answers that in one second: press a key and see whether a cap lights up.</p>
+        <p>If caps light up, the keyboard is connected and the fault is in the application — a stuck modifier key, a text field that will not accept focus, or a shortcut that has captured the key. If nothing lights up, the fault is below the application layer. A wireless keyboard may simply be asleep or unpaired, which is fixed by switching it on or re-pairing it. A laptop keyboard that has gone completely dead is usually a hardware failure of the ribbon cable or the controller board, which is a repair job rather than a setting.</p>
+
+        <h3>Why are some keys on my keyboard not working?</h3>
+        <p>Individual dead keys are almost always physical. A switch that has been flooded with liquid and then dried out stops making contact, and so does a switch worn out by a decade of the same key being hammered — the Enter key and the space bar are the usual casualties because they take the most use.</p>
+        <p>A key that works <em>intermittently</em> is a different problem. That points to debris under the keycap, or a marginal contact that only makes contact when the key is pressed slightly off-centre. The key tester separates the two cases for you: a key that never registers and a key that registers unreliably feel identical from the outside, and the event log makes the difference obvious.</p>
+
+        <h3>Why does my keyboard type the wrong character?</h3>
+        <p>This is nearly always a layout mismatch rather than a broken keyboard. Your keyboard has a physical layout that never changes — the key labelled Z is always in the same position — while your operating system has a layout setting that maps that position to a character. If the system believes it is German but the board is British, the key in that position produces a different symbol and you cannot type an apostrophe or a semicolon properly.</p>
+        <p>The <a href="#layout-analyze">physical layout test</a> compares the position of every key you press against the known layouts and tells you which one the hardware actually is, so you can compare it with what the system has selected and correct the mismatch in the keyboard preferences.</p>
+
+        <h3>Why is my keyboard ghosting?</h3>
+        <p>Ghosting is what happens when the keyboard cannot tell which of several simultaneously pressed keys closed its circuit, so it registers the wrong combination or drops one entirely. Budget membrane keyboards usually handle two keys at once and no more, which means a three-key combination like <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> delivers only two of the three, in the wrong order.</p>
+        <p>Gaming keyboards solve this with anti-ghosting hardware, typically handling six or more keys at once. The <a href="#roll-start">rollover test</a> holds four keys at once and reports how many the keyboard actually delivered, so you know whether you are looking at a two-key board or a proper one.</p>
+
+        <h3>Why does my keyboard feel laggy?</h3>
+        <p>Two different things get called laggy, and they need different fixes. The first is <strong>input delay</strong> — the gap between the keypress reaching the computer and the screen responding — which is usually the display's frame rate rather than the keyboard. A 60&nbsp;Hz monitor adds up to 17&nbsp;ms to everything, which is often enough to notice in a game.</p>
+        <p>The second is <strong>key chatter</strong>, where a worn switch fires twice for one press and the duplicate character appears a moment later, which reads as the computer being slow. The response latency test measures the first and separates it from reaction time; the key tester shows you the second by counting how many times a single press registers.</p>
+
+        <h3>Why is one key stuck down?</h3>
+        <p>A key that stays pressed when you have released it is mechanically stuck. The usual causes are a swollen keycap, something sticky that has leaked under the key, or a switch that has failed closed. The symptom is usually worse than it looks: because the operating system believes the key is being held, the character repeats continuously until you can clear it.</p>
+        <p>If the key is merely sticky, pulling off the keycap and cleaning underneath usually fixes it. If the switch itself has failed closed the keyboard needs a switch replacement or a new keyboard — and if the stuck key is the space bar, a common cause is a switch that has flooded and then corroded.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">FAQ</span>
+        <h2>Keyboard test questions</h2>
+      </div>
+      <div class="faq prose">
+        <details>
+          <summary>How do I test if my keyboard is working?</summary>
+          <div class="faq__a"><p>Use the key tester at the top of the page. Press each key in turn and the matching cap lights up on the map. Keys that never light up are dead or obstructed, keys that stay lit after you have released them are mechanically stuck, and keys that flash twice for one physical press are chattering. Walk the whole keyboard once and any problem key stands out immediately — this is the fastest keyboard test there is.</p></div>
+        </details>
+        <details>
+          <summary>Why do my function keys never light up?</summary>
+          <div class="faq__a"><p>Because the operating system or browser has claimed them before the web page sees them. <kbd>F1</kbd>–<kbd>F4</kbd> frequently switch tabs, <kbd>F5</kbd> reloads, and <kbd>F11</kbd> toggles full screen. On a bare-metal keyboard with no OS remapping in the way, the browser will deliver the event and the cap will light. The absence of that behaviour is a browser limitation, not a hardware fault.</p></div>
+        </details>
+        <details>
+          <summary>What is a normal typing speed?</summary>
+          <div class="faq__a"><p>For everyday use, 40–60 words per minute with high accuracy is comfortable. Touch typists often sit at 70–100, and professional transcription work goes considerably higher. The useful thing to measure is your own change over time, because a sudden drop in accuracy almost always has a hardware explanation while a drop in speed usually does not.</p></div>
+        </details>
+        <details>
+          <summary>My keyboard has a UK layout. Will the layout test still work?</summary>
+          <div class="faq__a"><p>Yes. The detection reads the physical position of each key, and the UK and US boards have identical positions for the letter keys — they differ only in the symbols printed on them. A UK board will correctly report as US QWERTY, with the difference visible in the symbol keys. The test reports the base letter layout for exactly this reason.</p></div>
+        </details>
+        <details>
+          <summary>Can I test a laptop's built-in keyboard?</summary>
+          <div class="faq__a"><p>Yes, and it is often where problems show up first. Laptop keyboards are frequently limited to two-key rollover, and the scissor or membrane mechanism underneath behaves differently from a mechanical board. A degraded laptop keyboard is also the most likely cause of a machine that "types on its own" — a failing key or a corroded flex cable is usually the reason.</p></div>
+        </details>
+        <details>
+          <summary>What if a key registers but produces the wrong character?</summary>
+          <div class="faq__a"><p>That is almost always a layout mismatch rather than a broken key. Run the layout detection: it reports what your physical board is, and you can compare it with the layout your operating system has selected. If the two disagree, change the setting in the keyboard preferences and the problem disappears immediately.</p></div>
+        </details>
+        <details>
+          <summary>Is a high latency figure a real hardware problem?</summary>
+          <div class="faq__a"><p>Rarely on its own. Most of the delay in this measurement is the operating system and the display rather than the keyboard — the panel measures your refresh rate so you can see how much of the figure belongs to the screen. Judge the hardware on the jitter figure rather than the mean: consistent timing with some baseline delay is normal, whereas a high and erratic timing is what actually affects how a keyboard feels in use.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Now check the mouse</h2>
+        <p>An interactive mouse diagram that lights up every button, wheel and scroll event, plus precision, double-click timing and polling rate.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="mouse-check.html">Open Mouse Check</a>
+          <a class="btn" href="index.html">Back to the overview</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="mouse-check.html">Mouse Check</a></li>
+          <li><a href="keyboard-check.html">Keyboard Check</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="about.html">About InputScope</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="ads.txt">ads.txt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> InputScope. All rights reserved.</span>
+      <span>No data is collected. Everything runs in your browser.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/review.js"></script>
+<script src="assets/js/keyboard.js"></script>
+<script>
+(function () {
+  var pill = document.getElementById('kbd-summary-pill');
+  var copyBtn = document.getElementById('kbd-copy');
+  var keys = ['keymap-count', 'keymap-ghost', 'typing-wpm', 'typing-acc', 'typing-time',
+    'layout-result', 'layout-score', 'layout-breakdown', 'roll-count', 'roll-state',
+    'mod-caps', 'mod-num', 'mod-scroll', 'lat-avg', 'lat-jitter', 'lat-count', 'lat-refresh'];
+  var idle = ['—', '0', '0 / 4', 'None', 'Idle', 'not run yet', 'not tested yet', 'press detect to analyse'];
+  setInterval(function () {
+    if (!pill) return;
+    var m = Array.prototype.some.call(document.querySelectorAll('[data-out]'), function (el) {
+      return el.textContent && idle.indexOf(el.textContent) === -1;
+    });
+    pill.textContent = m ? 'measurements recorded' : 'nothing measured yet';
+    pill.className = 'pill ' + (m ? 'pill--ok' : 'pill--info');
+  }, 1000);
+  if (copyBtn) copyBtn.addEventListener('click', function () {
+    var text = 'InputScope — Keyboard Check results\n' + new Date().toLocaleString() + '\n\n' +
+      keys.map(function (k) {
+        var v = document.querySelector('[data-out="' + k + '"]');
+        var n = document.querySelector('[data-note="' + k + '"]');
+        return k.replace(/-/g, ' ') + ': ' + (v ? v.textContent : '—') + (n && n.textContent ? ' (' + n.textContent + ')' : '');
+      }).join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        copyBtn.textContent = 'Copied';
+        setTimeout(function () { copyBtn.textContent = 'Copy results'; }, 1500);
+      });
+    }
+  });
+})();
+</script>
+</body>
+</html>

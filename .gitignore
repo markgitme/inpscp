@@ -1,0 +1,13 @@
+# git history
+.git/
+
+# local build output
+/build/
+/output/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

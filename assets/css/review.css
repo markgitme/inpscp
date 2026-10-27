@@ -1,0 +1,145 @@
+/* =========================================================
+   InputScope — review / annotation overlay
+   Loaded on every page but inert unless activated.
+   ========================================================= */
+
+.rv-hidden { display: none !important; }
+
+/* ---- floating toggle button ---- */
+.rv-toggle {
+  position: fixed; right: 18px; bottom: 18px; z-index: 9000;
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .6rem .95rem; border-radius: 999px; cursor: pointer;
+  background: #1b2030; color: var(--text);
+  border: 1px solid var(--line-2);
+  font: 600 .84rem/1 var(--font);
+  box-shadow: 0 12px 34px -12px rgba(0,0,0,.9);
+  transition: background .15s, transform .15s, border-color .15s;
+}
+.rv-toggle:hover { background: #232a3d; transform: translateY(-2px); }
+.rv-toggle svg { width: 15px; height: 15px; }
+.rv-toggle.is-on { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+
+/* ---- banner ---- */
+.rv-banner {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: 18px; z-index: 9001;
+  display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; justify-content: center;
+  padding: .6rem .7rem .6rem 1rem; border-radius: 999px;
+  background: rgba(19,23,34,.94); backdrop-filter: blur(12px);
+  border: 1px solid var(--line-2); color: var(--text-2);
+  font: 500 .84rem/1.3 var(--font);
+  box-shadow: 0 16px 40px -16px rgba(0,0,0,.95);
+  max-width: min(92vw, 720px);
+}
+.rv-banner strong { color: var(--text); font-weight: 650; }
+.rv-banner__count {
+  font-family: var(--mono); font-size: .76rem; color: var(--accent-ink);
+  background: var(--accent); padding: .12rem .5rem; border-radius: 999px; font-weight: 700;
+}
+.rv-banner button, .rv-banner .rv-btn {
+  font: 600 .8rem/1 var(--font);
+  padding: .45rem .75rem; border-radius: 8px; cursor: pointer;
+  background: var(--card-3); color: var(--text); border: 1px solid var(--line-2);
+}
+.rv-banner button:hover { background: #2a3245; }
+.rv-banner .rv-btn--primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+.rv-banner .rv-btn--primary:hover { background: #62e8ab; }
+.rv-banner .rv-close { background: transparent; border-color: transparent; color: var(--muted); padding: .3rem .45rem; font-size: 1rem; }
+.rv-banner .rv-close:hover { color: var(--text); background: transparent; }
+
+/* ---- capture overlay ---- */
+.rv-capture {
+  position: fixed; inset: 0; z-index: 8998; cursor: crosshair;
+  background: rgba(74,222,155,.045);
+}
+.rv-capture::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 2px rgba(74,222,155,.5);
+}
+
+/* ---- numbered marker pinned to an element ---- */
+.rv-marker {
+  position: absolute; z-index: 9002;
+  width: 26px; height: 26px; margin: -13px 0 0 -13px;
+  border-radius: 50%;
+  background: var(--accent); color: var(--accent-ink);
+  border: 2px solid #0a0b10;
+  box-shadow: 0 0 0 2px rgba(74,222,155,.55), 0 6px 18px -4px rgba(0,0,0,.9);
+  display: grid; place-items: center;
+  font: 700 .78rem/1 var(--mono);
+  cursor: pointer;
+  transition: transform .12s ease, background .12s;
+}
+.rv-marker:hover { transform: scale(1.14); }
+.rv-marker.is-active { background: var(--amber); color: #241a00; box-shadow: 0 0 0 3px rgba(251,191,36,.5); }
+.rv-marker.is-anchored { box-shadow: 0 0 0 2px rgba(251,191,36,.6), 0 6px 18px -4px rgba(0,0,0,.9); }
+.rv-marker--ghost { background: #2a3245; color: var(--muted); box-shadow: 0 0 0 2px var(--line-2); }
+
+/* ---- element highlight ---- */
+.rv-highlight {
+  position: absolute; z-index: 8999; pointer-events: none;
+  border: 2px dashed rgba(251,191,36,.85);
+  border-radius: 5px;
+  background: rgba(251,191,36,.07);
+}
+.rv-highlight__tag {
+  position: absolute; top: -21px; left: -2px;
+  font: 600 .7rem/1 var(--mono);
+  background: var(--amber); color: #241a00;
+  padding: .25rem .4rem; border-radius: 4px 4px 0 0;
+  white-space: nowrap;
+}
+
+/* ---- note editor ---- */
+.rv-editor {
+  position: fixed; z-index: 9005; width: min(340px, calc(100vw - 28px));
+  background: #161a26; border: 1px solid var(--line-2); border-radius: 12px;
+  box-shadow: 0 24px 60px -18px rgba(0,0,0,1);
+  padding: .85rem;
+}
+.rv-editor__head {
+  display: flex; align-items: center; gap: .5rem; margin-bottom: .6rem;
+  font: 650 .8rem/1 var(--font); color: var(--text);
+}
+.rv-editor__num {
+  width: 20px; height: 20px; border-radius: 50%; flex: none;
+  background: var(--accent); color: var(--accent-ink);
+  display: grid; place-items: center; font: 700 .72rem/1 var(--mono);
+}
+.rv-editor__path {
+  font: 500 .7rem/1.3 var(--mono); color: var(--muted);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;
+}
+.rv-editor textarea {
+  width: 100%; min-height: 84px; resize: vertical;
+  background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 8px;
+  color: var(--text); font: 400 .87rem/1.5 var(--font); padding: .6rem .7rem;
+}
+.rv-editor textarea:focus { outline: none; border-color: var(--accent); }
+.rv-editor__row { display: flex; gap: .45rem; margin-top: .6rem; }
+.rv-editor__row button {
+  flex: 1; font: 600 .8rem/1 var(--font); padding: .55rem .6rem; border-radius: 8px; cursor: pointer;
+  background: var(--card-3); color: var(--text); border: 1px solid var(--line-2);
+}
+.rv-editor__row button:hover { background: #2a3245; }
+.rv-editor__row .rv-save { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+.rv-editor__row .rv-save:hover { background: #62e8ab; }
+.rv-editor__row .rv-del { flex: 0 0 auto; color: var(--red); }
+
+/* ---- toast ---- */
+.rv-toast {
+  position: fixed; left: 50%; top: 22px; transform: translateX(-50%);
+  z-index: 9010; padding: .6rem 1.05rem; border-radius: 999px;
+  background: var(--accent); color: var(--accent-ink);
+  font: 650 .84rem/1 var(--font);
+  box-shadow: 0 14px 34px -12px rgba(74,222,155,.9);
+  animation: rv-in .22s ease;
+}
+@keyframes rv-in { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+/* ---- mode: body gets a subtle tint so you know capture is armed ---- */
+body.rv-armed { cursor: crosshair; }
+body.rv-armed .rv-marker { pointer-events: auto; }

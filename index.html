@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InputScope — Free Mouse Test &amp; Keyboard Test You Can Run in Your Browser</title>
+<meta name="description" content="Free mouse test and keyboard test in your browser. Check pointer precision, polling rate, double-click speed, key rollover, typing speed and more. Nothing is uploaded — every test runs locally.">
+<meta name="theme-color" content="#0a0b10">
+<link rel="canonical" href="index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="InputScope — Free Mouse Test &amp; Keyboard Test">
+<meta property="og:description" content="Find out what your mouse and keyboard are really doing. A free mouse button test and a free keyboard tester, both running locally in your browser.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="assets/og-image.png">
+<meta property="og:url" content="index.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/review.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "#website",
+      "name": "InputScope",
+      "description": "Free browser-based mouse and keyboard diagnostic tests.",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Organization",
+      "@id": "#org",
+      "name": "InputScope",
+      "url": "#website",
+      "description": "A small, independent lab of browser-based input device diagnostics."
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do these tests upload my data?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs. There is no server call, no analytics on the tool pages, and no account. Results stay in memory until you close the tab." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I really measure my mouse's true DPI in a browser?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Not exactly, and InputScope does not pretend otherwise. A web page cannot read your operating system's pointer speed setting or the hardware sensor resolution. What it can do is measure the visible consequences: how far the cursor travels for a given hand movement, how consistent that distance is, how tightly you can hit a small target, and how fast raw input samples arrive. Those are the numbers the tests report." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why did my typing speed look different from the number in my old speed test?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Most online speed tests include autocorrect, dictionary suggestions, and text completion, which inflate the result. InputScope measures raw keystrokes against a fixed sample and counts only characters that match, so the number is usually lower and more honest. It also reports accuracy alongside words per minute." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a low score a sign my device is broken?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Usually not. Scores vary a lot with the surface you use, the sensitivity setting, your hand size, and how you sit. Treat the number as a baseline to compare against. The useful signal is a sudden change: a sharp drop in pointer accuracy or a slow double-click interval usually points to a worn switch, a dirty sensor, or a failing scroll encoder rather than a bad day." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I test if my mouse is working?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Open the Mouse Check page and use the click tester at the top. Press every button in turn — left, right, the scroll wheel, and the thumb buttons if you have them — and the interactive mouse diagram shows which one registered. If everything lights up and the scroll counter climbs, the mouse is working. If one button never lights up, that button is the fault." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I test if my keyboard is working?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Open the Keyboard Check page and use the key tester. Every key you press lights up its matching cap on the live map, so a dead key, a key that stays stuck down and a key that fires twice are all obvious on the first walk through the keyboard." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the polling rate test work everywhere?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Only in browsers that expose the raw pointer update event, which today means Chromium-based browsers. Elsewhere InputScope falls back to counting standard pointer move events, which is a lower bound rather than a true hardware rate. The result panel labels which method was used so the number is never mistaken for more than it is." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <a href="mouse-check.html">Mouse Check</a>
+      <a href="keyboard-check.html">Keyboard Check</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <span class="eyebrow"><span class="pulse"></span>Free · No signup · Nothing uploaded</span>
+        <h1>Find out what your <span class="grad">mouse and keyboard</span> are really doing.</h1>
+        <p class="hero__lead">InputScope measures the things you can actually feel but never quite diagnose: a cursor that drifts, a double-click that needs trying three times, a key that fires twice, a scroll wheel that skips. A free mouse test and a free keyboard test, running entirely inside your browser tab.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="mouse-check.html">Run the mouse tests</a>
+          <a class="btn" href="keyboard-check.html">Run the keyboard tests</a>
+        </div>
+        <div class="hero__meta">
+          <span><span class="dot-ok"></span> No server calls</span>
+          <span><span class="dot-ok"></span> Works on Chrome, Firefox, Safari, Edge</span>
+          <span><span class="dot-ok"></span> Takes about two minutes</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head">
+          <span class="dots"><i></i><i></i><i></i></span>
+          live pointer monitor
+        </div>
+        <div class="panel__body">
+          <div class="readout">
+            <div class="readout__row"><b>pointer position</b><span id="hero-coord">move your mouse</span></div>
+            <div class="readout__row"><b>buttons held</b><span id="hero-btn">none</span></div>
+            <div class="readout__row"><b>event rate</b><span id="hero-evt">0 ev/s</span></div>
+            <div class="readout__row"><b>device type</b><span id="hero-type">detecting…</span></div>
+            <div class="readout__row"><b>raw sampling</b><span id="hero-raw">detecting…</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TOOLS ================= -->
+  <section class="section section--tight" id="tools">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">The tools</span>
+        <h2>A mouse test and a keyboard test, one tab, zero downloads</h2>
+        <p>Each suite breaks a peripheral down into measurable behaviours, so you can tell the difference between "this feels off" and "this specific part is failing".</p>
+      </div>
+
+      <div class="card-grid">
+        <a class="tool-card" href="mouse-check.html">
+          <span class="tool-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="6"/><path d="M12 6v4"/></svg>
+          </span>
+          <h3>Mouse Check</h3>
+          <p>A free mouse test you can actually watch. Click the interactive diagram and see every button, the wheel and the scroll register &mdash; then check pointer precision, double-click speed and polling rate.</p>
+          <div class="tool-card__tags">
+            <span class="tag">mouse button test</span>
+            <span class="tag">click tester</span>
+            <span class="tag">polling rate</span>
+          </div>
+        </a>
+
+        <a class="tool-card tool-card--blue" href="keyboard-check.html">
+          <span class="tool-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg>
+          </span>
+          <h3>Keyboard Check</h3>
+          <p>A free keyboard test with a live key map. Press any key and watch it light up &mdash; then check typing speed, physical layout, key rollover depth and response latency.</p>
+          <div class="tool-card__tags">
+            <span class="tag">keyboard tester</span>
+            <span class="tag">layout detection</span>
+            <span class="tag">rollover</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHAT IS COVERED ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">Coverage</span>
+        <h2>What these tests actually check</h2>
+        <p>Every measurement below maps to a specific, named behaviour in your device. Nothing here is a generic "click anywhere" widget that gives you a meaningless score.</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="panel feature">
+          <h3><span class="tick">✓</span> Pointer precision</h3>
+          <p>Small targets appear at random positions and you click them one at a time. InputScope records how often you hit the centre, how far off your misses land, and your longest clean run. A steady decline in accuracy across a session usually means a dirty or worn sensor, not a bad mouse.</p>
+        </div>
+        <div class="panel feature">
+          <h3><span class="tick">✓</span> Polling rate</h3>
+          <p>The raw pointer event stream is sampled for one second while you move the mouse. Where the browser exposes raw sampling you get a true hardware figure — 125 Hz on a budget office mouse, 500 Hz on a mid-range one, 1000 Hz on a gaming sensor. The result always states which method produced the number.</p>
+        </div>
+        <div class="panel feature">
+          <h3><span class="tick">✓</span> Double-click timing</h3>
+          <p>Your operating system has a double-click window, usually 500 ms. If your mouse is slow enough that the two clicks fall outside that window, the system treats them as two single clicks and selects nothing. This test measures the actual interval and tells you whether your setting needs raising.</p>
+        </div>
+        <div class="panel feature">
+          <h3><span class="tick">✓</span> Scroll and encoder wear</h3>
+          <p>Scroll wheels are mechanical encoders, and they wear out long before the rest of the mouse. Missing or duplicated notches are the classic symptom. The scroll test counts notches in each direction and reports the pixel delta per notch, which makes skipping obvious.</p>
+        </div>
+        <div class="panel feature">
+          <h3><span class="tick">✓</span> Key rollover depth</h3>
+          <p>Pressing two keys at once only registers both if the keyboard has anti-ghosting hardware. InputScope holds Shift, Ctrl, Alt and a letter simultaneously and reports how many the keyboard actually delivered. Three or more is the bar most gaming keyboards clear; two is the bare minimum.</p>
+        </div>
+        <div class="panel feature">
+          <h3><span class="tick">✓</span> Chattering and double-fire</h3>
+          <p>A worn key switch starts making contact twice per press. On the live key map, a switch that chatters shows extra keydown events for a single physical press. The key count and the event log make that visible in a way that simply looking at the screen does not.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">How it works</span>
+        <h2>Three steps, about two minutes</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3>Open the test you need</h3>
+          <p>Each suite lives on its own page, so you can bookmark just the half you care about and come back to it later for comparison.</p>
+        </div>
+        <div class="step">
+          <h3>Use the mouse and keyboard you want to test</h3>
+          <p>Plug in the device, close any remote desktop or screen-sharing session, and keep your hand in the same position you would normally use it in. Both suites show a live summary you can scroll back to.</p>
+        </div>
+        <div class="step">
+          <h3>Read the number, then read the meaning</h3>
+          <p>Each result is paired with a plain-language explanation underneath it, and both tool pages have a guide section explaining what a healthy range looks like for that specific measurement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROBLEM SHORTCUTS ================= -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow eyebrow--amber">Common problems</span>
+        <h2>Looking for a specific fault?</h2>
+        <p>These are the questions people search for most often, and every one of them is answered in full on the relevant tool page.</p>
+      </div>
+      <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))">
+        <a class="tool-card" href="mouse-check.html#problems">
+          <h3>Why is my mouse not double-clicking?</h3>
+          <p>Usually a double-click window that is too tight, occasionally a worn switch. The mouse page has the fix for each, and a test that measures your actual interval.</p>
+        </a>
+        <a class="tool-card" href="mouse-check.html#problems">
+          <h3>Why does my mouse keep clicking on its own?</h3>
+          <p>A switch that is making contact at rest, or a wireless link reporting a stale button state. The click tester tells you which.</p>
+        </a>
+        <a class="tool-card" href="mouse-check.html#problems">
+          <h3>Why is my scroll wheel jittering or skipping?</h3>
+          <p>A worn scroll encoder, which is usually the first part of a mouse to fail. How to clean it, and how to tell it apart from a bad surface.</p>
+        </a>
+        <a class="tool-card" href="keyboard-check.html#problems">
+          <h3>Why are some keys on my keyboard not working?</h3>
+          <p>Liquid, wear or debris under the cap. The key tester shows you whether a key is dead or merely unreliable.</p>
+        </a>
+        <a class="tool-card" href="keyboard-check.html#problems">
+          <h3>Why does my keyboard type the wrong character?</h3>
+          <p>Almost never a broken keyboard &mdash; nearly always a layout mismatch between the hardware and the operating system.</p>
+        </a>
+        <a class="tool-card" href="keyboard-check.html#problems">
+          <h3>Why is my keyboard ghosting?</h3>
+          <p>The keyboard cannot tell which of several keys closed its circuit. The rollover test reports exactly how many it handles at once.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTEXT / EDITORIAL ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <span class="eyebrow eyebrow--blue">Why this exists</span>
+          <h2>Peripherals fail quietly</h2>
+          <p>Hardware gets replaced on a schedule nobody sets. The mouse that was fine last year now needs two attempts to open a menu, or the left edge of a window catches a stray pixel movement. Nobody can quite say when it started, so the problem gets attributed to the operating system, the application, or "the computer being slow".</p>
+          <p>InputScope exists to make that vague feeling measurable. The value is not in the score — it is in the comparison. Run the mouse test on a surface you trust, then run it again on a different one, or again in three months, and you have a baseline. When something genuinely changes, you will know, and you will know which part changed.</p>
+          <p>There is no account, no paywall and no download. The tools are deliberately small, and the site is deliberately independent — no affiliate links disguised as reviews, no sponsored "best mice" listicles, and no advertising on the diagnostic pages themselves. If the site ever carries ads, they will sit on the informational pages only.</p>
+        </div>
+        <div>
+          <div class="callout callout--accent">
+            <h4>What InputScope will not tell you</h4>
+            <p>A web page cannot read your operating system's pointer-speed slider, your mouse's true sensor DPI, or the exact hardware part number. It measures what reaches the browser: the timing and geometry of the input events themselves.</p>
+            <p>Every result that is an estimate is labelled as an estimate. That is the whole point of a diagnostic tool.</p>
+          </div>
+          <div class="callout">
+            <h4>Running on a locked-down machine?</h4>
+            <p>The tests need a mouse or keyboard attached and a browser that supports Pointer Events and Keyboard Events. If you are on a shared or managed device, a wired input device gives the most consistent readings, because wireless links add their own timing jitter.</p>
+          </div>
+          <div class="callout callout--amber">
+            <h4>A note on laptop trackpads</h4>
+            <p>Most of these results are calibrated for a physical mouse. A trackpad's pointer is driven by a finger, so precision, hover and acceleration results will look very different — useful for a rough comparison, not for judging the hardware.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REFERENCE TABLE ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">Reference</span>
+        <h2>What a healthy result looks like</h2>
+        <p>These are typical healthy ranges for a desktop mouse and a standard mechanical or membrane keyboard. They are reference points, not pass/fail thresholds — your baseline matters more than the absolute number.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Measurement</th><th>Healthy range</th><th>What a problem looks like</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Pointer precision</td><td>85–100% of small targets hit</td><td>Consistently below 70% on a mouse that used to be accurate</td></tr>
+            <tr><td>Polling rate</td><td>125 Hz minimum; 500–1000 Hz typical</td><td>Drops in bursts or sits well below the mouse's rated figure</td></tr>
+            <tr><td>Double-click interval</td><td>Under 300 ms</td><td>Over 450 ms, when Windows' default window is 500 ms</td></tr>
+            <tr><td>Scroll notches</td><td>One clean notch per detent</td><td>Skipped or duplicated notches, especially at the extremes of travel</td></tr>
+            <tr><td>Motion jitter</td><td>Standard deviation under 8 ms</td><td>Spiky gaps that line up with a wireless distance problem</td></tr>
+            <tr><td>Acceleration curve</td><td>Roughly 1:1 — distance stays constant</td><td>Fast swipes travel visibly further than slow ones</td></tr>
+            <tr><td>Typing speed</td><td>40+ words per minute, 95%+ accurate</td><td>Accuracy below 90% points to chatter or a worn key switch</td></tr>
+            <tr><td>Key rollover</td><td>3 keys or more at once</td><td>Stuck at 2, or modifiers dropping under load</td></tr>
+            <tr><td>Response latency</td><td>Inside one frame interval — under 9 ms at 120 Hz, under 17 ms at 60 Hz</td><td>Erratic jitter on a wired board, or lag well past one frame</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">FAQ</span>
+        <h2>Questions people ask about input tests</h2>
+      </div>
+      <div class="faq prose">
+        <details>
+          <summary>Do these tests upload my data?</summary>
+          <div class="faq__a"><p>No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs. There is no server call, no analytics script on the tool pages, and no account to create. Results stay in memory until you close the tab.</p></div>
+        </details>
+        <details>
+          <summary>Can I really measure my mouse's true DPI in a browser?</summary>
+          <div class="faq__a"><p>Not exactly, and InputScope does not pretend otherwise. A web page cannot read your operating system's pointer speed setting or the hardware sensor resolution. What it can do is measure the visible consequences: how far the cursor travels for a given hand movement, how consistent that distance is, how tightly you can hit a small target, and how fast raw input samples arrive. Those are the numbers the tests report.</p></div>
+        </details>
+        <details>
+          <summary>Why did my typing speed look different from the number in my old speed test?</summary>
+          <div class="faq__a"><p>Most online speed tests include autocorrect, dictionary suggestions, and text completion, which inflate the result. InputScope measures raw keystrokes against a fixed sample and counts only characters that match, so the number is usually lower and more honest. It also reports accuracy alongside words per minute.</p></div>
+        </details>
+        <details>
+          <summary>Is a low score a sign my device is broken?</summary>
+          <div class="faq__a"><p>Usually not. Scores vary a lot with the surface you use, the sensitivity setting, your hand size, and how you sit. Treat the number as a baseline to compare against. The useful signal is a sudden change: a sharp drop in pointer accuracy or a slow double-click interval usually points to a worn switch, a dirty sensor, or a failing scroll encoder rather than a bad day.</p></div>
+        </details>
+        <details>
+          <summary>Does the polling rate test work everywhere?</summary>
+          <div class="faq__a"><p>Only in browsers that expose the raw pointer update event, which today means Chromium-based browsers. Elsewhere InputScope falls back to counting standard pointer move events, which is a lower bound rather than a true hardware rate. The result panel labels which method was used so the number is never mistaken for more than it is.</p></div>
+        </details>
+        <details>
+          <summary>Should I test with a mousepad or a bare desk?</summary>
+          <div class="faq__a"><p>Test in the condition you actually use, then test it a second time on a clean, consistent surface. Optical sensors rely on a texture to track movement, and a bare polished desk or a slick glass surface produces different readings from a fabric mousepad. If the two results diverge sharply, the surface is the variable, not the mouse.</p></div>
+        </details>
+        <details>
+          <summary>Can I use these on a trackpad or a laptop keyboard?</summary>
+          <div class="faq__a"><p>You can, but read the results with that in mind. A trackpad is finger-driven, so precision and acceleration figures will be far lower than a mouse. A laptop keyboard is usually a low-profile membrane or scissor mechanism with a noticeably different key travel, and many of them are deliberately limited to two-key rollover, which the rollover test will show you clearly.</p></div>
+        </details>
+        <details>
+          <summary>How do I test if my mouse is working?</summary>
+          <div class="faq__a"><p>Open the <a href="mouse-check.html">Mouse Check</a> page and use the click tester at the top. Press every button in turn &mdash; left, right, the scroll wheel, and the thumb buttons if you have them &mdash; and the interactive mouse diagram shows which one registered. If everything lights up and the scroll counter climbs, the mouse is working. If one button never lights up, that button is the fault.</p></div>
+        </details>
+        <details>
+          <summary>How do I test if my keyboard is working?</summary>
+          <div class="faq__a"><p>Open the <a href="keyboard-check.html">Keyboard Check</a> page and use the key tester. Every key you press lights up its matching cap on the live map, so a dead key, a key that stays stuck down and a key that fires twice are all obvious on the first walk through the keyboard.</p></div>
+        </details>
+        <details>
+          <summary>Will this site have ads?</summary>
+          <div class="faq__a"><p>Possibly, eventually, and only on the informational pages — the explanations, guides and reference sections. The diagnostic tools themselves stay ad-free, because a layout shift caused by an ad injecting into a measurement surface would corrupt the results. Any advertising partner will be disclosed in the footer and the privacy policy.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Start with the mouse</h2>
+        <p>Pointer problems are the easier of the two to diagnose, and most of them are immediately fixable — a dirty sensor, a stretched battery, or one setting buried in your operating system.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="mouse-check.html">Open Mouse Check</a>
+          <a class="btn" href="keyboard-check.html">Open Keyboard Check</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="mouse-check.html">Mouse Check</a></li>
+          <li><a href="keyboard-check.html">Keyboard Check</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="about.html">About InputScope</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="ads.txt">ads.txt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> InputScope. All rights reserved.</span>
+      <span>No data is collected. Everything runs in your browser.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/review.js"></script>
+<script>
+(function () {
+  var c = document.getElementById('hero-coord');
+  var b = document.getElementById('hero-btn');
+  var e = document.getElementById('hero-evt');
+  var t = document.getElementById('hero-type');
+  var r = document.getElementById('hero-raw');
+  if (!c) return;
+  var last = performance.now(), rate = 0, seen = false;
+  window.addEventListener('pointermove', function (ev) {
+    seen = true;
+    c.textContent = Math.round(ev.clientX) + ' , ' + Math.round(ev.clientY);
+    var names = [];
+    if (ev.buttons & 1) names.push('left');
+    if (ev.buttons & 2) names.push('right');
+    if (ev.buttons & 4) names.push('middle');
+    b.textContent = names.length ? names.join(' + ') : 'none';
+    var now = performance.now();
+    rate = 1000 / Math.max(0.5, now - last);
+    last = now;
+    e.textContent = Math.round(rate) + ' ev/s';
+    if (t) t.textContent = ev.pointerType === 'mouse' ? 'mouse' : ev.pointerType === 'pen' ? 'stylus / pen' : ev.pointerType === 'touch' ? 'touchscreen' : ev.pointerType;
+  }, true);
+  if (t) t.textContent = 'awaiting input';
+  if (r) r.textContent = ('onpointerrawupdate' in window) ? 'available' : 'not exposed';
+})();
+</script>
+</body>
+</html>

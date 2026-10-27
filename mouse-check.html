@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mouse Check — Free Mouse Test: Buttons, Clicks, Scroll &amp; Polling Rate | InputScope</title>
+<meta name="description" content="Free online mouse test. Click the interactive mouse to check every button, the scroll wheel and the side buttons, then run double-click speed, pointer precision and polling rate tests.">
+<meta name="theme-color" content="#0a0b10">
+<link rel="canonical" href="mouse-check.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mouse Check — Free Mouse Button Test &amp; Click Tester">
+<meta property="og:description" content="An interactive mouse test: click the diagram and watch every button, the wheel and the scroll register. Plus double-click speed, precision and polling rate.">
+<meta property="og:url" content="mouse-check.html">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/og-image.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/review.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "InputScope Mouse Check",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any modern browser",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "A free browser-based mouse test with an interactive mouse diagram that lights up every button, wheel and scroll event, plus pointer precision, double-click timing and polling rate measurement.",
+      "featureList": [
+        "Interactive mouse button display",
+        "Left, right, middle and side button detection",
+        "Scroll wheel event display",
+        "Pointer precision test",
+        "Double-click speed test",
+        "Polling rate measurement"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I test if my mouse is working?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Use the click tester at the top of this page. Press every button on your mouse in turn — left, right, the scroll wheel, and your thumb buttons if you have them — while the interactive diagram shows which one registered. If every button lights up and the scroll counter climbs as you scroll, the mouse is working. If one button never lights up, that button is the fault." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the polling rate differ from what the box says?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Three things routinely lower the real rate below the sticker. Windows applies a device-level setting that can cut the rate in half. USB power management sleeps the device between packets. And the browser may batch standard pointer events to the display refresh, which is why this test only reports a true hardware figure where raw sampling is exposed — and says so rather than presenting an estimate as fact." }
+        },
+        {
+          "@type": "Question",
+          "name": "My mouse has no side buttons. Should those lights stay dark?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, permanently dark is the correct result. The two violet tabs are drawn on the left flank because that is where most gaming mice put their thumb buttons. If your mouse does not have them, they will never light and nothing is wrong." }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I close other applications before testing?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Not for the click tester, but yes for the timing measurements. Background processes competing for CPU can add jitter to the motion readings. A remote desktop or screen-sharing session is worth closing entirely, because the pointer position is then being reconstructed remotely and every measurement becomes meaningless." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use the mouse test on a trackpad?",
+          "acceptedAnswer": { "@type": "Answer", "text": "You can, but read the results carefully. A trackpad is driven by your finger, so the precision and acceleration figures are all measuring a different thing entirely. The click tester still works as expected, and the double-click timing test is often more revealing on a trackpad because pads are frequently set to a slower double-click speed." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a low accuracy score a sign the sensor is dying?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Possibly, but it is not the only explanation. Try the test on a clean mousepad first, and clean the sensor lens. If accuracy is high on the pad and low on the desk, the surface is the cause. If it is low on every surface, and the misses are consistently in the same direction, that usually points to either a damaged coating on the lens or a failing sensor." }
+        },
+        {
+          "@type": "Question",
+          "name": "My browser blocks the right-click test. What now?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Some browsers and extensions intercept the context menu. The page suppresses the default menu inside the click tester so the event can be counted, and the right button still registers. If an extension is blocking that suppression, open the tool in a private window with extensions disabled and try again." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <a href="mouse-check.html" aria-current="page">Mouse Check</a>
+      <a href="keyboard-check.html">Keyboard Check</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="tool-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="index.html">InputScope</a><span>/</span>Mouse Check</div>
+      <span class="eyebrow"><span class="pulse"></span>Free · no download · nothing uploaded</span>
+      <h1>Mouse Check</h1>
+      <p>Press a button. Watch the mouse diagram light up. If every click, the wheel and the scroll all register, your mouse is fine — and if one of them does not, the panel tells you exactly which one failed.</p>
+    </div>
+  </section>
+
+  <!-- ================= PRIMARY: INTERACTIVE MOUSE DISPLAY ================= -->
+  <section class="section section--tight">
+    <div class="wrap">
+
+      <div class="panel panel--pad" id="mouse-display">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem">
+          <div style="flex:1;min-width:250px">
+            <h2 style="font-size:1.25rem;margin-bottom:.3rem">Click tester</h2>
+            <p class="muted small" style="margin:0">Click anywhere in the panel below — left, right, middle, the side buttons and the scroll wheel all show up here.</p>
+          </div>
+          <button class="btn btn--sm" type="button" id="mouse-display-reset">Reset counters</button>
+        </div>
+
+        <div class="mouse-display">
+          <div class="mouse-stage" id="mouse-stage">
+            <svg class="mouse-svg" id="mouse-svg" viewBox="0 0 220 300" role="img" aria-label="Top-down diagram of a mouse. Press the left half, right half, wheel or side buttons to light up the matching region.">
+              <path class="m-body" d="M110 8 C146 8 172 30 182 74 C190 108 196 152 196 196 C196 258 162 292 110 292 C58 292 24 258 24 196 C24 152 30 108 38 74 C48 30 74 8 110 8 Z"/>
+              <path class="m-btn" data-btn="left" d="M104 13 C74 15 54 37 44 77 C38 102 33 126 31 147 L104 147 Z"/>
+              <path class="m-btn" data-btn="right" d="M116 13 C146 15 166 37 176 77 C182 102 187 126 189 147 L116 147 Z"/>
+              <rect class="m-wheel" data-btn="middle" x="100" y="44" width="20" height="58" rx="10"/>
+              <rect class="m-side" data-btn="side1" x="14" y="150" width="22" height="38" rx="10"/>
+              <rect class="m-side" data-btn="side2" x="14" y="198" width="22" height="38" rx="10"/>
+            </svg>
+          </div>
+
+          <div class="mouse-readout">
+            <div class="leds">
+              <span class="led" data-led="left"><span class="led__dot"></span>Left</span>
+              <span class="led" data-led="right"><span class="led__dot"></span>Right</span>
+              <span class="led" data-led="middle"><span class="led__dot"></span>Middle</span>
+              <span class="led" data-led="side1"><span class="led__dot"></span>Back</span>
+              <span class="led" data-led="side2"><span class="led__dot"></span>Forward</span>
+              <span class="led" data-led="scroll"><span class="led__dot"></span>Scroll</span>
+            </div>
+
+            <div class="mouse-counts">
+              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-left">0</div><div class="mouse-count__k">left clicks</div></div>
+              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-right">0</div><div class="mouse-count__k">right clicks</div></div>
+              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-middle">0</div><div class="mouse-count__k">middle clicks</div></div>
+              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-side">0</div><div class="mouse-count__k">side buttons</div></div>
+              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-scroll">0</div><div class="mouse-count__k">scroll events</div></div>
+              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-last" style="font-size:.95rem">—</div><div class="mouse-count__k">last event</div></div>
+            </div>
+
+            <p class="mouse-hint">Your right-click is registered as a right click even though the browser menu is suppressed inside the panel — so keep the panel open and press every button in turn. The side buttons are drawn on the left flank because that is where most mice put them; if your mouse has none, those two stay dark and that is correct.</p>
+          </div>
+        </div>
+
+        <div class="log" id="mouse-display-log" style="margin-top:1.4rem"></div>
+      </div>
+
+      <!-- summary -->
+      <div class="toolbar" style="margin-top:1rem">
+        <span class="toolbar__label">Quick summary</span>
+        <span class="pill pill--info" id="mouse-summary-pill">nothing measured yet</span>
+        <span class="spacer"></span>
+        <button class="btn btn--sm" type="button" id="mouse-copy">Copy results</button>
+      </div>
+      <div class="tiles" id="mouse-summary"></div>
+
+      <!-- ================= QUICK CHECKS ================= -->
+      <div style="margin-top:2.6rem">
+        <div class="section__head" style="margin-bottom:1.1rem">
+          <span class="eyebrow eyebrow--blue">Three quick checks</span>
+          <h2 style="font-size:1.5rem">The measurements worth taking</h2>
+          <p style="margin:0">If your mouse is behaving oddly, these are the three numbers that actually tell you what is wrong. Each takes under a minute.</p>
+        </div>
+
+        <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))">
+
+          <div class="panel panel--pad check-card">
+            <h3>Pointer precision</h3>
+            <p class="check-note">Click each blue target as it appears. Twenty targets gives a reliable number.</p>
+            <div class="hitpad" id="precision-pad" data-nocontext style="margin-top:.9rem">
+              <div class="hitpad__hint">Press <strong>Start</strong>, then click each target.</div>
+            </div>
+            <div class="check-actions">
+              <button class="btn btn--primary btn--sm" type="button" id="precision-start">Start</button>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Accuracy</span><span class="mini-results__v" data-out="precision-acc">—</span></div>
+              <div><span class="mini-results__k">Average offset</span><span class="mini-results__v" data-out="precision-err">—</span></div>
+              <div><span class="mini-results__k">Best streak</span><span class="mini-results__v" data-out="precision-streak">0</span></div>
+            </div>
+          </div>
+
+          <div class="panel panel--pad check-card">
+            <h3>Double-click speed</h3>
+            <p class="check-note">Double-click the pad. Your system needs both clicks inside a 500&nbsp;ms window to treat them as one.</p>
+            <div class="btn-tap" id="dbl-pad" style="margin-top:.9rem">Double-click here</div>
+            <div class="check-actions">
+              <button class="btn btn--primary btn--sm" type="button" id="dbl-start">Reset</button>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Interval</span><span class="mini-results__v" data-out="dbl-time">—</span></div>
+              <div><span class="mini-results__k">Verdict</span><span class="mini-results__v" data-out="dbl-verdict">—</span></div>
+            </div>
+            <div class="log" id="dbl-log" style="margin-top:.9rem;max-height:120px"></div>
+          </div>
+
+          <div class="panel panel--pad check-card">
+            <h3>Polling rate</h3>
+            <p class="check-note">Press start, then keep the mouse moving for one full second. The counter counts input samples, not distance.</p>
+            <div class="meter" style="margin-top:.9rem"><div class="meter__fill" id="polling-meter" style="width:0%"></div></div>
+            <div class="check-actions">
+              <button class="btn btn--primary btn--sm" type="button" id="polling-start">Sample for 1s</button>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Rate</span><span class="mini-results__v" data-out="poll-hz">—</span></div>
+              <div><span class="mini-results__k">Confidence</span><span class="mini-results__v" data-out="poll-note">—</span></div>
+            </div>
+            <p class="check-note" id="polling-status">Checking browser capability…</p>
+            <div class="log" id="polling-log" style="margin-top:.9rem;max-height:110px"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= ADVANCED ================= -->
+      <details class="advanced-wrap">
+        <summary>
+          <span>Advanced diagnostics</span>
+          <span class="advanced-wrap__label">5 more measurements for when the basics all pass</span>
+        </summary>
+        <div class="advanced-grid">
+
+          <div class="panel panel--pad">
+            <h3>Drag accuracy</h3>
+            <p class="check-note">Press and hold the green block, then drop it inside the outlined target zone.</p>
+            <div class="drag-track" id="drag-track" style="margin-top:.9rem">
+              <div class="drag-handle" id="drag-handle"></div>
+              <div class="drag-target" id="drag-target"></div>
+            </div>
+            <div class="check-actions"><button class="btn btn--sm" type="button" id="drag-start">Reset</button></div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Offset</span><span class="mini-results__v" data-out="drag-offset">—</span></div>
+              <div><span class="mini-results__k">Drops measured</span><span class="mini-results__v" data-out="drag-score">0</span></div>
+            </div>
+          </div>
+
+          <div class="panel panel--pad">
+            <h3>Scroll encoder</h3>
+            <p class="check-note">Scroll up, down, then sideways if your wheel tilts. The page stays still while you are inside the pad.</p>
+            <div class="hitpad" id="scroll-pad" style="margin-top:.9rem">
+              <div class="pad-hint">Scroll in every direction inside this area.</div>
+            </div>
+            <div class="check-actions"><button class="btn btn--sm" type="button" id="scroll-start">Reset</button></div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Notches up / down</span><span class="mini-results__v" data-out="scroll-up">0 / 0</span></div>
+              <div><span class="mini-results__k">Horizontal</span><span class="mini-results__v" data-out="scroll-h">0</span></div>
+              <div><span class="mini-results__k">Pixels per notch</span><span class="mini-results__v" data-out="scroll-delta">—</span></div>
+            </div>
+            <div class="log" id="scroll-log" style="margin-top:.9rem;max-height:110px"></div>
+          </div>
+
+          <div class="panel panel--pad">
+            <h3>Motion smoothness</h3>
+            <p class="check-note">Press start and move the mouse in slow circles for two seconds. Constant motion gives the tightest timing spread.</p>
+            <div class="hitpad" id="motion-pad" style="margin-top:.9rem">
+              <div class="pad-hint">Move the pointer in smooth circles here.</div>
+            </div>
+            <div class="check-actions"><button class="btn btn--sm" type="button" id="motion-start">Start 2s sample</button></div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Mean interval</span><span class="mini-results__v" data-out="motion-avg">—</span></div>
+              <div><span class="mini-results__k">Jitter</span><span class="mini-results__v" data-out="motion-jitter">—</span></div>
+              <div><span class="mini-results__k">Verdict</span><span class="mini-results__v" data-out="motion-smooth">—</span></div>
+            </div>
+            <div class="log" id="motion-log" style="margin-top:.9rem;max-height:110px"></div>
+          </div>
+
+          <div class="panel panel--pad">
+            <h3>Hover response</h3>
+            <p class="check-note">Move the pointer onto the target and off it, several times.</p>
+            <div class="hitpad" id="hover-pad" style="margin-top:.9rem">
+              <div class="pad-hint">Hover here, then move away and come back.</div>
+            </div>
+            <div class="check-actions"><button class="btn btn--sm" type="button" id="hover-start">Reset</button></div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">State</span><span class="mini-results__v" data-out="hover-state">—</span></div>
+              <div><span class="mini-results__k">Hover delay</span><span class="mini-results__v" data-out="hover-latency">—</span></div>
+            </div>
+            <div class="log" id="hover-log" style="margin-top:.9rem;max-height:110px"></div>
+          </div>
+
+          <div class="panel panel--pad">
+            <h3>Acceleration curve</h3>
+            <p class="check-note">Sweep the pointer back and forth for six seconds, using the <em>same</em> hand movement each time — roughly 10&nbsp;cm each way.</p>
+            <div class="hitpad" id="speed-pad" style="margin-top:.9rem;height:170px">
+              <div class="pad-hint">Sweep back and forth at a consistent speed.</div>
+            </div>
+            <div class="check-actions"><button class="btn btn--sm" type="button" id="speed-start">Start 6s test</button></div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Ratio</span><span class="mini-results__v" data-out="speed-ratio">—</span></div>
+              <div><span class="mini-results__k">Verdict</span><span class="mini-results__v" data-out="speed-verdict">—</span></div>
+              <div><span class="mini-results__k">Swipes</span><span class="mini-results__v" data-out="speed-swipes">0</span></div>
+            </div>
+            <div class="log" id="speed-log" style="margin-top:.9rem;max-height:110px"></div>
+          </div>
+
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- ================= HOW TO READ ================= -->
+  <section class="section" id="how-to-read">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow eyebrow--blue">Interpretation</span>
+        <h2>What the numbers actually mean</h2>
+        <p>A raw measurement is only half the value. Here is what each result tells you in practice, and what to do about it.</p>
+      </div>
+
+      <div class="prose">
+        <h3>The click tester</h3>
+        <p>This is the fastest way to find out whether a mouse is actually broken. Press every button in turn and watch the diagram: the left and right halves light up separately, the wheel lights when you press it as a button, and the two violet tabs on the left flank light when you press your thumb buttons. If one of them never lights, that button is the fault — and on a mouse with no thumb buttons, staying dark is the correct result, not a failure.</p>
+        <p>The scroll counter is the other one worth watching. A wheel that reports one notch for every physical detent is healthy. A wheel that reports two events for one notch, or none at all for some detents, has a worn encoder, and that is the first part of most mice to die. You can still use the wheel, but it will get worse.</p>
+
+        <h3>Pointer precision</h3>
+        <p>Every target is 26 pixels across, small enough that hitting the centre takes deliberate aim but large enough that a healthy mouse on a normal surface manages it most of the time. Consistency matters more than the headline percentage: 60% on the first five targets followed by 95% on the next fifteen points to a surface or sensor problem, while a flat 80% throughout points to your sensitivity setting.</p>
+        <p><strong>If accuracy is low:</strong> try a different surface, clean the sensor lens with a dry cloth, and check that the mouse is not being used at an extreme sensitivity. If accuracy is good on a mousepad and terrible on a desk, the desk is the problem, not the mouse.</p>
+
+        <h3>Double-click speed</h3>
+        <p>Your operating system treats two clicks as a double-click only if they land within a set window, 500&nbsp;ms by default on Windows. A mouse with a worn or slow switch can push the second click past that boundary, and the result is maddening: you double-click a file and nothing opens, because the system saw two single clicks and the second one started a rename.</p>
+        <p><strong>The fix is a setting, not a repair.</strong> Open your mouse settings and raise the double-click speed slider. If a comfortably fast double-click still fails to register, the switch itself is degraded and the mouse needs cleaning or replacing.</p>
+
+        <h3>Polling rate</h3>
+        <p>Polling rate is how often your mouse reports its position to the computer — 125 times a second on a basic office mouse, 500 on a mid-range gaming model, 1000 or more on a modern sensor. Below about 125&nbsp;Hz the cursor feels like it is being dragged in steps. The figure matters most for competitive games, where the gap between a 125&nbsp;Hz and a 1000&nbsp;Hz mouse is the difference between a shot landing and not.</p>
+        <p><strong>Read the confidence label.</strong> "Hardware-grade" means the browser exposed raw samples and the number is the mouse's real rate. "Estimated only" means the browser only reported standard move events, which are throttled to the display refresh — the number is a lower bound and should not be quoted as your mouse's rate.</p>
+
+        <h3>The advanced measurements</h3>
+        <p><strong>Drag accuracy</strong> measures how far your pointer lands from the centre of a target when you are dragging rather than clicking, which is where an odd sensitivity curve shows up first.</p>
+        <p><strong>Scroll encoder</strong> counts notches in each direction and reports the pixel delta per notch. A delta that varies wildly between notches is the classic encoder warning sign.</p>
+        <p><strong>Motion smoothness</strong> reports the mean gap between pointer move events and how much that gap varies. Wireless mice add variability whenever the 2.4&nbsp;GHz link renegotiates with the receiver, and a large jitter figure often disappears when you switch to the cable or move the receiver to a USB port on the same side of the desk.</p>
+        <p><strong>Hover response</strong> measures the delay between the pointer entering a target and the first movement event being delivered. A delay of 60&nbsp;ms or more makes menus feel sluggish, and it is frequently caused by a high display poll rate rather than by the mouse.</p>
+        <p><strong>Acceleration curve</strong> works out how much further your fastest swipe travels compared with your slowest, using your own movement as the control. A ratio near 1.00× means the mapping is essentially linear; above about 1.40× and acceleration is clearly active. Turn it off in your system settings if you want the same physical gesture to always produce the same distance on screen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMMON PROBLEMS ================= -->
+  <section class="section" id="problems">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow eyebrow--amber">Common problems</span>
+        <h2>Why is my mouse doing that?</h2>
+        <p>Almost every mouse complaint falls into one of a handful of recurring categories. Here is what each one usually means, and how to tell a hardware fault from a setting that is only in your way.</p>
+      </div>
+
+      <div class="prose">
+        <h3>Why is my mouse not double-clicking?</h3>
+        <p>The most common cause is not a broken mouse at all. Your operating system has a double-click window — 500&nbsp;ms on Windows by default — and both clicks have to land inside it. If you are moving your hand between clicks, the second one arrives after the window has closed and the system logs two separate single clicks instead. The result is a file that opens and immediately drops into rename mode, or a link that never opens at all.</p>
+        <p>The fix is a setting rather than a repair: raise the double-click speed slider in your mouse settings. The <a href="#dbl-start">double-click speed test</a> above measures the actual interval between your two clicks, so you can see how much headroom you have before it becomes a problem.</p>
+
+        <h3>Why does my mouse click on its own?</h3>
+        <p>A mouse registering clicks you did not make has a problem in one of three places. A worn or dirty switch under the left button can make contact twice per press, or worse, make contact while the button sits at rest. A wireless mouse that has lost its link can report a stale button state when it reconnects. Or it is software — an automation tool, a remote desktop session or a screen recorder injecting clicks of its own.</p>
+        <p>The click tester settles it: leave the mouse alone and watch the counters. If the left-click count climbs without you touching anything, the fault is in the hardware or the wireless link. If it stays still, something on the machine is generating the clicks.</p>
+
+        <h3>Why is my mouse unresponsive or not moving?</h3>
+        <p>"Unresponsive mouse" covers four separate faults, and the difference between them decides what you do next. The mouse is <strong>asleep</strong>, which happens when a wireless mouse has idled long enough to power down and the first click is consumed waking it up. It is on the <strong>wrong input</strong>, which happens when a wireless receiver is plugged into another machine or a Bluetooth device is paired to the wrong computer. It is a <strong>driver problem</strong>, where the operating system has stopped updating the device and a reconnect fixes it. Or it is genuinely dead.</p>
+        <p>The mouse test above tells you which: if not one button registers but the pointer still moves, the hardware is fine and the problem is upstream in the connection or the driver. If nothing at all happens, the mouse itself has failed.</p>
+
+        <h3>Why is my scroll wheel jittering or skipping?</h3>
+        <p>A wheel that moves in uneven steps, or jumps two notches at a time, is almost always the scroll encoder wearing out. The encoder is a small wheel with contacts that a spring pushes against as the scroll wheel turns, and dust, dried lubricant and a tired spring all make it skip or double-fire. It is the first part of most mice to fail, usually months before the buttons go.</p>
+        <p>Cleaning the wheel with a burst of compressed air and a drop of isopropyl alcohol on the axle can rescue a lightly fouled encoder. Beyond that the encoder needs replacing, which in practice means the mouse does. The <a href="#scroll-start">scroll encoder test</a> in the advanced section counts notches in each direction and reports the pixel delta per notch, which is how you tell a worn encoder from a surface that is simply too slippery.</p>
+
+        <h3>Why does my cursor jump or freeze randomly?</h3>
+        <p>The pointer teleporting across the screen without you moving the mouse has two classic causes. The first is a dirty or damaged sensor: a speck of dust or a hair under the mouse gets picked up and thrown, so the sensor reports a sudden change in position and the cursor jumps. The second is wireless interference, where the link renegotiates with the receiver and the pointer snaps back to the last known position.</p>
+        <p>Move the mouse in slow circles and watch for a pattern. Jumps that correlate with fast, jerky movement point at the surface. Jumps that arrive at a steady rate on a clean mousepad point at the radio — move the receiver to a USB port on the same side of the desk as the mouse and see whether it stops.</p>
+
+        <h3>Why are my mouse side buttons not working?</h3>
+        <p>Side buttons are almost never handled by the operating system directly. They are reported as extra mouse buttons, and mapping them to something useful — browser back and forward being the common default — needs either the manufacturer's configuration software or a generic remapping utility. On a machine with no such software, the buttons still physically fire but the browser has no instruction for what to do with them.</p>
+        <p>That distinction is exactly what the click tester makes visible. If the violet thumb tabs light up when you press them, the hardware is fine and you need software to bind them. If they stay dark, the problem is the button or the wireless pairing, not the mapping.</p>
+      </div>
+
+      <div class="table-wrap" style="margin-top:2rem">
+        <table>
+          <thead>
+            <tr><th>Symptom</th><th>Likely cause</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cursor skips or stops at screen edges</td><td>Windows pointer acceleration or a driver-level speed setting</td><td>Mouse settings → pointer speed; also the "enhance pointer precision" toggle</td></tr>
+            <tr><td>Double-click selects nothing</td><td>Double-click speed window too tight, or a slow switch</td><td>Mouse settings → double-click speed slider</td></tr>
+            <tr><td>Scroll skips backwards</td><td>Worn scroll encoder</td><td>Physical cleaning; usually needs replacement</td></tr>
+            <tr><td>Cursor stutters on a small section of the screen</td><td>Dirt on the sensor, or a surface defect</td><td>Clean the lens; try a different pad</td></tr>
+            <tr><td>Right-click opens the wrong menu</td><td>Secondary-click mapping override</td><td>Mouse settings → "open the context menu on" → right button</td></tr>
+            <tr><td>Middle-click pastes instead of opening a new tab</td><td>Middle-click remapped in the browser</td><td>Browser extension settings, or a custom mouse macro utility</td></tr>
+            <tr><td>Movement feels laggy but the mouse is fine</td><td>Wireless interference or a low battery</td><td>Move the receiver, charge the mouse, or use the cable</td></tr>
+            <tr><td>Side buttons do nothing</td><td>Driver not installed, or buttons mapped to something else</td><td>Device manager; the manufacturer's configuration software</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">FAQ</span>
+        <h2>Mouse test questions</h2>
+      </div>
+      <div class="faq prose">
+        <details>
+          <summary>How do I test if my mouse is working?</summary>
+          <div class="faq__a"><p>Use the click tester at the top of the page. Press every button in turn — left, right, the scroll wheel, and the thumb buttons if your mouse has them — and watch the diagram. Every button that lights up is a button that works, and the scroll counter climbing as you scroll tells you the wheel is healthy too. This is the fastest mouse test there is: ten seconds and you know whether the hardware is alive.</p></div>
+        </details>
+        <details>
+          <summary>Why does the polling rate differ from what the box says?</summary>
+          <div class="faq__a"><p>Three things routinely lower the real rate below the sticker. Windows applies a device-level setting that can cut the rate in half. USB power management sleeps the device between packets. And the browser may batch standard pointer events to the display refresh, which is why this test only reports a true hardware figure where raw sampling is exposed — and says so rather than presenting an estimate as fact.</p></div>
+        </details>
+        <details>
+          <summary>My mouse has no side buttons. Should those lights stay dark?</summary>
+          <div class="faq__a"><p>Yes, permanently dark is the correct result. The two violet tabs are drawn on the left flank because that is where most gaming mice put their thumb buttons. If your mouse does not have them, they will never light and nothing is wrong.</p></div>
+        </details>
+        <details>
+          <summary>Should I close other applications before testing?</summary>
+          <div class="faq__a"><p>Not for the click tester, but yes for the timing measurements. Background processes competing for CPU can add jitter to the motion readings. A remote desktop or screen-sharing session is worth closing entirely, because the pointer position is then being reconstructed remotely and every measurement becomes meaningless.</p></div>
+        </details>
+        <details>
+          <summary>Can I use the mouse test on a trackpad?</summary>
+          <div class="faq__a"><p>You can, but read the results carefully. A trackpad is driven by your finger, so the precision and acceleration figures are all measuring a different thing entirely. The click tester still works as expected, and the double-click timing test is often more revealing on a trackpad because pads are frequently set to a slower double-click speed.</p></div>
+        </details>
+        <details>
+          <summary>Is a low accuracy score a sign the sensor is dying?</summary>
+          <div class="faq__a"><p>Possibly, but it is not the only explanation. Try the test on a clean mousepad first, and clean the sensor lens. If accuracy is high on the pad and low on the desk, the surface is the cause. If it is low on every surface, and the misses are consistently in the same direction, that usually points to either a damaged coating on the lens or a failing sensor.</p></div>
+        </details>
+        <details>
+          <summary>My browser blocks the right-click test. What now?</summary>
+          <div class="faq__a"><p>Some browsers and extensions intercept the context menu. The page suppresses the default menu inside the click tester so the event can be counted, and the right button still registers. If an extension is blocking that suppression, open the tool in a private window with extensions disabled and try again.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Now test the other half</h2>
+        <p>The keyboard suite covers key rollover, typing speed, layout detection and per-keystroke latency — the things a mouse test cannot tell you.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="keyboard-check.html">Open Keyboard Check</a>
+          <a class="btn" href="index.html">Back to the overview</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="mouse-check.html">Mouse Check</a></li>
+          <li><a href="keyboard-check.html">Keyboard Check</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="about.html">About InputScope</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="ads.txt">ads.txt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> InputScope. All rights reserved.</span>
+      <span>No data is collected. Everything runs in your browser.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/review.js"></script>
+<script src="assets/js/mouse.js"></script>
+<script>
+(function () {
+  var pill = document.getElementById('mouse-summary-pill');
+  var copyBtn = document.getElementById('mouse-copy');
+  function lines() {
+    var keys = ['disp-left', 'disp-right', 'disp-middle', 'disp-side', 'disp-scroll', 'disp-last',
+      'precision-acc', 'precision-err', 'dbl-time', 'dbl-verdict', 'poll-hz', 'poll-note',
+      'drag-offset', 'scroll-up', 'scroll-down', 'motion-avg', 'motion-jitter', 'hover-latency',
+      'speed-ratio', 'speed-verdict'];
+    return keys.map(function (k) {
+      var v = document.querySelector('[data-out="' + k + '"]');
+      var n = document.querySelector('[data-note="' + k + '"]');
+      return k.replace(/-/g, ' ') + ': ' + (v ? v.textContent : '—') + (n && n.textContent ? ' (' + n.textContent + ')' : '');
+    });
+  }
+  var idle = ['—', '0', '0 / 0', 'None', 'Idle', 'not run yet', 'no measurement yet', 'not measured yet',
+    'not sampled yet', 'not tested yet', 'no signal', 'no input yet', 'press detect to analyse'];
+  setInterval(function () {
+    if (!pill) return;
+    var m = Array.prototype.some.call(document.querySelectorAll('[data-out]'), function (el) {
+      return el.textContent && idle.indexOf(el.textContent) === -1;
+    });
+    pill.textContent = m ? 'measurements recorded' : 'nothing measured yet';
+    pill.className = 'pill ' + (m ? 'pill--ok' : 'pill--info');
+  }, 1000);
+  if (copyBtn) copyBtn.addEventListener('click', function () {
+    var text = 'InputScope — Mouse Check results\n' + new Date().toLocaleString() + '\n\n' + lines().join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        copyBtn.textContent = 'Copied';
+        setTimeout(function () { copyBtn.textContent = 'Copy results'; }, 1500);
+      });
+    }
+  });
+})();
+</script>
+</body>
+</html>

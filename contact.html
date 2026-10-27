@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact InputScope — Report a Bug, Suggest a Test, or Say Hello</title>
+<meta name="description" content="Get in touch with InputScope. Report an incorrect result, suggest a new diagnostic test, report a broken link, or send general feedback.">
+<meta property="og:title" content="Get in touch with InputScope. Report an incorrect result, sugg…">
+<meta property="og:description" content="Get in touch with InputScope. Report an incorrect result, suggest a new diagnostic test, report a broken link, or send general feedback.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/og-image.png">
+<meta name="theme-color" content="#0a0b10">
+<link rel="canonical" href="contact.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/review.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <a href="mouse-check.html">Mouse Check</a>
+      <a href="keyboard-check.html">Keyboard Check</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+    <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="tool-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="index.html">InputScope</a><span>/</span>Contact</div>
+      <span class="eyebrow eyebrow--blue">Contact</span>
+      <h1>Get in touch</h1>
+      <p>Bug reports, wrong results, missing tests, broken links — all welcome. The fastest way to fix a diagnostic tool is a specific report from someone who used it.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <div class="panel panel--pad">
+          <h3>Send a message</h3>
+          <p class="muted small">This form opens your own email client with the details filled in. Nothing is sent to a server, and nothing is stored on this site.</p>
+          <form id="contact-form" style="margin-top:1.2rem">
+            <div style="display:grid;gap:.9rem">
+              <label style="display:grid;gap:.35rem">
+                <span class="small muted">Subject</span>
+                <select name="subject" class="btn" style="text-align:left;appearance:none">
+                  <option>Report an incorrect result</option>
+                  <option>Suggest a new test</option>
+                  <option>Report a broken link or bug</option>
+                  <option>Privacy or advertising question</option>
+                  <option>Something else</option>
+                </select>
+              </label>
+              <label style="display:grid;gap:.35rem">
+                <span class="small muted">Your email</span>
+                <input type="email" name="email" required placeholder="you@example.com" class="typing-box" style="min-height:0;padding:.7rem .9rem;font-size:.95rem">
+              </label>
+              <label style="display:grid;gap:.35rem">
+                <span class="small muted">Message</span>
+                <textarea name="message" required placeholder="Tell me what happened, what you expected, and what device and browser you were using." class="typing-box" style="min-height:150px"></textarea>
+              </label>
+              <button class="btn btn--primary btn--block" type="submit">Open in my email app</button>
+              <p class="notice"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>If your device is set to a different layout, the layout detection test on the <a href="keyboard-check.html">keyboard page</a> will tell you which one it is — that is usually the first thing to check in a bug report.</span></p>
+            </div>
+          </form>
+        </div>
+
+        <div>
+          <div class="panel panel--pad">
+            <h3>Direct email</h3>
+            <p class="muted small">If your email client is configured strangely or you would rather not use the form, write to:</p>
+            <p class="mono" style="margin-bottom:0"><a href="mailto:hello@inputscope.com">hello@inputscope.com</a></p>
+          </div>
+
+          <div class="panel panel--pad" style="margin-top:1rem">
+            <h3>What is most useful to report</h3>
+            <p class="muted small">Diagnostics are easy to get subtly wrong, and a bad result is worse than no result. These are the details that let a problem be reproduced and fixed:</p>
+            <ul class="small muted" style="margin-bottom:0">
+              <li>Which test, and what it displayed</li>
+              <li>What you expected it to display instead</li>
+              <li>Your browser and operating system</li>
+              <li>The device, and how it is connected</li>
+              <li>Whether the problem is consistent or intermittent</li>
+            </ul>
+          </div>
+
+          <div class="panel panel--pad" style="margin-top:1rem">
+            <h3>Response time</h3>
+            <p class="muted small mb-0">InputScope is a small project run in spare time, so replies usually take a few days. Genuinely broken measurements and wrong explanations get priority, because a wrong number causes people to chase a hardware fault that does not exist.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="callout">
+        <h4>Something more urgent?</h4>
+        <p>InputScope cannot repair hardware, recover data, or provide support for a specific product. If your keyboard is trapping liquid, stop using it and get it serviced. If a machine is behaving dangerously, a diagnostic page is not the right tool.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="mouse-check.html">Mouse Check</a></li>
+          <li><a href="keyboard-check.html">Keyboard Check</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="about.html">About InputScope</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="ads.txt">ads.txt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> InputScope. All rights reserved.</span>
+      <span>No data is collected. Everything runs in your browser.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/review.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = new FormData(form);
+    var subject = String(d.get('subject') || 'InputScope feedback');
+    var body = 'Message:\n' + (d.get('message') || '') + '\n\nFrom:\n' + (d.get('email') || '(not given)');
+    var href = 'mailto:hello@inputscope.com?subject=' + encodeURIComponent('[InputScope] ' + subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = href;
+  });
+})();
+</script>
+</body>
+</html>

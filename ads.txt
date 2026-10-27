@@ -1,0 +1,9 @@
+# ads.txt — authorized digital sellers for InputScope
+#
+# Google AdSense publisher ID goes here once the account is approved.
+# Format: google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+#
+# Left empty deliberately: publishing an unverified or placeholder line here
+# can cause ad serving problems, and AdSense does not require the file to
+# exist before approval. Replace the placeholder with the real line from
+# your AdSense account, then keep this file at the root of the domain.

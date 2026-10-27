@@ -1,0 +1,31 @@
+# Cloudflare Pages headers
+#
+# Applied automatically by Cloudflare Pages. Inert everywhere else.
+# Cache rules: static assets are cached for a week, HTML is always revalidated
+# so a deploy is picked up immediately. The site has no content-hashed filenames,
+# so `immutable` is deliberately NOT used — the same URL can change between
+# versions.
+
+/assets/*
+  Cache-Control: public, max-age=604800
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  X-XSS-Protection: 0
+
+# Long-lived, cheap-to-serve files
+/ads.txt
+  Cache-Control: public, max-age=3600
+/robots.txt
+  Cache-Control: public, max-age=3600
+/sitemap.xml
+  Cache-Control: public, max-age=3600

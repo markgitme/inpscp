@@ -1,0 +1,12 @@
+# robots.txt for InputScope
+# All content is public and may be indexed.
+
+User-agent: *
+Allow: /
+Disallow: /assets/
+
+# Review mode is a client-side overlay activated by a query string.
+# It adds no crawlable content, but there is no reason for it to be indexed.
+Disallow: /*?review=
+
+Sitemap: https://inputscope.com/sitemap.xml
