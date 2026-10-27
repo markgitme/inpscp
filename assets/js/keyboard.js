@@ -332,35 +332,60 @@
 
   /* =========================================================
      5. Modifier lock states
-     ========================================================= */
+     ------------------------------------------------------------
+     The lock state only exists on a KeyboardEvent. There is no
+     pollable API for it, so it has to be read off the event itself.
+     ------------------------------------------------------------ */
   (function mods() {
     var pad = $('#mod-pad');
     if (!pad) return;
-    function refresh() {
-      var states = [
-        ['mod-caps', 'CapsLock', 'Caps Lock'],
-        ['mod-num', 'NumLock', 'Num Lock'],
-        ['mod-scroll', 'ScrollLock', 'Scroll Lock']
-      ];
-      states.forEach(function (s) {
-        var el = document.querySelector('[data-out="' + s[0] + '"]');
-        var note = document.querySelector('[data-note="' + s[0] + '"]');
-        var lamp = document.getElementById('lamp-' + s[0].replace('mod-', ''));
-        var on = false;
-        try { on = !!(navigator.getModifierState && navigator.getModifierState(s[1])); } catch (e) {}
+
+    var LOCKS = [
+      { out: 'mod-caps',   lamp: 'lamp-caps',   id: 'CapsLock' },
+      { out: 'mod-num',    lamp: 'lamp-num',    id: 'NumLock' },
+      { out: 'mod-scroll', lamp: 'lamp-scroll', id: 'ScrollLock' }
+    ];
+    var state = { CapsLock: false, NumLock: false, ScrollLock: false };
+
+    function render() {
+      LOCKS.forEach(function (l) {
+        var on = !!state[l.id];
+        var el = document.querySelector('[data-out="' + l.out + '"]');
         if (el) {
           el.textContent = on ? 'On' : 'Off';
           el.classList.toggle('pill--ok', on);
           el.classList.toggle('pill--info', !on);
         }
+        var lamp = document.getElementById(l.lamp);
         if (lamp) lamp.classList.toggle('on', on);
-        if (note) note.textContent = on ? 'indicator light should match' : 'indicator light should match';
       });
     }
-    window.addEventListener('keyup', refresh);
-    window.addEventListener('keydown', refresh);
-    setInterval(refresh, 400);
-    refresh();
+
+    function read(e) {
+      if (!e || typeof e.getModifierState !== 'function') return;
+      var changed = false;
+      LOCKS.forEach(function (l) {
+        var on = false;
+        try { on = !!e.getModifierState(l.id); } catch (err) { return; }
+        if (state[l.id] !== on) { state[l.id] = on; changed = true; }
+      });
+      // Only touch the DOM when a lock actually flipped, so a typing-speed
+      // test is not paying for a redraw on every keystroke.
+      if (changed) render();
+    }
+
+    // Read on every key event. Current browsers already report the toggled
+    // state on the lock key's own keydown; the matching keyup corrects it
+    // on any browser that reports the pre-toggle value there instead.
+    window.addEventListener('keydown', read);
+    window.addEventListener('keyup', read);
+
+    // The state survives while the tab sits in the background, so re-render
+    // the cached values when the visitor comes back to the tab.
+    window.addEventListener('focus', render);
+    document.addEventListener('visibilitychange', render);
+
+    render();
   })();
 
   /* =========================================================

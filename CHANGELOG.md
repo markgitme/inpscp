@@ -2,6 +2,37 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.3.2 — 2026-10-27
+
+### Fixed
+
+- **The lock key indicators never lit up.** The Lock Key State panel on
+  Keyboard Check read the lock state from `navigator.getModifierState(...)`,
+  which is not a real API — it does not exist on `Navigator` in any browser.
+  The call was guarded by a truthiness check, so it failed silently and the
+  state was permanently `false`. Every lamp sat dark and every pill read
+  "Off" no matter which lock key you pressed.
+  The correct API is `KeyboardEvent.getModifierState('CapsLock' | 'NumLock' |
+  'ScrollLock')`, which is only readable while an event is being dispatched —
+  there is no pollable equivalent, so the old 400ms interval could never have
+  worked either. The state is now read off every keydown and keyup, and the
+  DOM is only rewritten when a lock actually flips so the typing-speed test is
+  not paying for a redraw on every keystroke.
+- **The contact page scrolled sideways by 3px at 360px wide.** hCaptcha's
+  widget is a fixed 303px iframe that could not shrink inside the panel. The
+  iframe is now capped at 100% of its container, so the page no longer
+  overflows on narrow phones.
+
+### Changed
+
+- The lock panel's labels ("Caps Lock", "Num Lock", "Scroll Lock") no longer
+  wrap mid-phrase — the name sits on its own line with the lamp and the
+  On/Off pill below it.
+- The note under the lock panel now explains that not every keyboard has every
+  lock. Most laptops fold Num Lock and Scroll Lock into the Fn layer, and
+  macOS keyboards have neither, so on a Mac those two lamps will always read
+  "Off" — which is correct, not a fault.
+
 ## v1.3.1 — 2026-10-27
 
 ### Changed
