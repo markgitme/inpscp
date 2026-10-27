@@ -2,6 +2,29 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.3.5 — 2026-10-27
+
+### Fixed
+
+- **The drag test's instruction text ran through the target zone.** The hint
+  was centred across the whole track, so it overlapped the dashed target box
+  and made the "target" label inside it unreadable. It now sits in a strip
+  along the top of the track, and fades out the moment you start dragging —
+  the instruction is only useful before the first attempt.
+- **The drag accuracy test could never score a good result.** The block
+  followed the pointer by its top-left corner while the measurement compared
+  the centres of the block and the target, which put a permanent 28px bias on
+  every drop. A pixel-perfect landing read as 28.3px — "bad" — because the
+  thresholds start at 20px. The block now follows the pointer by its centre,
+  so what you aim with the cursor is what gets measured. A drop on the target
+  centre now reads about 1px, 12px off reads "warn", and a drop in the corner
+  reads "bad".
+- The green block started in the very corner on first load but moved to the
+  middle when the reset button was pressed, so the two states disagreed. Both
+  now place it the same way.
+- The drag panel's placeholder note said "drag the slider onto the marker"
+  while everything around it calls it a block and a target zone.
+
 ## v1.3.4 — 2026-10-27
 
 ### Changed

@@ -252,6 +252,14 @@
       zone.style.top = ((r.height - zone.offsetHeight) / 2) + 'px';
     }
 
+    // The block used to sit in the very corner on first load and only moved
+    // to the middle when the reset button was pressed, so the two states
+    // disagreed. Both now use this.
+    function placeHandle() {
+      handle.style.left = '24px';
+      handle.style.top = ((track.getBoundingClientRect().height - handle.offsetHeight) / 2) + 'px';
+    }
+
     function evaluate() {
       var hr = handle.getBoundingClientRect();
       var zr = zone.getBoundingClientRect();
@@ -266,14 +274,20 @@
 
     handle.addEventListener('pointerdown', function (e) {
       dragging = true;
+      track.classList.add('is-dragging');
       handle.setPointerCapture(e.pointerId);
       e.preventDefault();
     });
     handle.addEventListener('pointermove', function (e) {
       if (!dragging) return;
       var r = track.getBoundingClientRect();
-      var x = clamp(e.clientX - r.left, 0, r.width);
-      var y = clamp(e.clientY - r.top, 0, r.height);
+      var bw = handle.offsetWidth, bh = handle.offsetHeight;
+      // The block follows the pointer by its centre, not by its top-left
+      // corner. It used to be placed by the corner while the measurement
+      // compared centres, which put a permanent 28px bias on every drop —
+      // a pixel-perfect landing scored as a bad one.
+      var x = clamp(e.clientX - r.left - bw / 2, 0, Math.max(0, r.width - bw));
+      var y = clamp(e.clientY - r.top - bh / 2, 0, Math.max(0, r.height - bh));
       handle.style.left = x + 'px';
       handle.style.top = y + 'px';
     });
@@ -284,15 +298,18 @@
     });
 
     var start = $('#drag-start');
-    if (start) start.addEventListener('click', function () {
+    function reset() {
       layout();
-      handle.style.left = '24px';
-      handle.style.top = ((track.getBoundingClientRect().height - handle.offsetHeight) / 2) + 'px';
-      setOut('drag-offset', '—', 'drag the slider onto the marker', null);
-    });
+      track.classList.remove('is-dragging');
+      placeHandle();
+      setOut('drag-offset', '—', 'drag the block into the target zone', null);
+    }
+
+    if (start) start.addEventListener('click', reset);
 
     window.addEventListener('resize', layout);
     layout();
+    placeHandle();
   })();
 
   /* =========================================================

@@ -801,11 +801,17 @@ td code { color: var(--accent); }
 
 /* ---------------- Drag test ---------------- */
 .drag-track { position: relative; height: 172px; border-radius: var(--radius-sm); background: var(--bg-2); border: 1px solid var(--line); overflow: hidden; }
+/* The hint sits in a strip along the top of the track. It used to be centred
+   across the whole track, which put it straight through the target zone and
+   made the "target" label underneath unreadable. */
 .drag-track::before {
   content: "drag the block into the outlined zone";
-  position: absolute; inset: 0; display: grid; place-items: center;
-  color: var(--muted); font-size: .88rem; pointer-events: none;
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: .5rem .9rem;
+  color: var(--muted); font-size: .8rem; pointer-events: none;
+  transition: opacity .25s;
 }
+.drag-track.is-dragging::before { opacity: 0; }
 .drag-handle {
   position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px;
   background: var(--accent); cursor: grab; touch-action: none;
