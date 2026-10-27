@@ -850,7 +850,10 @@ td code { color: var(--accent); }
 .advanced-wrap > summary::after { content: "+"; margin-left: auto; color: var(--accent); font-family: var(--mono); font-size: 1.1rem; }
 .advanced-wrap[open] > summary::after { content: "–"; }
 .advanced-wrap__label { color: var(--muted); font-weight: 500; font-size: .86rem; }
-.advanced-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); margin-top: 1rem; }
+/* Two per row. At three across the fourth panel was left stranded on its
+   own with a wide empty gap beside it. */
+.advanced-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 1rem; }
+@media (max-width: 760px) { .advanced-grid { grid-template-columns: minmax(0, 1fr); } }
 .advanced-grid .panel { margin-bottom: 0 !important; }
 
 /* ---------------- Drag test ---------------- */

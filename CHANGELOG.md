@@ -2,6 +2,22 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.4.1 — 2026-10-27
+
+### Fixed
+
+- **"PressStart" was missing its space.** The instruction inside the pointer
+  precision box is a flex container, and whitespace between flex items is
+  dropped — "Press " and the bold "Start" were two separate flex items, so
+  the gap between them vanished. The text is now wrapped in a single span, so
+  the space is part of the content instead of between two boxes.
+- **The advanced diagnostics were three across, which left the fourth panel
+  stranded.** Drag accuracy, Scroll encoder and Motion smoothness filled the
+  first row and Hover response sat alone underneath with a wide empty gap
+  beside it. The grid is two across now: Drag accuracy and Scroll encoder on
+  top, Motion smoothness and Hover response below. It drops to a single
+  column below 760px.
+
 ## v1.4.0 — 2026-10-27
 
 ### Changed
