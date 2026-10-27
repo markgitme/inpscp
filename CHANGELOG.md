@@ -2,6 +2,20 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.3.1 — 2026-10-27
+
+### Changed
+
+- **Headset Test is now first in the roadmap**, with Gamepad Test second. Display
+  Test, Webcam Test and the "More to come" placeholder are unchanged.
+- **The Headset Test tag reads "In development"** instead of "Planned", so the
+  first card on the list no longer claims the same status as the ones behind it.
+  "Working" was rejected as a claim the build does not support yet — the tool
+  does not exist, so "In development" is the honest word.
+- The About page's "What is next" list reordered to match, so the two pages do
+  not contradict each other. The "Recently" table was left alone — it is a
+  record of what was published, not a current status list.
+
 ## v1.3.0 — 2026-10-27
 
 ### Changed
