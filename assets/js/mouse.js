@@ -109,12 +109,21 @@
      ------------------------------------------------------------
      The primary test. A top-down diagram of a mouse that lights
      up whichever physical button you press, with a live event log.
+
+     The click counters live here, in one object, because three
+     different things read them: the Quick summary tiles, the
+     status pill and the Copy results button. The Click tester
+     used to show its own row of counter boxes and the summary
+     read the numbers back out of them, which meant the same
+     figure appeared on screen twice.
      ========================================================= */
+  var clickCounts = { left: 0, right: 0, middle: 0, side1: 0, side2: 0, up: 0, down: 0 };
+  window.inputScopeClicks = clickCounts;
+
   (function mouseDisplay() {
     var stage = $('#mouse-stage');
     if (!stage) return;
     var logEl = $('#mouse-display-log');
-    var counts = { left: 0, right: 0, middle: 0, side1: 0, side2: 0, up: 0, down: 0 };
     var flashTimer = null;
 
     var LABELS = {
@@ -127,28 +136,8 @@
       down: 'scroll down'
     };
 
-    var SHORT = {
-      left: 'left', right: 'right', middle: 'middle',
-      side1: 'back', side2: 'forward', up: 'scroll ↑', down: 'scroll ↓'
-    };
-
     function bump(key, delta) {
-      counts[key] = (counts[key] || 0) + (delta === undefined ? 1 : delta);
-      var map = {
-        left: 'disp-left', right: 'disp-right', middle: 'disp-middle',
-        side1: 'disp-side', side2: 'disp-side'
-      };
-      var out = map[key];
-      if (out) {
-        var el = document.querySelector('[data-out="' + out + '"]');
-        if (el) el.textContent = key === 'side2'
-          ? String(counts.side1 + counts.side2)
-          : String(counts[key]);
-      }
-      if (key === 'up' || key === 'down') {
-        var s = document.querySelector('[data-out="disp-scroll"]');
-        if (s) s.textContent = String(counts.up + counts.down);
-      }
+      clickCounts[key] = (clickCounts[key] || 0) + (delta === undefined ? 1 : delta);
     }
 
     function flash(btn) {
@@ -182,7 +171,6 @@
       flash(btn);
       var pos = e && e.clientX != null ? ' (' + Math.round(e.clientX) + ', ' + Math.round(e.clientY) + ')' : '';
       log(logEl, LABELS[btn] + pos, btn === 'right' || btn === 'side1' || btn === 'side2' ? 'w' : 'ok');
-      setOut('disp-last', SHORT[btn] || LABELS[btn], 'most recent input event', null);
       stage.classList.add('is-live');
       setTimeout(function () { stage.classList.remove('is-live'); }, 220);
     }
@@ -209,11 +197,7 @@
 
     var reset = $('#mouse-display-reset');
     if (reset) reset.addEventListener('click', function () {
-      counts = { left: 0, right: 0, middle: 0, side1: 0, side2: 0, up: 0, down: 0 };
-      ['disp-left', 'disp-right', 'disp-middle', 'disp-side', 'disp-scroll'].forEach(function (k) {
-        setOut(k, '0', '', null);
-      });
-      setOut('disp-last', '—', 'no input yet', null);
+      Object.keys(clickCounts).forEach(function (k) { clickCounts[k] = 0; });
       if (logEl) logEl.innerHTML = '';
       log(logEl, 'reset — press any button on your mouse');
     });
@@ -721,7 +705,6 @@
     'disp-middle': 'Middle clicks',
     'disp-side': 'Side buttons',
     'disp-scroll': 'Scroll events',
-    'disp-last': 'Last event',
     'precision-acc': 'Precision',
     'precision-err': 'Avg offset',
     'precision-streak': 'Best streak',
@@ -741,14 +724,25 @@
     'hover-state': 'Hover state',
     'hover-latency': 'Hover delay'
   };
+  /* The click counters come from the shared object; every other reading
+     still comes from the panel that produced it. */
+  function clickValue(key) {
+    if (key === 'disp-left') return String(clickCounts.left);
+    if (key === 'disp-right') return String(clickCounts.right);
+    if (key === 'disp-middle') return String(clickCounts.middle);
+    if (key === 'disp-scroll') return String(clickCounts.up + clickCounts.down);
+    return null;
+  }
   function buildSummary() {
     if (!summary) return;
     var keys = ['disp-left', 'disp-right', 'disp-middle', 'disp-scroll', 'precision-acc', 'dbl-time', 'poll-hz'];
     summary.innerHTML = keys.map(function (k) {
       var v = document.querySelector('[data-out="' + k + '"]');
       var n = document.querySelector('[data-note="' + k + '"]');
+      var value = clickValue(k);
+      if (value === null) value = v ? v.textContent : '—';
       return '<div class="tile"><div class="tile__k">' + (LABELS[k] || k) + '</div>' +
-        '<div class="tile__v" style="font-size:1.05rem">' + (v ? v.textContent : '—') + '</div>' +
+        '<div class="tile__v" style="font-size:1.05rem">' + value + '</div>' +
         '<div class="tile__note">' + (n ? n.textContent : '') + '</div></div>';
     }).join('');
   }

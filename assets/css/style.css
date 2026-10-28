@@ -725,10 +725,16 @@ td code { color: var(--accent); }
 
 /* ---------------- Interactive mouse display ---------------- */
 .mouse-display {
-  display: grid; gap: 1.6rem; grid-template-columns: minmax(220px, 300px) 1fr;
-  align-items: center;
+  display: grid; gap: 1.4rem 1.8rem; grid-template-columns: minmax(220px, 340px) 1fr;
+  align-items: start;
 }
-@media (max-width: 760px) { .mouse-display { grid-template-columns: 1fr; justify-items: center; } }
+/* The note under the panel runs the full width of it, so it has room to
+   breathe now that the row of counter boxes is gone. */
+.mouse-display > .mouse-hint { grid-column: 1 / -1; justify-self: stretch; }
+@media (max-width: 760px) {
+  .mouse-display { grid-template-columns: 1fr; justify-items: center; }
+  .mouse-display > .mouse-hint { grid-column: 1 / -1; }
+}
 
 .mouse-stage {
   position: relative; display: grid; place-items: center;
@@ -741,7 +747,7 @@ td code { color: var(--accent); }
 .mouse-stage:hover { border-color: var(--line-2); }
 .mouse-stage.is-live { border-color: rgba(74,222,155,.45); }
 
-.mouse-svg { width: 100%; max-width: 260px; height: auto; overflow: visible; }
+.mouse-svg { width: 100%; max-width: 290px; height: auto; overflow: visible; }
 .m-body { fill: #1b2030; stroke: #333b50; stroke-width: 2; }
 .m-btn, .m-wheel, .m-side {
   fill: #232a3b; stroke: #3c445a; stroke-width: 2;
@@ -766,17 +772,24 @@ td code { color: var(--accent); }
   filter: drop-shadow(0 0 10px rgba(251,191,36,.9));
 }
 
-.mouse-readout { display: grid; gap: 1rem; }
-.leds { display: flex; flex-wrap: wrap; gap: .5rem; }
+.mouse-readout {
+  display: grid; gap: 1rem; justify-self: stretch;
+}
+/* The event log sits beside the diagram and scrolls inside itself. Its
+   height is fixed on purpose: a log that grows the panel as it fills would
+   push the Quick summary row further down the page. */
+.mouse-readout .log { height: 356px; max-height: none; overflow-y: auto; }
+@media (max-width: 760px) { .mouse-readout .log { height: 220px; } }
+.leds { display: flex; flex-wrap: wrap; gap: .55rem; }
 .led {
-  display: inline-flex; align-items: center; gap: .45rem;
-  padding: .32rem .7rem .32rem .55rem; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .5rem 1rem .5rem .8rem; border-radius: 999px;
   background: var(--card-2); border: 1px solid var(--line);
-  font-size: .8rem; font-weight: 600; color: var(--muted);
+  font-size: .92rem; font-weight: 600; color: var(--muted);
   transition: color .12s, border-color .12s, background .12s;
 }
 .led__dot {
-  width: 9px; height: 9px; border-radius: 50%; background: #2a3245; flex: none;
+  width: 13px; height: 13px; border-radius: 50%; background: #2a3245; flex: none;
   transition: background .12s, box-shadow .12s;
 }
 .led.is-on { color: var(--accent); border-color: rgba(74,222,155,.4); background: rgba(74,222,155,.10); }
@@ -787,16 +800,6 @@ td code { color: var(--accent); }
 .led.is-on--violet .led__dot { background: var(--violet); box-shadow: 0 0 9px var(--violet); }
 .led.is-on--amber { color: var(--amber); border-color: rgba(251,191,36,.4); background: rgba(251,191,36,.10); }
 .led.is-on--amber .led__dot { background: var(--amber); box-shadow: 0 0 9px var(--amber); }
-
-.mouse-counts {
-  display: grid; gap: .55rem; grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
-}
-.mouse-count {
-  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-sm);
-  padding: .6rem .75rem;
-}
-.mouse-count__v { font: 700 1.25rem/1.2 var(--mono); color: var(--text); }
-.mouse-count__k { font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); font-weight: 650; margin-top: .15rem; }
 
 .mouse-hint { font-size: .84rem; color: var(--muted); margin: 0; }
 

@@ -2,6 +2,42 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.9.4 — 2026-10-28
+
+### Changed
+
+- **The Click tester no longer shows its own row of counter boxes.** The
+  mouse page was showing the same figures twice: once inside the Click
+  tester (left clicks, right clicks, middle clicks, side buttons, scroll
+  events, last event) and again in the Quick summary row underneath. The
+  inner row is gone; each figure now has one home.
+- **The "last event" box is gone entirely.** The event log beside the
+  diagram already records every input with its coordinates, so the box was
+  saying the same thing a third time.
+- **The click counters moved into one shared object.** The Quick summary
+  tiles, the "measurements recorded" pill and the Copy results button all
+  read them from a single source of truth now, rather than reading the
+  numbers back out of a row of boxes that the Click tester no longer shows.
+  Verified by clicking the mouse: the summary, the pill, the copy output
+  and the reset button all still work.
+- **The mouse diagram is bigger.** The stage column goes from 300px to
+  340px and the drawing itself from 260px to 290px.
+- **The signal chips are bigger.** The lamp dots go from 9px to 13px, the
+  chip text from 0.8rem to 0.92rem, and the chips get more padding.
+- **The event log moved beside the diagram** instead of sitting below the
+  panel, so the live feed is next to the thing you are clicking. Its height
+  is fixed on purpose: a log that grows the panel as it fills would push
+  the Quick summary further down the page.
+- **The note under the panel runs the full width** of it, so the text has
+  room to breathe now that the row of boxes is gone.
+
+### Note
+
+- The side-button *count* no longer appears as a number anywhere on the
+  page. The Back and Forward chips still light violet when a side button
+  fires, which is how the troubleshooting document tells you to test them,
+  and the count is still in the Copy results output.
+
 ## v1.9.3 — 2026-10-28
 
 ### Changed

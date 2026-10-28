@@ -148,20 +148,11 @@
               <span class="led" data-led="scroll"><span class="led__dot"></span>Scroll</span>
             </div>
 
-            <div class="mouse-counts">
-              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-left">0</div><div class="mouse-count__k">left clicks</div></div>
-              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-right">0</div><div class="mouse-count__k">right clicks</div></div>
-              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-middle">0</div><div class="mouse-count__k">middle clicks</div></div>
-              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-side">0</div><div class="mouse-count__k">side buttons</div></div>
-              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-scroll">0</div><div class="mouse-count__k">scroll events</div></div>
-              <div class="mouse-count"><div class="mouse-count__v" data-out="disp-last" style="font-size:.95rem">—</div><div class="mouse-count__k">last event</div></div>
-            </div>
-
-            <p class="mouse-hint">Your right-click is still registered even though the browser menu is suppressed inside the panel — so keep the panel open and press every button in turn. The side buttons are drawn on the left flank because that is where most mice put them; if your mouse has none, those two stay dark and that is correct.</p>
+            <div class="log" id="mouse-display-log"></div>
           </div>
-        </div>
 
-        <div class="log" id="mouse-display-log" style="margin-top:1.4rem"></div>
+          <p class="mouse-hint">Your right-click is still registered even though the browser menu is suppressed inside the panel — so keep the panel open and press every button in turn. The side buttons are drawn on the left flank because that is where most mice put them; if your mouse has none, those two stay dark and that is correct.</p>
+        </div>
       </div>
 
       <!-- summary -->
@@ -496,22 +487,38 @@
 (function () {
   var pill = document.getElementById('mouse-summary-pill');
   var copyBtn = document.getElementById('mouse-copy');
+  /* The click counters live in one shared object now, so the Copy results
+     button reads them from there rather than from a row of boxes that the
+     Click tester no longer shows. */
+  function clicks() {
+    return window.inputScopeClicks || { left: 0, right: 0, middle: 0, side1: 0, side2: 0, up: 0, down: 0 };
+  }
+  var CLICK_VALUES = {
+    'disp-left': function (c) { return String(c.left); },
+    'disp-right': function (c) { return String(c.right); },
+    'disp-middle': function (c) { return String(c.middle); },
+    'disp-side': function (c) { return String(c.side1 + c.side2); },
+    'disp-scroll': function (c) { return String(c.up + c.down); }
+  };
   function lines() {
-    var keys = ['disp-left', 'disp-right', 'disp-middle', 'disp-side', 'disp-scroll', 'disp-last',
+    var keys = ['disp-left', 'disp-right', 'disp-middle', 'disp-side', 'disp-scroll',
       'precision-acc', 'precision-err', 'dbl-time', 'dbl-verdict', 'poll-hz', 'poll-note',
       'drag-offset', 'scroll-up', 'scroll-down', 'motion-avg', 'motion-jitter', 'hover-latency',
       ];
     return keys.map(function (k) {
       var v = document.querySelector('[data-out="' + k + '"]');
       var n = document.querySelector('[data-note="' + k + '"]');
-      return k.replace(/-/g, ' ') + ': ' + (v ? v.textContent : '—') + (n && n.textContent ? ' (' + n.textContent + ')' : '');
+      var value = CLICK_VALUES[k] ? CLICK_VALUES[k](clicks()) : (v ? v.textContent : '—');
+      return k.replace(/-/g, ' ') + ': ' + value + (n && n.textContent ? ' (' + n.textContent + ')' : '');
     });
   }
   var idle = ['—', '0', '0 / 0', 'None', 'Idle', 'not run yet', 'no measurement yet', 'not measured yet',
     'not sampled yet', 'not tested yet', 'no signal', 'no input yet', 'press detect to analyse'];
   setInterval(function () {
     if (!pill) return;
-    var m = Array.prototype.some.call(document.querySelectorAll('[data-out]'), function (el) {
+    var c = clicks();
+    var clicked = !!(c.left || c.right || c.middle || c.side1 || c.side2 || c.up || c.down);
+    var m = clicked || Array.prototype.some.call(document.querySelectorAll('[data-out]'), function (el) {
       return el.textContent && idle.indexOf(el.textContent) === -1;
     });
     pill.textContent = m ? 'measurements recorded' : 'nothing measured yet';
