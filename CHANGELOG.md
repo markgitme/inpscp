@@ -2,6 +2,56 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.9.3 — 2026-10-28
+
+### Changed
+
+- **A full proofreading pass over all 15,946 words of visible copy**, across
+  the 11 pages. British English throughout, no contractions, em dashes with
+  spaces — the house voice was measured first and protected, so the changes
+  are corrections rather than rewrites.
+- **A factual correction on the mouse page.** The display refresh rate
+  section claimed that a 144 Hz display reports a *longer* hover delay than
+  a 60 Hz one, and that a fast display *adds* apparent jitter. It is the
+  other way round: browsers deliver pointer events once per frame, so a
+  faster display makes both numbers smaller. Confirmed against Chrome's
+  own "Aligned input events" write-up and measured in the tool's own
+  environment, where a perfect mouse on a 60 Hz display reports a mean gap
+  of 17.7 ms. The keyboard document already had this right, so the two
+  pages were contradicting each other.
+- **The motion smoothness reading is now explained properly.** Because the
+  browser delivers pointer events once per frame, the average gap between
+  them is roughly the frame period — so a perfect mouse on a 60 Hz display
+  reads "Fair" rather than "Smooth". The page says so, and both threshold
+  tables gained the missing "mean 12 ms or more" row, which the tool can
+  report but no row covered.
+- **The cursor jump section no longer overclaims.** There is no jump
+  detector in the tool, so "The test that settles it" is now "The test
+  that narrows it down", and the copy says plainly that no reading sees a
+  jump itself.
+- **The same double-click threshold table appeared three times on the mouse
+  page with three different sets of wording.** All three copies now read
+  identically. The thresholds were always correct — only the prose drifted.
+- **Stale copy left over from the Troubleshooting restructure.** The about
+  page still described the troubleshooting guides as coming next, and
+  listed them at launch, when the "Recently" table says they were already
+  published. The roadmap order did not match the site's own order, and the
+  tool pages still linked to the old one-page-per-symptom headings.
+- Grammar and wording fixes: a missing comma, a subject-verb disagreement
+  ("Twenty targets gives"), a sentence that said "makes contact" twice, a
+  question mark followed by an em dash, straight quotes in the terms page
+  where the rest of the site uses curly ones, and a handful of phrases that
+  meant something other than what they said.
+
+### Fixed
+
+- The keyboard document rendered full-bleed — its callout, threshold table
+  and step blocks were ejected out of the page wrapper by stray closing
+  tags, so they ran edge to edge with no side margins. The mouse document
+  was never affected.
+- The step blocks in both documents are now a plain numbered list rather
+  than a row of cards, and the mouse page's four steps sit two by two.
+
 ## v1.9.0 — 2026-10-28
 
 ### Changed

@@ -159,7 +159,7 @@
       </div>
       <div class="prose">
         <p>Every target is 26 pixels across, small enough that hitting the centre takes deliberate aim but large enough that a healthy mouse on a normal surface manages it most of the time. Consistency matters more than the headline percentage: 60% on the first five targets followed by 95% on the next fifteen points to a surface or sensor problem, while a flat 80% throughout points to your sensitivity setting.</p>
-        <p><strong>If accuracy is low:</strong> try a different surface, clean the sensor lens with a dry cloth, and check that the mouse is not being used at an extreme sensitivity. If accuracy is good on a mousepad and terrible on a desk, the desk is the problem, not the mouse.</p>
+        <p><strong>If accuracy is low:</strong> try a different surface, clean the sensor lens with a dry cloth, and check that the mouse is not being used at an extreme sensitivity setting. If accuracy is good on a mousepad and terrible on a desk, the desk is the problem, not the mouse.</p>
       </div>
       <div class="table-wrap" style="margin-top:1.6rem">
         <table>
@@ -191,8 +191,8 @@
             <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
           </thead>
           <tbody>
-            <tr><td>Under 300 ms</td><td>&lt; 300 ms</td><td>&ldquo;Snappy&rdquo; &mdash; comfortably inside the 500 ms window</td></tr>
-            <tr><td>300&ndash;449 ms</td><td>&lt; 450 ms</td><td>&ldquo;Normal&rdquo; &mdash; typical for a healthy mouse, but the margin is thinner than you think</td></tr>
+            <tr><td>Under 300 ms</td><td>&lt; 300 ms</td><td>&ldquo;Snappy&rdquo; &mdash; comfortably inside the 500 ms window, with headroom to spare</td></tr>
+            <tr><td>300&ndash;449 ms</td><td>&lt; 450 ms</td><td>&ldquo;Normal&rdquo; &mdash; typical for a healthy mouse, but a quick hand movement can push it over</td></tr>
             <tr><td>450 ms or more</td><td>&ge; 450 ms</td><td>&ldquo;Slow&rdquo; &mdash; close to the 500 ms limit. Raise the double-click speed setting</td></tr>
           </tbody>
         </table>
@@ -226,10 +226,10 @@
         <p>Four more readings, for when the basics all pass and something still feels wrong.</p>
       </div>
       <div class="prose">
-        <p><strong>Drag accuracy</strong> measures how far your pointer lands from the centre of a target when you are dragging rather than clicking, which is where an odd sensitivity curve shows up first.</p>
+        <p><strong>Drag accuracy</strong> measures how far your pointer lands from the centre of a target when you are dragging rather than clicking &mdash; and that is where an odd sensitivity curve shows up first.</p>
         <p><strong>Scroll encoder</strong> counts notches in each direction and reports the pixel delta per notch. A delta that varies wildly between notches is the classic encoder warning sign.</p>
-        <p><strong>Motion smoothness</strong> reports the mean gap between pointer move events and how much that gap varies. Wireless mice add variability whenever the 2.4&nbsp;GHz link renegotiates with the receiver, and a large jitter figure often disappears when you switch to the cable or move the receiver to a USB port on the same side of the desk.</p>
-        <p><strong>Hover response</strong> measures the delay between the pointer entering a target and the first movement event being delivered. A delay of 60&nbsp;ms or more makes menus feel sluggish, and it is frequently caused by a high display poll rate rather than by the mouse.</p>
+        <p><strong>Motion smoothness</strong> reports the mean gap between pointer move events and how much that gap varies. The mean is mostly a property of your display rather than your mouse, because the browser delivers pointer events once per frame &mdash; see the display refresh rate section below for what that means in practice. The jitter is the half that does belong to the mouse: wireless mice add variability whenever the 2.4&nbsp;GHz link renegotiates with the receiver, and a large jitter figure often disappears when you switch to the cable or move the receiver to a USB port on the same side of the desk.</p>
+        <p><strong>Hover response</strong> measures the delay between the pointer entering a target and the first movement event being delivered. A delay of 60&nbsp;ms or more makes menus feel sluggish, and it is frequently the display&rsquo;s frame time rather than anything the mouse did. Browsers deliver pointer events once per frame, so the delay is bounded by a single frame period &mdash; 16.7&nbsp;ms on a 60&nbsp;Hz display, 6.9&nbsp;ms on a 144&nbsp;Hz one.</p>
       </div>
       <div class="table-wrap" style="margin-top:1.6rem">
         <p class="muted small">The four advanced readings, and the thresholds the tool applies to each.</p>
@@ -242,6 +242,7 @@
             <tr><td>Drag offset 8&ndash;19 px</td><td>&ge; 8 px, &lt; 20 px</td><td>A little less accurate while dragging</td></tr>
             <tr><td>Drag offset 20 px or more</td><td>&ge; 20 px</td><td>You lose a lot of accuracy while dragging</td></tr>
             <tr><td>Motion mean under 12 ms</td><td>&lt; 12 ms</td><td>Smooth, provided the jitter is also low</td></tr>
+            <tr><td>Motion mean 12 ms or more</td><td>&ge; 12 ms</td><td>Usually the display&rsquo;s frame rate, not the mouse &mdash; a 60&nbsp;Hz display reports about 16.7&nbsp;ms</td></tr>
             <tr><td>Motion jitter under 8 ms</td><td>&lt; 8 ms</td><td>Smooth</td></tr>
             <tr><td>Motion jitter 8&ndash;17 ms</td><td>&lt; 18 ms</td><td>Fair &mdash; the movement is a little uneven</td></tr>
             <tr><td>Motion jitter 18 ms or more</td><td>&ge; 18 ms</td><td>Choppy &mdash; usually the wireless link</td></tr>
@@ -272,9 +273,9 @@
             <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
           </thead>
           <tbody>
-            <tr><td>Under 300 ms</td><td>&lt; 300 ms</td><td>&ldquo;Snappy&rdquo; &mdash; you have plenty of headroom. If this still fails, the problem is not timing</td></tr>
-            <tr><td>300&ndash;449 ms</td><td>&lt; 450 ms</td><td>&ldquo;Normal&rdquo; &mdash; fine on a good day, but a quick hand movement can push it over</td></tr>
-            <tr><td>450 ms or more</td><td>&ge; 450 ms</td><td>&ldquo;Slow&rdquo; &mdash; you are close to the 500 ms limit. Raise the double-click speed setting</td></tr>
+            <tr><td>Under 300 ms</td><td>&lt; 300 ms</td><td>&ldquo;Snappy&rdquo; &mdash; comfortably inside the 500 ms window, with headroom to spare</td></tr>
+            <tr><td>300&ndash;449 ms</td><td>&lt; 450 ms</td><td>&ldquo;Normal&rdquo; &mdash; typical for a healthy mouse, but a quick hand movement can push it over</td></tr>
+            <tr><td>450 ms or more</td><td>&ge; 450 ms</td><td>&ldquo;Slow&rdquo; &mdash; close to the 500 ms limit. Raise the double-click speed setting</td></tr>
           </tbody>
         </table>
       </div>
@@ -424,7 +425,7 @@
             <tr><td>Two events for one physical notch</td><td>2 events per detent</td><td>Double-firing &mdash; the encoder is worn or fouled</td></tr>
             <tr><td>Some detents produce no event at all</td><td>dropped notches</td><td>The encoder is skipping. The mouse will get worse, not better</td></tr>
             <tr><td>Pixels per notch varies between notches</td><td>unstable delta</td><td>The classic early warning. Cleaning usually reverses it</td></tr>
-            <tr><td>The wheel scrolls sideways</td><td>horizontal events</td><td>You have a tilt wheel, or something is intercepting the pointer</td></tr>
+            <tr><td>The wheel scrolls sideways</td><td>horizontal events</td><td>You have a tilt wheel, or something is intercepting the scroll</td></tr>
           </tbody>
         </table>
       </div>
@@ -454,27 +455,28 @@
         <section class="doc-section" id="cursor-jumps">
           <h2>Why does my cursor jump or freeze randomly?</h2>
           <p class="doc-lede">A dirty sensor throwing the pointer, or a wireless link renegotiating. The pattern of the jump tells you which one it is.</p>
-<div class="callout"><h4>The test that settles it</h4><p>Motion smoothness reports the mean gap between pointer events and the jitter around it &mdash; the reading that separates a dirty sensor from a bad radio link. <a class="btn btn--primary btn--sm" href="../mouse-check.html#motion-start" style="margin-left:.4rem;vertical-align:middle">Run the motion test</a></p></div>
+<div class="callout"><h4>The test that narrows it down</h4><p>Neither reading detects a jump outright. What they do is separate the two causes: the pointer precision test tells you whether the sensor is throwing the pointer or the surface is, and the motion test tells you whether the link is dropping packets. <a class="btn btn--primary btn--sm" href="../mouse-check.html#motion-start" style="margin-left:.4rem;vertical-align:middle">Run the motion test</a></p></div>
 <div class="prose">
         <p>The pointer teleporting across the screen without you moving the mouse has two classic causes. The first is a dirty or damaged sensor: a speck of dust or a hair under the mouse gets picked up and thrown, so the sensor reports a sudden change in position and the cursor jumps. The second is wireless interference, where the link renegotiates with the receiver and the pointer snaps back to the last known position.</p>
-        <p>Move the mouse in slow circles and watch for a pattern. Jumps that correlate with fast, jerky movement point at the surface. Jumps that arrive at a steady rate on a clean mousepad point at the radio &mdash; move the receiver to a USB port on the same side of the desk as the mouse and see whether it stops.</p>
+        <p>Move the mouse in slow circles and watch for a pattern. Jumps that correlate with fast, jerky movement point at the surface. Jumps that arrive at a steady rate on a clean mousepad point at the radio &mdash; move the receiver to a USB port on the same side of the desk as the mouse and see whether it stops. No reading here sees the jump itself, so treat the motion and precision results as the rule-out rather than the proof.</p>
       </div>
 <div class="section__head">
         <span class="eyebrow">How to read it</span>
         <h3>What the motion reading means</h3>
-        <p>Motion smoothness reports the mean gap between pointer events and how much that gap varies. Jitter is where a link problem shows.</p>
+        <p>The motion reading is the mean gap between pointer events and how much that gap varies. The jitter half is where a link problem shows. The precision reading in the last row comes from the pointer precision test.</p>
       </div>
       <div class="table-wrap" style="margin-top:1.6rem">
-        <p class="muted small">The motion readings that separate a dirty sensor from a bad radio link.</p>
+        <p class="muted small">The motion readings, and the one precision reading that belongs with this fault.</p>
 <table>
           <thead>
             <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
           </thead>
           <tbody>
             <tr><td>Mean gap under 12 ms, jitter under 8 ms</td><td>&lt; 12 ms and &lt; 8 ms</td><td>&ldquo;Smooth&rdquo; &mdash; the link is holding steady</td></tr>
+            <tr><td>Mean gap 12 ms or more</td><td>&ge; 12 ms</td><td>The display&rsquo;s frame rate rather than the mouse. A 60&nbsp;Hz display reports about 16.7&nbsp;ms</td></tr>
             <tr><td>Jitter between 8 and 17 ms</td><td>&lt; 18 ms</td><td>&ldquo;Fair&rdquo; &mdash; the link is negotiating occasionally</td></tr>
             <tr><td>Jitter of 18 ms or more</td><td>&ge; 18 ms</td><td>&ldquo;Choppy&rdquo; &mdash; wireless interference or a low battery</td></tr>
-            <tr><td>Accuracy high on a pad, low on a desk</td><td>surface-specific</td><td>The sensor is fine. The surface is throwing the pointer</td></tr>
+            <tr><td>Accuracy high on a pad, low on a desk (pointer precision test)</td><td>surface-specific</td><td>The sensor is fine. The surface is throwing the pointer</td></tr>
           </tbody>
         </table>
       </div>
@@ -610,9 +612,9 @@
             <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
           </thead>
           <tbody>
-            <tr><td>Under 300 ms</td><td>&lt; 300 ms</td><td>Snappy &mdash; comfortably inside the 500 ms window</td></tr>
-            <tr><td>300&ndash;449 ms</td><td>&lt; 450 ms</td><td>Normal for a healthy mouse, but the margin is thinner than it looks</td></tr>
-            <tr><td>450 ms or more</td><td>&ge; 450 ms</td><td>Close to the limit. This is the reading to raise the setting for</td></tr>
+            <tr><td>Under 300 ms</td><td>&lt; 300 ms</td><td>&ldquo;Snappy&rdquo; &mdash; comfortably inside the 500 ms window, with headroom to spare</td></tr>
+            <tr><td>300&ndash;449 ms</td><td>&lt; 450 ms</td><td>&ldquo;Normal&rdquo; &mdash; typical for a healthy mouse, but a quick hand movement can push it over</td></tr>
+            <tr><td>450 ms or more</td><td>&ge; 450 ms</td><td>&ldquo;Slow&rdquo; &mdash; close to the 500 ms limit. Raise the double-click speed setting</td></tr>
           </tbody>
         </table>
       </div>
@@ -621,9 +623,9 @@
         <h3>Display refresh rate &mdash; the setting that is not about the mouse at all</h3>
       </div>
       <div class="prose">
-        <p>Hover response measures the delay between the pointer entering a target and the first movement event being delivered. The tool calls anything under <strong>25&nbsp;ms</strong> &ldquo;instantly&rdquo; and anything at <strong>60&nbsp;ms or more</strong> slow. On a high-refresh display, that delay is frequently the display&rsquo;s own frame time rather than anything the mouse did.</p>
-        <p>So if hover feels sluggish but every other reading is fine, change the monitor&rsquo;s refresh rate before you open the mouse. A 144&nbsp;Hz display will report a longer hover delay than a 60&nbsp;Hz one for an identical mouse, and that is the display answering, not the sensor.</p>
-        <p>The same effect shows up in motion smoothness. A pointer event that arrives between frames is delivered on the next frame, so a fast display can add apparent jitter to a perfectly healthy mouse.</p>
+        <p>Hover response measures the delay between the pointer entering a target and the first movement event being delivered. The tool calls anything under <strong>25&nbsp;ms</strong> &ldquo;instantly&rdquo; and anything at <strong>60&nbsp;ms or more</strong> slow. That delay is frequently the display&rsquo;s own frame time rather than anything the mouse did.</p>
+        <p>So if hover feels sluggish but every other reading is fine, change the monitor&rsquo;s refresh rate before you open the mouse. A 144&nbsp;Hz display reports a shorter hover delay than a 60&nbsp;Hz one for an identical mouse, because the display answers sooner &mdash; not because the sensor got any faster.</p>
+        <p>The same effect shows up in motion smoothness, and it is worth knowing before you read that result. Because the browser delivers pointer events once per frame, the average gap between them is roughly the frame period: 16.7&nbsp;ms on a 60&nbsp;Hz display, 8.3&nbsp;ms on a 120&nbsp;Hz one. A perfect mouse on a 60&nbsp;Hz display therefore reads &ldquo;Fair&rdquo; rather than &ldquo;Smooth&rdquo;. That is the display, not the mouse, and a faster display makes the number smaller rather than larger.</p>
       </div>
 <div class="section__head">
         <span class="eyebrow eyebrow--amber">Put it together</span>
@@ -645,7 +647,7 @@
         </div>
         <div class="step">
           <h3>Decide what you have</h3>
-          <p>If the numbers moved, the setting was the cause and the mouse is fine. If they did not move, the mouse or its surface is the problem &mdash; and the symptom guides cover that.</p>
+          <p>If the numbers moved, the setting was the cause and the mouse is fine. If they did not move, the mouse or its surface is the problem &mdash; and the symptom sections above cover that.</p>
         </div>
       </div>
         </section>
