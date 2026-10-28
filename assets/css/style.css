@@ -391,11 +391,16 @@ td code { color: var(--accent); }
 /* ---------- home hero: full-width centred masthead ----------
    The headline and lead use the whole container so the tool cards land on
    the first screen instead of below the fold. */
-.hero { text-align: center; padding-top: clamp(1.6rem, 4vw, 2.4rem); }
-.hero h1 { max-width: none; text-wrap: balance; }
-.hero__lead { text-wrap: pretty; }
-.hero__lead { max-width: 1040px; margin-inline: auto; }
-.hero__meta { justify-content: center; }
+.hero { text-align: center; padding-top: clamp(1.2rem, 3vw, 1.8rem); }
+.hero h1 { max-width: none; text-wrap: balance; font-size: clamp(2rem, 4.2vw, 2.9rem); }
+.hero .eyebrow { margin-bottom: .75rem; }
+.hero__lead { max-width: 1040px; margin-inline: auto; font-size: 1rem; text-wrap: pretty; }
+.hero__meta { justify-content: center; margin-top: .9rem; }
+
+/* The tools heading sits directly above the cards, so it is sized to land on
+   one line and hand the screen back to the cards below it. */
+#tools .section__head { max-width: none; }
+#tools h2 { font-size: clamp(1.4rem, 2.5vw, 1.75rem); }
 
 /* On a phone the hero eats most of the first screen, so it gives some back. */
 @media (max-width: 620px) {
