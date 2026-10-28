@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://inputscope.app/index.html</loc>
     <lastmod>2026-10-28</lastmod>
@@ -19,64 +17,22 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://inputscope.app/guides/index.html</loc>
+    <loc>https://inputscope.app/troubleshooting/index.html</loc>
     <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://inputscope.app/guides/mouse/index.html</loc>
+    <loc>https://inputscope.app/troubleshooting/mouse.html</loc>
     <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://inputscope.app/guides/mouse/what-the-numbers-mean.html</loc>
+    <loc>https://inputscope.app/troubleshooting/keyboard.html</loc>
     <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://inputscope.app/guides/mouse/double-click-not-working.html</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://inputscope.app/guides/mouse/mouse-clicks-on-its-own.html</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://inputscope.app/guides/mouse/mouse-not-moving.html</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://inputscope.app/guides/mouse/scroll-wheel-jittering.html</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://inputscope.app/guides/mouse/cursor-jumps-randomly.html</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://inputscope.app/guides/mouse/side-buttons-not-working.html</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://inputscope.app/guides/mouse/mouse-settings-that-change-your-results.html</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://inputscope.app/about.html</loc>
@@ -102,4 +58,3 @@
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
-</urlset>

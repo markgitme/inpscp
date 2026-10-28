@@ -21,7 +21,7 @@ SITE_FILES=(
   "about.html" "contact.html" "privacy.html" "terms.html" "404.html"
   "assets"
   "robots.txt" "sitemap.xml" "ads.txt" "manifest.webmanifest"
-  "guides"
+  "troubleshooting"
   "_headers"
 )
 

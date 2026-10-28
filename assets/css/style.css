@@ -394,7 +394,9 @@ td code { color: var(--accent); }
 .hero { text-align: center; padding-top: clamp(1.2rem, 3vw, 1.8rem); }
 .hero h1 { max-width: none; text-wrap: balance; font-size: clamp(2rem, 4.2vw, 2.9rem); }
 .hero .eyebrow { margin-bottom: .75rem; }
-.hero__lead { max-width: 1040px; margin-inline: auto; font-size: 1rem; text-wrap: pretty; }
+.hero__lead { text-wrap: pretty; }
+/* Only the home hero is centred; the tool pages keep their lead left-aligned. */
+.hero .hero__lead { max-width: 1040px; margin-inline: auto; font-size: 1rem; }
 .hero__meta { justify-content: center; margin-top: .9rem; }
 
 /* The tools heading sits directly above the cards, so it is sized to land on
@@ -961,3 +963,20 @@ td code { color: var(--accent); }
 .keycap-legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: .84rem; color: var(--muted); }
 .keycap-legend span { display: inline-flex; align-items: center; gap: .4rem; }
 .keycap-legend i { width: 12px; height: 12px; border-radius: 3px; display: block; }
+
+/* ---------- troubleshooting document ----------
+   One long page per device. The sections are separated by a rule and some
+   space, the way a document is, rather than by a grid of cards. */
+.doc { max-width: 84ch; }
+.doc .prose { max-width: none; }
+.doc .section__head { margin-bottom: 1.1rem; }
+.doc-section { margin-top: 2.8rem; padding-top: 2.2rem; border-top: 1px solid var(--line); }
+.doc-section:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.doc-section > h2 { margin-top: 0; font-size: clamp(1.4rem, 2.6vw, 1.85rem); }
+.doc-lede { color: var(--muted); font-size: 1.02rem; margin: 0 0 1.2rem; }
+.doc-toc { list-style: none; padding: 0; margin: 0; max-width: 64ch; display: grid; gap: .5rem; }
+.doc-toc li { display: flex; gap: .75rem; align-items: baseline; font-size: .96rem; }
+.doc-toc__n { font-family: var(--mono); font-size: .78rem; color: var(--muted); min-width: 1.5em; }
+.doc-toc a { text-decoration: none; }
+.doc-toc a:hover { text-decoration: underline; }
+.tool-card--doc { position: relative; }

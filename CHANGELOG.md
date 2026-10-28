@@ -2,6 +2,105 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.9.0 — 2026-10-28
+
+### Changed
+
+- **The Guides section becomes Troubleshooting, and one page per symptom
+  becomes one long page per device.** There were nine separate mouse guide
+  pages under `/guides/`. They are now two: `/troubleshooting/mouse.html`
+  and `/troubleshooting/keyboard.html`, each a single document-like page
+  with every fault written out in order, separated by a rule and some space.
+  A numbered table of contents sits at the top of each.
+- **The keyboard gets the same treatment as the mouse.** Its "What the
+  numbers actually mean" and "Why is my keyboard doing that?" sections moved
+  off the tool page into the keyboard document, and the tool page now carries
+  a card index into it. The keyboard document is 2,644 words with threshold
+  tables and a "what to try" block for every fault.
+- **The mouse document is 5,474 words**, keeping every paragraph of the nine
+  old pages — verified by a drift check that compares the old article
+  paragraphs against the new document.
+- **New content in the keyboard document**: threshold tables for typing
+  speed, layout detection, key rollover and response latency, plus a
+  four-step "what to try" block for each of the six faults. The thresholds
+  are the ones `assets/js/keyboard.js` actually applies.
+- The site nav item is now **Troubleshooting**. The footer's Guides column
+  becomes a Troubleshooting column listing both devices.
+- `sitemap.xml` rebuilt: 10 URLs, the nine guide URLs replaced by three.
+- The tool pages keep every test. Their long prose moved into the documents.
+
+### Fixed
+
+- The lead paragraph under the H1 sat oddly on the tool pages, because the
+  home hero's centred lead style was leaking into `.hero__lead` everywhere.
+  It is now scoped to the home hero only.
+
+## v1.8.0 — 2026-10-28
+
+### Changed
+
+- **The site nav is Guides / About / Contact only.** Mouse Check and
+  Keyboard Check come out of the header on all 18 pages. The tools stay
+  reachable from the home page cards, the footer's Tools column, the 404
+  page's own buttons, and the "test that settles it" callout on every guide.
+
+### Fixed
+
+- The guide pages had silently lost `aria-current="page"` on the Guides
+  link. It was keyed off the canonical path, which became page-relative
+  when the guides tree was built, so the check stopped matching. It is now
+  an explicit argument.
+
+## v1.7.1 — 2026-10-28
+
+### Fixed
+
+- **The tool cards were still clipping on a 720-800px window.** The hero H1
+  drops from 3.5rem to 2.9rem and now sits on one line; the lead drops to
+  1rem; the tools heading drops to 1.75rem. The tools heading was still
+  wrapping because `.section__head` has a `max-width: 62ch`, so that head is
+  now full width. Cards move from 611px to 444px and fit entirely from
+  1280x720 upward.
+
+## v1.7.0 — 2026-10-28
+
+### Changed
+
+- **The home hero becomes a centred masthead.** The H1 and lead use the full
+  container instead of a 640px column, and the whole block is centred.
+- The home page nav drops Mouse Check and Keyboard Check — the cards are
+  right there. Other pages keep them.
+- Headings use `text-wrap: pretty` so a short last line is avoided without
+  splitting a phrase like "keyboard test" in half. `balance` is used only on
+  the hero H1.
+
+## v1.6.0 — 2026-10-28
+
+### Changed
+
+- **The home page is rebuilt around the tools.** It was seven and a half
+  screens; it is now four and a half. The order is hero, The Tools, The Lab
+  is Expanding, Common problems, Limits, FAQ.
+- Removed the hero's duplicate buttons and the live pointer monitor panel,
+  "What these tests actually check", "Three steps, about two minutes", and
+  "What a healthy result looks like" — the last two now live in the guide
+  pages. "Looking for a specific fault?" went from six cards to three, and
+  the FAQ from ten questions to five.
+- **The visible FAQ and the FAQPage schema are now generated from one list**,
+  so they cannot drift. They were already out of step: ten visible questions
+  against seven in the schema.
+
+## v1.5.0 — 2026-10-28
+
+### Added
+
+- **The mouse troubleshooting guides** — ten pages under `/guides/`, built by
+  splitting the mouse page rather than writing from scratch. Every guide
+  opens with the measurement that settles the question, states the threshold
+  the tool actually applies, and gives the fix in order.
+- The nav gains Guides, the footer gains a Guides column, `sitemap.xml` is
+  rebuilt with 17 URLs, and `about.html` gains `Person` schema.
+
 ## v1.4.2 — 2026-10-27
 
 ### Fixed

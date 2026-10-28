@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keyboard Troubleshooting — One Long Guide, Every Fault | InputScope</title>
+<meta name="description" content="Everything about a misbehaving keyboard in one page: what each keyboard test measurement means, the threshold it uses, and what to do about a keyboard that will not type, dead keys, wrong characters, ghosting, lag and a stuck key.">
+<meta name="theme-color" content="#0a0b10">
+<link rel="canonical" href="keyboard.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Keyboard Troubleshooting — One Long Guide, Every Fault | InputScope">
+<meta property="og:description" content="Everything about a misbehaving keyboard in one page: what each keyboard test measurement means, the threshold it uses, and what to do about a keyboard that will not type, dead keys, wrong characters, ghosting, lag and a stuck key.">
+<meta property="og:url" content="keyboard.html">
+<meta property="og:image" content="../assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="../assets/og-image.png">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/review.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Keyboard troubleshooting",
+      "description": "Everything about a misbehaving keyboard in one page: what each keyboard test measurement means, the threshold it uses, and what to do about a keyboard that will not type, dead keys, wrong characters, ghosting, lag and a stuck key.",
+      "datePublished": "2026-10-28",
+      "dateModified": "2026-10-28",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "name": "Mark",
+        "url": "about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "InputScope",
+        "url": "index.html"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "../index.html",
+          "item": "InputScope"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "index.html",
+          "item": "Troubleshooting"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "keyboard.html",
+          "item": "Keyboard"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Troubleshooting</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+    <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="tool-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="../index.html">InputScope</a><span>/</span><a href="index.html">Troubleshooting</a><span>/</span><a href="keyboard.html">Keyboard</a></div>
+      <span class="eyebrow eyebrow--amber">Troubleshooting</span>
+      <h1>Keyboard troubleshooting</h1>
+      <p class="hero__lead">The same treatment the mouse gets: every common keyboard fault in one place, the measurement that settles it, the threshold it uses, and the fix to try first.</p>
+      <p class="muted small" style="margin:1rem 0 0">Written by <a href="../about.html">Mark</a> &middot; Updated 28 October 2026</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow eyebrow--blue">In this guide</span>
+        <h2>What this page covers</h2>
+        <p>Everything in one place, in the order you would work through it. Each section names the measurement that settles the question, the threshold it uses, and what to do next.</p>
+      </div>
+      <ol class="doc-toc">
+          <li><span class="doc-toc__n">01</span><a href="#numbers">What the numbers actually mean</a></li>
+          <li><span class="doc-toc__n">02</span><a href="#not-typing">Why is my keyboard not typing?</a></li>
+          <li><span class="doc-toc__n">03</span><a href="#dead-keys">Why are some keys on my keyboard not working?</a></li>
+          <li><span class="doc-toc__n">04</span><a href="#wrong-character">Why does my keyboard type the wrong character?</a></li>
+          <li><span class="doc-toc__n">05</span><a href="#ghosting">Why is my keyboard ghosting?</a></li>
+          <li><span class="doc-toc__n">06</span><a href="#laggy">Why does my keyboard feel laggy?</a></li>
+          <li><span class="doc-toc__n">07</span><a href="#stuck-key">Why is one key stuck down?</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--lead">
+    <div class="wrap">
+      <article class="doc">
+        <section class="doc-section" id="numbers">
+          <h2>What the numbers actually mean</h2>
+      <div class="prose">
+
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <p class="muted small">Every threshold the Keyboard Check page applies, in one table.</p>
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>40 words per minute or more</td><td>&ge; 40 wpm</td><td>Normal for a working typist</td></tr>
+            <tr><td>25&ndash;39 words per minute</td><td>&ge; 25 wpm</td><td>Slow but healthy</td></tr>
+            <tr><td>Below 25 words per minute</td><td>&lt; 25 wpm</td><td>Look at accuracy before assuming a hardware fault</td></tr>
+            <tr><td>Accuracy above 97%</td><td>&gt; 97%</td><td>The switches are clean</td></tr>
+            <tr><td>One character wrong, the rest perfect</td><td>single-key error</td><td>One worn or obstructed key, not a typing problem</td></tr>
+            <tr><td>Errors spread evenly across the text</td><td>distributed</td><td>Hand position or habit, rather than hardware</td></tr>
+            <tr><td>Layout match of 90% or more</td><td>&ge; 90%</td><td>The physical board is identified</td></tr>
+            <tr><td>Confidence reads Medium or Ambiguous</td><td>low confidence</td><td>Type more keys, including the punctuation row, and re-run</td></tr>
+            <tr><td>4 keys held register</td><td>4 / 4</td><td>Full rollover &mdash; nothing dropped</td></tr>
+            <tr><td>3 keys register</td><td>3 / 4</td><td>Meets the bar most gaming keyboards clear</td></tr>
+            <tr><td>2 keys register</td><td>2 / 4</td><td>A two-key board. The third key in a shortcut is silently dropped</td></tr>
+            <tr><td>Average latency under 9 ms</td><td>&lt; 9 ms</td><td>Inside a single 120 Hz frame</td></tr>
+            <tr><td>Average latency 9&ndash;16 ms</td><td>&lt; 17 ms</td><td>Inside a 60 Hz frame</td></tr>
+            <tr><td>Average latency 17 ms or more</td><td>&ge; 17 ms</td><td>More than one frame &mdash; usually the display</td></tr>
+            <tr><td>Jitter under 4 ms</td><td>&lt; 4 ms</td><td>Input arrives predictably</td></tr>
+            <tr><td>Jitter 8 ms or more</td><td>&ge; 8 ms</td><td>Unpredictable bursts &mdash; polling interference or a busy system</td></tr>
+          </tbody>
+        </table>
+      </div>
+        </section>
+        <section class="doc-section" id="not-typing">
+          <h2>Why is my keyboard not typing?</h2>
+          <div class="prose">
+<p>If nothing types at all, the first thing to establish is whether the computer can see the keyboard at all. The <a href="../keyboard-check.html#keymap-test">key tester</a> answers that in one second: press a key and see whether a cap lights up.</p>
+        <p>If caps light up, the keyboard is connected and the fault is in the application — a stuck modifier key, a text field that will not accept focus, or a shortcut that has captured the key. If nothing lights up, the fault is below the application layer. A wireless keyboard may simply be asleep or unpaired, which is fixed by switching it on or re-pairing it. A laptop keyboard that has gone completely dead is usually a hardware failure of the ribbon cable or the controller board, which is a repair job rather than a setting.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The key tester answers it in one second: press a key and see whether a cap lights up. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#keymap-test" style="margin-left:.4rem;vertical-align:middle">Run the key tester</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A cap lights up when you press a key</td><td>any event received</td><td>The keyboard is connected. The fault is in the application, not the hardware</td></tr>
+            <tr><td>Nothing lights up at all</td><td>0 events</td><td>Below the application layer &mdash; a sleeping or unpaired wireless keyboard, or a hardware failure</td></tr>
+            <tr><td>The first press after a pause does nothing</td><td>one lost event</td><td>The keyboard was asleep and the press was consumed waking it</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Check the key tester</h3>
+            <p>Press a handful of keys. If caps light up, the keyboard is connected and the problem is above it.</p>
+          </div>
+          <div class="step">
+            <h3>Look for a stuck modifier</h3>
+            <p>A held Ctrl, Shift or Alt swallows everything else. Press and release each modifier on its own and watch the lamp row.</p>
+          </div>
+          <div class="step">
+            <h3>Close the focused field and retry</h3>
+            <p>Some text fields lose focus without losing the keyboard. Click somewhere else and type again.</p>
+          </div>
+          <div class="step">
+            <h3>Rule out the wireless link</h3>
+            <p>If it is Bluetooth, switch it off and on, or re-pair it. A live USB keyboard in the same port tells you which side is broken.</p>
+          </div>
+          <div class="step">
+            <h3>Treat a dead laptop keyboard as a repair</h3>
+            <p>A ribbon cable or controller board failure is not a setting. It is a repair or a replacement.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="dead-keys">
+          <h2>Why are some keys on my keyboard not working?</h2>
+          <div class="prose">
+<p>Individual dead keys are almost always physical. A switch that has been flooded with liquid and then dried out stops making contact, and so does a switch worn out by a decade of the same key being hammered — the Enter key and the space bar are the usual casualties because they take the most use.</p>
+        <p>A key that works <em>intermittently</em> is a different problem. That points to debris under the keycap, or a marginal contact that only makes contact when the key is pressed slightly off-centre. The key tester separates the two cases for you: a key that never registers and a key that registers unreliably feel identical from the outside, and the event log makes the difference obvious.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The event log shows whether a key never registered at all, or registered on some presses and not others. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#keymap-test" style="margin-left:.4rem;vertical-align:middle">Run the key tester</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>The key never appears in the log</td><td>0 events</td><td>A dead switch &mdash; liquid damage, or a switch worn out by a decade of the same key</td></tr>
+            <tr><td>The key appears only on some presses</td><td>intermittent</td><td>Debris under the keycap, or a marginal contact that only closes slightly off-centre</td></tr>
+            <tr><td>Enter, space and backspace are the casualties</td><td>pattern</td><td>The keys that take the most use fail first</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Find the dead key on the map</h3>
+            <p>Press every key in turn and note which ones never light up. More than one is unusual and points elsewhere.</p>
+          </div>
+          <div class="step">
+            <h3>Pull the keycap off</h3>
+            <p>Most intermittent faults are a crumb or a piece of grit under the cap. A keycap puller or a gentle nudge off a flat surface gets it off.</p>
+          </div>
+          <div class="step">
+            <h3>Clean the switch</h3>
+            <p>Compressed air under the cap, and a drop of isopropyl alcohol if the switch has ever been wet. Work it in by pressing the key repeatedly.</p>
+          </div>
+          <div class="step">
+            <h3>Check the liquid history</h3>
+            <p>A keyboard that has had a drink fails weeks later, not immediately. If there was a spill, suspect the switches around it.</p>
+          </div>
+          <div class="step">
+            <h3>Replace the switch if it stays dead</h3>
+            <p>A hot-swap board lets you pull the switch and put a new one in. A soldered board means a repair shop.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="wrong-character">
+          <h2>Why does my keyboard type the wrong character?</h2>
+          <div class="prose">
+<p>This is nearly always a layout mismatch rather than a broken keyboard. Your keyboard has a physical layout that never changes — the key labelled Z is always in the same position — while your operating system has a layout setting that maps that position to a character. If the system believes it is German but the board is British, the key in that position produces a different symbol and you cannot type an apostrophe or a semicolon properly.</p>
+        <p>The <a href="../keyboard-check.html#layout-analyze">physical layout test</a> compares the position of every key you press against the known layouts and tells you which one the hardware actually is, so you can compare it with what the system has selected and correct the mismatch in the keyboard preferences.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The physical layout test compares the position of every key you press against the known layouts and tells you which one the hardware actually is. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#layout-analyze" style="margin-left:.4rem;vertical-align:middle">Run the layout test</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A single layout matches 90% or more</td><td>&ge; 90% match</td><td>The hardware is identified. Compare it with the layout the system has selected</td></tr>
+            <tr><td>Confidence reads Medium</td><td>ambiguous</td><td>Type a few more keys, including the punctuation row, and it will resolve</td></tr>
+            <tr><td>Confidence reads Ambiguous</td><td>no clear winner</td><td>Type a full sentence so the analyser has more keys to work with</td></tr>
+            <tr><td>The layout matches but symbols are wrong</td><td>hardware is fine</td><td>The operating system has the wrong layout selected</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Run the layout test</h3>
+            <p>Type a sentence in your normal layout. The analyser reports which physical board you have and how confident it is.</p>
+          </div>
+          <div class="step">
+            <h3>Compare with the system setting</h3>
+            <p>On Windows, check Settings &rarr; Time &amp; language &rarr; Language &amp; region &rarr; the keyboard options. On macOS, check System Settings &rarr; Keyboard &rarr; Input Sources.</p>
+          </div>
+          <div class="step">
+            <h3>Switch the layout to match the hardware</h3>
+            <p>The physical key labelled Z stays where it is; the system decides what it means. Change the system setting, not the keycap.</p>
+          </div>
+          <div class="step">
+            <h3>Check the modifier state</h3>
+            <p>A stuck Alt or Ctrl changes what a key produces. Press and release each modifier alone before changing layouts.</p>
+          </div>
+          <div class="step">
+            <h3>Re-run the test</h3>
+            <p>The layout reading should now agree with what the keyboard is producing.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="ghosting">
+          <h2>Why is my keyboard ghosting?</h2>
+          <div class="prose">
+<p>Ghosting is what happens when the keyboard cannot tell which of several simultaneously pressed keys closed its circuit, so it registers the wrong combination or drops one entirely. Budget membrane keyboards usually handle two keys at once and no more, which means a three-key combination like <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> delivers only two of the three, in the wrong order.</p>
+        <p>Gaming keyboards solve this with anti-ghosting hardware, typically handling six or more keys at once. The <a href="../keyboard-check.html#roll-start">rollover test</a> holds four keys at once and reports how many the keyboard actually delivered, so you know whether you are looking at a two-key board or a proper one.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The rollover test holds four keys at once and reports how many the keyboard actually delivered, so you know whether you are looking at a two-key board or a proper one. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#roll-start" style="margin-left:.4rem;vertical-align:middle">Run the rollover test</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>4 keys held register</td><td>4 / 4</td><td>Full rollover &mdash; nothing is being dropped</td></tr>
+            <tr><td>3 keys register</td><td>3 / 4</td><td>Meets the bar most gaming keyboards clear. Acceptable for almost everything</td></tr>
+            <tr><td>2 keys register</td><td>2 / 4</td><td>A two-key board. The third key in a shortcut is silently dropped</td></tr>
+            <tr><td>Fewer than 2 register</td><td>&lt; 2</td><td>The controller cannot resolve simultaneous presses at all</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Run the rollover test</h3>
+            <p>Hold the keys the test asks for and see how many the board actually delivers.</p>
+          </div>
+          <div class="step">
+            <h3>Reproduce the real shortcut</h3>
+            <p>Try the combination you actually use &mdash; Ctrl+Shift+Esc, or a three-key game bind &mdash; and watch which one never arrives.</p>
+          </div>
+          <div class="step">
+            <h3>Check the modifier order</h3>
+            <p>Some cheap boards resolve modifiers in a fixed order, so Ctrl+Shift+Esc delivers Ctrl+Esc and drops Shift.</p>
+          </div>
+          <div class="step">
+            <h3>Test on another machine</h3>
+            <p>If the same board rolls over fine elsewhere, the fault is the machine, not the keyboard.</p>
+          </div>
+          <div class="step">
+            <h3>Accept it, or change the keyboard</h3>
+            <p>There is no setting that adds rollover hardware. If a shortcut matters, you need a board with anti-ghosting.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="laggy">
+          <h2>Why does my keyboard feel laggy?</h2>
+          <div class="prose">
+<p>Two different things get called laggy, and they need different fixes. The first is <strong>input delay</strong> — the gap between the keypress reaching the computer and the screen responding — which is usually the display's frame rate rather than the keyboard. A 60&nbsp;Hz monitor adds up to 17&nbsp;ms to everything, which is often enough to notice in a game.</p>
+        <p>The second is <strong>key chatter</strong>, where a worn switch fires twice for one press and the duplicate character appears a moment later, which reads as the computer being slow. The response latency test measures the first and separates it from reaction time; the key tester shows you the second by flagging any key that registered twice from one press.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The response latency test measures the first and separates it from reaction time; the key tester shows you the second by flagging any key that registered twice from one press. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#lat-start" style="margin-left:.4rem;vertical-align:middle">Run the response latency test</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Average under 9 ms</td><td>&lt; 9 ms</td><td>Inside a single 120 Hz frame. Nothing to chase</td></tr>
+            <tr><td>Average 9&ndash;16 ms</td><td>&lt; 17 ms</td><td>Inside a 60 Hz frame. Normal for a 60 Hz display</td></tr>
+            <tr><td>Average 17 ms or more</td><td>&ge; 17 ms</td><td>More than one frame. The display is the usual cause</td></tr>
+            <tr><td>Jitter under 4 ms</td><td>&lt; 4 ms</td><td>Input arrives predictably &mdash; this half matters more than the average</td></tr>
+            <tr><td>Jitter 4&ndash;7 ms</td><td>&lt; 8 ms</td><td>Input arrives in uneven bursts</td></tr>
+            <tr><td>Jitter 8 ms or more</td><td>&ge; 8 ms</td><td>Unpredictable. Polling interference, a busy system, or a struggling controller</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Separate delay from chatter</h3>
+            <p>Run the latency test for the delay, and the key tester for chatter. They are different faults with different fixes.</p>
+          </div>
+          <div class="step">
+            <h3>Check the display refresh rate</h3>
+            <p>A 60 Hz monitor adds up to 17 ms to everything. A 120 Hz or 144 Hz display removes most of what feels like keyboard lag.</p>
+          </div>
+          <div class="step">
+            <h3>Look at the measured refresh rate</h3>
+            <p>The panel reports your actual display refresh next to the latency figure, so you can see how much of the number is the screen.</p>
+          </div>
+          <div class="step">
+            <h3>Close what is running</h3>
+            <p>A busy CPU delays the frame the input is waiting for. Quit heavy apps and re-measure.</p>
+          </div>
+          <div class="step">
+            <h3>Test on a wired connection</h3>
+            <p>Wireless adds a variable hop to every keystroke. A wired board that is smooth on the same machine proves the link was the problem.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="stuck-key">
+          <h2>Why is one key stuck down?</h2>
+          <div class="prose">
+<p>A key that stays pressed when you have released it is mechanically stuck. The usual causes are a swollen keycap, something sticky that has leaked under the key, or a switch that has failed closed. The symptom is usually worse than it looks: because the operating system believes the key is being held, the character repeats continuously until you can clear it.</p>
+        <p>If the key is merely sticky, pulling off the keycap and cleaning underneath usually fixes it. If the switch itself has failed closed the keyboard needs a switch replacement or a new keyboard — and if the stuck key is the space bar, a common cause is a switch that has flooded and then corroded.</p>
+      </div>
+    </div>
+  </section>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The key map shows a key that is still lit after you have let go, which is the whole diagnosis in one glance. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#keymap-test" style="margin-left:.4rem;vertical-align:middle">Run the key tester</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>The cap stays lit after you release it</td><td>keydown with no keyup</td><td>Mechanically stuck &mdash; a swollen keycap, something sticky underneath, or a switch failed closed</td></tr>
+            <tr><td>The character repeats continuously</td><td>repeat events</td><td>The system believes the key is held. Press it again to clear it, then fix the cause</td></tr>
+            <tr><td>The space bar is the one that sticks</td><td>common cause</td><td>A switch that has flooded and then corroded</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Confirm it is the key and not the software</h3>
+            <p>If the cap stays lit on the map, the key is not reporting a release, and no amount of reinstalling will change that.</p>
+          </div>
+          <div class="step">
+            <h3>Clear the repeat</h3>
+            <p>Press and release the key. If the character stops repeating, the system is fine and the switch is the problem.</p>
+          </div>
+          <div class="step">
+            <h3>Pull the keycap off</h3>
+            <p>Look underneath for a sticky drink, a sweet, or a fragment of a broken switch. This fixes more stuck keys than anything else.</p>
+          </div>
+          <div class="step">
+            <h3>Clean and work the switch</h3>
+            <p>Compressed air, a drop of isopropyl alcohol, then press the key repeatedly to work the fluid in.</p>
+          </div>
+          <div class="step">
+            <h3>Replace the switch if it stays stuck</h3>
+            <p>A failed-closed switch will not come back on its own. Hot-swap boards make this a two-minute job.</p>
+          </div>
+      </div>
+        </section>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="../mouse-check.html">Mouse Check</a></li>
+          <li><a href="../keyboard-check.html">Keyboard Check</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Troubleshooting</h4>
+        <ul>
+          <li><a href="index.html">All troubleshooting</a></li>
+          <li><a href="mouse.html">Mouse</a></li>
+          <li><a href="keyboard.html">Keyboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="../about.html">About InputScope</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Use</a></li>
+          <li><a href="../ads.txt">ads.txt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> InputScope. All rights reserved.</span>
+      <span>The tools collect nothing. The contact form is the exception.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/review.js"></script>
+</body>
+</html>
