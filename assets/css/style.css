@@ -279,12 +279,14 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 3rem 0; }
 .tool-card:hover { text-decoration: none; transform: translateY(-3px); border-color: var(--line-2); background: var(--card-2); }
 .tool-card:hover::before { opacity: 1; }
 .tool-card--blue::before { background: linear-gradient(90deg, var(--blue), transparent 70%); }
+.tool-card--violet::before { background: linear-gradient(90deg, var(--violet), transparent 70%); }
 .tool-card__icon {
   width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center;
   background: rgba(74,222,155,.10); border: 1px solid rgba(74,222,155,.22);
   color: var(--accent); margin-bottom: 1rem;
 }
 .tool-card--blue .tool-card__icon { background: rgba(110,168,254,.10); border-color: rgba(110,168,254,.24); color: var(--blue); }
+.tool-card--violet .tool-card__icon { background: rgba(167,139,250,.10); border-color: rgba(167,139,250,.26); color: var(--violet); }
 .tool-card__icon svg { width: 21px; height: 21px; }
 .tool-card h3 { margin-bottom: .4rem; }
 .tool-card p { color: var(--muted); font-size: .93rem; flex: 1; margin-bottom: 1.1rem; }
@@ -463,6 +465,14 @@ td code { color: var(--accent); }
 #mouse-summary .tile__k { font-size: .7rem; letter-spacing: .045em; }
 @media (max-width: 980px) { #mouse-summary { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 620px) { #mouse-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* The trackpad summary is always exactly six tiles. Pinned to one row so
+   the sixth is not stranded underneath a wide gap. */
+#trackpad-summary { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .55rem; }
+#trackpad-summary .tile { padding: .85rem .8rem; }
+#trackpad-summary .tile__k { font-size: .7rem; letter-spacing: .045em; }
+@media (max-width: 980px) { #trackpad-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 620px) { #trackpad-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .tile {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-sm);
   padding: 1rem 1.05rem;
@@ -514,6 +524,9 @@ td code { color: var(--accent); }
 .hitpad {
   position: relative; height: 260px; border-radius: var(--radius-sm);
   background: var(--bg-2); border: 1px solid var(--line); overflow: hidden; cursor: crosshair;
+  /* A drag is a measurement here, not a text selection. Without this,
+     dragging across a pad selects the words underneath the pointer. */
+  user-select: none; -webkit-user-select: none;
 }
 /* flex, not grid: a grid container turns each text run into its own row, so
    "Press <strong>Start</strong>, then click each target." used to stack up
@@ -806,6 +819,31 @@ td code { color: var(--accent); }
 .led.is-on--amber .led__dot { background: var(--amber); box-shadow: 0 0 9px var(--amber); }
 
 .mouse-hint { font-size: .84rem; color: var(--muted); margin: 0; }
+
+/* ---------------- Trackpad tester ----------------
+   Same shape as the mouse display — a surface on the left, the readout on
+   the right — but the pad is larger, because a trackpad is driven by a
+   finger that travels further than a mouse does. */
+.trackpad-display {
+  display: grid; gap: 1.4rem 1.8rem; grid-template-columns: minmax(280px, 440px) 1fr;
+  align-items: start;
+}
+.trackpad-display > .mouse-hint { grid-column: 1 / -1; justify-self: stretch; }
+@media (max-width: 760px) {
+  .trackpad-display { grid-template-columns: 1fr; justify-items: center; }
+  .trackpad-display > .mouse-hint { grid-column: 1 / -1; }
+}
+.trackpad-stage { width: 100%; }
+.trackpad-stage .hitpad { height: 320px; }
+@media (max-width: 760px) { .trackpad-stage .hitpad { height: 240px; } }
+.trackpad-readout { display: grid; gap: 1rem; justify-self: stretch; }
+/* Fixed height, same reason as the mouse log: a log that grows the panel
+   would push the Quick summary row down the page as it fills. */
+.trackpad-readout .log { height: 356px; max-height: none; overflow-y: auto; }
+@media (max-width: 760px) { .trackpad-readout .log { height: 220px; } }
+/* The counter inside a chip. */
+.led b { font-family: var(--mono); font-weight: 700; color: var(--text); }
+.led.is-on b { color: inherit; }
 
 /* A phrase inside a line of body copy the reader should not skim past. */
 .hl {

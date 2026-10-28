@@ -2,6 +2,58 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.10.0 — 2026-10-28
+
+### Added
+
+- **Trackpad Check**, a third tool at `/trackpad-check.html`, and a matching
+  long-form guide at `/troubleshooting/trackpad.html`.
+
+  A browser cannot tell a trackpad from a mouse — they produce the same
+  events — so the tool leans on the signals that do differ and labels
+  everything else as an estimate:
+
+  - **The tester.** A large pad with a pointer trail, counting clicks,
+    drags and scroll events, and showing the live button state. A chip that
+    still reads *held* after you have lifted your finger is a trackpad
+    reporting a contact that never ended, which is a real fault.
+  - **Pointer response.** The report rate, the timing jitter and the travel
+    per sample, taken from `pointerrawupdate`. The rate comes from the
+    **median gap between samples**, not the sample count over the window, so
+    a user who takes a moment to start moving is not told their trackpad is
+    slow. Where a browser does not expose raw samples, the page reports the
+    browser's own event rate and says so rather than passing off a display
+    artefact as a trackpad measurement.
+  - **Scroll response.** Whether the scroll is smooth or notched, read from
+    the *shape* of the scrolling: a notched wheel repeats the same step, a
+    trackpad does not. The verdict is always marked as a best guess.
+  - **Gestures.** A two-finger swipe and a pinch, tested separately. A
+    control-modified scroll with a small step is a pinch; large even ones
+    are a mouse wheel with the control key held, and the tool says which.
+
+  The guide follows the house pattern — eight sections, one per fault, each
+  naming the measurement that settles it and the fix to try first.
+
+### Fixed
+
+- **Six places where the visible FAQ and the FAQPage schema had drifted
+  apart.** The mouse page had an older answer to *How do I test if my mouse
+  is working?*, the keyboard page had dropped a sentence and used `F1 to F4`
+  and `40 to 60` where the page said `F1–F4` and `40–60`, and the homepage
+  described the ad-free policy differently in each. A reader and a search
+  engine were being told two different things. A checker now asserts that
+  the visible text and the schema match, question by question.
+
+- **Dragging on a test pad selected the text underneath the pointer.** The
+  `.hitpad` surfaces now set `user-select: none`, so a drag is a measurement
+  rather than a selection.
+
+### Changed
+
+- The site-wide copy that described the tools as covering "the two devices
+  you use most" now describes three, and every tool page links to the other
+  two. The mouse page's "Now test the other half" was no longer true.
+
 ## v1.9.6 — 2026-10-28
 
 ### Fixed

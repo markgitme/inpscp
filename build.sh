@@ -17,7 +17,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUT="$ROOT/build"
 
 SITE_FILES=(
-  "index.html" "mouse-check.html" "keyboard-check.html"
+  "index.html" "mouse-check.html" "keyboard-check.html" "trackpad-check.html"
   "about.html" "contact.html" "privacy.html" "terms.html" "404.html"
   "assets"
   "robots.txt" "sitemap.xml" "ads.txt" "manifest.webmanifest"
