@@ -554,24 +554,42 @@ td code { color: var(--accent); }
 .log__line .x { color: var(--red); }
 .log__line .w { color: var(--amber); }
 
-/* ---------------- Keyboard tool ---------------- */
+/* ---------------- Keyboard tool ----------------
+   The map is a 20-column board: a 15-unit alpha block, a one-unit gap, and a
+   four-unit numpad. The alpha block and the numpad are separate grids so
+   their rows line up exactly, and the whole board is sized in key units so
+   it scales down as one piece when the column gets narrow. */
+/* A full-size board is wider than a phone. It scrolls sideways inside the
+   panel rather than pushing the page out sideways. */
+.kbd-scroll { overflow-x: auto; overscroll-behavior-x: contain; }
 .kbd-map {
-  display: flex; flex-direction: column; gap: 6px;
+  --u: 42px; --kg: 6px;
+  width: max-content; margin-inline: auto;
   background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius-sm);
   padding: 1.1rem;
 }
-.kbd-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.kbd-frow { display: flex; gap: var(--kg); margin-bottom: var(--kg); }
+.kbd-frow .kbd-key { width: var(--u); }
+.kbd-body { display: flex; gap: calc(var(--u) + var(--kg)); align-items: flex-start; }
+.kbd-alpha {
+  display: grid; grid-template-columns: repeat(15, var(--u));
+  grid-auto-rows: var(--u); gap: var(--kg);
+}
+.kbd-numpad {
+  display: grid; grid-template-columns: repeat(4, var(--u));
+  grid-auto-rows: var(--u); gap: var(--kg);
+}
 .kbd-key {
-  min-width: 42px; height: 42px; padding: 0 .5rem;
+  min-width: 0; padding: 0 .25rem;
   display: grid; place-items: center; border-radius: 8px;
   background: var(--card-2); border: 1px solid var(--line-2); border-bottom-width: 2px;
-  font-family: var(--mono); font-size: .78rem; color: var(--text-2);
+  font-family: var(--mono); font-size: .74rem; color: var(--text-2);
   transition: transform .06s ease, background .12s, color .12s, border-color .12s;
-  user-select: none;
+  user-select: none; overflow: hidden; white-space: nowrap;
 }
-.kbd-key.wide { min-width: 74px; }
-.kbd-key.xwide { min-width: 104px; }
-.kbd-key.tall { height: 88px; }
+.kbd-key.w2 { grid-column: span 2; }
+.kbd-key.w3 { grid-column: span 3; }
+.kbd-key.w6 { grid-column: span 6; }
 .kbd-key.hit {
   background: var(--accent); color: var(--accent-ink); border-color: transparent;
   transform: translateY(1px);
@@ -579,6 +597,58 @@ td code { color: var(--accent); }
 .kbd-key.hit--blue { background: var(--blue); color: #061225; }
 .kbd-key.dead { opacity: .32; }
 .kbd-key.spacer { background: transparent; border-color: transparent; }
+.kbd-key.np { font-size: .7rem; }
+.kbd-key.np-enter { font-size: 1.1rem; }
+
+@media (max-width: 1080px) { .kbd-map { --u: 38px; } }
+@media (max-width: 900px) { .kbd-map { --u: 28px; } .kbd-key { font-size: .68rem; } }
+@media (max-width: 700px) { .kbd-map { --u: 26px; --kg: 5px; } .kbd-key { font-size: .6rem; } .kbd-key.np { font-size: .56rem; } }
+@media (max-width: 520px) { .kbd-map { --u: 22px; --kg: 4px; } .kbd-key { font-size: .56rem; } .kbd-key.np { font-size: .52rem; } }
+
+/* ---------------- Trackpad display ----------------
+   A picture of the trackpad that answers the pointer while it is over it.
+   The tester further down the page does the measuring; this one is here so
+   the device is visible the moment the page opens. */
+.tp-display {
+  display: flex; flex-direction: column; align-items: center;
+  margin-top: 1.3rem;
+}
+.tp-display__pad {
+  position: relative; width: 320px; max-width: 100%; height: 190px;
+  border-radius: 16px;
+  background: linear-gradient(170deg, var(--card-2), var(--bg-2));
+  border: 1px solid var(--line-2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 6px 18px -12px rgba(0,0,0,.8);
+  cursor: crosshair; overflow: hidden;
+  transition: border-color .15s, box-shadow .15s;
+}
+.tp-display__pad.is-live {
+  border-color: rgba(74,222,155,.45);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 0 26px -6px rgba(74,222,155,.45);
+}
+/* The lower half of a trackpad is the button. */
+.tp-display__pad::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
+  border-top: 1px solid var(--line);
+  background: transparent; transition: background .1s;
+}
+.tp-display__pad.is-down::after { background: rgba(74,222,155,.16); }
+.tp-display__dot {
+  position: absolute; width: 13px; height: 13px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 12px rgba(74,222,155,.9);
+  transform: translate(-50%,-50%); pointer-events: none; z-index: 2;
+  opacity: 0; transition: opacity .12s;
+}
+.tp-display__pad.is-live .tp-display__dot { opacity: 1; }
+.tp-display__hint {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: .82rem; pointer-events: none;
+  transition: opacity .15s;
+}
+.tp-display__pad.is-live .tp-display__hint { opacity: 0; }
+.tp-display__caption {
+  font-size: .74rem; color: var(--muted); margin: .5rem 0 0; letter-spacing: .04em;
+}
 
 .typing-box {
   width: 100%; min-height: 132px; resize: vertical;

@@ -214,6 +214,36 @@
   })();
 
   /* =========================================================
+     0a. The trackpad display — a picture of the pad that answers
+         the pointer while it is over it. This is the one you see
+         at the top of the page; the tester below does the
+         measuring.
+     ========================================================= */
+  (function display() {
+    var pad = $('#tp-display-pad');
+    if (!pad) return;
+    var dot = $('#tp-display-dot');
+
+    pad.addEventListener('pointerenter', function () { pad.classList.add('is-live'); });
+    pad.addEventListener('pointerleave', function () {
+      pad.classList.remove('is-live');
+      pad.classList.remove('is-down');
+    });
+    pad.addEventListener('pointermove', function (e) {
+      var r = pad.getBoundingClientRect();
+      if (dot) {
+        dot.style.left = (e.clientX - r.left) + 'px';
+        dot.style.top = (e.clientY - r.top) + 'px';
+      }
+    });
+    pad.addEventListener('pointerdown', function (e) {
+      e.preventDefault();
+      pad.classList.add('is-down');
+    });
+    window.addEventListener('pointerup', function () { pad.classList.remove('is-down'); });
+  })();
+
+  /* =========================================================
      1. Pointer response — how fast the trackpad reports movement
      ========================================================= */
   (function pointerResponse() {

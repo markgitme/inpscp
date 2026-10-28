@@ -2,6 +2,32 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.12.0 — the key tester gets a numpad, and a trackpad to look at
+
+### Added
+
+- **A numpad on the key map.** The board was a 60% layout with the right-hand
+  third empty, so it read as lopsided and it was not the keyboard most people
+  have on the desk. It is now a full-size board: a 15-unit alpha block, a
+  one-unit gap and a four-unit numpad, with the numpad's tall keys — `+` and
+  `enter` — spanning two rows the way a real one does. Seventeen new keys
+  (`Numpad0`–`Numpad9`, `NumpadAdd`, `NumpadSubtract`, `NumpadMultiply`,
+  `NumpadDivide`, `NumpadDecimal`, `NumpadEnter` and `NumLock`) light up on
+  press like the rest, so the numpad is tested, not just drawn.
+
+- **A trackpad display**, directly under the keyboard. A picture of the pad
+  that answers the pointer while it is over it: a dot follows your cursor and
+  the button half of the pad lights when you press. It is a display, not a
+  measurement — the trackpad tester further down the page still does the
+  counting, and both are live.
+
+### Changed
+
+- **The map is now a grid of key units** rather than a flex list of rows, so
+  every row lines up and the whole board scales down as one piece. On a phone
+  a full-size board does not fit, so it scrolls sideways inside the panel
+  instead of pushing the page out sideways.
+
 ## v1.11.0 — the trackpad joins the keyboard tool
 
 v1.10.0 shipped Trackpad Check as a tool in its own right: its own page, its own
