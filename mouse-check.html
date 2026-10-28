@@ -96,6 +96,7 @@
     <nav class="nav" id="site-nav" aria-label="Main navigation">
       <a href="mouse-check.html" aria-current="page">Mouse Check</a>
       <a href="keyboard-check.html">Keyboard Check</a>
+      <a href="guides/index.html">Guides</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -344,93 +345,48 @@
     </div>
   </section>
 
-  <!-- ================= HOW TO READ ================= -->
-  <section class="section" id="how-to-read">
+  <!-- ================= TROUBLESHOOTING ================= -->
+  <section class="section" id="troubleshooting">
     <div class="wrap">
       <div class="section__head">
-        <span class="eyebrow eyebrow--blue">Interpretation</span>
-        <h2>What the numbers actually mean</h2>
-        <p>A raw measurement is only half the value. Here is what each result tells you in practice, and what to do about it.</p>
+        <span class="eyebrow eyebrow--amber">Troubleshooting</span>
+        <h2>Something not behaving?</h2>
+        <p>Six faults account for almost every mouse complaint. Each guide below names the measurement that settles it, the threshold that turns a number into a diagnosis, and the fix that follows &mdash; in the order you should try it.</p>
       </div>
 
-      <div class="prose">
-        <h3>The click tester</h3>
-        <p>This is the fastest way to find out whether a mouse is actually broken. Press every button in turn and watch the diagram: the left and right halves light up separately, the wheel lights when you press it as a button, and the two violet tabs on the left flank light when you press your thumb buttons. If one of them never lights, that button is the fault — and on a mouse with no thumb buttons, staying dark is the correct result, not a failure.</p>
-        <p>The scroll counter is the other one worth watching. A wheel that reports one notch for every physical detent is healthy. A wheel that reports two events for one notch, or none at all for some detents, has a worn encoder, and that is the first part of most mice to die. You can still use the wheel, but it will get worse.</p>
-
-        <h3>Pointer precision</h3>
-        <p>Every target is 26 pixels across, small enough that hitting the centre takes deliberate aim but large enough that a healthy mouse on a normal surface manages it most of the time. Consistency matters more than the headline percentage: 60% on the first five targets followed by 95% on the next fifteen points to a surface or sensor problem, while a flat 80% throughout points to your sensitivity setting.</p>
-        <p><strong>If accuracy is low:</strong> try a different surface, clean the sensor lens with a dry cloth, and check that the mouse is not being used at an extreme sensitivity. If accuracy is good on a mousepad and terrible on a desk, the desk is the problem, not the mouse.</p>
-
-        <h3>Double-click speed</h3>
-        <p>Your operating system treats two clicks as a double-click only if they land within a set window, 500&nbsp;ms by default on Windows. A mouse with a worn or slow switch can push the second click past that boundary, and the result is maddening: you double-click a file and nothing opens, because the system saw two single clicks and the second one started a rename.</p>
-        <p><strong>The fix is a setting, not a repair.</strong> Open your mouse settings and raise the double-click speed slider. If a comfortably fast double-click still fails to register, the switch itself is degraded and the mouse needs cleaning or replacing.</p>
-
-        <h3>Polling rate</h3>
-        <p>Polling rate is how often your mouse reports its position to the computer — 125 times a second on a basic office mouse, 500 on a mid-range gaming model, 1000 or more on a modern sensor. Below about 125&nbsp;Hz the cursor feels like it is being dragged in steps. The figure matters most for competitive games, where the gap between a 125&nbsp;Hz and a 1000&nbsp;Hz mouse is the difference between a shot landing and not.</p>
-        <p><strong>Read the confidence label.</strong> "Hardware-grade" means the browser exposed raw samples and the number is the mouse's real rate. "Estimated only" means the browser only reported standard move events, which are throttled to the display refresh — the number is a lower bound and should not be quoted as your mouse's rate.</p>
-
-        <h3>The advanced measurements</h3>
-        <p><strong>Drag accuracy</strong> measures how far your pointer lands from the centre of a target when you are dragging rather than clicking, which is where an odd sensitivity curve shows up first.</p>
-        <p><strong>Scroll encoder</strong> counts notches in each direction and reports the pixel delta per notch. A delta that varies wildly between notches is the classic encoder warning sign.</p>
-        <p><strong>Motion smoothness</strong> reports the mean gap between pointer move events and how much that gap varies. Wireless mice add variability whenever the 2.4&nbsp;GHz link renegotiates with the receiver, and a large jitter figure often disappears when you switch to the cable or move the receiver to a USB port on the same side of the desk.</p>
-        <p><strong>Hover response</strong> measures the delay between the pointer entering a target and the first movement event being delivered. A delay of 60&nbsp;ms or more makes menus feel sluggish, and it is frequently caused by a high display poll rate rather than by the mouse.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= COMMON PROBLEMS ================= -->
-  <section class="section" id="problems">
-    <div class="wrap">
-      <div class="section__head">
-        <span class="eyebrow eyebrow--amber">Common problems</span>
-        <h2>Why is my mouse doing that?</h2>
-        <p>Almost every mouse complaint falls into one of a handful of recurring categories. Here is what each one usually means, and how to tell a hardware fault from a setting that is only in your way.</p>
+      <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))">
+        <a class="tool-card" href="guides/mouse/double-click-not-working.html">
+          <h3>Why is my mouse not double-clicking?</h3>
+          <p>Usually a double-click window that is too tight, occasionally a worn switch. The guide has the fix for each, and a test that measures your actual interval.</p>
+        </a>
+        <a class="tool-card" href="guides/mouse/mouse-clicks-on-its-own.html">
+          <h3>Why does my mouse keep clicking on its own?</h3>
+          <p>A switch that is making contact at rest, or a wireless link reporting a stale button state. The click tester tells you which.</p>
+        </a>
+        <a class="tool-card" href="guides/mouse/mouse-not-moving.html">
+          <h3>Why is my mouse not moving?</h3>
+          <p>Asleep, on the wrong input, a driver problem, or dead. Four faults that all look identical until you test them.</p>
+        </a>
+        <a class="tool-card" href="guides/mouse/scroll-wheel-jittering.html">
+          <h3>Why does my scroll wheel jitter or skip?</h3>
+          <p>A worn scroll encoder, usually the first part of a mouse to fail. How to clean it, and how to tell it apart from a bad surface.</p>
+        </a>
+        <a class="tool-card" href="guides/mouse/cursor-jumps-randomly.html">
+          <h3>Why does my cursor jump around?</h3>
+          <p>A dirty sensor throwing the pointer, or a wireless link renegotiating. The pattern of the jump tells you which one it is.</p>
+        </a>
+        <a class="tool-card" href="guides/mouse/side-buttons-not-working.html">
+          <h3>Why are my mouse side buttons not working?</h3>
+          <p>Almost never broken hardware. The buttons fire fine; the operating system just has no instruction for what to do with them.</p>
+        </a>
       </div>
 
-      <div class="prose">
-        <h3>Why is my mouse not double-clicking?</h3>
-        <p>The most common cause is not a broken mouse at all. Your operating system has a double-click window — 500&nbsp;ms on Windows by default — and both clicks have to land inside it. If you are moving your hand between clicks, the second one arrives after the window has closed and the system logs two separate single clicks instead. The result is a file that opens and immediately drops into rename mode, or a link that never opens at all.</p>
-        <p>The fix is a setting rather than a repair: raise the double-click speed slider in your mouse settings. The <a href="#dbl-start">double-click speed test</a> above measures the actual interval between your two clicks, so you can see how much headroom you have before it becomes a problem.</p>
-
-        <h3>Why does my mouse click on its own?</h3>
-        <p>A mouse registering clicks you did not make has a problem in one of three places. A worn or dirty switch under the left button can make contact twice per press, or worse, make contact while the button sits at rest. A wireless mouse that has lost its link can report a stale button state when it reconnects. Or it is software — an automation tool, a remote desktop session or a screen recorder injecting clicks of its own.</p>
-        <p>The click tester settles it: leave the mouse alone and watch the counters. If the left-click count climbs without you touching anything, the fault is in the hardware or the wireless link. If it stays still, something on the machine is generating the clicks.</p>
-
-        <h3>Why is my mouse unresponsive or not moving?</h3>
-        <p>"Unresponsive mouse" covers four separate faults, and the difference between them decides what you do next. The mouse is <strong>asleep</strong>, which happens when a wireless mouse has idled long enough to power down and the first click is consumed waking it up. It is on the <strong>wrong input</strong>, which happens when a wireless receiver is plugged into another machine or a Bluetooth device is paired to the wrong computer. It is a <strong>driver problem</strong>, where the operating system has stopped updating the device and a reconnect fixes it. Or it is genuinely dead.</p>
-        <p>The mouse test above tells you which: if not one button registers but the pointer still moves, the hardware is fine and the problem is upstream in the connection or the driver. If nothing at all happens, the mouse itself has failed.</p>
-
-        <h3>Why is my scroll wheel jittering or skipping?</h3>
-        <p>A wheel that moves in uneven steps, or jumps two notches at a time, is almost always the scroll encoder wearing out. The encoder is a small wheel with contacts that a spring pushes against as the scroll wheel turns, and dust, dried lubricant and a tired spring all make it skip or double-fire. It is the first part of most mice to fail, usually months before the buttons go.</p>
-        <p>Cleaning the wheel with a burst of compressed air and a drop of isopropyl alcohol on the axle can rescue a lightly fouled encoder. Beyond that the encoder needs replacing, which in practice means the mouse does. The <a href="#scroll-start">scroll encoder test</a> in the advanced section counts notches in each direction and reports the pixel delta per notch, which is how you tell a worn encoder from a surface that is simply too slippery.</p>
-
-        <h3>Why does my cursor jump or freeze randomly?</h3>
-        <p>The pointer teleporting across the screen without you moving the mouse has two classic causes. The first is a dirty or damaged sensor: a speck of dust or a hair under the mouse gets picked up and thrown, so the sensor reports a sudden change in position and the cursor jumps. The second is wireless interference, where the link renegotiates with the receiver and the pointer snaps back to the last known position.</p>
-        <p>Move the mouse in slow circles and watch for a pattern. Jumps that correlate with fast, jerky movement point at the surface. Jumps that arrive at a steady rate on a clean mousepad point at the radio — move the receiver to a USB port on the same side of the desk as the mouse and see whether it stops.</p>
-
-        <h3>Why are my mouse side buttons not working?</h3>
-        <p>Side buttons are almost never handled by the operating system directly. They are reported as extra mouse buttons, and mapping them to something useful — browser back and forward being the common default — needs either the manufacturer's configuration software or a generic remapping utility. On a machine with no such software, the buttons still physically fire but the browser has no instruction for what to do with them.</p>
-        <p>That distinction is exactly what the click tester makes visible. If the violet thumb tabs light up when you press them, the hardware is fine and you need software to bind them. If they stay dark, the problem is the button or the wireless pairing, not the mapping.</p>
+      <div class="callout callout--amber" style="margin-top:1.6rem">
+        <h4>Looking for the meaning of a number rather than a fault?</h4>
+        <p><a href="guides/mouse/what-the-numbers-mean.html">What the mouse test numbers actually mean</a> explains every reading this page produces, with the exact thresholds the tool applies. And <a href="guides/mouse/mouse-settings-that-change-your-results.html">mouse settings that change your test results</a> covers the Windows and macOS switches that move those numbers &mdash; including the one-setting experiment that tells a mouse fault from a setting fault.</p>
       </div>
 
-      <div class="table-wrap" style="margin-top:2rem">
-        <table>
-          <thead>
-            <tr><th>Symptom</th><th>Likely cause</th><th>Where to look</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Cursor skips or stops at screen edges</td><td>Windows pointer acceleration or a driver-level speed setting</td><td>Mouse settings → pointer speed; also the "enhance pointer precision" toggle</td></tr>
-            <tr><td>Double-click selects nothing</td><td>Double-click speed window too tight, or a slow switch</td><td>Mouse settings → double-click speed slider</td></tr>
-            <tr><td>Scroll skips backwards</td><td>Worn scroll encoder</td><td>Physical cleaning; usually needs replacement</td></tr>
-            <tr><td>Cursor stutters on a small section of the screen</td><td>Dirt on the sensor, or a surface defect</td><td>Clean the lens; try a different pad</td></tr>
-            <tr><td>Right-click opens the wrong menu</td><td>Secondary-click mapping override</td><td>Mouse settings → "open the context menu on" → right button</td></tr>
-            <tr><td>Middle-click pastes instead of opening a new tab</td><td>Middle-click remapped in the browser</td><td>Browser extension settings, or a custom mouse macro utility</td></tr>
-            <tr><td>Movement feels laggy but the mouse is fine</td><td>Wireless interference or a low battery</td><td>Move the receiver, charge the mouse, or use the cable</td></tr>
-            <tr><td>Side buttons do nothing</td><td>Driver not installed, or buttons mapped to something else</td><td>Device manager; the manufacturer's configuration software</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p class="muted small" style="margin-top:1.1rem"><a href="guides/mouse/index.html">All mouse troubleshooting guides &rarr;</a></p>
     </div>
   </section>
 
@@ -501,6 +457,15 @@
         <ul>
           <li><a href="mouse-check.html">Mouse Check</a></li>
           <li><a href="keyboard-check.html">Keyboard Check</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Guides</h4>
+        <ul>
+          <li><a href="guides/index.html">All guides</a></li>
+          <li><a href="guides/mouse/index.html">Mouse troubleshooting</a></li>
+          <li><a href="guides/mouse/what-the-numbers-mean.html">What the numbers mean</a></li>
+          <li><a href="guides/mouse/mouse-settings-that-change-your-results.html">Mouse settings</a></li>
         </ul>
       </div>
       <div class="footer-col">

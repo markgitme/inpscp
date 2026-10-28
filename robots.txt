@@ -9,4 +9,4 @@ Disallow: /assets/
 # It adds no crawlable content, but there is no reason for it to be indexed.
 Disallow: /*?review=
 
-Sitemap: https://inputscope.com/sitemap.xml
+Sitemap: https://inputscope.app/sitemap.xml
