@@ -2,6 +2,35 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.11.0 — the trackpad joins the keyboard tool
+
+v1.10.0 shipped Trackpad Check as a tool in its own right: its own page, its own
+troubleshooting guide, its own FAQ, its own schema, a home page card and a sitemap
+entry. That was too much for something still being worked out.
+
+The trackpad is now a **working panel inside the keyboard tool** — the tester and the
+three measurements, on `keyboard-check.html`. `trackpad-check.html` and
+`troubleshooting/trackpad.html` are gone, along with the home page card, the sitemap
+entries and the footer links. The site is 11 pages again, with two tools and two
+troubleshooting documents.
+
+What survives from v1.10.0 is the part that was worth having:
+
+- **The measurements.** The pointer report rate, timing jitter and travel per sample;
+  the shape of the scroll; and whether a two-finger swipe and a pinch reach the page.
+- **The honesty rules.** A browser cannot tell a trackpad from a mouse, so the scroll
+  verdict is labelled a best guess. Where a browser does not expose raw input samples,
+  the rate is reported as an estimate rather than judged against trackpad thresholds.
+  A control-modified scroll with a large even delta is a mouse wheel with the control
+  key held, not a pinch.
+- **Two bug fixes.** The visible FAQ and the FAQPage schema had drifted apart in six
+  places, so a reader and a search engine were being told two different things; and
+  dragging on a test pad selected the text underneath the pointer.
+
+The trackpad block adds **1,181px** to the keyboard page — 4,589px to 5,770px, or
+5.1 screens to 6.4. Folding it into a disclosure would take that back out.
+
+
 ## v1.10.0 — 2026-10-28
 
 ### Added

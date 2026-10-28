@@ -452,33 +452,4 @@
       }, 6000);
     });
   })();
-
-  /* =========================================================
-     Summary + copy
-     ========================================================= */
-  var summary = $('#trackpad-summary');
-  var LABELS = {
-    'ptr-hz': 'Report rate',
-    'ptr-jitter': 'Timing jitter',
-    'scr-type': 'Scroll type',
-    'scr-hz': 'Scroll rate',
-    'gst-swipe': 'Swipes',
-    'gst-pinch': 'Pinch gestures',
-    'tp-clicks': 'Clicks',
-    'tp-drags': 'Drags',
-    'tp-scrolls': 'Scrolls'
-  };
-  function buildSummary() {
-    if (!summary) return;
-    var keys = ['ptr-hz', 'ptr-jitter', 'scr-type', 'scr-hz', 'gst-swipe', 'gst-pinch'];
-    summary.innerHTML = keys.map(function (k) {
-      var v = document.querySelector('[data-out="' + k + '"]');
-      var n = document.querySelector('[data-note="' + k + '"]');
-      return '<div class="tile"><div class="tile__k">' + (LABELS[k] || k) + '</div>' +
-        '<div class="tile__v" style="font-size:1.05rem">' + (v ? v.textContent : '—') + '</div>' +
-        '<div class="tile__note">' + (n ? n.textContent : '') + '</div></div>';
-    }).join('');
-  }
-  setInterval(buildSummary, 900);
-  buildSummary();
 })();

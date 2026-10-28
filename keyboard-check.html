@@ -54,12 +54,12 @@
         {
           "@type": "Question",
           "name": "Why do my function keys never light up?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Because the operating system or browser has claimed them before the web page sees them. F1\u2013F4 frequently switch tabs, F5 reloads, and F11 toggles full screen. On a plain keyboard with no remapping software installed, the browser will deliver the event and the cap will light. The absence of that behaviour is a browser limitation, not a hardware fault." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Because the operating system or browser has claimed them before the web page sees them. F1–F4 frequently switch tabs, F5 reloads, and F11 toggles full screen. On a plain keyboard with no remapping software installed, the browser will deliver the event and the cap will light. The absence of that behaviour is a browser limitation, not a hardware fault." }
         },
         {
           "@type": "Question",
           "name": "What is a normal typing speed?",
-          "acceptedAnswer": { "@type": "Answer", "text": "For everyday use, 40\u201360 words per minute with high accuracy is comfortable. Touch typists often sit at 70\u2013100, and professional transcription work goes considerably higher. The useful thing to measure is your own change over time, because a sudden drop in accuracy almost always has a hardware explanation while a drop in speed usually does not." }
+          "acceptedAnswer": { "@type": "Answer", "text": "For everyday use, 40–60 words per minute with high accuracy is comfortable. Touch typists often sit at 70–100, and professional transcription work goes considerably higher. The useful thing to measure is your own change over time, because a sudden drop in accuracy almost always has a hardware explanation while a drop in speed usually does not." }
         },
         {
           "@type": "Question",
@@ -308,6 +308,104 @@
         </div>
       </details>
 
+      <!-- ============ TRACKPAD ============ -->
+      <div style="margin-top:2.6rem">
+        <div class="section__head" style="margin-bottom:1.1rem">
+          <h2 style="font-size:1.5rem">Trackpad</h2>
+          <p style="margin:0">The pointer on your laptop. Move, tap and scroll over the pad.</p>
+        </div>
+
+        <div class="panel panel--pad" id="trackpad-display">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
+            <div style="flex:1;min-width:250px">
+              <h3 style="font-size:1.1rem;margin-bottom:.3rem">Trackpad tester</h3>
+              <p class="muted small" style="margin:0">Move, tap and scroll with the pointer <strong class="hl">in the panel</strong> &mdash; every click, drag and scroll event is counted as it arrives.</p>
+            </div>
+            <button class="btn btn--sm" type="button" id="trackpad-reset">Reset counters</button>
+          </div>
+
+          <div class="trackpad-display">
+            <div class="trackpad-stage">
+              <div class="hitpad" id="trackpad-pad" data-nocontext>
+                <div class="pad-hint">Move, tap and scroll here</div>
+                <span class="track-dot" id="trackpad-dot"></span>
+              </div>
+            </div>
+
+            <div class="trackpad-readout">
+              <div class="leds">
+                <span class="led" id="tp-chip-clicks"><span class="led__dot"></span>Clicks <b data-out="tp-clicks">0</b></span>
+                <span class="led" id="tp-chip-drags"><span class="led__dot"></span>Drags <b data-out="tp-drags">0</b></span>
+                <span class="led" id="tp-chip-scrolls"><span class="led__dot"></span>Scrolls <b data-out="tp-scrolls">0</b></span>
+                <span class="led" id="tp-chip-button"><span class="led__dot"></span>Button <b data-out="tp-button">up</b></span>
+              </div>
+
+              <div class="log" id="trackpad-log"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr));margin-top:1.4rem">
+
+          <div class="panel panel--pad check-card">
+            <h3>Pointer response</h3>
+            <p class="check-note">Press start, then keep the pointer moving for a second and a half.</p>
+            <div class="check-actions">
+              <button class="btn btn--primary btn--sm" type="button" id="ptr-start">Start</button>
+            </div>
+            <div class="verdict">
+              <div class="verdict__line" id="ptr-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="ptr-verdict-detail">Press Start, then move the pointer around for a second and a half.</div>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Report rate</span><span class="mini-results__v" data-out="ptr-hz">—</span></div>
+              <div><span class="mini-results__k">Timing jitter</span><span class="mini-results__v" data-out="ptr-jitter">—</span></div>
+              <div><span class="mini-results__k">Travel per report</span><span class="mini-results__v" data-out="ptr-step">—</span></div>
+            </div>
+            <div class="log" id="ptr-log" style="margin-top:.9rem;max-height:110px"></div>
+            <p class="check-note" id="ptr-status">Checking browser capability&hellip;</p>
+          </div>
+
+          <div class="panel panel--pad check-card">
+            <h3>Scroll response</h3>
+            <p class="check-note">Press start, then scroll up and down for a couple of seconds.</p>
+            <div class="check-actions">
+              <button class="btn btn--primary btn--sm" type="button" id="scr-start">Start</button>
+            </div>
+            <div class="verdict">
+              <div class="verdict__line" id="scr-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="scr-verdict-detail">Press Start, then scroll over the page for a couple of seconds.</div>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Scroll type</span><span class="mini-results__v" data-out="scr-type">—</span></div>
+              <div><span class="mini-results__k">Scroll rate</span><span class="mini-results__v" data-out="scr-hz">—</span></div>
+              <div><span class="mini-results__k">Step size</span><span class="mini-results__v" data-out="scr-delta">—</span></div>
+              <div><span class="mini-results__k">Step variation</span><span class="mini-results__v" data-out="scr-vary">—</span></div>
+            </div>
+            <div class="log" id="scr-log" style="margin-top:.9rem;max-height:110px"></div>
+          </div>
+
+          <div class="panel panel--pad check-card">
+            <h3>Gestures</h3>
+            <p class="check-note">Press start, then try a two-finger swipe sideways and a pinch.</p>
+            <div class="check-actions">
+              <button class="btn btn--primary btn--sm" type="button" id="gst-start">Start</button>
+            </div>
+            <div class="verdict">
+              <div class="verdict__line" id="gst-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="gst-verdict-detail">Press Start, then swipe sideways and pinch over the page.</div>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Swipes seen</span><span class="mini-results__v" data-out="gst-swipe">0</span></div>
+              <div><span class="mini-results__k">Pinches seen</span><span class="mini-results__v" data-out="gst-pinch">0</span></div>
+              <div><span class="mini-results__k">State</span><span class="mini-results__v" data-out="gst-state">—</span></div>
+            </div>
+            <div class="log" id="gst-log" style="margin-top:.9rem;max-height:110px"></div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -399,11 +497,10 @@
   <section class="section section--tight">
     <div class="wrap">
       <div class="cta-band">
-        <h2>Now check the other devices</h2>
-        <p>An interactive mouse diagram that lights up every button, wheel and scroll event, plus precision, double-click timing and polling rate. And a trackpad suite for report rate, scroll shape and gestures.</p>
+        <h2>Now check the mouse</h2>
+        <p>An interactive mouse diagram that lights up every button, wheel and scroll event, plus precision, double-click timing and polling rate.</p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="mouse-check.html">Open Mouse Check</a>
-          <a class="btn" href="trackpad-check.html">Open Trackpad Check</a>
           <a class="btn" href="index.html">Back to the overview</a>
         </div>
       </div>
@@ -417,14 +514,13 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
-        <p>Free, browser-based diagnostics for the devices you use most. Built to be a baseline you can come back to.</p>
+        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
       </div>
       <div class="footer-col">
         <h4>Tools</h4>
         <ul>
           <li><a href="mouse-check.html">Mouse Check</a></li>
           <li><a href="keyboard-check.html">Keyboard Check</a></li>
-          <li><a href="trackpad-check.html">Trackpad Check</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -433,7 +529,6 @@
           <li><a href="troubleshooting/index.html">All troubleshooting</a></li>
           <li><a href="troubleshooting/mouse.html">Mouse</a></li>
           <li><a href="troubleshooting/keyboard.html">Keyboard</a></li>
-          <li><a href="troubleshooting/trackpad.html">Trackpad</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -463,6 +558,7 @@
 <script src="assets/js/site.js"></script>
 <script src="assets/js/review.js"></script>
 <script src="assets/js/keyboard.js"></script>
+<script src="assets/js/trackpad.js"></script>
 <script>
 (function () {
   var pill = document.getElementById('kbd-summary-pill');
