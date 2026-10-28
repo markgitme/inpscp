@@ -969,7 +969,22 @@ td code { color: var(--accent); }
    space, the way a document is, rather than by a grid of cards. */
 .doc { max-width: 84ch; }
 .doc .prose { max-width: none; }
-.doc .section__head { margin-bottom: 1.1rem; }
+.doc .section__head { margin-bottom: 1.1rem; margin-top: 1.7rem; }
+.doc .section__head:first-of-type { margin-top: 0; }
+
+/* Four steps read as an uneven 3 + 1 orphan at this column width. Two by two
+   is the shape they were written for. */
+.doc .steps { grid-template-columns: repeat(2, 1fr); }
+/* An odd number of steps would leave one stranded on its own row, so the last
+   one spans the full width instead. */
+.doc .steps > .step:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 620px) {
+  .doc .steps { grid-template-columns: 1fr; }
+  .doc .steps > .step:last-child:nth-child(odd) { grid-column: auto; }
+}
+
+/* A caption inside the table box was being clipped by the rounded corner. */
+.table-wrap > p.muted.small:first-child { padding: .6rem 1.1rem .15rem; }
 .doc-section { margin-top: 2.8rem; padding-top: 2.2rem; border-top: 1px solid var(--line); }
 .doc-section:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
 .doc-section > h2 { margin-top: 0; font-size: clamp(1.4rem, 2.6vw, 1.85rem); }
