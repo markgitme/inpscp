@@ -654,31 +654,40 @@
   (function hover() {
     var pad = $('#hover-pad');
     if (!pad) return;
-    var enterT = 0, latency = null, samples = [], active = false, hovers = 0;
+    var samples = [];
+    var WINDOW = 10;
     var lg = $('#hover-log');
     makeTracker(pad, 'hover-dot', false);
 
-    pad.addEventListener('pointerenter', function () {
-      enterT = performance.now();
-      active = true;
-      hovers++;
+    /* The delay is measured from the moment the platform created the event to
+       the moment the page received it. e.timeStamp is the creation time, so
+       performance.now() - e.timeStamp is the real input-to-delivery latency:
+       about one frame period on a 60 Hz display, and it does not move when
+       you linger inside the box.
+
+       The old version timed the pointerenter handler against the next
+       pointermove and pushed a sample for every move. The reading then grew
+       by a frame for every frame you spent inside the box, so it measured
+       how long you hovered rather than how fast the page noticed — and the
+       verdict never moved, because the number was not a latency at all. */
+    pad.addEventListener('pointerenter', function (e) {
+      var lag = performance.now() - e.timeStamp;
+      if (lag >= 0 && lag < 2000) {
+        samples.push(lag);
+        while (samples.length > WINDOW) samples.shift();
+        log(lg, 'hover ' + lag.toFixed(1) + 'ms', lag < 25 ? 'ok' : lag < 60 ? 'w' : 'x');
+      }
       setOut('hover-state', 'Hovering', 'pointer is over the target', 'ok');
       verdict('hover', 'You are hovering over the box.',
         'Move away and come back a few times to measure the delay.', null);
     });
     pad.addEventListener('pointerleave', function () {
-      active = false;
       setOut('hover-state', 'Outside', 'pointer left the target', null);
-    });
-    pad.addEventListener('pointermove', function () {
-      if (!active || !enterT) return;
-      var d = performance.now() - enterT;
-      if (d < 900) { samples.push(d); latency = d; }
     });
 
     var start = $('#hover-start');
     if (start) start.addEventListener('click', function () {
-      samples = []; latency = null; hovers = 0;
+      samples = [];
       setOut('hover-state', '—', 'move the pointer over the pad', null);
       setOut('hover-latency', '—', 'awaiting hover', null);
       verdict('hover', 'Ready when you are.', 'Move the pointer over the box, then away and back again.', null);
@@ -689,13 +698,13 @@
     setInterval(function () {
       if (!samples.length) return;
       var avg = samples.reduce(function (a, b) { return a + b; }, 0) / samples.length;
-      setOut('hover-latency', avg.toFixed(1) + 'ms', 'time to register a hover', avg < 25 ? 'ok' : avg < 60 ? 'warn' : 'bad');
+      setOut('hover-latency', avg.toFixed(1) + 'ms', 'input to page', avg < 25 ? 'ok' : avg < 60 ? 'warn' : 'bad');
       var hline = avg < 25 ? 'Hover registers instantly.'
         : avg < 60 ? 'Hover takes a moment to register.'
         : 'Hover is slow to register.';
       verdict('hover', hline,
-        'Average ' + avg.toFixed(1) + 'ms from arriving to the page noticing · ' +
-        hovers + ' hover' + (hovers === 1 ? '' : 's') + '.',
+        'Average ' + avg.toFixed(1) + 'ms from the pointer arriving to the page seeing it · ' +
+        samples.length + ' hover' + (samples.length === 1 ? '' : 's') + ' measured.',
         avg < 25 ? 'ok' : avg < 60 ? 'warn' : 'bad');
     }, 700);
   })();

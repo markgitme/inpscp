@@ -2,6 +2,46 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.9.6 — 2026-10-28
+
+### Fixed
+
+- **The Hover Response test was measuring the wrong thing.** Mark reported that
+  his reading crept down from about 120 ms to 61.8 ms and the verdict never
+  changed. It was not a stuck verdict — the number was not a latency at all.
+
+  The test timed the `pointerenter` handler against the **next** `pointermove`,
+  and pushed a sample for **every** move event while the pointer was inside
+  the box. The samples therefore ramped upward by one frame for every frame
+  you spent hovering: a single sweep produced `1.3, 16.5, 32.9, 49.6, 66.1 …
+  899.4` ms, and 321 of 378 events were silently dropped by a 900 ms filter.
+  The "average delay" was really about **half the time you spent inside the
+  box**, which is why it read 61.8 ms for a perfectly healthy mouse and why
+  the verdict sat at "Hover is slow to register".
+
+  The browser already exposes the real number. `event.timeStamp` is when the
+  platform created the event, so `performance.now() - event.timeStamp` is the
+  genuine input-to-delivery latency — about one frame period on a 60 Hz
+  display, and completely independent of how long you linger in the box. The
+  test now measures that, once per hover.
+
+  Verified by driving it: the reading is now a stable 16.3 ms, 14.5 ms and
+  15.5 ms for a no-pause, 500 ms-pause and 2 s-pause hover respectively,
+  where the old code gave 80.9 ms, 294.5 ms and 39.6 ms for the same three.
+  Each hover is also written to the event log, so the individual readings are
+  visible instead of only their average.
+
+- **The average is now a rolling window of the last ten hovers**, so the
+  first cold hover can no longer bias the result for the rest of the session,
+  and the verdict moves as you go.
+
+### Copy
+
+- The mouse document now describes what the tool actually measures — "how long
+  the browser takes to get the hover to the page — the gap between the platform
+  creating the event and the page receiving it" — in both the advanced
+  measurements list and the display refresh section.
+
 ## v1.9.5 — 2026-10-28
 
 ### Fixed
