@@ -744,7 +744,11 @@ td code { color: var(--accent); }
   cursor: crosshair; user-select: none;
   transition: border-color .15s, background .15s;
 }
-.mouse-stage:hover { border-color: var(--line-2); }
+.mouse-stage:hover {
+  border-color: rgba(74,222,155,.55);
+  box-shadow: 0 0 0 1px rgba(74,222,155,.18), 0 0 36px rgba(74,222,155,.15);
+  background: radial-gradient(420px 320px at 50% 30%, rgba(74,222,155,.13), transparent 70%), var(--bg-2);
+}
 .mouse-stage.is-live { border-color: rgba(74,222,155,.45); }
 
 .mouse-svg { width: 100%; max-width: 290px; height: auto; overflow: visible; }
@@ -753,9 +757,9 @@ td code { color: var(--accent); }
   fill: #232a3b; stroke: #3c445a; stroke-width: 2;
   transition: fill .12s ease, stroke .12s ease, filter .12s ease;
 }
-.m-btn, .m-side { cursor: pointer; }
-.m-btn:hover, .m-side:hover { fill: #2c344a; }
-.m-wheel { cursor: pointer; }
+/* The diagram is a display, not a set of buttons, so the regions do not
+   offer a pointer cursor or a hover highlight. */
+.m-btn, .m-side, .m-wheel { cursor: inherit; }
 .m-divider { stroke: #333b50; stroke-width: 1.5; stroke-dasharray: 3 4; }
 
 .m-btn.is-hit, .m-side.is-hit {
@@ -802,6 +806,15 @@ td code { color: var(--accent); }
 .led.is-on--amber .led__dot { background: var(--amber); box-shadow: 0 0 9px var(--amber); }
 
 .mouse-hint { font-size: .84rem; color: var(--muted); margin: 0; }
+
+/* A phrase inside a line of body copy the reader should not skim past. */
+.hl {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(74,222,155,.40);
+  text-underline-offset: 3px;
+}
 
 /* compact inline results used in the quick-check cards */
 .mini-results { display: grid; gap: .4rem; margin-top: .9rem; }

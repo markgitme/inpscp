@@ -126,6 +126,10 @@
     var logEl = $('#mouse-display-log');
     var flashTimer = null;
 
+    /* PointerEvent.button: 0 left, 1 middle, 2 right, 3 X1 (back), 4 X2
+       (forward). See https://www.w3.org/TR/pointerevents4/ */
+    var BUTTONS = { 0: 'left', 1: 'middle', 2: 'right', 3: 'side1', 4: 'side2' };
+
     var LABELS = {
       left: 'left click',
       right: 'right click',
@@ -177,15 +181,16 @@
 
     stage.addEventListener('contextmenu', function (e) { e.preventDefault(); });
 
+    /* The diagram is a display, not a set of buttons. Which part lights up is
+       decided by the physical button you pressed, never by where on the
+       diagram you happened to click. The old code fell through to the region
+       under the cursor for the left button, so a left click on the right half
+       of the picture was logged as a right click — a readout that lied about
+       the mouse. */
     stage.addEventListener('pointerdown', function (e) {
       e.preventDefault();
-      var region = e.target.closest ? e.target.closest('[data-btn]') : null;
-      var btn;
-      if (e.button === 2) btn = 'right';
-      else if (e.button === 1) btn = 'middle';
-      else if (region) btn = region.getAttribute('data-btn');
-      else btn = 'left';
-      register(btn, e);
+      var btn = BUTTONS[e.button];
+      if (btn) register(btn, e);
     });
 
     stage.addEventListener('wheel', function (e) {

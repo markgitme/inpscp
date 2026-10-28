@@ -2,6 +2,48 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.9.5 — 2026-10-28
+
+### Fixed
+
+- **The mouse diagram could lie about which button you pressed.** The
+  Click tester decided which part of the drawing to light by *where you
+  clicked*, not by *which button you pressed*. A left click on the right-hand
+  half of the picture was logged as a right click, and the counter beside it
+  went up. The cause was a positional fallback in the pointerdown handler:
+  right and middle were read from the physical button, but the left button
+  fell through to "whatever region of the drawing is under the cursor".
+
+  Which part lights up now comes from `PointerEvent.button` every time —
+  0 left, 1 middle, 2 right, 3 X1 (back), 4 X2 (forward) — so the drawing
+  mirrors the physical mouse and cannot disagree with it. The side buttons
+  are now detected from the real back and forward buttons rather than from
+  clicking the violet tabs.
+
+### Changed
+
+- **The diagram no longer looks clickable.** The regions had a pointer cursor
+  and a hover highlight, which invited exactly the click that produced the
+  wrong answer. Both are gone; the panel keeps its crosshair so it still
+  reads as the test area.
+- **The instruction now says what to do.** "Click anywhere in the panel
+  below" became "Press the buttons on your own mouse with the pointer in the
+  panel", with *in the panel* highlighted in bold accent green with an
+  underline, so the reader's eye goes to the diagram first.
+- **The panel border lights up on hover** — a bright accent border with a soft
+  glow, rather than the one-step change to a grey line it used to be.
+
+### Copy
+
+- The side-button section of the mouse document now says that **Firefox uses
+  the back and forward mouse buttons for history navigation and never passes
+  them to the page**, so the violet tabs stay dark there even when the
+  hardware is fine. Without that, the threshold table would have given a
+  false diagnosis to every Firefox user with a working thumb button. The
+  same note is in the mouse page FAQ.
+- The screen-reader label for the diagram no longer describes the old
+  behaviour.
+
 ## v1.9.4 — 2026-10-28
 
 ### Changed

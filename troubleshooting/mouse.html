@@ -510,6 +510,7 @@
 <div class="prose">
         <p>Side buttons are almost never handled by the operating system directly. They are reported as extra mouse buttons, and mapping them to something useful &mdash; browser back and forward being the common default &mdash; needs either the manufacturer's configuration software or a generic remapping utility. On a machine with no such software, the buttons still physically fire but the browser has no instruction for what to do with them.</p>
         <p>That distinction is exactly what the click tester makes visible. If the violet thumb tabs light up when you press them, the hardware is fine and you need software to bind them. If they stay dark, the problem is the button or the wireless pairing, not the mapping.</p>
+        <p>One browser exception is worth knowing. Firefox uses the back and forward mouse buttons for history navigation and never passes them to the page, so the tabs stay dark there even when the hardware is fine. Chromium-based browsers do deliver them, as button 3 and button 4.</p>
       </div>
 <div class="section__head">
         <span class="eyebrow">How to read it</span>
@@ -524,7 +525,7 @@
           </thead>
           <tbody>
             <tr><td>The violet tabs light up</td><td>events received</td><td>The hardware works. The buttons simply have no instruction &mdash; install mapping software</td></tr>
-            <tr><td>The violet tabs stay dark</td><td>0 events</td><td>The buttons are not firing. A driver, a pairing problem, or a faulty switch</td></tr>
+            <tr><td>The violet tabs stay dark</td><td>0 events</td><td>The buttons are not firing &mdash; or the browser never delivered them. A driver, a pairing problem, a faulty switch, or Firefox swallowing the back and forward buttons</td></tr>
             <tr><td>They light, but do nothing useful</td><td>events received, no action</td><td>The browser has them bound to nothing. Remap them in the browser or in software</td></tr>
           </tbody>
         </table>

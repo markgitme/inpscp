@@ -59,7 +59,7 @@
         {
           "@type": "Question",
           "name": "My mouse has no side buttons. Should those lights stay dark?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes, permanently dark is the correct result. The two violet tabs are drawn on the left flank because that is where most gaming mice put their thumb buttons. If your mouse does not have them, they will never light and nothing is wrong." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, permanently dark is the correct result. The two violet tabs are drawn on the left flank because that is where most gaming mice put their thumb buttons. If your mouse does not have them, they will never light and nothing is wrong. There is one browser exception: Firefox uses the back and forward mouse buttons for history navigation and never passes them to the page, so the tabs stay dark there even when the buttons work perfectly." }
         },
         {
           "@type": "Question",
@@ -121,14 +121,14 @@
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem">
           <div style="flex:1;min-width:250px">
             <h2 style="font-size:1.25rem;margin-bottom:.3rem">Click tester</h2>
-            <p class="muted small" style="margin:0">Click anywhere in the panel below — left, right, middle, the side buttons and the scroll wheel all show up here.</p>
+            <p class="muted small" style="margin:0">Press the buttons on your own mouse with the pointer <strong class="hl">in the panel</strong> — left, right, middle, the side buttons and the scroll wheel all show up on the diagram.</p>
           </div>
           <button class="btn btn--sm" type="button" id="mouse-display-reset">Reset counters</button>
         </div>
 
         <div class="mouse-display">
           <div class="mouse-stage" id="mouse-stage">
-            <svg class="mouse-svg" id="mouse-svg" viewBox="0 0 220 300" role="img" aria-label="Top-down diagram of a mouse. Press the left half, right half, wheel or side buttons to light up the matching region.">
+            <svg class="mouse-svg" id="mouse-svg" viewBox="0 0 220 300" role="img" aria-label="Top-down diagram of a mouse. The part that matches the button you press on your own mouse lights up.">
               <path class="m-body" d="M110 8 C146 8 172 30 182 74 C190 108 196 152 196 196 C196 258 162 292 110 292 C58 292 24 258 24 196 C24 152 30 108 38 74 C48 30 74 8 110 8 Z"/>
               <path class="m-btn" data-btn="left" d="M104 13 C74 15 54 37 44 77 C38 102 33 126 31 147 L104 147 Z"/>
               <path class="m-btn" data-btn="right" d="M116 13 C146 15 166 37 176 77 C182 102 187 126 189 147 L116 147 Z"/>
@@ -397,7 +397,7 @@
         </details>
         <details>
           <summary>My mouse has no side buttons. Should those lights stay dark?</summary>
-          <div class="faq__a"><p>Yes, permanently dark is the correct result. The two violet tabs are drawn on the left flank because that is where most gaming mice put their thumb buttons. If your mouse does not have them, they will never light and nothing is wrong.</p></div>
+          <div class="faq__a"><p>Yes, permanently dark is the correct result. The two violet tabs are drawn on the left flank because that is where most gaming mice put their thumb buttons. If your mouse does not have them, they will never light and nothing is wrong. There is one browser exception: Firefox uses the back and forward mouse buttons for history navigation and never passes them to the page, so the tabs stay dark there even when the buttons work perfectly.</p></div>
         </details>
         <details>
           <summary>Should I close other applications before testing?</summary>
