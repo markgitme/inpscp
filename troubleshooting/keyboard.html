@@ -123,9 +123,19 @@
       <article class="doc">
         <section class="doc-section" id="numbers">
           <h2>What the numbers actually mean</h2>
-      <div class="prose">
-
-      </div>
+          <div class="prose">
+<p>This is the fastest way to find out whether a keyboard is actually broken. Press every key and watch the map. Three things to look for. A key that never lights up is either disconnected, obstructed by debris, or reporting to a different input path. A key that stays lit after you have let go is mechanically stuck — a very common symptom of spilled liquid. And a key that fires twice for one physical press is chattering, which usually means a worn switch that will eventually stop registering the key at all.</p>
+<p>Function keys are included for reference, but many browsers and operating systems reserve them, so they will not light up. That is not a fault in your keyboard.</p>
+<p>The words-per-minute figure is calculated from correct characters only, and accuracy is reported next to it because a fast 90% accurate typist is producing errors that slow them down in real work. There is no autocorrect, no dictionary and no word completion, which is exactly why this number usually sits below the one your operating system's built-in test reports.</p>
+<p><strong>The accuracy figure is the diagnostically interesting one.</strong> Above 97% means the switches are clean. A persistent error on one specific character, with the rest of the text perfect, is nearly always a single worn or obstructed key rather than a typing problem. Errors spread evenly across the whole text point somewhere else, usually to a hand position or a bad habit rather than to hardware.</p>
+<p>Browsers report both the key you pressed and where it physically is. The second value is a property of the hardware and never changes, while the first depends on which layout the operating system has selected. Comparing the two against known layouts tells you what your board actually is.</p>
+<p>This is worth running once on any second-hand or refurbished machine, because a mismatched layout is responsible for an enormous amount of low-grade frustration: typing <kbd>;</kbd> produces <kbd>ö</kbd>, quotation marks come out in the wrong place, and shortcuts like <kbd>Ctrl</kbd>+<kbd>Z</kbd> behave inconsistently. The fix is usually a single setting in the system's keyboard preferences.</p>
+<p>Cheap membrane keyboards are usually limited to two keys at once. Press three and the third is ignored, or worse, the first two produce the wrong characters because the controller cannot tell which circuit closed. Gaming keyboards add anti-ghosting hardware and typically handle six or more simultaneously.</p>
+<p>You will feel this long before you read about it. In a game, a three-key combination — sprint, jump and reload — silently drops the third. In a shortcut like <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>, the escape key is the one that never arrives. If that is happening, the rollover test will confirm it immediately.</p>
+<p>This measures the gap between the browser registering your keypress and the next moment the page is able to draw a frame. Because the clock starts on the input event rather than on the screen changing, the number reflects input handling and your display's refresh rate rather than how quickly you can react — you cannot press faster than your own reflexes, so a reaction-timed test would only ever measure you.</p>
+<p>A healthy setup lands somewhere inside a single frame interval: under about 9&nbsp;ms on a 120&nbsp;Hz display, under 17&nbsp;ms on a 60&nbsp;Hz one. The panel measures your actual refresh rate and shows it next to the result, so you can see how much of the figure is the display rather than the keyboard.</p>
+<p><strong>Jitter is the more useful half of this result.</strong> A keyboard with a 12&nbsp;ms average and a 2&nbsp;ms jitter feels precise. One with a 9&nbsp;ms average and a 25&nbsp;ms jitter feels unpredictable, because input arrives in bursts. High jitter on a wired keyboard usually points to polling interference, a busy system, or a controller that is struggling.</p>
+          </div>
       <div class="table-wrap" style="margin-top:1.4rem">
         <p class="muted small">Every threshold the Keyboard Check page applies, in one table.</p>
         <table>
@@ -157,7 +167,7 @@
           <h2>Why is my keyboard not typing?</h2>
           <div class="prose">
 <p>If nothing types at all, the first thing to establish is whether the computer can see the keyboard at all. The <a href="../keyboard-check.html#keymap-test">key tester</a> answers that in one second: press a key and see whether a cap lights up.</p>
-        <p>If caps light up, the keyboard is connected and the fault is in the application — a stuck modifier key, a text field that will not accept focus, or a shortcut that has captured the key. If nothing lights up, the fault is below the application layer. A wireless keyboard may simply be asleep or unpaired, which is fixed by switching it on or re-pairing it. A laptop keyboard that has gone completely dead is usually a hardware failure of the ribbon cable or the controller board, which is a repair job rather than a setting.</p>
+<p>If caps light up, the keyboard is connected and the fault is in the application — a stuck modifier key, a text field that will not accept focus, or a shortcut that has captured the key. If nothing lights up, the fault is below the application layer. A wireless keyboard may simply be asleep or unpaired, which is fixed by switching it on or re-pairing it. A laptop keyboard that has gone completely dead is usually a hardware failure of the ribbon cable or the controller board, which is a repair job rather than a setting.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
         <h4>The test that settles it</h4>
@@ -202,7 +212,7 @@
           <h2>Why are some keys on my keyboard not working?</h2>
           <div class="prose">
 <p>Individual dead keys are almost always physical. A switch that has been flooded with liquid and then dried out stops making contact, and so does a switch worn out by a decade of the same key being hammered — the Enter key and the space bar are the usual casualties because they take the most use.</p>
-        <p>A key that works <em>intermittently</em> is a different problem. That points to debris under the keycap, or a marginal contact that only makes contact when the key is pressed slightly off-centre. The key tester separates the two cases for you: a key that never registers and a key that registers unreliably feel identical from the outside, and the event log makes the difference obvious.</p>
+<p>A key that works <em>intermittently</em> is a different problem. That points to debris under the keycap, or a marginal contact that only makes contact when the key is pressed slightly off-centre. The key tester separates the two cases for you: a key that never registers and a key that registers unreliably feel identical from the outside, and the event log makes the difference obvious.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
         <h4>The test that settles it</h4>
@@ -247,7 +257,7 @@
           <h2>Why does my keyboard type the wrong character?</h2>
           <div class="prose">
 <p>This is nearly always a layout mismatch rather than a broken keyboard. Your keyboard has a physical layout that never changes — the key labelled Z is always in the same position — while your operating system has a layout setting that maps that position to a character. If the system believes it is German but the board is British, the key in that position produces a different symbol and you cannot type an apostrophe or a semicolon properly.</p>
-        <p>The <a href="../keyboard-check.html#layout-analyze">physical layout test</a> compares the position of every key you press against the known layouts and tells you which one the hardware actually is, so you can compare it with what the system has selected and correct the mismatch in the keyboard preferences.</p>
+<p>The <a href="../keyboard-check.html#layout-analyze">physical layout test</a> compares the position of every key you press against the known layouts and tells you which one the hardware actually is, so you can compare it with what the system has selected and correct the mismatch in the keyboard preferences.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
         <h4>The test that settles it</h4>
@@ -293,7 +303,7 @@
           <h2>Why is my keyboard ghosting?</h2>
           <div class="prose">
 <p>Ghosting is what happens when the keyboard cannot tell which of several simultaneously pressed keys closed its circuit, so it registers the wrong combination or drops one entirely. Budget membrane keyboards usually handle two keys at once and no more, which means a three-key combination like <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> delivers only two of the three, in the wrong order.</p>
-        <p>Gaming keyboards solve this with anti-ghosting hardware, typically handling six or more keys at once. The <a href="../keyboard-check.html#roll-start">rollover test</a> holds four keys at once and reports how many the keyboard actually delivered, so you know whether you are looking at a two-key board or a proper one.</p>
+<p>Gaming keyboards solve this with anti-ghosting hardware, typically handling six or more keys at once. The <a href="../keyboard-check.html#roll-start">rollover test</a> holds four keys at once and reports how many the keyboard actually delivered, so you know whether you are looking at a two-key board or a proper one.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
         <h4>The test that settles it</h4>
@@ -339,7 +349,7 @@
           <h2>Why does my keyboard feel laggy?</h2>
           <div class="prose">
 <p>Two different things get called laggy, and they need different fixes. The first is <strong>input delay</strong> — the gap between the keypress reaching the computer and the screen responding — which is usually the display's frame rate rather than the keyboard. A 60&nbsp;Hz monitor adds up to 17&nbsp;ms to everything, which is often enough to notice in a game.</p>
-        <p>The second is <strong>key chatter</strong>, where a worn switch fires twice for one press and the duplicate character appears a moment later, which reads as the computer being slow. The response latency test measures the first and separates it from reaction time; the key tester shows you the second by flagging any key that registered twice from one press.</p>
+<p>The second is <strong>key chatter</strong>, where a worn switch fires twice for one press and the duplicate character appears a moment later, which reads as the computer being slow. The response latency test measures the first and separates it from reaction time; the key tester shows you the second by flagging any key that registered twice from one press.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
         <h4>The test that settles it</h4>
@@ -387,10 +397,7 @@
           <h2>Why is one key stuck down?</h2>
           <div class="prose">
 <p>A key that stays pressed when you have released it is mechanically stuck. The usual causes are a swollen keycap, something sticky that has leaked under the key, or a switch that has failed closed. The symptom is usually worse than it looks: because the operating system believes the key is being held, the character repeats continuously until you can clear it.</p>
-        <p>If the key is merely sticky, pulling off the keycap and cleaning underneath usually fixes it. If the switch itself has failed closed the keyboard needs a switch replacement or a new keyboard — and if the stuck key is the space bar, a common cause is a switch that has flooded and then corroded.</p>
-      </div>
-    </div>
-  </section>
+<p>If the key is merely sticky, pulling off the keycap and cleaning underneath usually fixes it. If the switch itself has failed closed the keyboard needs a switch replacement or a new keyboard — and if the stuck key is the space bar, a common cause is a switch that has flooded and then corroded.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
         <h4>The test that settles it</h4>

@@ -972,16 +972,22 @@ td code { color: var(--accent); }
 .doc .section__head { margin-bottom: 1.1rem; margin-top: 1.7rem; }
 .doc .section__head:first-of-type { margin-top: 0; }
 
-/* Four steps read as an uneven 3 + 1 orphan at this column width. Two by two
-   is the shape they were written for. */
-.doc .steps { grid-template-columns: repeat(2, 1fr); }
-/* An odd number of steps would leave one stranded on its own row, so the last
-   one spans the full width instead. */
-.doc .steps > .step:last-child:nth-child(odd) { grid-column: 1 / -1; }
-@media (max-width: 620px) {
-  .doc .steps { grid-template-columns: 1fr; }
-  .doc .steps > .step:last-child:nth-child(odd) { grid-column: auto; }
+/* The steps are a numbered list inside a document, not a row of cards. A card
+   per step fights the "one long article" feel, and a boxed grid also breaks
+   unevenly once the count is not a multiple of the column count. */
+.doc .steps { display: grid; gap: .95rem; grid-template-columns: 1fr; }
+.doc .step {
+  background: none; border: 0; border-radius: 0;
+  padding: 0 0 0 2.1rem;
 }
+.doc .step::before {
+  content: counter(step) ".";
+  position: absolute; left: 0; top: .05rem;
+  width: auto; height: auto; border-radius: 0; display: block;
+  background: none; border: 0;
+  color: var(--accent); font-weight: 700; font-size: 1rem; font-family: var(--mono);
+}
+.doc .step h3 { font-size: .98rem; margin-bottom: .15rem; }
 
 /* A caption inside the table box was being clipped by the rounded corner. */
 .table-wrap > p.muted.small:first-child { padding: .6rem 1.1rem .15rem; }
