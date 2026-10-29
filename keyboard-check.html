@@ -170,9 +170,15 @@
 
         <!-- a picture of the trackpad, so the device is visible right away -->
         <div class="tp-display" id="tp-display">
-          <div class="tp-display__pad" id="tp-display-pad">
-            <div class="tp-display__hint">Move the pointer over this pad</div>
-            <span class="tp-display__dot" id="tp-display-dot"></span>
+          <div class="tp-display__pad" id="tp-display-pad" data-nocontext>
+            <div class="tp-surface" id="tp-display-surface">
+              <div class="tp-display__hint">Move the pointer over this pad</div>
+              <span class="tp-display__dot" id="tp-display-dot"></span>
+            </div>
+            <div class="tp-buttons">
+              <div class="tp-btn tp-btn--left" id="tp-display-btn-left">left</div>
+              <div class="tp-btn tp-btn--right" id="tp-display-btn-right">right</div>
+            </div>
           </div>
           <p class="tp-display__caption">Trackpad</p>
         </div>
@@ -310,7 +316,7 @@
           <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
             <div style="flex:1;min-width:250px">
               <h3 style="font-size:1.1rem;margin-bottom:.3rem">Trackpad tester</h3>
-              <p class="muted small" style="margin:0">Move, tap and scroll with the pointer <strong class="hl">in the panel</strong> &mdash; every click, drag and scroll event is counted as it arrives.</p>
+              <p class="muted small" style="margin:0">Move, tap and scroll with the pointer <strong class="hl">in the panel</strong> &mdash; every click, drag and scroll event is counted as it arrives. The two areas below the pad are the left and right buttons &mdash; a right-click, which is how a trackpad&rsquo;s two-finger tap arrives, counts as the right button.</p>
             </div>
             <button class="btn btn--sm" type="button" id="trackpad-reset">Reset counters</button>
           </div>
@@ -318,8 +324,14 @@
           <div class="trackpad-display">
             <div class="trackpad-stage">
               <div class="hitpad" id="trackpad-pad" data-nocontext>
-                <div class="pad-hint">Move, tap and scroll here</div>
-                <span class="track-dot" id="trackpad-dot"></span>
+                <div class="tp-surface" id="trackpad-surface">
+                  <div class="pad-hint">Move, tap and scroll here</div>
+                  <span class="track-dot" id="trackpad-dot"></span>
+                </div>
+                <div class="tp-buttons">
+                  <div class="tp-btn tp-btn--left" id="trackpad-btn-left">left</div>
+                  <div class="tp-btn tp-btn--right" id="trackpad-btn-right">right</div>
+                </div>
               </div>
             </div>
 

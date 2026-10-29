@@ -609,6 +609,35 @@ td code { color: var(--accent); }
    A picture of the trackpad that answers the pointer while it is over it.
    The tester further down the page does the measuring; this one is here so
    the device is visible the moment the page opens. */
+/* ---------------- The trackpad shape ----------------
+   A trackpad is not a plain box. It is a movement surface with a strip
+   of buttons below it, split left and right, the way a physical one is
+   built. Both trackpad surfaces on the keyboard page use this shape.
+   The dot travels on the surface only — the buttons are not a movement
+   area. */
+.tp-surface {
+  position: absolute; left: 0; right: 0; top: 0; bottom: 46px;
+  overflow: hidden;
+  transition: background .1s;
+}
+.tp-surface.is-tapped { background: rgba(74,222,155,.07); }
+.tp-buttons {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 46px;
+  display: flex; border-top: 1px solid var(--line-2);
+}
+.tp-btn {
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; letter-spacing: .06em; color: var(--muted);
+  cursor: pointer; user-select: none; -webkit-user-select: none;
+  transition: background .1s, color .1s;
+}
+/* The seam on a physical trackpad is not in the middle — the right
+   button is the smaller of the two. */
+.tp-btn--left { flex: 7 1 0; border-right: 1px solid var(--line-2); }
+.tp-btn--right { flex: 3 1 0; }
+.tp-btn:hover { color: var(--text-2); }
+.tp-btn.is-down { background: rgba(74,222,155,.18); color: var(--accent); }
+
 .tp-display {
   display: flex; flex-direction: column; align-items: center;
   margin-top: 1.3rem;
@@ -626,13 +655,6 @@ td code { color: var(--accent); }
   border-color: rgba(74,222,155,.45);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 0 26px -6px rgba(74,222,155,.45);
 }
-/* The lower half of a trackpad is the button. */
-.tp-display__pad::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
-  border-top: 1px solid var(--line);
-  background: transparent; transition: background .1s;
-}
-.tp-display__pad.is-down::after { background: rgba(74,222,155,.16); }
 .tp-display__dot {
   position: absolute; width: 13px; height: 13px; border-radius: 50%;
   background: var(--accent); box-shadow: 0 0 12px rgba(74,222,155,.9);

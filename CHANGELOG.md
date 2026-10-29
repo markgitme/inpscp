@@ -2,6 +2,39 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.13.0 — the trackpad is drawn like a trackpad, and the browser menu stays out of it
+
+### Changed
+
+- **Both trackpad surfaces are now built like a real trackpad.** They were a
+  plain box. A trackpad is a movement surface with a strip of buttons below it,
+  split left and right, so each surface now has one: the dot travels on the
+  surface only, and the two areas under it stand for the physical left and
+  right buttons. The seam is off-centre, the way it is on the hardware, because
+  the right button is the smaller of the two.
+
+- **The two button areas do something.** Pressing one reports that button, and
+  the strip lights the one you pressed. The tester's Button readout now names
+  the button — `left`, `right` or `middle` — instead of the single word
+  `held`, so a right-click can be told apart from a left one.
+
+- **A right-click on the movement surface is read as a right button.** That is
+  how a trackpad's two-finger tap arrives, so the tester now counts it as one
+  and logs it as a right click.
+
+### Fixed
+
+- **The browser's context menu no longer opens inside the trackpad panels.** A
+  right-click used to summon the browser menu over the thing you were trying
+  to look at. The mouse tester has always suppressed it; the trackpad panels
+  did not, because the handler that does it lives in the mouse script, which
+  the keyboard page does not load. Both panels now suppress it themselves, and
+  the event still carries the button, so the right-click is not lost.
+
+- **A window that loses focus mid-press no longer leaves a button stuck down.**
+  The release is now also triggered by `pointercancel` and by the window
+  losing focus, which is exactly the case the panel exists to catch.
+
 ## v1.12.0 — the key tester gets a numpad, and a trackpad to look at
 
 ### Added

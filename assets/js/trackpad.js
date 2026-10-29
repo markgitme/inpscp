@@ -78,15 +78,16 @@
   }
 
   /* A dot that follows the pointer inside a pad, with a fading trail
-     of where you have been. */
-  function makeTracker(pad, dotId) {
+     of where you have been. The dot travels on the movement surface
+     only — the button strip below it is not a movement area. */
+  function makeTracker(root, surface, dotId) {
     var dot = document.getElementById(dotId);
-    if (!dot) return null;
+    if (!dot || !surface) return null;
     var TRAIL = 26, trail = [], pool = [], i;
     for (i = 0; i < TRAIL; i++) {
       var t = document.createElement('span');
       t.className = 'trail-dot';
-      pad.appendChild(t);
+      surface.appendChild(t);
       pool.push(t);
     }
     function renderTrail() {
@@ -101,10 +102,10 @@
         }
       }
     }
-    pad.addEventListener('pointerenter', function () { pad.classList.add('is-tracked'); });
-    pad.addEventListener('pointerleave', function () { pad.classList.remove('is-tracked'); });
-    pad.addEventListener('pointermove', function (e) {
-      var r = pad.getBoundingClientRect();
+    root.addEventListener('pointerenter', function () { root.classList.add('is-tracked'); });
+    root.addEventListener('pointerleave', function () { root.classList.remove('is-tracked'); });
+    surface.addEventListener('pointermove', function (e) {
+      var r = surface.getBoundingClientRect();
       var x = e.clientX - r.left, y = e.clientY - r.top;
       dot.style.left = x + 'px';
       dot.style.top = y + 'px';
@@ -123,9 +124,93 @@
   }
 
   /* =========================================================
+     The trackpad shape — a movement surface with a strip of two
+     buttons below it, the way a physical trackpad is built.
+
+     The two areas under the surface are the physical left and right
+     buttons. A press on one of them is that button being pressed; a
+     press on the surface is a tap, which on a real trackpad is a
+     left click. A right-click on the surface is how a trackpad's
+     two-finger tap arrives, so it is read as a right button too.
+
+     A right-click inside the pad must not open the browser's menu —
+     it covers the thing you are trying to look at. The event still
+     carries the button, so swallowing the menu loses nothing.
+     ========================================================= */
+  function makeTrackpad(opts) {
+    var root = opts.root;
+    var surface = opts.surface;
+    var dot = opts.dot;
+    var leftBtn = opts.left, rightBtn = opts.right;
+    var held = null;
+
+    function light(which) {
+      if (leftBtn) leftBtn.classList.toggle('is-down', which === 'left');
+      if (rightBtn) rightBtn.classList.toggle('is-down', which === 'right');
+      if (surface) surface.classList.toggle('is-tapped', which === 'tap');
+    }
+
+    /* Which button area is under the pointer? null means the movement
+       surface, which is not a button. */
+    function areaUnder(target) {
+      if (leftBtn && leftBtn.contains(target)) return 'left';
+      if (rightBtn && rightBtn.contains(target)) return 'right';
+      return null;
+    }
+
+    root.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+    root.addEventListener('pointerdown', function (e) {
+      var area = areaUnder(e.target);
+      var button;
+      if (area) {
+        button = area;
+        e.preventDefault();
+      } else if (e.button === 2) {
+        button = 'right';
+      } else if (e.button === 1) {
+        button = 'middle';
+      } else {
+        button = 'left';
+      }
+      held = button;
+      light(area || (button === 'right' ? 'right' : (button === 'left' ? 'tap' : null)));
+      if (opts.onDown) opts.onDown(e, button);
+    });
+
+    function release(e) {
+      if (held === null) return;
+      var button = held;
+      held = null;
+      light(null);
+      if (opts.onUp) opts.onUp(e, button);
+    }
+    window.addEventListener('pointerup', release);
+    window.addEventListener('pointercancel', release);
+    /* A window that loses focus mid-press never delivers the pointerup,
+       and a button that stays held for ever is exactly the fault this
+       panel is meant to catch. */
+    window.addEventListener('blur', function () { release(); });
+
+    if (surface && dot) {
+      surface.addEventListener('pointermove', function (e) {
+        var r = surface.getBoundingClientRect();
+        dot.style.left = (e.clientX - r.left) + 'px';
+        dot.style.top = (e.clientY - r.top) + 'px';
+      });
+    }
+  }
+
+  /* The mouse page has its own copy of this, because the two pages do
+     not load the same script. */
+  $$('[data-nocontext]').forEach(function (el) {
+    el.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  });
+
+  /* =========================================================
      0. The tester — taps, drags, scrolls and the button state
      ========================================================= */
-  var state = { clicks: 0, drags: 0, scrolls: 0, down: false, pressed: false, downT: 0, downX: 0, downY: 0, moved: 0 };
+  var state = { clicks: 0, drags: 0, scrolls: 0, down: false, pressed: false, downT: 0, downX: 0, downY: 0, moved: 0, button: 'up' };
 
   /* Light a chip when there is something to report. The button chip only
      lights once a press has actually happened, because "up" before the
@@ -141,48 +226,21 @@
     var pad = $('#trackpad-pad');
     if (!pad) return;
     var lg = $('#trackpad-log');
-    var tracker = makeTracker(pad, 'trackpad-dot');
+    var tracker = makeTracker(pad, $('#trackpad-surface'), 'trackpad-dot');
 
     function buttonState() {
-      setOut('tp-button', state.down ? 'held' : 'up',
-        state.down ? 'the browser still thinks a button is down' : 'no button is down',
-        state.down ? 'warn' : null);
-      chip('tp-chip-button', state.pressed, state.down ? 'amber' : null);
+      var b = state.button;
+      setOut('tp-button', b,
+        b === 'up' ? 'no button is down' : b + ' is held',
+        b === 'up' ? null : 'warn');
+      chip('tp-chip-button', state.pressed, b === 'up' ? null : 'warn');
     }
-
-    pad.addEventListener('pointerdown', function (e) {
-      state.down = true;
-      state.pressed = true;
-      state.downT = performance.now();
-      state.downX = e.clientX; state.downY = e.clientY;
-      state.moved = 0;
-      buttonState();
-      log(lg, 'button down', 'w');
-    });
 
     pad.addEventListener('pointermove', function (e) {
       if (!state.down) return;
       var dx = e.clientX - state.downX, dy = e.clientY - state.downY;
       var d = Math.sqrt(dx * dx + dy * dy);
       if (d > state.moved) state.moved = d;
-    });
-
-    window.addEventListener('pointerup', function (e) {
-      if (!state.down) return;
-      state.down = false;
-      var held = performance.now() - state.downT;
-      if (state.moved > 4) {
-        state.drags++;
-        setOut('tp-drags', String(state.drags), 'press, move, release', null);
-        chip('tp-chip-drags', true);
-        log(lg, 'drag — ' + Math.round(state.moved) + 'px, held ' + held.toFixed(0) + 'ms', 'ok');
-      } else {
-        state.clicks++;
-        setOut('tp-clicks', String(state.clicks), 'press and release without moving', null);
-        chip('tp-chip-clicks', true);
-        log(lg, 'click — held ' + held.toFixed(0) + 'ms', 'ok');
-      }
-      buttonState();
     });
 
     pad.addEventListener('wheel', function (e) {
@@ -193,9 +251,44 @@
       log(lg, 'scroll', 'ok');
     }, { passive: false });
 
+    makeTrackpad({
+      root: pad,
+      surface: $('#trackpad-surface'),
+      left: $('#trackpad-btn-left'),
+      right: $('#trackpad-btn-right'),
+      onDown: function (e, button) {
+        state.down = true;
+        state.pressed = true;
+        state.button = button;
+        state.downT = performance.now();
+        state.downX = e.clientX; state.downY = e.clientY;
+        state.moved = 0;
+        buttonState();
+        log(lg, button + ' down', 'w');
+      },
+      onUp: function (e, button) {
+        state.down = false;
+        state.button = 'up';
+        var held = performance.now() - state.downT;
+        if (state.moved > 4) {
+          state.drags++;
+          setOut('tp-drags', String(state.drags), 'press, move, release', null);
+          chip('tp-chip-drags', true);
+          log(lg, button + ' drag — ' + Math.round(state.moved) + 'px, held ' + held.toFixed(0) + 'ms', 'ok');
+        } else {
+          state.clicks++;
+          setOut('tp-clicks', String(state.clicks), 'press and release without moving', null);
+          chip('tp-chip-clicks', true);
+          log(lg, button + ' click — held ' + held.toFixed(0) + 'ms', 'ok');
+        }
+        buttonState();
+      }
+    });
+
     var reset = $('#trackpad-reset');
     if (reset) reset.addEventListener('click', function () {
       state.clicks = 0; state.drags = 0; state.scrolls = 0; state.pressed = false;
+      state.button = 'up'; state.down = false;
       setOut('tp-clicks', '0', 'press and release without moving', null);
       setOut('tp-drags', '0', 'press, move, release', null);
       setOut('tp-scrolls', '0', 'wheel events on the pad', null);
@@ -222,25 +315,17 @@
   (function display() {
     var pad = $('#tp-display-pad');
     if (!pad) return;
-    var dot = $('#tp-display-dot');
 
     pad.addEventListener('pointerenter', function () { pad.classList.add('is-live'); });
-    pad.addEventListener('pointerleave', function () {
-      pad.classList.remove('is-live');
-      pad.classList.remove('is-down');
+    pad.addEventListener('pointerleave', function () { pad.classList.remove('is-live'); });
+
+    makeTrackpad({
+      root: pad,
+      surface: $('#tp-display-surface'),
+      dot: $('#tp-display-dot'),
+      left: $('#tp-display-btn-left'),
+      right: $('#tp-display-btn-right')
     });
-    pad.addEventListener('pointermove', function (e) {
-      var r = pad.getBoundingClientRect();
-      if (dot) {
-        dot.style.left = (e.clientX - r.left) + 'px';
-        dot.style.top = (e.clientY - r.top) + 'px';
-      }
-    });
-    pad.addEventListener('pointerdown', function (e) {
-      e.preventDefault();
-      pad.classList.add('is-down');
-    });
-    window.addEventListener('pointerup', function () { pad.classList.remove('is-down'); });
   })();
 
   /* =========================================================
