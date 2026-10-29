@@ -410,7 +410,7 @@
           return;
         }
 
-        setOut('ptr-hz', hz + ' Hz', 'raw input samples per second', hz >= 60 ? 'ok' : 'bad');
+        setOut('ptr-hz', hz + ' Hz', 'raw input samples per second', hz >= 60 ? 'ok' : 'warn');
         setOut('ptr-jitter', jitter.toFixed(1) + ' ms', 'variation in the sample timing', jitter < 4 ? 'ok' : jitter < 8 ? 'warn' : 'bad');
         setOut('ptr-step', step.toFixed(1) + ' px', 'pointer travel per report, at the speed you moved', null);
 
@@ -500,7 +500,14 @@
         setOut('scr-type', type, note, type === 'Trackpad' ? 'ok' : type === 'Mouse wheel' ? 'warn' : null);
         setOut('scr-hz', hz + ' Hz', 'scroll events per second', null);
         setOut('scr-delta', inPixels ? avg.toFixed(1) + ' px' : 'not in pixels', inPixels ? 'how much each scroll moves' : 'this browser reports scroll in lines', null);
-        setOut('scr-vary', vary.toFixed(1) + ' px', 'how uneven the steps are', vary < 3 ? 'ok' : 'warn');
+        /* Uneven steps are what a trackpad's acceleration looks like, and
+           even steps are what a wheel looks like. Flipping the warning the
+           other way round meant a perfectly healthy trackpad was painted
+           amber while the verdict beside it said everything was fine. */
+        var varyTone = type === 'Mouse wheel' ? (vary < 3 ? null : 'warn')
+          : type === 'Trackpad' ? (vary >= 3 ? null : 'warn')
+          : null;
+        setOut('scr-vary', vary.toFixed(1) + ' px', 'how uneven the steps are', varyTone);
 
         var line = type === 'Trackpad' ? 'This is scrolling like a trackpad.'
           : type === 'Mouse wheel' ? 'This is scrolling like a notched mouse wheel.'

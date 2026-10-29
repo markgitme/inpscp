@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trackpad Troubleshooting — One Long Guide, Every Fault | InputScope</title>
+<meta name="description" content="Everything about a misbehaving trackpad in one page: what each trackpad test measurement means, the threshold it uses, and what to do about a trackpad that stutters, scrolls oddly, ignores gestures, clicks by itself or has stopped working.">
+<meta name="theme-color" content="#0a0b10">
+<link rel="canonical" href="trackpad.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trackpad Troubleshooting — One Long Guide, Every Fault | InputScope">
+<meta property="og:description" content="Everything about a misbehaving trackpad in one page: what each trackpad test measurement means, the threshold it uses, and what to do about a trackpad that stutters, scrolls oddly, ignores gestures, clicks by itself or has stopped working.">
+<meta property="og:url" content="trackpad.html">
+<meta property="og:image" content="../assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="../assets/og-image.png">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/review.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Trackpad troubleshooting",
+      "description": "Everything about a misbehaving trackpad in one page: what each trackpad test measurement means, the threshold it uses, and what to do about a trackpad that stutters, scrolls oddly, ignores gestures, clicks by itself or has stopped working.",
+      "datePublished": "2026-10-29",
+      "dateModified": "2026-10-29",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "name": "Mark",
+        "url": "about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "InputScope",
+        "url": "index.html"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "../index.html",
+          "item": "InputScope"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "index.html",
+          "item": "Troubleshooting"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "trackpad.html",
+          "item": "Trackpad"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Troubleshooting</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+    <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="tool-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="../index.html">InputScope</a><span>/</span><a href="index.html">Troubleshooting</a><span>/</span><a href="trackpad.html">Trackpad</a></div>
+      <span class="eyebrow eyebrow--amber">Troubleshooting</span>
+      <h1>Trackpad troubleshooting</h1>
+      <p class="hero__lead">The same treatment the mouse gets: every common trackpad fault in one place, the measurement that settles it, the threshold it uses, and the fix to try first.</p>
+      <p class="muted small" style="margin:1rem 0 0">Written by <a href="../about.html">Mark</a> &middot; Updated 29 October 2026</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow eyebrow--blue">In this guide</span>
+        <h2>What this page covers</h2>
+        <p>Everything in one place, in the order you would work through it. Each section names the measurement that settles the question, the threshold it uses, and what to do next.</p>
+      </div>
+      <ol class="doc-toc">
+          <li><span class="doc-toc__n">01</span><a href="#numbers">What the numbers actually mean</a></li>
+          <li><span class="doc-toc__n">02</span><a href="#right-click">Why is my right click not working?</a></li>
+          <li><span class="doc-toc__n">03</span><a href="#stutter">Why does my trackpad pointer stutter or lag?</a></li>
+          <li><span class="doc-toc__n">04</span><a href="#scrolling">Why does my trackpad scrolling jump or feel wrong?</a></li>
+          <li><span class="doc-toc__n">05</span><a href="#gestures">Why do my pinch and swipe gestures not work?</a></li>
+          <li><span class="doc-toc__n">06</span><a href="#phantom-clicks">Why does my trackpad click when I did not ask it to?</a></li>
+          <li><span class="doc-toc__n">07</span><a href="#stopped">Why has my trackpad stopped working?</a></li>
+          <li><span class="doc-toc__n">08</span><a href="#settings">Trackpad settings that change your test results</a></li>
+          <li><span class="doc-toc__n">09</span><a href="#triage">Symptom, cause, and where to look</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--lead">
+    <div class="wrap">
+      <article class="doc">
+        <section class="doc-section" id="numbers">
+          <h2>What the numbers actually mean</h2>
+          <div class="prose">
+<p>The trackpad is tested inside the <a href="../keyboard-check.html#trackpad-display">Keyboard Check page</a>, because on a laptop it is the same slab of glass as the keyboard. Two surfaces sit there. One is a picture of the pad that answers your pointer: a dot follows your cursor across the movement area, and the two button areas below it light up when your device reports a button. The other is the tester, which counts every click, drag and scroll that arrives, and names the button that was pressed. Three quick checks sit underneath — pointer response, scroll response and gestures — and each one answers a question that a mouse test cannot.</p>
+<p>A browser cannot tell a trackpad from a mouse with certainty. They produce the same events, and there is no property in the event stream that says which one it came from. Anything the tool says about which device you are using is a best guess, and it is labelled as one. The report rate, the timing jitter and the scroll step size are direct measurements — with one exception. A browser that does not expose raw input samples can only report its own event rate, and the tool says so instead of passing that off as the trackpad’s.</p>
+<p><strong>A trackpad is not a mouse, and it is not built like one.</strong> There is no sensor to get dirty and no wheel to wear out. Instead there is a pressure sensor that reads the shape of a contact, a firmware layer that turns that shape into movement and gestures, and an operating system that applies its own acceleration and filtering on top. Most trackpad complaints live in that last layer, which is why so many of them are fixed by a setting rather than by a repair.</p>
+<p>The most important thing to understand before reading any of the numbers is that <strong>a trackpad reports far more slowly than a mouse, and that is normal</strong>. A trackpad commonly reports between 60 and 120 times a second, because it is reading the shape of a contact and calculating where your finger is. A mouse is polled electrically at 500 or 1000 times a second and reports every one of them. The same figure that would look alarmingly slow for a mouse is the ordinary range for a trackpad. If you are used to the number your mouse produces, the trackpad’s rate will look wrong to you even when it is perfect.</p>
+<p>That is also why the tool measures the report rate rather than the pointer speed. Pointer speed is a setting, and a setting tells you nothing about the hardware. The rate is the one figure that comes from the device.</p>
+          </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <p class="muted small">Every threshold the trackpad checks apply, in one table.</p>
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Report rate of 120 Hz or more</td><td>&ge; 120 Hz</td><td>A fast report rate. The pointer tracks your finger closely</td></tr>
+            <tr><td>Report rate of 60&ndash;119 Hz</td><td>&ge; 60 Hz</td><td>A typical trackpad rate, and enough to look smooth</td></tr>
+            <tr><td>Report rate below 60 Hz</td><td>&lt; 60 Hz</td><td>The pointer updates less often than the screen redraws, and it will look steppy</td></tr>
+            <tr><td>Timing jitter below 4 ms</td><td>&lt; 4 ms</td><td>The samples arrive evenly, which is what smooth movement looks like</td></tr>
+            <tr><td>Timing jitter of 4&ndash;7 ms</td><td>&lt; 8 ms</td><td>A little uneven. Often a busy system rather than the trackpad</td></tr>
+            <tr><td>Timing jitter of 8 ms or more</td><td>&ge; 8 ms</td><td>Uneven enough to be felt as stutter</td></tr>
+            <tr><td>Travel per report</td><td>&mdash;</td><td>How far the pointer moved in one sample. It changes with how fast you moved, so it is a description of your movement rather than a fault</td></tr>
+            <tr><td>Browser has no raw sampling</td><td>estimate</td><td>The figure is the browser&rsquo;s event rate, not the trackpad&rsquo;s, and the panel says so</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>The scroll response check</h3>
+      <div class="prose">
+<p>The scroll check watches the shape of your scrolling rather than the amount of it, because the shape is what separates a trackpad from a wheel. A wheel sends the same step every time. A trackpad sends a run of different values, because your finger is accelerating and decelerating. When the steps are identical the tool calls it a mouse wheel; when they differ it calls it a trackpad. That is a best guess, and the tool says so, because a browser gives the two the same kind of event.</p>
+          </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Scroll type reads Trackpad</td><td>best guess</td><td>The scroll is smooth, or a gesture arrived</td></tr>
+            <tr><td>Scroll type reads Mouse wheel</td><td>best guess</td><td>The scroll steps in fixed notches, which is a wheel</td></tr>
+            <tr><td>Scroll type reads Undetermined</td><td>best guess</td><td>The scroll did not look like either, so the tool says so rather than picking one</td></tr>
+            <tr><td>Step variation below 3 px</td><td>&lt; 3 px</td><td>The steps are identical — a notched wheel, or a filter imitating one</td></tr>
+            <tr><td>Step variation of 3 px or more</td><td>&ge; 3 px</td><td>The steps differ, which is what a trackpad&rsquo;s acceleration looks like</td></tr>
+            <tr><td>Scroll rate</td><td>&mdash;</td><td>Scroll events per second. A trackpad produces far more of them than a wheel does, which is why trackpad scrolling feels continuous</td></tr>
+            <tr><td>A pinch arrived</td><td>control + small step</td><td>A control-modified scroll with a small step reached the page, which is the browser&rsquo;s signal for a pinch</td></tr>
+            <tr><td>Only large, even control-modified scrolls</td><td>&mdash;</td><td>That is a mouse wheel with the control key held, not a pinch</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>The tester and the gesture check</h3>
+      <div class="prose">
+<p>The tester counts what arrives and names the button that was pressed. The Button readout is worth watching for a moment before you touch anything: if it says <code>up</code> and your hands are away from the pad, the trackpad is reporting honestly.</p>
+<p>On the picture of the pad, the two areas under the movement surface are not buttons you can press. They show <em>the button your device reported</em>, wherever your press landed. A left click lights the left one. A right-click lights the right one, and only a real right-click — the physical right button, or a trackpad&rsquo;s two-finger tap — can do that. Clicking the right area with a left mouse cannot fake it.</p>
+<p>The gesture check asks whether two specific gestures ever reach the page.</p>
+          </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Button readout says up</td><td>nothing held</td><td>No button is down, so the trackpad is reporting honestly</td></tr>
+            <tr><td>Button readout says left</td><td>left held</td><td>The browser sees a left button — a tap, or a press of the physical button</td></tr>
+            <tr><td>Button readout says right</td><td>right held</td><td>The browser sees a right button — the physical right button, or a two-finger tap</td></tr>
+            <tr><td>Button readout says middle</td><td>middle held</td><td>The browser sees a middle button</td></tr>
+            <tr><td>A click and a drag are both counted</td><td>&mdash;</td><td>A press that moves more than 4&nbsp;px is a drag, so the tool tells the two apart</td></tr>
+            <tr><td>Swipes seen</td><td>&ge; 1</td><td>A two-finger horizontal swipe reached the browser</td></tr>
+            <tr><td>Pinches seen</td><td>&ge; 1</td><td>A control-modified scroll with a small step reached the page</td></tr>
+          </tbody>
+        </table>
+      </div>
+        </section>
+        <section class="doc-section" id="right-click">
+          <h2>Why is my right click not working?</h2>
+          <div class="prose">
+<p>A trackpad has no button. It is a flat surface that senses pressure, so every right-click you have ever made on one was really a gesture the operating system translated into a button press. There are three ways to produce one, and all three are settings:</p>
+<p><strong>Tap with two fingers.</strong> The most common method, and the one people reach for first. It is a toggle in the trackpad settings, and it is off by default on some machines.</p>
+<p><strong>Press the lower-right corner.</strong> On Windows this is a separate switch from the two-finger tap, and it exists on most precision touchpads. Some Windows laptops call it <em>Press the lower right corner of the touchpad to right-click</em>. On a Mac, a physical click in that corner is a right-click as well, on any pad that has one.</p>
+<p><strong>Press the physical button.</strong> Some trackpads have a button along the bottom edge, split into a left half and a right half. Pressing the right half sends a right-click; pressing the left half sends a left-click. If your machine has one, the physical button always works, whatever the gesture settings say.</p>
+<p>Which means the right-click on a trackpad is the most configurable thing on the device, and the most likely to be switched off by accident, by a manufacturer utility, or by an operating system update.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>Watch the Button readout in the tester. A right-click arriving shows as <code>right</code>, and the right-hand area on the picture of the pad lights up. A left-click arriving shows as <code>left</code> and lights the left-hand area. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#trackpad-display" style="margin-left:.4rem;vertical-align:middle">Run the trackpad tester</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Reading</th><th>Threshold</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Button readout says right</td><td>button 2</td><td>The right-click reached the browser. If the context menu did not open, the browser or the page swallowed it</td></tr>
+            <tr><td>Button readout says left</td><td>button 0</td><td>Only a left-click arrived. The gesture is producing the wrong button, or it is switched off</td></tr>
+            <tr><td>Nothing arrives at all</td><td>0 events</td><td>No gesture is reaching the browser. The setting is off, or the gesture is being taken by the operating system</td></tr>
+            <tr><td>The right area lights but nothing happens</td><td>reported, not delivered</td><td>The hardware sent the right button and the browser discarded it — usually a page that has taken the right-click for itself</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Turn the two-finger tap on</h3>
+            <p>On macOS it sits in System Settings &rarr; Trackpad &rarr; Point &amp; Click &rarr; <em>Secondary Click</em>. On Windows, Settings &rarr; Bluetooth &amp; devices &rarr; Touchpad &rarr; Taps &rarr; <em>Tap with two fingers to right-click</em>.</p>
+          </div>
+          <div class="step">
+            <h3>Try the corner</h3>
+            <p>Windows has a separate switch, <em>Press the lower right corner of the touchpad to right-click</em>, in the same Taps panel. If it is on, a firm press in the lower-right corner produces a right-click whether or not the tap is enabled.</p>
+          </div>
+          <div class="step">
+            <h3>Check the physical button</h3>
+            <p>If the pad has a button strip along the bottom, the right half is a right-click and nothing can disable it. Press it and watch the Button readout say <code>right</code>.</p>
+          </div>
+          <div class="step">
+            <h3>Rule out the page</h3>
+            <p>A page can take the right-click for itself and use it for something else. If the readout says <code>right</code> and nothing happens, try the same gesture in a plain text field.</p>
+          </div>
+          <div class="step">
+            <h3>Rule out the machine</h3>
+            <p>Some remote desktop and screen sharing tools swallow secondary clicks entirely. Test in a local session.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="stutter">
+          <h2>Why does my trackpad pointer stutter or lag?</h2>
+          <div class="prose">
+<p>Almost always one of three things: a low report rate, uneven timing, or an acceleration curve fighting your hand.</p>
+<p>Stuttering means the pointer does not move smoothly even though you are moving smoothly. The test separates the two possible causes. If the report rate is low, the trackpad is not telling the computer where your finger is often enough, and no setting will fix that. If the rate is fine but the jitter is high, the samples are arriving unevenly, and that is a system problem rather than a trackpad one.</p>
+<p>There is a third possibility the numbers cannot show you: the pointer may be moving smoothly but at the wrong speed. A trackpad with aggressive acceleration ramps up quickly and then covers a lot of ground for a small hand movement, which reads as lag because the pointer keeps running after your finger has stopped. That one is a setting.</p>
+<p>One more trap deserves a mention, because it is easy to blame the wrong device: on macOS the pointer is drawn at the display&rsquo;s refresh rate, so on a slow display a perfectly good trackpad looks stuttery even when the samples are arriving evenly. The report rate and the jitter do not change with the display, so they are the figures to trust.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The pointer response check samples your trackpad for a second and a half and reports the report rate, the timing jitter and the travel per sample. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#ptr-start" style="margin-left:.4rem;vertical-align:middle">Run the pointer response check</a></p>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Measure it</h3>
+            <p>Run the pointer response check. A rate of 60&nbsp;Hz or more with jitter under 8&nbsp;ms means the hardware is fine and the problem is elsewhere.</p>
+          </div>
+          <div class="step">
+            <h3>Compare it with a mouse</h3>
+            <p>Plug in a mouse and run the same check. If the mouse reports several hundred times a second and the trackpad reports sixty, that is the difference between the two devices, not a fault.</p>
+          </div>
+          <div class="step">
+            <h3>Close everything else</h3>
+            <p>A busy machine delays the events, not the trackpad. Close a video editor, a game or a remote desktop session and measure again. A remote session in particular makes every reading meaningless, because the pointer is being reconstructed on the far end.</p>
+          </div>
+          <div class="step">
+            <h3>Turn off acceleration</h3>
+            <p>On Windows, turn off <em>Enhance pointer precision</em>. On macOS, move the tracking speed slider to the middle. If the stutter disappears, the curve was the cause.</p>
+          </div>
+          <div class="step">
+            <h3>Rule out a filter</h3>
+            <p>Some laptop utilities and remote access tools install a pointer filter that smooths or slows the cursor. Disable it and measure again.</p>
+          </div>
+          <div class="step">
+            <h3>Restart the driver</h3>
+            <p>On Windows, disable and re-enable the touchpad in Device Manager. On macOS, a full shutdown and restart reloads the trackpad firmware; a sleep or a lid close does not.</p>
+          </div>
+          <div class="step">
+            <h3>Suspect the hardware</h3>
+            <p>If the rate is genuinely below 60&nbsp;Hz and nothing changes it, the sensor or its flex cable is failing. That is a repair, not a setting.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="scrolling">
+          <h2>Why does my trackpad scrolling jump or feel wrong?</h2>
+          <div class="prose">
+<p>A notched wheel and a trackpad scroll in completely different ways, and the difference is visible in the numbers.</p>
+<p>Two things make trackpad scrolling feel wrong, and they pull in opposite directions. The first is that a trackpad is genuinely continuous: your finger slides a fraction of a millimetre and the screen moves a fraction of a pixel, so the content accelerates and decelerates with your hand. The second is that some filtering layer between the pad and the screen turns that continuous motion back into discrete steps.</p>
+<p>The test tells you which of the two you have. A step variation under 3&nbsp;px means the scroll is arriving in identical chunks, which is a notched device or a filter imitating one. A step variation of 3&nbsp;px or more means the scroll is genuinely smooth, and what you are feeling is the acceleration curve rather than a fault.</p>
+<p>One more cause deserves a mention because it is common and easy to miss: <strong>natural scrolling</strong>. When it is on, dragging two fingers down moves the page up. It is a preference, not a fault, and it is the setting people most often change after their first day with a trackpad.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The scroll response check reads the shape of your scrolling: whether the steps are identical, how many events per second arrive, and whether a gesture turned up. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#scr-start" style="margin-left:.4rem;vertical-align:middle">Run the scroll response check</a></p>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Measure the shape</h3>
+            <p>Run the scroll response check. Step variation under 3&nbsp;px means something is quantising your scroll; over 3&nbsp;px means the scroll is smooth and you are feeling acceleration.</p>
+          </div>
+          <div class="step">
+            <h3>Turn off natural scrolling</h3>
+            <p>On macOS: System Settings &rarr; Trackpad &rarr; Scroll &amp; Zoom &rarr; <em>Natural scrolling</em>. The Mouse panel has the same toggle. On Windows: Settings &rarr; Bluetooth &amp; devices &rarr; Touchpad &rarr; <em>Scrolling direction</em>.</p>
+          </div>
+          <div class="step">
+            <h3>Lower the scroll speed</h3>
+            <p>On macOS the same panel has a scroll speed slider. On Windows it sits under the touchpad&rsquo;s scroll settings. Slower scrolling hides a lot of unevenness.</p>
+          </div>
+          <div class="step">
+            <h3>Check for a filter</h3>
+            <p>Pointer and scroll filters from remote access software, screen recorders and accessibility utilities all sit between the pad and the page. Turn them off one at a time.</p>
+          </div>
+          <div class="step">
+            <h3>Test the raw device</h3>
+            <p>Scroll in a plain text field with nothing else running. If it is smooth there and rough in the browser, the browser is the problem, not the trackpad.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="gestures">
+          <h2>Why do my pinch and swipe gestures not work?</h2>
+          <div class="prose">
+<p>Almost never a hardware fault. Gestures are handled by the operating system before the browser ever sees them.</p>
+<p>This is the trackpad fault that causes the most confusion, because the gesture works perfectly everywhere else. On the desktop it zooms, in a photograph it zooms, in a spreadsheet it zooms — but in a web page nothing happens, and it looks like the browser is broken.</p>
+<p>What is actually happening is that the gesture is a browser zoom command. A pinch arrives at the page as a scroll with the control key held, and the browser treats it as a request to zoom the page rather than as an input to the site. A page can intercept that and refuse it, and plenty of sites do.</p>
+<p>A four-finger swipe is claimed by the operating system, which uses it for Mission Control and for switching Spaces. Swipes on a Mac are worth separating carefully, because two different things own them. <strong>The two-finger horizontal swipe belongs to the browser</strong>: it goes back and forward, and the page may never see it at all. <strong>The three- and four-finger horizontal swipe belongs to the operating system</strong>, and it switches between Spaces and full-screen applications. Either way, a swipe that never arrives is a shortcut somebody else owns rather than a broken trackpad.</p>
+<p>One detail catches people out on Windows: the operating system settings call the two-finger right-click a tap, and it is easy to assume a gesture that does nothing is a fault when it is a setting. Windows also offers a corner press as a second way to right-click, and the two are separate switches.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The gesture check watches for a two-finger horizontal swipe and for a pinch, and tells you which of the two reached the browser. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#gst-start" style="margin-left:.4rem;vertical-align:middle">Run the gesture check</a></p>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Run the gesture check</h3>
+            <p>If the swipe arrives but the pinch does not, the pinch is being consumed as a zoom. If neither arrives, the operating system is intercepting both.</p>
+          </div>
+          <div class="step">
+            <h3>Try a different browser</h3>
+            <p>Chrome, Edge, Safari and Firefox reserve different gestures. If a pinch works in one and not another, the browser is choosing to keep it.</p>
+          </div>
+          <div class="step">
+            <h3>Check the system gesture settings</h3>
+            <p>On macOS the swipe options sit in System Settings &rarr; Desktop &amp; Dock &rarr; Mission Control, and their keyboard equivalents in System Settings &rarr; Keyboard &rarr; Keyboard Shortcuts &rarr; Mission Control. On Windows, Settings &rarr; Bluetooth &amp; devices &rarr; Touchpad holds the three-finger and four-finger options.</p>
+          </div>
+          <div class="step">
+            <h3>Look for a zoom conflict</h3>
+            <p>On macOS, System Settings &rarr; Trackpad &rarr; Scroll &amp; Zoom holds <em>Zoom in or out</em>, which is the pinch, next to <em>Smart zoom</em>. On Windows, the touchpad panel has a separate <em>Pinch to zoom</em> toggle under Scroll &amp; zoom.</p>
+          </div>
+          <div class="step">
+            <h3>Check for an extension</h3>
+            <p>A zoom or gesture extension can swallow the events before the page sees them. Test in a private window with extensions disabled.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="phantom-clicks">
+          <h2>Why does my trackpad click when I did not ask it to?</h2>
+          <div class="prose">
+<p>Almost always a palm landing on the pad while you type, and a click threshold set too low.</p>
+<p>A trackpad is a pressure sensor, so a stray contact is indistinguishable from a deliberate one until the operating system applies a rule. The rules it applies are palm rejection, which ignores a large contact, and a click threshold, which ignores a light one. When either is too permissive, the heel of your hand resting on the pad becomes a click.</p>
+<p>There is a second cause that is less obvious: the Button readout reading a button that is held when you are not touching anything. That means the pad is reporting a contact that never ended. The browser will keep treating every movement as a drag, which is why the pointer sometimes refuses to click properly even though the hardware is fine.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>The tester counts every press the browser receives, and the Button readout names the button that is currently held. Leave your hands off the pad and watch the counter. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#trackpad-display" style="margin-left:.4rem;vertical-align:middle">Run the trackpad tester</a></p>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Watch the counter</h3>
+            <p>Run the tester and leave your hands well away. A click counter that climbs on its own is a hardware or firmware fault, and nothing you change in settings will stop it.</p>
+          </div>
+          <div class="step">
+            <h3>Raise the click threshold</h3>
+            <p>On macOS: System Settings &rarr; Trackpad &rarr; Point &amp; Click &rarr; <em>Click Pressure</em>, set to Medium or Firm. On Windows: Settings &rarr; Bluetooth &amp; devices &rarr; Touchpad &rarr; Taps &rarr; <em>Touchpad sensitivity</em>, set to Medium or Low.</p>
+          </div>
+          <div class="step">
+            <h3>Turn off tap to click</h3>
+            <p>On macOS, System Settings &rarr; Trackpad &rarr; Point &amp; Click &rarr; <em>Tap to Click</em>. On Windows, the same panel under Taps. This removes the most common source of accidental clicks outright.</p>
+          </div>
+          <div class="step">
+            <h3>Check for a stuck contact</h3>
+            <p>If the Button readout stays on a held button, power the machine off completely rather than sleeping it, and try again. That reloads the trackpad firmware.</p>
+          </div>
+          <div class="step">
+            <h3>Clean the pad</h3>
+            <p>A speck of dust or a drop of liquid bridging the sensor produces a phantom contact that no setting will explain.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="stopped">
+          <h2>Why has my trackpad stopped working?</h2>
+          <div class="prose">
+<p>Four causes, in the order they are worth checking: a setting, a disabled device, a driver, and then the hardware.</p>
+<p>The first thing to check is the setting nobody remembers. macOS has an option called <em>Ignore built-in trackpad when mouse or wireless trackpad is present</em>, and it is off by default but people turn it on and forget. On Windows, several laptop manufacturers ship a utility that disables the built-in touchpad as soon as an external mouse is plugged in, and the setting is not always easy to find.</p>
+<p>There is one more that catches people out on other machines: many laptops disable the touchpad with a physical switch or a hotkey, and the symbol for it is printed on one of the function keys. It is off by default, it is easy to hit by accident, and it makes the pad look completely dead.</p>
+<p>If the pad is enabled and still silent, the next step is the driver. On Windows, Device Manager &rarr; Mice and other pointing devices should show a touchpad entry; if it is showing a warning triangle, that is the fault. On macOS there is no separate driver to install, but a full shutdown and start reloads the firmware, which is the equivalent fix.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h4>The test that settles it</h4>
+        <p>If the tester counts nothing at all when you move and tap, the pad is not reporting anything. That single fact separates the settings and driver problems from the hardware ones. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#trackpad-display" style="margin-left:.4rem;vertical-align:middle">Run the trackpad tester</a></p>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Confirm nothing is arriving</h3>
+            <p>Run the tester. No clicks, no drags and no movement at all means the pad is not reporting to the browser.</p>
+          </div>
+          <div class="step">
+            <h3>Check the ignore setting</h3>
+            <p>macOS: System Settings &rarr; Accessibility &rarr; Pointer Control &rarr; Mouse &amp; Trackpad &rarr; <em>Ignore built-in trackpad when mouse or wireless trackpad is present</em>. Some versions of macOS list it in the Trackpad panel instead, under a slightly different name. Windows: the manufacturer&rsquo;s utility, usually in the Start menu under the laptop brand.</p>
+          </div>
+          <div class="step">
+            <h3>Check the laptop&rsquo;s own switch</h3>
+            <p>Many laptops disable the touchpad with a physical switch or a hotkey, and the symbol is printed on one of the function keys. It is easy to hit by accident, and it makes the pad look completely dead.</p>
+          </div>
+          <div class="step">
+            <h3>Power cycle properly</h3>
+            <p>Shut the machine down rather than sleeping it. A sleep cycle leaves the trackpad firmware loaded, and a full power off does not.</p>
+          </div>
+          <div class="step">
+            <h3>Reinstall the driver</h3>
+            <p>On Windows, remove the touchpad device in Device Manager and let Windows reinstall it on the next restart. On macOS, this is usually unnecessary.</p>
+          </div>
+          <div class="step">
+            <h3>Accept the hardware verdict</h3>
+            <p>If the pad is enabled, the driver is clean and the firmware has been reloaded, the remaining cause is the sensor or its flex cable. On a laptop that is a motherboard-level repair.</p>
+          </div>
+      </div>
+        </section>
+        <section class="doc-section" id="settings">
+          <h2>Trackpad settings that change your test results</h2>
+          <div class="prose">
+<p>Seven switches. Six of them move a number on the test page. The seventh stops the page getting one at all.</p>
+<p>The measurements on the trackpad panel are of the trackpad and the operating system together, not of the trackpad alone. Seven settings change what you see, and it is worth knowing which ones before you blame a device.</p>
+          </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Setting</th><th>Where it lives</th><th>What it changes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Tracking speed / cursor speed</td><td>macOS: System Settings &rarr; Trackpad. Windows: Settings &rarr; Bluetooth &amp; devices &rarr; Touchpad &rarr; Gestures &amp; interaction</td><td>How far the pointer travels for a given finger movement. It changes the travel per report, and the report rate is untouched</td></tr>
+            <tr><td>Enhance pointer precision</td><td>Windows: Settings &rarr; Bluetooth &amp; devices &rarr; Mouse &rarr; Additional mouse settings &rarr; Pointer Options</td><td>An acceleration ramp. The pointer speeds up as you move faster, which reads as lag when you stop</td></tr>
+            <tr><td>Tap to click</td><td>macOS: System Settings &rarr; Trackpad &rarr; Point &amp; Click. Windows: Touchpad &rarr; Taps &rarr; Tap with a single finger to single-click</td><td>Whether a light touch counts as a click. It changes what the tester counts, and it is the most common cause of phantom clicks</td></tr>
+            <tr><td>Two-finger tap / corner press</td><td>Windows: Touchpad &rarr; Taps &rarr; Tap with two fingers to right-click, and Press the lower right corner of the touchpad to right-click</td><td>Whether a right-click can be produced at all. It is the setting behind a right-click that does nothing</td></tr>
+            <tr><td>Click pressure / touchpad sensitivity</td><td>macOS: System Settings &rarr; Trackpad &rarr; Point &amp; Click &rarr; Click Pressure. Windows: Touchpad &rarr; Taps &rarr; Touchpad sensitivity</td><td>How hard the pad has to be pressed. It changes when a press is registered, not the movement</td></tr>
+            <tr><td>Natural scrolling</td><td>macOS: System Settings &rarr; Trackpad &rarr; Scroll &amp; Zoom. Windows: Touchpad &rarr; Scroll &amp; zoom &rarr; Scrolling direction</td><td>The direction of the scroll. It does not change the step size or the rate, only the sign of the delta</td></tr>
+            <tr><td>Ignore built-in trackpad when a mouse is connected</td><td>macOS: System Settings &rarr; Accessibility &rarr; Pointer Control &rarr; Mouse &amp; Trackpad</td><td>Whether the pad works at all with an external mouse plugged in. It does not affect a reading, because there will not be one</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="prose" style="margin-top:1.4rem">
+<p><strong>The one-setting experiment.</strong> If the pointer feels wrong, change exactly one thing — the tracking speed, or the cursor speed — and measure again. If the report rate and the jitter are unchanged and the pointer still feels wrong, the problem is not the trackpad, and you can stop looking at it.</p>
+          </div>
+        </section>
+        <section class="doc-section" id="triage">
+          <h2>Symptom, cause, and where to look</h2>
+          <div class="prose">
+<p>Triage. The short version, for when you already know what is wrong and just want the setting that fixes it.</p>
+          </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Symptom</th><th>Likely cause</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Right-click does nothing</td><td>The gesture is switched off, or it is being taken by the page</td><td>Two-finger tap and corner press in the touchpad settings; the Button readout in the tester</td></tr>
+            <tr><td>Pointer stutters when moved quickly</td><td>Acceleration curve, or a report rate below the display refresh</td><td>Tracking speed slider; Windows &ldquo;enhance pointer precision&rdquo;</td></tr>
+            <tr><td>Pointer keeps moving after the finger stops</td><td>Acceleration, or a filter smoothing the input</td><td>Tracking speed; remote access and accessibility utilities</td></tr>
+            <tr><td>Scrolling jumps in fixed steps</td><td>A notched device, or a filter quantising the scroll</td><td>Scroll response check; disable pointer filters</td></tr>
+            <tr><td>Scrolling runs the wrong way</td><td>Natural scrolling is on</td><td>macOS: Trackpad &rarr; Scroll &amp; Zoom. Windows: Touchpad &rarr; Scrolling direction</td></tr>
+            <tr><td>Pinch does nothing in a web page</td><td>The browser reserves it as a zoom command</td><td>Try another browser; macOS: Trackpad &rarr; Scroll &amp; Zoom &rarr; Zoom in or out</td></tr>
+            <tr><td>Two-finger swipe goes back or forward instead of reaching the page</td><td>The browser owns that gesture</td><td>Try another browser; macOS uses the three- and four-finger swipe for Spaces</td></tr>
+            <tr><td>Clicks happen while typing</td><td>A palm on the pad, or a click threshold that is too low</td><td>Click Pressure; turn off tap to click</td></tr>
+            <tr><td>The pointer drags and will not click</td><td>The pad believes a contact is still down</td><td>The Button readout in the tester; full power off</td></tr>
+            <tr><td>The trackpad stopped working after a mouse was plugged in</td><td>The ignore setting was turned on</td><td>macOS: Accessibility &rarr; Pointer Control. Windows: the manufacturer&rsquo;s utility</td></tr>
+            <tr><td>Everything is slow but the mouse is fine</td><td>Remote desktop or screen sharing</td><td>Close the session and measure again</td></tr>
+          </tbody>
+        </table>
+      </div>
+        </section>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="../mouse-check.html">Mouse Check</a></li>
+          <li><a href="../keyboard-check.html">Keyboard Check</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Troubleshooting</h4>
+        <ul>
+          <li><a href="index.html">All troubleshooting</a></li>
+          <li><a href="mouse.html">Mouse</a></li>
+          <li><a href="keyboard.html">Keyboard</a></li>
+          <li><a href="trackpad.html">Trackpad</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="../about.html">About InputScope</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Use</a></li>
+          <li><a href="../ads.txt">ads.txt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> InputScope. All rights reserved.</span>
+      <span>The tools collect nothing. The contact form is the exception.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/review.js"></script>
+</body>
+</html>

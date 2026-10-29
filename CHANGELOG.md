@@ -2,6 +2,51 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.15.0 — the trackpad gets its own troubleshooting guide
+
+### Added
+
+- **`troubleshooting/trackpad.html`** — a long guide for the trackpad, in the same
+  form as the mouse and keyboard guides: nine sections, six threshold tables, a
+  triage table, and for each fault the measurement that settles it and the fix
+  to try first. It covers the right-click, the stuttering pointer, scrolling that
+  jumps, gestures that never arrive, clicks that happen by themselves, a trackpad
+  that has stopped working, the seven settings that change what the test
+  measures, and a symptom-to-setting triage table.
+
+  **The trackpad is a different device from a mouse**, and the guide is built
+  around that rather than beside it. It has no sensor to get dirty and no wheel
+  to wear out; it has a pressure sensor, a firmware layer and an operating
+  system on top, which is why so many of its faults are fixed by a setting. It
+  also reports far more slowly than a mouse — 60 to 120 times a second against a
+  mouse's 500 or 1000 — and that figure reads as a fault until you know it.
+
+  Every settings path in it was read off Apple's and Microsoft's own
+  documentation: the macOS path for "Ignore built-in trackpad when mouse or
+  wireless trackpad is present" is under **Accessibility → Pointer Control →
+  Mouse & Trackpad**, and the Windows touchpad settings are under **Bluetooth &
+  devices → Touchpad**, with the two-finger right-click and the corner press as
+  separate switches under Taps.
+
+- **Cross-links**: a card index from the trackpad panel on the keyboard page
+  into the new guide, a section in the keyboard document pointing at it, a card
+  on the troubleshooting hub, a footer link on every page, and a sitemap entry.
+  The site is now 12 pages and 11 sitemap URLs.
+
+### Fixed
+
+- **A healthy trackpad's scroll was painted amber.** The step-variation row
+  treated even steps as good and uneven steps as a warning, which is true of a
+  wheel and exactly backwards for a trackpad, where uneven steps are what
+  acceleration looks like. A trackpad scrolling properly was showing a warning
+  next to a verdict that said everything was fine. The tone now follows the
+  device the scroll check identified.
+
+- **A low report rate was marked as a failure rather than a warning**, next to
+  a verdict that called it a warning.
+
+- **The troubleshooting hub said the mouse guide had 8 sections. It has 9.**
+
 ## v1.14.0 — the right button can only be pressed by a right click
 
 ### Fixed
