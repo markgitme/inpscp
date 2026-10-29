@@ -316,7 +316,7 @@
           <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
             <div style="flex:1;min-width:250px">
               <h3 style="font-size:1.1rem;margin-bottom:.3rem">Trackpad tester</h3>
-              <p class="muted small" style="margin:0">Move, tap and scroll with the pointer <strong class="hl">in the panel</strong> &mdash; every click, drag and scroll event is counted as it arrives. The two areas below the pad are the left and right buttons &mdash; a right-click, which is how a trackpad&rsquo;s two-finger tap arrives, counts as the right button.</p>
+              <p class="muted small" style="margin:0">Move, tap and scroll with the pointer <strong class="hl">in the panel</strong> &mdash; every click, drag and scroll event is counted as it arrives. The two areas below the pad show which button your device reported &mdash; only a right-click, which is how a trackpad&rsquo;s two-finger tap arrives, lights the right one.</p>
             </div>
             <button class="btn btn--sm" type="button" id="trackpad-reset">Reset counters</button>
           </div>
@@ -352,13 +352,13 @@
 
           <div class="panel panel--pad check-card">
             <h3>Pointer response</h3>
-            <p class="check-note">Press start, then keep the pointer moving for a second and a half.</p>
+            <p class="check-note">Press start, then keep a finger moving across the trackpad for a second and a half.</p>
             <div class="check-actions">
               <button class="btn btn--primary btn--sm" type="button" id="ptr-start">Start</button>
             </div>
             <div class="verdict">
               <div class="verdict__line" id="ptr-verdict-line">Ready when you are.</div>
-              <div class="verdict__detail" id="ptr-verdict-detail">Press Start, then move the pointer around for a second and a half.</div>
+              <div class="verdict__detail" id="ptr-verdict-detail">Press Start, then move a finger across the trackpad for a second and a half.</div>
             </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Report rate</span><span class="mini-results__v" data-out="ptr-hz">—</span></div>
@@ -371,13 +371,13 @@
 
           <div class="panel panel--pad check-card">
             <h3>Scroll response</h3>
-            <p class="check-note">Press start, then scroll up and down for a couple of seconds.</p>
+            <p class="check-note">Press start, then scroll up and down with two fingers on the trackpad for a couple of seconds.</p>
             <div class="check-actions">
               <button class="btn btn--primary btn--sm" type="button" id="scr-start">Start</button>
             </div>
             <div class="verdict">
               <div class="verdict__line" id="scr-verdict-line">Ready when you are.</div>
-              <div class="verdict__detail" id="scr-verdict-detail">Press Start, then scroll over the page for a couple of seconds.</div>
+              <div class="verdict__detail" id="scr-verdict-detail">Press Start, then scroll with two fingers on the trackpad for a couple of seconds.</div>
             </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Scroll type</span><span class="mini-results__v" data-out="scr-type">—</span></div>
@@ -390,13 +390,13 @@
 
           <div class="panel panel--pad check-card">
             <h3>Gestures</h3>
-            <p class="check-note">Press start, then try a two-finger swipe sideways and a pinch.</p>
+            <p class="check-note">Press start, then try a two-finger swipe sideways and a pinch on the trackpad.</p>
             <div class="check-actions">
               <button class="btn btn--primary btn--sm" type="button" id="gst-start">Start</button>
             </div>
             <div class="verdict">
               <div class="verdict__line" id="gst-verdict-line">Ready when you are.</div>
-              <div class="verdict__detail" id="gst-verdict-detail">Press Start, then swipe sideways and pinch over the page.</div>
+              <div class="verdict__detail" id="gst-verdict-detail">Press Start, then swipe sideways and pinch with two fingers on the trackpad.</div>
             </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Swipes seen</span><span class="mini-results__v" data-out="gst-swipe">0</span></div>

@@ -147,7 +147,7 @@
     function light(which) {
       if (leftBtn) leftBtn.classList.toggle('is-down', which === 'left');
       if (rightBtn) rightBtn.classList.toggle('is-down', which === 'right');
-      if (surface) surface.classList.toggle('is-tapped', which === 'tap');
+      if (surface) surface.classList.remove('is-tapped');
     }
 
     /* Which button area is under the pointer? null means the movement
@@ -163,10 +163,7 @@
     root.addEventListener('pointerdown', function (e) {
       var area = areaUnder(e.target);
       var button;
-      if (area) {
-        button = area;
-        e.preventDefault();
-      } else if (e.button === 2) {
+      if (e.button === 2) {
         button = 'right';
       } else if (e.button === 1) {
         button = 'middle';
@@ -174,7 +171,14 @@
         button = 'left';
       }
       held = button;
-      light(area || (button === 'right' ? 'right' : (button === 'left' ? 'tap' : null)));
+      /* The two areas are not buttons you can press. They show the button
+         the browser reported, so a left click can never light the right
+         one — only a real right-click, or a trackpad's two-finger tap,
+         can do that. A browser cannot tell a tap from a press of the
+         physical button, so button 0 lights the left area either way. */
+      light(button === 'right' ? 'right' : (button === 'left' ? 'left' : null));
+      if (surface && area === null) surface.classList.add('is-tapped');
+      if (area) e.preventDefault();
       if (opts.onDown) opts.onDown(e, button);
     });
 
@@ -349,7 +353,7 @@
       setOut('ptr-hz', '…', 'sampling for 1.5 seconds', null);
       setOut('ptr-jitter', '…', 'variation in the sample timing', null);
       setOut('ptr-step', '…', 'pointer travel per report', null);
-      verdict('ptr', 'Keep the pointer moving…', 'Sampling for a second and a half.', null);
+      verdict('ptr', 'Keep the pointer moving…', 'Move a finger across the trackpad for a second and a half.', null);
       if (lg) lg.innerHTML = '';
 
       function onRaw(e) {
@@ -411,13 +415,13 @@
         setOut('ptr-step', step.toFixed(1) + ' px', 'pointer travel per report, at the speed you moved', null);
 
         var rateLine = hz >= 120 ? 'That is a fast report rate.'
-          : hz >= 60 ? 'That is a typical trackpad rate.'
+          : hz >= 60 ? 'That is a typical report rate.'
           : 'That is a low report rate — the pointer will look steppy.';
         var jitterLine = jitter < 4 ? 'The timing is even.'
           : jitter < 8 ? 'The timing is a little uneven.'
           : 'The timing is uneven, and that is what makes a pointer feel stuttery.';
         verdict('ptr', rateLine + ' ' + jitterLine,
-          hz + ' reports per second — raw sampling confirmed.',
+          hz + ' reports per second — raw sampling confirmed. A browser cannot tell a trackpad from a mouse, so this is the rate your pointer device reported.',
           hz >= 60 && jitter < 8 ? 'ok' : 'warn');
         log(lg, hz + ' Hz, jitter ' + jitter.toFixed(1) + 'ms, step ' + step.toFixed(1) + 'px');
       }, 1500);
@@ -440,7 +444,7 @@
       setOut('scr-hz', '…', 'scroll events per second', null);
       setOut('scr-delta', '…', 'how much each scroll moves', null);
       setOut('scr-vary', '…', 'how uneven the steps are', null);
-      verdict('scr', 'Scroll over the box…', 'A few seconds of scrolling is enough.', null);
+      verdict('scr', 'Scroll with two fingers…', 'A few seconds of scrolling on the trackpad is enough.', null);
       if (lg) lg.innerHTML = '';
 
       function onWheel(e) {

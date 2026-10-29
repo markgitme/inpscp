@@ -2,6 +2,34 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.14.0 — the right button can only be pressed by a right click
+
+### Fixed
+
+- **A left click can no longer light the right button area.** The two areas
+  under the trackpad were press targets that reported the button you pressed
+  them with, so clicking "right" with a left mouse produced a right click that
+  never happened — a false reading in the Button readout and in the log. They
+  are indicators now, not buttons: they show **the button the browser
+  reported**, wherever the press landed. Only a real right-click — the
+  physical right button, or a trackpad's two-finger tap — lights the right
+  one. A browser cannot tell a tap from a press of the physical button, so
+  button 0 lights the left area either way, and the copy says so.
+
+- **The Pointer response check no longer reads like a trackpad measurement.**
+  It reported a rate and a verdict without saying what the number described.
+  It now carries the same honesty the Scroll response check has always had:
+  *"A browser cannot tell a trackpad from a mouse, so this is the rate your
+  pointer device reported."* The wording that called a rate a "typical trackpad
+  rate" now just calls it a typical rate.
+
+### Changed
+
+- **The three trackpad checks now ask for your fingers.** Their instructions
+  said "move the pointer", "scroll over the page" and "swipe sideways and
+  pinch over the page", which is true but easy to do with a mouse. They now
+  name the trackpad.
+
 ## v1.13.0 — the trackpad is drawn like a trackpad, and the browser menu stays out of it
 
 ### Changed
