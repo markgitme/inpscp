@@ -46,7 +46,7 @@
       <div class="breadcrumb"><a href="index.html">InputScope</a><span>/</span>Contact</div>
       <span class="eyebrow eyebrow--blue">Contact</span>
       <h1>Get in touch</h1>
-      <p>Bug reports, wrong results, missing tests, broken links &mdash; all welcome. This form goes straight to my inbox, and because the reply address is set to yours, hitting &ldquo;Reply&rdquo; on my answer comes back to you.</p>
+      <p>Bug reports, wrong results, missing tests, broken links &mdash; all welcome. Messages go straight to my inbox, and because the reply address is set to yours, hitting &ldquo;Reply&rdquo; on my answer comes back to you.</p>
     </div>
   </section>
 
@@ -54,7 +54,8 @@
     <div class="wrap">
       <div class="split">
         <div class="panel panel--pad">
-          <h3>Send a message</h3>
+          <h2>Send a message</h2>
+          <div id="form-live">
           <p class="muted small">Fill in the subject and message and press send. Your name is optional, but an email address is needed so I can reply to you.</p>
 
           <!-- OWNER: paste your Web3Forms access key here. Create one at https://web3forms.com
@@ -100,12 +101,18 @@
             </div>
           </form>
 
-          <p class="notice" style="margin-top:1.4rem"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>The form posts to <a href="https://web3forms.com" rel="nofollow noopener" target="_blank">Web3Forms</a>, a third-party service that forwards the message to my inbox. Your details are used to answer you and are not stored on this site. The <a href="privacy.html">privacy policy</a> has the details.</span></p>
+          <p class="notice" id="form-third-party" style="margin-top:1.4rem"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>The form posts to <a href="https://web3forms.com" rel="nofollow noopener" target="_blank">Web3Forms</a>, a third-party service that forwards the message to my inbox. Your details are used to answer you and are not stored on this site. The <a href="privacy.html">privacy policy</a> has the details.</span></p>
+          </div>
+
+          <div class="notice" id="form-notice" hidden style="margin-top:1.2rem">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <span>The contact form is not switched on yet, so a message sent through it would not arrive. Email <a href="mailto:hello@inputscope.com">hello@inputscope.com</a> instead and it will come to the same place.</span>
+          </div>
         </div>
 
         <div>
           <div class="panel panel--pad">
-            <h3>What is most useful to report</h3>
+            <h2>What is most useful to report</h2>
             <p class="muted small">Diagnostics are easy to get subtly wrong, and a bad result is worse than no result. These are the details that let a problem be reproduced and fixed:</p>
             <ul class="small muted" style="margin-bottom:0">
               <li>Which test, and what it displayed</li>
@@ -117,12 +124,12 @@
           </div>
 
           <div class="panel panel--pad" style="margin-top:1rem">
-            <h3>The latency reading, if the fault is a delay</h3>
+            <h2>How long replies take</h2>
             <p class="muted small mb-0">InputScope is a small project run in spare time, so replies usually take a few days. Genuinely broken measurements and wrong explanations get priority, because a wrong number causes people to chase a hardware fault that does not exist.</p>
           </div>
 
           <div class="panel panel--pad" style="margin-top:1rem">
-            <h3>Something urgent?</h3>
+            <h2>Something urgent?</h2>
             <p class="muted small mb-0">InputScope cannot repair hardware, recover data, or give support for a specific product. If your keyboard is trapping liquid, stop using it and get it serviced. If a machine is behaving dangerously, a diagnostic page is not the right tool.</p>
           </div>
         </div>
@@ -140,14 +147,14 @@
         <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
       </div>
       <div class="footer-col">
-        <h4>Tools</h4>
+        <h2>Tools</h2>
         <ul>
           <li><a href="mouse-check.html">Mouse Check</a></li>
           <li><a href="keyboard-check.html">Keyboard Check</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Troubleshooting</h4>
+        <h2>Troubleshooting</h2>
         <ul>
           <li><a href="troubleshooting/index.html">All troubleshooting</a></li>
           <li><a href="troubleshooting/mouse.html">Mouse</a></li>
@@ -156,7 +163,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Information</h4>
+        <h2>Information</h2>
         <ul>
           <li><a href="about.html">About InputScope</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -164,7 +171,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Legal</h4>
+        <h2>Legal</h2>
         <ul>
           <li><a href="privacy.html">Privacy Policy</a></li>
           <li><a href="terms.html">Terms of Use</a></li>
@@ -181,8 +188,33 @@
 
 <script src="assets/js/site.js"></script>
 <script src="assets/js/review.js"></script>
-<!-- hCaptcha for the contact form: zero-config, no keys required. -->
-<script src="https://web3forms.com/client/script.js" async defer></script>
+<!-- hCaptcha for the contact form: zero-config, no keys required.
+     The Web3Forms script is only injected when there is a real access key,
+     so an unconfigured page loads no third-party code at all. -->
+<script>
+(function () {
+  // A form that cannot deliver must not look like one that can.
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var key = form.querySelector('input[name="access_key"]');
+  var raw = key ? String(key.value || '') : '';
+  if (raw && raw.indexOf('YOUR_ACCESS_KEY') === -1) {
+    // A real key: load the form service.
+    var s = document.createElement('script');
+    s.src = 'https://web3forms.com/client/script.js';
+    s.async = true;
+    document.body.appendChild(s);
+    return;
+  }
+
+  var live = document.getElementById('form-live');
+  if (live) live.hidden = true;
+  var split = document.querySelector('.split');
+  if (split) split.classList.add('is-gated');
+  var notice = document.getElementById('form-notice');
+  if (notice) notice.hidden = false;
+})();
+</script>
 <script>
 (function () {
   var form = document.getElementById('contact-form');
@@ -214,12 +246,20 @@
       })
       .then(function (res) {
         if (!status) return;
-        if (res.ok) {
+        var body = res.body || {};
+        var msg = body.message || '';
+        // Web3Forms answers an unknown access key with HTTP 200 and
+        // success:true plus a "insert your actual key" message. That is a
+        // refusal dressed as a success, so it must never read as one.
+        var refused = /insert your actual|access_key|not configured/i.test(msg);
+        if (res.ok && body.success !== false && !refused) {
           status.textContent = 'Thanks — your message is on its way. I usually reply within a few days.';
           status.className = 'form-status ok';
           form.reset();
         } else {
-          status.textContent = (res.body && res.body.message) || 'Something went wrong. Please try again.';
+          status.textContent = refused
+            ? 'The form could not send your message — it is not switched on yet. Please email hello@inputscope.com instead.'
+            : (msg || 'Something went wrong. Please try again.');
           status.className = 'form-status err';
         }
       })

@@ -30,7 +30,7 @@
     btn.addEventListener('click', function () {
       var sel = btn.getAttribute('data-copy');
       var src = sel ? document.querySelector(sel) : btn.previousElementSibling;
-      var text = src ? (src.value || src.textContent || '') : '';
+      var text = src ? (src.value || src.innerText || src.textContent || '') : '';
       if (!text) return;
       var done = function () {
         var old = btn.getAttribute('data-label') || btn.textContent;
@@ -61,6 +61,10 @@
       e.preventDefault();
       var y = t.getBoundingClientRect().top + window.pageYOffset - 86;
       window.scrollTo({ top: y, behavior: 'smooth' });
+      // Taking over the fragment jump means taking over the focus move too:
+      // without this, the skip link scrolls but leaves the keyboard behind.
+      if (!t.hasAttribute('tabindex')) t.setAttribute('tabindex', '-1');
+      try { t.focus({ preventScroll: true }); } catch (err) { t.focus(); }
     });
   });
 })();

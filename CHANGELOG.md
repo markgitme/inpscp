@@ -2,6 +2,72 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.16.0 — a maintenance pass over the whole site
+
+A full audit of the built site: every page checked for broken links, misspellings,
+heading order, labels, console errors and horizontal overflow at six widths, with
+both tools driven end to end. No new tools and no new pages — this release fixes
+what the audit found.
+
+### Fixed
+
+- **The contact form can no longer lie.** With the placeholder access key still in
+  place, Web3Forms answers HTTP 200 with `success: true` and the message *"It
+  works. Please insert your actual form_id or access_key to receive emails."* The
+  old handler treated 200 as success, so a visitor would have seen *"Thanks —
+  your message is on its way"* and nothing would have been delivered. Two fixes,
+  both now in:
+  - **The form is gated.** While the access key is the placeholder, the form is
+    replaced with a notice that says the form is not switched on yet and points
+    at the email address instead. The Web3Forms script is not injected at all, so
+    an unconfigured page loads no third-party code and sets no third-party
+    cookie.
+  - **A refusal cannot read as success.** Even with a real key, a reply that
+    carries the "insert your actual key" message is now shown as an error.
+  Paste the real key into `contact.html` and the form comes back on its own.
+
+- **The heading order is clean on every page.** The callout headings were `h4`
+  inside an `h2` section, before the `h3` they sat under, and the footer column
+  headings were `h4` under an `h2`. They are now `h3` and `h2` respectively, and
+  both render at exactly the size they did before.
+
+- **A heading that described the wrong thing.** The contact page had a panel
+  headed *"The latency reading, if the fault is a delay"* above a paragraph
+  about how long replies take. The proofreading pass in v1.9.3 changed the
+  heading from *"Response time"* and broke the link between the two. It is now
+  **"How long replies take"**.
+
+- **The keyboard guide claimed a reading the tool does not produce.** The layout
+  table said *"Confidence reads Ambiguous"*, but the panel reads *Ambiguous* as
+  the **result**, and the confidence is High, Medium or Low. The two rows now say
+  what the panel actually shows.
+
+- **The homepage promised a baseline the site does not keep.** *"Run the test
+  again ... and you have a baseline"* — there is no save and compare. It now
+  points at the results you copied the first time, which the Copy results button
+  does produce.
+
+- **The skip link moved the page but not the focus.** The smooth-scroll handler
+  took over every in-page anchor, which also cancelled the browser's own
+  fragment behaviour — so the skip link scrolled the content into view and left
+  the keyboard where it was. It now moves focus to the content as well.
+
+- **The two keyboard test boxes had no label.** Both are now labelled for
+  screen readers.
+
+### Verified
+
+- 409 internal links across 12 pages, with every anchor and fragment resolving.
+- The visible FAQ and the FAQPage schema agree on all three pages that carry one.
+- No console errors and no horizontal overflow on any page at 360, 390, 430,
+  768, 1024 and 1280 pixels.
+- Every threshold in the three troubleshooting guides matches the tool that
+  applies it, exactly.
+- The mouse click tester counts left, right, middle and scroll events, and
+  resets to zero.
+- The keyboard tester lights a key on keydown and clears it on keyup, measures
+  typing speed, and measures latency against the letter it shows.
+
 ## v1.15.0 — the trackpad gets its own troubleshooting guide
 
 ### Added

@@ -204,7 +204,7 @@
 <p>Which means the right-click on a trackpad is the most configurable thing on the device, and the most likely to be switched off by accident, by a manufacturer utility, or by an operating system update.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>Watch the Button readout in the tester. A right-click arriving shows as <code>right</code>, and the right-hand area on the picture of the pad lights up. A left-click arriving shows as <code>left</code> and lights the left-hand area. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#trackpad-display" style="margin-left:.4rem;vertical-align:middle">Run the trackpad tester</a></p>
       </div>
       <div class="table-wrap" style="margin-top:1.4rem">
@@ -252,7 +252,7 @@
 <p>One more trap deserves a mention, because it is easy to blame the wrong device: on macOS the pointer is drawn at the display&rsquo;s refresh rate, so on a slow display a perfectly good trackpad looks stuttery even when the samples are arriving evenly. The report rate and the jitter do not change with the display, so they are the figures to trust.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The pointer response check samples your trackpad for a second and a half and reports the report rate, the timing jitter and the travel per sample. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#ptr-start" style="margin-left:.4rem;vertical-align:middle">Run the pointer response check</a></p>
       </div>
       <div class="steps" style="margin-top:1.4rem">
@@ -295,7 +295,7 @@
 <p>One more cause deserves a mention because it is common and easy to miss: <strong>natural scrolling</strong>. When it is on, dragging two fingers down moves the page up. It is a preference, not a fault, and it is the setting people most often change after their first day with a trackpad.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The scroll response check reads the shape of your scrolling: whether the steps are identical, how many events per second arrive, and whether a gesture turned up. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#scr-start" style="margin-left:.4rem;vertical-align:middle">Run the scroll response check</a></p>
       </div>
       <div class="steps" style="margin-top:1.4rem">
@@ -331,7 +331,7 @@
 <p>One detail catches people out on Windows: the operating system settings call the two-finger right-click a tap, and it is easy to assume a gesture that does nothing is a fault when it is a setting. Windows also offers a corner press as a second way to right-click, and the two are separate switches.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The gesture check watches for a two-finger horizontal swipe and for a pinch, and tells you which of the two reached the browser. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#gst-start" style="margin-left:.4rem;vertical-align:middle">Run the gesture check</a></p>
       </div>
       <div class="steps" style="margin-top:1.4rem">
@@ -365,7 +365,7 @@
 <p>There is a second cause that is less obvious: the Button readout reading a button that is held when you are not touching anything. That means the pad is reporting a contact that never ended. The browser will keep treating every movement as a drag, which is why the pointer sometimes refuses to click properly even though the hardware is fine.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The tester counts every press the browser receives, and the Button readout names the button that is currently held. Leave your hands off the pad and watch the counter. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#trackpad-display" style="margin-left:.4rem;vertical-align:middle">Run the trackpad tester</a></p>
       </div>
       <div class="steps" style="margin-top:1.4rem">
@@ -400,7 +400,7 @@
 <p>If the pad is enabled and still silent, the next step is the driver. On Windows, Device Manager &rarr; Mice and other pointing devices should show a touchpad entry; if it is showing a warning triangle, that is the fault. On macOS there is no separate driver to install, but a full shutdown and start reloads the firmware, which is the equivalent fix.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>If the tester counts nothing at all when you move and tap, the pad is not reporting anything. That single fact separates the settings and driver problems from the hardware ones. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#trackpad-display" style="margin-left:.4rem;vertical-align:middle">Run the trackpad tester</a></p>
       </div>
       <div class="steps" style="margin-top:1.4rem">
@@ -496,14 +496,14 @@
         <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
       </div>
       <div class="footer-col">
-        <h4>Tools</h4>
+        <h2>Tools</h2>
         <ul>
           <li><a href="../mouse-check.html">Mouse Check</a></li>
           <li><a href="../keyboard-check.html">Keyboard Check</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Troubleshooting</h4>
+        <h2>Troubleshooting</h2>
         <ul>
           <li><a href="index.html">All troubleshooting</a></li>
           <li><a href="mouse.html">Mouse</a></li>
@@ -512,7 +512,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Information</h4>
+        <h2>Information</h2>
         <ul>
           <li><a href="../about.html">About InputScope</a></li>
           <li><a href="../contact.html">Contact</a></li>
@@ -520,7 +520,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Legal</h4>
+        <h2>Legal</h2>
         <ul>
           <li><a href="../privacy.html">Privacy Policy</a></li>
           <li><a href="../terms.html">Terms of Use</a></li>

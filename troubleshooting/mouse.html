@@ -256,7 +256,7 @@
         <section class="doc-section" id="double-click">
           <h2>Why is my mouse not double-clicking?</h2>
           <p class="doc-lede">Usually a double-click window that is too tight, occasionally a worn switch. The guide has the fix for each, and a test that measures your actual interval.</p>
-<div class="callout"><h4>The test that settles it</h4><p>The double-click test measures the actual interval between your two clicks and tells you how much headroom you have before the 500&nbsp;ms window closes. <a class="btn btn--primary btn--sm" href="../mouse-check.html#dbl-start" style="margin-left:.4rem;vertical-align:middle">Run the double-click test</a></p></div>
+<div class="callout"><h3>The test that settles it</h3><p>The double-click test measures the actual interval between your two clicks and tells you how much headroom you have before the 500&nbsp;ms window closes. <a class="btn btn--primary btn--sm" href="../mouse-check.html#dbl-start" style="margin-left:.4rem;vertical-align:middle">Run the double-click test</a></p></div>
 <div class="prose">
         <p>The most common cause is not a broken mouse at all. Your operating system has a double-click window &mdash; 500&nbsp;ms on Windows by default &mdash; and both clicks have to land inside it. If you are moving your hand between clicks, the second one arrives after the window has closed and the system logs two separate single clicks instead. The result is a file that opens and immediately drops into rename mode, or a link that never opens at all.</p>
         <p>The fix is a setting rather than a repair: raise the double-click speed slider in your mouse settings. The <a href="../mouse-check.html#dbl-start">double-click speed test</a> measures the actual interval between your two clicks, so you can see how much headroom you have before it becomes a problem.</p>
@@ -305,7 +305,7 @@
         <section class="doc-section" id="phantom-clicks">
           <h2>Why does my mouse click on its own?</h2>
           <p class="doc-lede">A switch that is making contact at rest, or a wireless link reporting a stale button state. The click tester tells you which.</p>
-<div class="callout"><h4>The test that settles it</h4><p>The click tester counts every press it receives. Leave the mouse alone and watch which counter moves &mdash; that is what tells a worn switch from injected clicks. <a class="btn btn--primary btn--sm" href="../mouse-check.html#mouse-display" style="margin-left:.4rem;vertical-align:middle">Run the click tester</a></p></div>
+<div class="callout"><h3>The test that settles it</h3><p>The click tester counts every press it receives. Leave the mouse alone and watch which counter moves &mdash; that is what tells a worn switch from injected clicks. <a class="btn btn--primary btn--sm" href="../mouse-check.html#mouse-display" style="margin-left:.4rem;vertical-align:middle">Run the click tester</a></p></div>
 <div class="prose">
         <p>A mouse registering clicks you did not make has a problem in one of three places. A worn or dirty switch under the left button can make contact twice per press, or worse, make contact while the button sits at rest. A wireless mouse that has lost its link can report a stale button state when it reconnects. Or it is software &mdash; an automation tool, a remote desktop session or a screen recorder injecting clicks of its own.</p>
         <p>The click tester settles it: leave the mouse alone and watch the counters. If the left-click count climbs without you touching anything, the fault is in the hardware or the wireless link. If it stays still, something on the machine is generating the clicks.</p>
@@ -354,7 +354,7 @@
         <section class="doc-section" id="not-moving">
           <h2>Why is my mouse unresponsive or not moving?</h2>
           <p class="doc-lede">Asleep, on the wrong input, driver problem, or dead. Four faults that all look identical until you test them.</p>
-<div class="callout"><h4>The test that settles it</h4><p>Whether the pointer moves and whether the buttons register is the whole diagnosis. The click tester shows both. <a class="btn btn--primary btn--sm" href="../mouse-check.html#mouse-display" style="margin-left:.4rem;vertical-align:middle">Run the click tester</a></p></div>
+<div class="callout"><h3>The test that settles it</h3><p>Whether the pointer moves and whether the buttons register is the whole diagnosis. The click tester shows both. <a class="btn btn--primary btn--sm" href="../mouse-check.html#mouse-display" style="margin-left:.4rem;vertical-align:middle">Run the click tester</a></p></div>
 <div class="prose">
         <p>&ldquo;Unresponsive mouse&rdquo; covers four separate faults, and the difference between them decides what you do next. The mouse is <strong>asleep</strong>, which happens when a wireless mouse has idled long enough to power down and the first click is consumed waking it up. It is on the <strong>wrong input</strong>, which happens when a wireless receiver is plugged into another machine or a Bluetooth device is paired to the wrong computer. It is a <strong>driver problem</strong>, where the operating system has stopped updating the device and a reconnect fixes it. Or it is genuinely dead.</p>
         <p>The mouse test above tells you which: if not one button registers but the pointer still moves, the hardware is fine and the problem is upstream in the connection or the driver. If nothing at all happens, the mouse itself has failed.</p>
@@ -404,7 +404,7 @@
         <section class="doc-section" id="scroll-wheel">
           <h2>Why is my scroll wheel skipping or jittering?</h2>
           <p class="doc-lede">A worn scroll encoder, usually the first part of a mouse to fail. How to clean it, and how to tell it apart from a bad surface.</p>
-<div class="callout"><h4>The test that settles it</h4><p>The scroll encoder test counts notches in each direction and reports the pixel delta per notch &mdash; the number that tells a worn encoder from a bad surface. <a class="btn btn--primary btn--sm" href="../mouse-check.html#scroll-start" style="margin-left:.4rem;vertical-align:middle">Run the encoder test</a></p></div>
+<div class="callout"><h3>The test that settles it</h3><p>The scroll encoder test counts notches in each direction and reports the pixel delta per notch &mdash; the number that tells a worn encoder from a bad surface. <a class="btn btn--primary btn--sm" href="../mouse-check.html#scroll-start" style="margin-left:.4rem;vertical-align:middle">Run the encoder test</a></p></div>
 <div class="prose">
         <p>A wheel that moves in uneven steps, or jumps two notches at a time, is almost always the scroll encoder wearing out. The encoder is a small wheel with contacts that a spring pushes against as the scroll wheel turns, and dust, dried lubricant and a tired spring all make it skip or double-fire. It is the first part of most mice to fail, usually months before the buttons go.</p>
         <p>Cleaning the wheel with a burst of compressed air and a drop of isopropyl alcohol on the axle can rescue a lightly fouled encoder. Beyond that the encoder needs replacing, which in practice means the mouse does. The <a href="../mouse-check.html#scroll-start">scroll encoder test</a> in the advanced section counts notches in each direction and reports the pixel delta per notch, which is how you tell a worn encoder from a surface that is simply too slippery.</p>
@@ -455,7 +455,7 @@
         <section class="doc-section" id="cursor-jumps">
           <h2>Why does my cursor jump or freeze randomly?</h2>
           <p class="doc-lede">A dirty sensor throwing the pointer, or a wireless link renegotiating. The pattern of the jump tells you which one it is.</p>
-<div class="callout"><h4>The test that narrows it down</h4><p>Neither reading detects a jump outright. What they do is separate the two causes: the pointer precision test tells you whether the sensor is throwing the pointer or the surface is, and the motion test tells you whether the link is dropping packets. <a class="btn btn--primary btn--sm" href="../mouse-check.html#motion-start" style="margin-left:.4rem;vertical-align:middle">Run the motion test</a></p></div>
+<div class="callout"><h3>The test that narrows it down</h3><p>Neither reading detects a jump outright. What they do is separate the two causes: the pointer precision test tells you whether the sensor is throwing the pointer or the surface is, and the motion test tells you whether the link is dropping packets. <a class="btn btn--primary btn--sm" href="../mouse-check.html#motion-start" style="margin-left:.4rem;vertical-align:middle">Run the motion test</a></p></div>
 <div class="prose">
         <p>The pointer teleporting across the screen without you moving the mouse has two classic causes. The first is a dirty or damaged sensor: a speck of dust or a hair under the mouse gets picked up and thrown, so the sensor reports a sudden change in position and the cursor jumps. The second is wireless interference, where the link renegotiates with the receiver and the pointer snaps back to the last known position.</p>
         <p>Move the mouse in slow circles and watch for a pattern. Jumps that correlate with fast, jerky movement point at the surface. Jumps that arrive at a steady rate on a clean mousepad point at the radio &mdash; move the receiver to a USB port on the same side of the desk as the mouse and see whether it stops. No reading here sees the jump itself, so treat the motion and precision results as the rule-out rather than the proof.</p>
@@ -506,7 +506,7 @@
         <section class="doc-section" id="side-buttons">
           <h2>Why are my mouse side buttons not working?</h2>
           <p class="doc-lede">Almost never broken hardware. The buttons fire fine; the operating system just has no instruction for what to do with them.</p>
-<div class="callout"><h4>The test that settles it</h4><p>Press each thumb button and watch the violet tabs on the diagram. If they light, the hardware is fine and you need mapping software. <a class="btn btn--primary btn--sm" href="../mouse-check.html#mouse-display" style="margin-left:.4rem;vertical-align:middle">Run the click tester</a></p></div>
+<div class="callout"><h3>The test that settles it</h3><p>Press each thumb button and watch the violet tabs on the diagram. If they light, the hardware is fine and you need mapping software. <a class="btn btn--primary btn--sm" href="../mouse-check.html#mouse-display" style="margin-left:.4rem;vertical-align:middle">Run the click tester</a></p></div>
 <div class="prose">
         <p>Side buttons are almost never handled by the operating system directly. They are reported as extra mouse buttons, and mapping them to something useful &mdash; browser back and forward being the common default &mdash; needs either the manufacturer's configuration software or a generic remapping utility. On a machine with no such software, the buttons still physically fire but the browser has no instruction for what to do with them.</p>
         <p>That distinction is exactly what the click tester makes visible. If the violet thumb tabs light up when you press them, the hardware is fine and you need software to bind them. If they stay dark, the problem is the button or the wireless pairing, not the mapping.</p>
@@ -596,7 +596,7 @@
         <p>Acceleration is the reason the pointer precision test can behave like it is punishing you for aiming carefully. You settle on a target, slow down to place the click, and the sensitivity curve hands you a slower response exactly when you have switched to fine control. That is the moment of maximum error, and the curve makes it worse.</p>
         <p>It is also the reason the drag test can fail while the click test passes. Dragging is a sustained, slow movement &mdash; exactly the regime where the acceleration curve changes most.</p>
       </div>
-      <div class="callout"><h4>The experiment</h4><p>Run the pointer precision test and note the percentage. Turn &ldquo;Enhance pointer precision&rdquo; off (Windows) or &ldquo;Pointer acceleration&rdquo; off (macOS), and run it again. If the second number is materially higher, you had been fighting a curve rather than a mouse fault. The drag accuracy test is the sharper signal here: the tool treats a drag offset of <strong>under 8&nbsp;px</strong> as &ldquo;as accurate while dragging as while clicking&rdquo;, so any drag gap that closes when acceleration is off points at the curve.</p></div>
+      <div class="callout"><h3>The experiment</h3><p>Run the pointer precision test and note the percentage. Turn &ldquo;Enhance pointer precision&rdquo; off (Windows) or &ldquo;Pointer acceleration&rdquo; off (macOS), and run it again. If the second number is materially higher, you had been fighting a curve rather than a mouse fault. The drag accuracy test is the sharper signal here: the tool treats a drag offset of <strong>under 8&nbsp;px</strong> as &ldquo;as accurate while dragging as while clicking&rdquo;, so any drag gap that closes when acceleration is off points at the curve.</p></div>
 <div class="section__head">
         <span class="eyebrow eyebrow--blue">Double-click speed</span>
         <h3>Double-click speed &mdash; where Windows and macOS disagree</h3>
@@ -691,14 +691,14 @@
         <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
       </div>
       <div class="footer-col">
-        <h4>Tools</h4>
+        <h2>Tools</h2>
         <ul>
           <li><a href="../mouse-check.html">Mouse Check</a></li>
           <li><a href="../keyboard-check.html">Keyboard Check</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Troubleshooting</h4>
+        <h2>Troubleshooting</h2>
         <ul>
           <li><a href="index.html">All troubleshooting</a></li>
           <li><a href="mouse.html">Mouse</a></li>
@@ -707,7 +707,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Information</h4>
+        <h2>Information</h2>
         <ul>
           <li><a href="../about.html">About InputScope</a></li>
           <li><a href="../contact.html">Contact</a></li>
@@ -715,7 +715,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Legal</h4>
+        <h2>Legal</h2>
         <ul>
           <li><a href="../privacy.html">Privacy Policy</a></li>
           <li><a href="../terms.html">Terms of Use</a></li>

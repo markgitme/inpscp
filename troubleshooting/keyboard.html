@@ -32,7 +32,7 @@
       "headline": "Keyboard troubleshooting",
       "description": "Everything about a misbehaving keyboard in one page: what each keyboard test measurement means, the threshold it uses, and what to do about a keyboard that will not type, dead keys, wrong characters, ghosting, lag and a stuck key.",
       "datePublished": "2026-10-28",
-      "dateModified": "2026-10-28",
+      "dateModified": "2026-10-31",
       "inLanguage": "en",
       "author": {
         "@type": "Person",
@@ -151,7 +151,7 @@
             <tr><td>One character wrong, the rest perfect</td><td>single-key error</td><td>One worn or obstructed key, not a typing problem</td></tr>
             <tr><td>Errors spread evenly across the text</td><td>distributed</td><td>Hand position or habit, rather than hardware</td></tr>
             <tr><td>Layout match of 90% or more</td><td>&ge; 90%</td><td>The physical board is identified</td></tr>
-            <tr><td>Confidence reads Medium or Ambiguous</td><td>low confidence</td><td>Type more keys, including the punctuation row, and re-run</td></tr>
+            <tr><td>Confidence reads Medium, or the result reads Ambiguous</td><td>low confidence</td><td>Type more keys, including the punctuation row, and re-run</td></tr>
             <tr><td>4 keys register</td><td>4 / 4</td><td>Full rollover &mdash; nothing dropped</td></tr>
             <tr><td>3 keys register</td><td>3 / 4</td><td>Meets the bar most gaming keyboards clear</td></tr>
             <tr><td>2 keys register</td><td>2 / 4</td><td>A two-key board. The third key in a shortcut is silently dropped</td></tr>
@@ -171,7 +171,7 @@
 <p>If caps light up, the keyboard is connected and the fault is in the application — a stuck modifier key, a text field that will not accept focus, or a shortcut that has captured the key. If nothing lights up, the fault is below the application layer. A wireless keyboard may simply be asleep or unpaired, which is fixed by switching it on or re-pairing it. A laptop keyboard that has gone completely dead is usually a hardware failure of the ribbon cable or the controller board, which is a repair job rather than a setting.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The key tester answers it in one second: press a key and see whether a cap lights up. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#keymap-test" style="margin-left:.4rem;vertical-align:middle">Run the key tester</a></p>
       </div>
       <div class="table-wrap" style="margin-top:1.4rem">
@@ -216,7 +216,7 @@
 <p>A key that works <em>intermittently</em> is a different problem. That points to debris under the keycap, or a marginal contact that only closes when the key is pressed slightly off-centre. The key tester separates the two cases for you: a key that never registers and a key that registers unreliably look the same on the keyboard itself, and the event log makes the difference obvious.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The event log shows whether a key never registered at all, or registered on some presses and not others. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#keymap-test" style="margin-left:.4rem;vertical-align:middle">Run the key tester</a></p>
       </div>
       <div class="table-wrap" style="margin-top:1.4rem">
@@ -261,7 +261,7 @@
 <p>The <a href="../keyboard-check.html#layout-analyze">physical layout test</a> reads the position of every key you press against the known layouts, so you can compare what the hardware is with what the system has selected and correct the mismatch in the keyboard preferences.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The physical layout test compares the position of every key you press against the known layouts and tells you which one the hardware actually is. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#layout-analyze" style="margin-left:.4rem;vertical-align:middle">Run the layout test</a></p>
       </div>
       <div class="table-wrap" style="margin-top:1.4rem">
@@ -272,7 +272,7 @@
           <tbody>
             <tr><td>A single layout matches 90% or more</td><td>&ge; 90% match</td><td>The hardware is identified. Compare it with the layout the system has selected</td></tr>
             <tr><td>Confidence reads Medium</td><td>ambiguous</td><td>Type a few more keys, including the punctuation row, and it will resolve</td></tr>
-            <tr><td>Confidence reads Ambiguous</td><td>no clear winner</td><td>Type a full sentence so the analyser has more keys to work with</td></tr>
+            <tr><td>The result reads Ambiguous</td><td>no clear winner</td><td>Type a full sentence so the analyser has more keys to work with</td></tr>
             <tr><td>The layout matches but symbols are wrong</td><td>hardware is fine</td><td>The operating system has the wrong layout selected</td></tr>
           </tbody>
         </table>
@@ -307,7 +307,7 @@
 <p>Gaming keyboards solve this with anti-ghosting hardware, typically handling six or more keys at once. The <a href="../keyboard-check.html#roll-start">rollover test</a> holds four keys at once and reports how many the keyboard actually delivered, so you know whether you are looking at a two-key board or a proper one.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The rollover test holds four keys at once and reports how many the keyboard actually delivered, so you know whether you are looking at a two-key board or a proper one. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#roll-start" style="margin-left:.4rem;vertical-align:middle">Run the rollover test</a></p>
       </div>
       <div class="table-wrap" style="margin-top:1.4rem">
@@ -353,7 +353,7 @@
 <p>The second is <strong>key chatter</strong>, where a worn switch fires twice for one press and the duplicate character appears a moment later, which reads as the computer being slow. The response latency test measures the first of the two and separates it from reaction time; the key tester shows you the second by flagging any key that registered twice from one press.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The response latency test measures the first and separates it from reaction time; the key tester shows you the second by flagging any key that registered twice from one press. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#lat-start" style="margin-left:.4rem;vertical-align:middle">Run the response latency test</a></p>
       </div>
       <div class="table-wrap" style="margin-top:1.4rem">
@@ -401,7 +401,7 @@
 <p>If the key is merely sticky, pulling off the keycap and cleaning underneath usually fixes it. If the switch itself has failed closed, the keyboard needs a switch replacement or a new keyboard — and if the stuck key is the space bar, a common cause is a switch that has flooded and then corroded.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
-        <h4>The test that settles it</h4>
+        <h3>The test that settles it</h3>
         <p>The key map shows a key that is still lit after you have let go, which is the whole diagnosis in one glance. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#keymap-test" style="margin-left:.4rem;vertical-align:middle">Run the key tester</a></p>
       </div>
       <div class="table-wrap" style="margin-top:1.4rem">
@@ -462,14 +462,14 @@
         <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
       </div>
       <div class="footer-col">
-        <h4>Tools</h4>
+        <h2>Tools</h2>
         <ul>
           <li><a href="../mouse-check.html">Mouse Check</a></li>
           <li><a href="../keyboard-check.html">Keyboard Check</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Troubleshooting</h4>
+        <h2>Troubleshooting</h2>
         <ul>
           <li><a href="index.html">All troubleshooting</a></li>
           <li><a href="mouse.html">Mouse</a></li>
@@ -478,7 +478,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Information</h4>
+        <h2>Information</h2>
         <ul>
           <li><a href="../about.html">About InputScope</a></li>
           <li><a href="../contact.html">Contact</a></li>
@@ -486,7 +486,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Legal</h4>
+        <h2>Legal</h2>
         <ul>
           <li><a href="../privacy.html">Privacy Policy</a></li>
           <li><a href="../terms.html">Terms of Use</a></li>
