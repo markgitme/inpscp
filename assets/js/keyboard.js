@@ -142,7 +142,7 @@
       var secs = (performance.now() - t0) / 1000;
       var wpm = secs > 0 ? (correct / 5) / secs * 60 : 0;
       setOut('typing-wpm', Math.round(wpm), 'words per minute', wpm >= 40 ? 'ok' : wpm >= 25 ? 'warn' : null);
-      setOut('typing-time', secs.toFixed(1) + 's', 'elapsed', null);
+      setOut('typing-time', secs.toFixed(1) + 's', 'since you pressed start', null);
       setOut('typing-acc', typed ? Math.round(correct / typed * 100) + '%' : '—', 'correct characters', null);
     }
 
@@ -171,7 +171,10 @@
       t0 = performance.now(); running = true;
       timer = setInterval(tick, 250);
       start.textContent = 'Stop';
-      setOut('typing-sample', SAMPLE, 'target text', null);
+      setOut('typing-sample', SAMPLE, 'the same words every run, so your speed is comparable', null);
+      setOut('typing-wpm', '—', 'words per minute', null);
+      setOut('typing-acc', '—', 'correct characters', null);
+      setOut('typing-time', '—', 'since you pressed start', null);
     });
 
     var sampleOut = document.querySelector('[data-out="typing-sample"]');
@@ -278,28 +281,28 @@
         // guess about the hardware, so the reading does not name one.
         setOut('layout-result', 'Not an English layout', 'the characters typed are outside the English set', 'warn');
         setOut('layout-score', '—', 'nothing to compare', null);
-        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        setOut('layout-breakdown', '—', 'the layouts this test compares against', null);
         explain('The characters you typed come from a non-English input method, so there is nothing to compare. Switch the input method to English and type a sentence again — that changes nothing about the hardware.');
         return;
       }
       if (!codes.length) {
         setOut('layout-result', '—', 'press keys inside the box to record positions', null);
-        setOut('layout-score', '—', 'confidence', null);
-        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        setOut('layout-score', '—', 'percentage of keys that matched', null);
+        setOut('layout-breakdown', '—', 'the layouts this test compares against', null);
         explain('Nothing was recorded. Type inside the box itself, not into another window.');
         return;
       }
       if (text.replace(/\s/g, '').length < 12) {
         setOut('layout-result', '—', 'type a little more text', null);
-        setOut('layout-score', '—', 'confidence', null);
-        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        setOut('layout-score', '—', 'percentage of keys that matched', null);
+        setOut('layout-breakdown', '—', 'the layouts this test compares against', null);
         explain('Type at least a dozen characters. The tool compares the letters each key produces against the known layouts.');
         return;
       }
       if (!comparable.length) {
         setOut('layout-result', '—', 'not enough letter keys typed', null);
-        setOut('layout-score', '—', 'confidence', null);
-        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        setOut('layout-score', '—', 'percentage of keys that matched', null);
+        setOut('layout-breakdown', '—', 'the layouts this test compares against', null);
         explain('Type a sentence with letters in it. The tool compares what each key produces, so punctuation alone will not identify a layout.');
         return;
       }
@@ -320,8 +323,8 @@
       scores.sort(function (a, b) { return b.pct - a.pct; });
       if (!scores.length) {
         setOut('layout-result', '—', 'not enough letter keys typed', null);
-        setOut('layout-score', '—', 'confidence', null);
-        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        setOut('layout-score', '—', 'percentage of keys that matched', null);
+        setOut('layout-breakdown', '—', 'the layouts this test compares against', null);
         explain('Type a sentence with letters in it. The tool compares what each key produces, so punctuation alone will not identify a layout.');
         return;
       }
@@ -329,12 +332,12 @@
       var runner = scores[1];
       var margin = best.pct - (runner ? runner.pct : 0);
       var detail = scores.map(function (s) { return s.name + ' ' + s.pct + '%'; }).join(' · ');
-      setOut('layout-breakdown', detail, 'all candidate layouts', null);
+      setOut('layout-breakdown', detail, 'the layouts this test compares against', null);
 
       if (best.pct === 0) {
         // nothing matched: say that, rather than calling it ambiguous
         setOut('layout-result', 'No layout matched', 'no key produced a character from these layouts', 'warn');
-        setOut('layout-score', '0%', 'nothing to compare', null);
+        setOut('layout-score', '0%', 'no key matched these layouts', null);
         explain('The characters you typed do not come from any of the known layouts. Type a sentence in English.');
         return;
       }
@@ -380,8 +383,8 @@
       box.value = ''; box._codes = [];
       box.focus();
       setOut('layout-result', '…', 'type a sentence in your normal layout', null);
-      setOut('layout-score', '—', 'confidence', null);
-      setOut('layout-breakdown', '—', 'all candidate layouts', null);
+      setOut('layout-score', '—', 'percentage of keys that matched', null);
+      setOut('layout-breakdown', '—', 'the layouts this test compares against', null);
       explain('');
     });
 
@@ -421,9 +424,13 @@
 
     function update() {
       var count = keys.filter(function (c) { return held[c]; }).length;
-      setOut('roll-count', count + ' / 4', 'keys held right now', count >= 4 ? 'ok' : count >= 2 ? 'warn' : 'bad');
+      setOut('roll-count', count + ' / 4', 'out of the four highlighted keys', count >= 4 ? 'ok' : count >= 2 ? 'warn' : 'bad');
       var verdict = count >= 4 ? '4-key rollover confirmed' : count >= 3 ? '3-key rollover' : count >= 2 ? '2-key rollover only' : 'fewer than 2 keys';
-      setOut('roll-state', verdict, count >= 3 ? 'meets the NKRO bar for most gaming keyboards' : 'may lack anti-ghosting hardware', count >= 3 ? 'ok' : 'warn');
+      setOut('roll-state', verdict,
+        count >= 3 ? 'meets the NKRO bar for most gaming keyboards'
+          : count === 2 ? 'a two-key board. The third key in a shortcut is dropped'
+            : 'hold all four keys together to test it',
+        count >= 3 ? 'ok' : count === 2 ? 'warn' : null);
     }
 
     var start = $('#roll-start');
@@ -447,9 +454,9 @@
     if (!pad) return;
 
     var LOCKS = [
-      { out: 'mod-caps',   lamp: 'lamp-caps',   id: 'CapsLock' },
-      { out: 'mod-num',    lamp: 'lamp-num',    id: 'NumLock' },
-      { out: 'mod-scroll', lamp: 'lamp-scroll', id: 'ScrollLock' }
+      { out: 'mod-caps',   lamp: 'lamp-caps',   id: 'CapsLock', note: 'changes the case of letters' },
+      { out: 'mod-num',    lamp: 'lamp-num',    id: 'NumLock',  note: 'changes what the number pad types' },
+      { out: 'mod-scroll', lamp: 'lamp-scroll', id: 'ScrollLock', note: 'changes what the arrow keys do' }
     ];
     var state = { CapsLock: false, NumLock: false, ScrollLock: false };
 
@@ -464,6 +471,9 @@
         }
         var lamp = document.getElementById(l.lamp);
         if (lamp) lamp.classList.toggle('on', on);
+        // Each lamp carries a unit line: what the lock changes when it is on.
+        var n = document.querySelector('[data-note="' + l.out + '"]');
+        if (n) n.textContent = l.note || '';
       });
     }
 
@@ -552,7 +562,7 @@
         if (lag < 0 || lag > 500) { next(); return; }
         samples.push(lag);
         var avg = samples.reduce(function (a, b) { return a + b; }, 0) / samples.length;
-        setOut('lat-count', samples.length, 'presses measured', null);
+        setOut('lat-count', samples.length, 'the average is over these presses', null);
         setOut('lat-avg', avg.toFixed(1) + 'ms', 'input to next drawable frame', avg < 9 ? 'ok' : avg < 17 ? 'warn' : 'bad');
         if (samples.length > 1) {
           var sd = Math.sqrt(samples.reduce(function (a, b) { return a + (b - avg) * (b - avg); }, 0) / samples.length);
@@ -572,10 +582,10 @@
       samples = []; frameTimes = []; lastFrame = 0; running = true;
       if (lg) lg.innerHTML = '';
       log(lg, 'hit the letter shown — the clock runs on the input, not on you');
-      setOut('lat-count', '0', 'presses measured', null);
-      setOut('lat-avg', '…', 'measuring', null);
-      setOut('lat-jitter', '—', 'need two presses', null);
-      setOut('lat-refresh', '…', 'measuring', null);
+      setOut('lat-count', '0', 'the average is over these presses', null);
+      setOut('lat-avg', '…', 'input to next drawable frame', null);
+      setOut('lat-jitter', '—', 'variation in that lag', null);
+      setOut('lat-refresh', '…', 'measured display refresh', null);
       next();
       requestAnimationFrame(loop);
     });

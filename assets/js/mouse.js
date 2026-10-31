@@ -344,7 +344,7 @@
       offset = d;
       attempts++; sumErr += d; done++;
       setOut('drag-offset', d.toFixed(1) + 'px', 'distance from target centre', d < 8 ? 'ok' : d < 20 ? 'warn' : 'bad');
-      setOut('drag-score', done, 'drops measured', null);
+      setOut('drag-score', done, 'every drop, landed or not', null);
       var vline = d < 8 ? 'You are as accurate while dragging as while clicking.'
         : d < 20 ? 'You are a little less accurate while dragging.'
         : 'You lose a lot of accuracy while dragging.';
@@ -383,7 +383,7 @@
       track.classList.remove('is-dragging');
       placeHandle();
       setOut('drag-offset', '—', 'drag the block into the target zone', null);
-      setOut('drag-score', '0', 'drops measured', null);
+      setOut('drag-score', '0', 'every drop, landed or not', null);
       verdict('drag', 'Ready when you are.', 'Drag the block into the zone and let go.', null);
     }
 
@@ -409,9 +409,9 @@
         var gap = now - last;
         if (gap < 600) {
           intervals.push(gap);
-          setOut('dbl-time', (gap < 10 ? gap.toFixed(1) : Math.round(gap)) + 'ms', 'measured interval', gap < 300 ? 'ok' : 'warn');
+          setOut('dbl-time', (gap < 10 ? gap.toFixed(1) : Math.round(gap)) + 'ms', 'time between your two clicks', gap < 300 ? 'ok' : 'warn');
           var ms = (gap < 10 ? gap.toFixed(1) : Math.round(gap));
-          setOut('dbl-time', ms + 'ms', 'measured interval', gap < 300 ? 'ok' : gap < 450 ? 'warn' : 'bad');
+          setOut('dbl-time', ms + 'ms', 'time between your two clicks', gap < 300 ? 'ok' : gap < 450 ? 'warn' : 'bad');
           var vline = gap < 300 ? 'Your double-click is snappy.'
             : gap < 450 ? 'Your double-click is normal.'
               : 'Your double-click is slow.';
@@ -477,9 +477,9 @@
       if (e.deltaX !== 0) horiz++;
       lastDelta = Math.abs(e.deltaY);
       if (dir) showDir(dir);
-      setOut('scroll-up', up + ' / ' + down, 'notches up / down', up > 0 || down > 0 ? 'ok' : null);
+      setOut('scroll-up', up + ' / ' + down, 'up first, then down', up > 0 || down > 0 ? 'ok' : null);
       setOut('scroll-h', horiz, 'horizontal notches', horiz > 0 ? 'ok' : null);
-      setOut('scroll-delta', Math.round(lastDelta), 'pixels per notch', null);
+      setOut('scroll-delta', Math.round(lastDelta), 'the last scroll step', null);
 
       if (horiz > 0) {
         verdict('scroll', 'Your wheel also scrolls sideways.',
@@ -500,9 +500,9 @@
       pad.classList.remove('is-active');
       if (dirEl) dirEl.classList.remove('is-on');
       clearTimeout(dirTimer);
-      setOut('scroll-up', '0 / 0', 'notches up / down', null);
+      setOut('scroll-up', '0 / 0', 'up first, then down', null);
       setOut('scroll-h', '0', 'horizontal notches', null);
-      setOut('scroll-delta', '—', 'pixels per notch', null);
+      setOut('scroll-delta', '—', 'the last scroll step', null);
       verdict('scroll', 'Ready when you are.', 'Scroll up, down, then sideways if your wheel tilts.', null);
       if (lg) lg.innerHTML = '';
       log(lg, 'scroll up, down, then sideways if you have a tilt wheel');
@@ -525,6 +525,7 @@
     start.addEventListener('click', function () {
       var raw = 0, moves = 0, t0 = performance.now(), raf = 0, lastMove = 0;
       setOut('poll-hz', '…', 'sampling for 1 second', null);
+      setOut('poll-note', '—', 'how the rate was measured', null);
       verdict('poll', 'Keep the mouse moving…', 'Sampling for one second.', null);
       if (lg) lg.innerHTML = '';
 
@@ -622,9 +623,9 @@
     if (start) start.addEventListener('click', function () {
       samples = [];
       running = true;
-      setOut('motion-avg', '…', 'move the mouse for 2 seconds', null);
-      setOut('motion-jitter', '…', 'measuring', null);
-      setOut('motion-smooth', '…', 'measuring', null);
+      setOut('motion-avg', '…', 'mean gap between pointer events', null);
+      setOut('motion-jitter', '…', 'standard deviation of those gaps', null);
+      setOut('motion-smooth', '…', 'based on mean and jitter', null);
       verdict('motion', 'Keep moving…', 'Move the pointer inside the box for two seconds.', null);
       pad.addEventListener('pointermove', onMove);
       clearTimeout(timer);

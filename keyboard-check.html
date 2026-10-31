@@ -41,7 +41,17 @@
         "N-key rollover test",
         "Lock key state indicator",
         "Response latency test"
-      ]
+      ],
+      "author": { "@id": "#author" },
+      "datePublished": "2026-10-27",
+      "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "Person",
+      "@id": "#author",
+      "name": "Mark",
+      "url": "about.html",
+      "jobTitle": "Creator of InputScope"
     },
     {
       "@type": "FAQPage",
@@ -110,6 +120,7 @@
       <span class="eyebrow eyebrow--blue"><span class="pulse"></span>Free · no download · nothing uploaded</span>
       <h1>Keyboard Check</h1>
       <p>Press a key. Watch it light up on the map. If every key registers and nothing fires twice, your keyboard is fine — and if one does not, the map shows you exactly which one.</p>
+      <p class="byline">Written by <a href="about.html">Mark</a> &middot; Published 27 October 2026 &middot; Updated 31 October 2026</p>
     </div>
   </section>
 
@@ -184,10 +195,10 @@
         </div>
 
         <div class="mini-results" style="margin-top:1.1rem;max-width:420px">
-          <div><span class="mini-results__k">Keys pressed</span><span class="mini-results__v" data-out="keymap-count">0</span></div>
-          <div><span class="mini-results__k">Stuck keys</span><span class="mini-results__v" data-out="keymap-ghost">None</span></div>
-          <div><span class="mini-results__k">Auto-repeat</span><span class="mini-results__v" data-out="keymap-repeat">None</span></div>
-          <div><span class="mini-results__k">Double-fires</span><span class="mini-results__v" data-out="keymap-double">None</span></div>
+          <div><span class="mini-results__k">Keys pressed</span><span class="mini-results__v" data-out="keymap-count">0</span><span class="mini-results__n" data-note="keymap-count">keys pressed since reset</span></div>
+          <div><span class="mini-results__k">Stuck keys</span><span class="mini-results__v" data-out="keymap-ghost">None</span><span class="mini-results__n" data-note="keymap-ghost">pressed but never released</span></div>
+          <div><span class="mini-results__k">Auto-repeat</span><span class="mini-results__v" data-out="keymap-repeat">None</span><span class="mini-results__n" data-note="keymap-repeat">repeats while a key was held down</span></div>
+          <div><span class="mini-results__k">Double-fires</span><span class="mini-results__v" data-out="keymap-double">None</span><span class="mini-results__n" data-note="keymap-double">keys that fired twice</span></div>
         </div>
 
         <div class="log" id="keymap-log" style="margin-top:1rem"></div>
@@ -217,6 +228,7 @@
             <p class="check-note">Type the sample below. No autocorrect, no dictionary, no word completion — so the number is the raw one.</p>
             <div class="callout" style="margin:.9rem 0;padding:.7rem .9rem">
               <p class="mono" style="margin:0;font-size:.82rem" data-out="typing-sample">The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs.</p>
+              <p class="unit-note" data-note="typing-sample">the same words every run, so your speed is comparable</p>
             </div>
             <label class="vh" for="typing-box">Typing test box &mdash; type here while the timer runs</label>
           <textarea class="typing-box" id="typing-box" placeholder="Press the start button, then type the sample here…" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" style="min-height:96px"></textarea>
@@ -224,9 +236,9 @@
               <button class="btn btn--primary btn--sm" type="button" id="typing-start">Start timing</button>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Speed</span><span class="mini-results__v" data-out="typing-wpm">—</span></div>
-              <div><span class="mini-results__k">Accuracy</span><span class="mini-results__v" data-out="typing-acc">—</span></div>
-              <div><span class="mini-results__k">Elapsed</span><span class="mini-results__v" data-out="typing-time">—</span></div>
+              <div><span class="mini-results__k">Speed</span><span class="mini-results__v" data-out="typing-wpm">—</span><span class="mini-results__n" data-note="typing-wpm">words per minute</span></div>
+              <div><span class="mini-results__k">Accuracy</span><span class="mini-results__v" data-out="typing-acc">—</span><span class="mini-results__n" data-note="typing-acc">correct characters</span></div>
+              <div><span class="mini-results__k">Elapsed</span><span class="mini-results__v" data-out="typing-time">—</span><span class="mini-results__n" data-note="typing-time">since you pressed start</span></div>
             </div>
           </div>
 
@@ -240,9 +252,9 @@
               <span class="check-actions__hint">The reading updates when you click away from the box.</span>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Detected</span><span class="mini-results__v" data-out="layout-result">—</span></div>
-              <div><span class="mini-results__k">Match</span><span class="mini-results__v" data-out="layout-score">—</span></div>
-              <div><span class="mini-results__k">All candidates</span><span class="mini-results__v" data-out="layout-breakdown" style="font-size:.78rem">—</span></div>
+              <div><span class="mini-results__k">Detected</span><span class="mini-results__v" data-out="layout-result">—</span><span class="mini-results__n" data-note="layout-result">type a sentence in your normal layout</span></div>
+              <div><span class="mini-results__k">Match</span><span class="mini-results__v" data-out="layout-score">—</span><span class="mini-results__n" data-note="layout-score">percentage of keys that matched</span></div>
+              <div><span class="mini-results__k">All candidates</span><span class="mini-results__v" data-out="layout-breakdown" style="font-size:.78rem">—</span><span class="mini-results__n" data-note="layout-breakdown">the layouts this test compares against</span></div>
             </div>
             <p class="check-note" id="layout-explain" style="margin-top:.75rem"></p>
           </div>
@@ -260,8 +272,8 @@
               <button class="btn btn--sm" type="button" id="roll-start">Reset</button>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Keys held</span><span class="mini-results__v" data-out="roll-count">0 / 4</span></div>
-              <div><span class="mini-results__k">Rollover level</span><span class="mini-results__v" data-out="roll-state">—</span></div>
+              <div><span class="mini-results__k">Keys held</span><span class="mini-results__v" data-out="roll-count">0 / 4</span><span class="mini-results__n" data-note="roll-count">out of the four highlighted keys</span></div>
+              <div><span class="mini-results__k">Rollover level</span><span class="mini-results__v" data-out="roll-state">—</span><span class="mini-results__n" data-note="roll-state">hold all four keys together to test it</span></div>
             </div>
             <div class="log" id="roll-log" style="margin-top:.9rem;max-height:110px"></div>
           </div>
@@ -281,9 +293,9 @@
             <h3>Lock key state</h3>
             <p class="check-note">Press Caps Lock, Num Lock and Scroll Lock and watch the indicators follow.</p>
             <div class="mod-grid" id="mod-pad" style="margin-top:.9rem">
-              <div class="mod-item"><span class="mod-item__name">Caps Lock</span><span class="mod-item__lamp" id="lamp-caps"></span><span class="pill" data-out="mod-caps">Off</span></div>
-              <div class="mod-item"><span class="mod-item__name">Num Lock</span><span class="mod-item__lamp" id="lamp-num"></span><span class="pill" data-out="mod-num">Off</span></div>
-              <div class="mod-item"><span class="mod-item__name">Scroll Lock</span><span class="mod-item__lamp" id="lamp-scroll"></span><span class="pill" data-out="mod-scroll">Off</span></div>
+              <div class="mod-item"><span class="mod-item__name">Caps Lock</span><span class="mod-item__lamp" id="lamp-caps"></span><span class="pill" data-out="mod-caps">Off</span><span class="mod-item__n" data-note="mod-caps">changes the case of letters</span></div>
+              <div class="mod-item"><span class="mod-item__name">Num Lock</span><span class="mod-item__lamp" id="lamp-num"></span><span class="pill" data-out="mod-num">Off</span><span class="mod-item__n" data-note="mod-num">changes what the number pad types</span></div>
+              <div class="mod-item"><span class="mod-item__name">Scroll Lock</span><span class="mod-item__lamp" id="lamp-scroll"></span><span class="pill" data-out="mod-scroll">Off</span><span class="mod-item__n" data-note="mod-scroll">changes what the arrow keys do</span></div>
             </div>
             <p class="check-note">These lamps show what the browser reports, which is what should match the lights on your keyboard. Not every keyboard has every lock &mdash; most laptops fold Num Lock and Scroll Lock into the Fn layer, and macOS keyboards have neither. If the lamp disagrees with the light on your keyboard, a remapping utility or an accessibility setting is probably intercepting the key.</p>
           </div>
@@ -297,10 +309,10 @@
               <button class="btn btn--sm" type="button" id="lat-stop">Stop</button>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Input lag</span><span class="mini-results__v" data-out="lat-avg">—</span></div>
-              <div><span class="mini-results__k">Jitter</span><span class="mini-results__v" data-out="lat-jitter">—</span></div>
-              <div><span class="mini-results__k">Display</span><span class="mini-results__v" data-out="lat-refresh">—</span></div>
-              <div><span class="mini-results__k">Presses</span><span class="mini-results__v" data-out="lat-count">0</span></div>
+              <div><span class="mini-results__k">Input lag</span><span class="mini-results__v" data-out="lat-avg">—</span><span class="mini-results__n" data-note="lat-avg">input to next drawable frame</span></div>
+              <div><span class="mini-results__k">Jitter</span><span class="mini-results__v" data-out="lat-jitter">—</span><span class="mini-results__n" data-note="lat-jitter">variation in that lag</span></div>
+              <div><span class="mini-results__k">Display</span><span class="mini-results__v" data-out="lat-refresh">—</span><span class="mini-results__n" data-note="lat-refresh">measured display refresh</span></div>
+              <div><span class="mini-results__k">Presses</span><span class="mini-results__v" data-out="lat-count">0</span><span class="mini-results__n" data-note="lat-count">the average is over these presses</span></div>
             </div>
             <div class="log" id="lat-log" style="margin-top:.9rem;max-height:110px"></div>
           </div>
@@ -339,11 +351,23 @@
             </div>
 
             <div class="trackpad-readout">
-              <div class="leds">
-                <span class="led" id="tp-chip-clicks"><span class="led__dot"></span>Clicks <b data-out="tp-clicks">0</b></span>
-                <span class="led" id="tp-chip-drags"><span class="led__dot"></span>Drags <b data-out="tp-drags">0</b></span>
-                <span class="led" id="tp-chip-scrolls"><span class="led__dot"></span>Scrolls <b data-out="tp-scrolls">0</b></span>
-                <span class="led" id="tp-chip-button"><span class="led__dot"></span>Button <b data-out="tp-button">up</b></span>
+              <div class="leds leds--counted">
+                <div class="led-cell">
+                  <span class="led" id="tp-chip-clicks"><span class="led__dot"></span>Clicks <b data-out="tp-clicks">0</b></span>
+                  <span class="led-cell__n" data-note="tp-clicks">press and release without moving</span>
+                </div>
+                <div class="led-cell">
+                  <span class="led" id="tp-chip-drags"><span class="led__dot"></span>Drags <b data-out="tp-drags">0</b></span>
+                  <span class="led-cell__n" data-note="tp-drags">press, move, release</span>
+                </div>
+                <div class="led-cell">
+                  <span class="led" id="tp-chip-scrolls"><span class="led__dot"></span>Scrolls <b data-out="tp-scrolls">0</b></span>
+                  <span class="led-cell__n" data-note="tp-scrolls">wheel events on the pad</span>
+                </div>
+                <div class="led-cell">
+                  <span class="led" id="tp-chip-button"><span class="led__dot"></span>Button <b data-out="tp-button">0</b></span>
+                  <span class="led-cell__n" data-note="tp-button">no button is down</span>
+                </div>
               </div>
 
               <div class="log" id="trackpad-log"></div>
@@ -364,9 +388,9 @@
               <div class="verdict__detail" id="ptr-verdict-detail">Press Start, then move a finger across the trackpad for a second and a half.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Report rate</span><span class="mini-results__v" data-out="ptr-hz">—</span></div>
-              <div><span class="mini-results__k">Timing jitter</span><span class="mini-results__v" data-out="ptr-jitter">—</span></div>
-              <div><span class="mini-results__k">Travel per report</span><span class="mini-results__v" data-out="ptr-step">—</span></div>
+              <div><span class="mini-results__k">Report rate</span><span class="mini-results__v" data-out="ptr-hz">—</span><span class="mini-results__n" data-note="ptr-hz">sampling for 1.5 seconds</span></div>
+              <div><span class="mini-results__k">Timing jitter</span><span class="mini-results__v" data-out="ptr-jitter">—</span><span class="mini-results__n" data-note="ptr-jitter">variation in the sample timing</span></div>
+              <div><span class="mini-results__k">Travel per report</span><span class="mini-results__v" data-out="ptr-step">—</span><span class="mini-results__n" data-note="ptr-step">distance moved between samples</span></div>
             </div>
             <div class="log" id="ptr-log" style="margin-top:.9rem;max-height:110px"></div>
             <p class="check-note" id="ptr-status">Checking browser capability&hellip;</p>
@@ -383,10 +407,10 @@
               <div class="verdict__detail" id="scr-verdict-detail">Press Start, then scroll with two fingers on the trackpad for a couple of seconds.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Scroll type</span><span class="mini-results__v" data-out="scr-type">—</span></div>
-              <div><span class="mini-results__k">Scroll rate</span><span class="mini-results__v" data-out="scr-hz">—</span></div>
-              <div><span class="mini-results__k">Step size</span><span class="mini-results__v" data-out="scr-delta">—</span></div>
-              <div><span class="mini-results__k">Step variation</span><span class="mini-results__v" data-out="scr-vary">—</span></div>
+              <div><span class="mini-results__k">Scroll type</span><span class="mini-results__v" data-out="scr-type">—</span><span class="mini-results__n" data-note="scr-type">watching the shape of the scroll</span></div>
+              <div><span class="mini-results__k">Scroll rate</span><span class="mini-results__v" data-out="scr-hz">—</span><span class="mini-results__n" data-note="scr-hz">scroll events per second</span></div>
+              <div><span class="mini-results__k">Step size</span><span class="mini-results__v" data-out="scr-delta">—</span><span class="mini-results__n" data-note="scr-delta">how much each scroll moves</span></div>
+              <div><span class="mini-results__k">Step variation</span><span class="mini-results__v" data-out="scr-vary">—</span><span class="mini-results__n" data-note="scr-vary">how uneven the steps are</span></div>
             </div>
             <div class="log" id="scr-log" style="margin-top:.9rem;max-height:110px"></div>
           </div>
@@ -402,9 +426,9 @@
               <div class="verdict__detail" id="gst-verdict-detail">Press Start, then swipe sideways and pinch with two fingers on the trackpad.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Swipes seen</span><span class="mini-results__v" data-out="gst-swipe">0</span></div>
-              <div><span class="mini-results__k">Pinches seen</span><span class="mini-results__v" data-out="gst-pinch">0</span></div>
-              <div><span class="mini-results__k">State</span><span class="mini-results__v" data-out="gst-state">—</span></div>
+              <div><span class="mini-results__k">Swipes seen</span><span class="mini-results__v" data-out="gst-swipe">0</span><span class="mini-results__n" data-note="gst-swipe">two-finger swipes over the pad</span></div>
+              <div><span class="mini-results__k">Pinches seen</span><span class="mini-results__v" data-out="gst-pinch">0</span><span class="mini-results__n" data-note="gst-pinch">two-finger pinches over the pad</span></div>
+              <div><span class="mini-results__k">State</span><span class="mini-results__v" data-out="gst-state">—</span><span class="mini-results__n" data-note="gst-state">try both gestures over the box</span></div>
             </div>
             <div class="log" id="gst-log" style="margin-top:.9rem;max-height:110px"></div>
           </div>

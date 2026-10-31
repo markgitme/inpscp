@@ -41,7 +41,17 @@
         "Pointer precision test",
         "Double-click speed test",
         "Polling rate measurement"
-      ]
+      ],
+      "author": { "@id": "#author" },
+      "datePublished": "2026-10-27",
+      "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "Person",
+      "@id": "#author",
+      "name": "Mark",
+      "url": "about.html",
+      "jobTitle": "Creator of InputScope"
     },
     {
       "@type": "FAQPage",
@@ -110,6 +120,7 @@
       <span class="eyebrow"><span class="pulse"></span>Free · no download · nothing uploaded</span>
       <h1>Mouse Check</h1>
       <p>Press a button. Watch the mouse diagram light up. If every click, the wheel and the scroll all register, your mouse is fine — and if one of them does not, the panel tells you exactly which one failed.</p>
+      <p class="byline">Written by <a href="about.html">Mark</a> &middot; Published 27 October 2026 &middot; Updated 31 October 2026</p>
     </div>
   </section>
 
@@ -189,9 +200,9 @@
               <div class="verdict__detail" id="precision-verdict-detail">Press Start, then click each blue target as it appears.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Accuracy</span><span class="mini-results__v" data-out="precision-acc">—</span></div>
-              <div><span class="mini-results__k">Average offset</span><span class="mini-results__v" data-out="precision-err">—</span></div>
-              <div><span class="mini-results__k">Best streak</span><span class="mini-results__v" data-out="precision-streak">0</span></div>
+              <div><span class="mini-results__k">Accuracy</span><span class="mini-results__v" data-out="precision-acc">—</span><span class="mini-results__n" data-note="precision-acc">click the blue dots</span></div>
+              <div><span class="mini-results__k">Average offset</span><span class="mini-results__v" data-out="precision-err">—</span><span class="mini-results__n" data-note="precision-err">average miss radius from centre</span></div>
+              <div><span class="mini-results__k">Best streak</span><span class="mini-results__v" data-out="precision-streak">0</span><span class="mini-results__n" data-note="precision-streak">longest clean run</span></div>
             </div>
           </div>
 
@@ -207,8 +218,8 @@
               <div class="verdict__detail" id="dbl-verdict-detail">Double-click the pad a few times.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Interval</span><span class="mini-results__v" data-out="dbl-time">—</span></div>
-              <div><span class="mini-results__k">Verdict</span><span class="mini-results__v" data-out="dbl-verdict">—</span></div>
+              <div><span class="mini-results__k">Interval</span><span class="mini-results__v" data-out="dbl-time">—</span><span class="mini-results__n" data-note="dbl-time">double-click the pad</span></div>
+              <div><span class="mini-results__k">Verdict</span><span class="mini-results__v" data-out="dbl-verdict">—</span><span class="mini-results__n" data-note="dbl-verdict">no measurement yet</span></div>
             </div>
             <div class="log" id="dbl-log" style="margin-top:.9rem;max-height:120px"></div>
           </div>
@@ -225,8 +236,8 @@
               <div class="verdict__detail" id="poll-verdict-detail">Press Sample, then keep the mouse moving for one second.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Rate</span><span class="mini-results__v" data-out="poll-hz">—</span></div>
-              <div><span class="mini-results__k">Confidence</span><span class="mini-results__v" data-out="poll-note">—</span></div>
+              <div><span class="mini-results__k">Rate</span><span class="mini-results__v" data-out="poll-hz">—</span><span class="mini-results__n" data-note="poll-hz">sampling for 1 second</span></div>
+              <div><span class="mini-results__k">Confidence</span><span class="mini-results__v" data-out="poll-note">—</span><span class="mini-results__n" data-note="poll-note">how the rate was measured</span></div>
             </div>
             <p class="check-note" id="polling-status">Checking browser capability…</p>
             <div class="log" id="polling-log" style="margin-top:.9rem;max-height:110px"></div>
@@ -256,8 +267,8 @@
               <div class="verdict__detail" id="drag-verdict-detail">Drag the block into the zone and let go.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Offset</span><span class="mini-results__v" data-out="drag-offset">—</span></div>
-              <div><span class="mini-results__k">Drops measured</span><span class="mini-results__v" data-out="drag-score">0</span></div>
+              <div><span class="mini-results__k">Offset</span><span class="mini-results__v" data-out="drag-offset">—</span><span class="mini-results__n" data-note="drag-offset">drag the block into the target zone</span></div>
+              <div><span class="mini-results__k">Drops measured</span><span class="mini-results__v" data-out="drag-score">0</span><span class="mini-results__n" data-note="drag-score">every drop, landed or not</span></div>
             </div>
           </div>
 
@@ -279,9 +290,9 @@
               <div class="verdict__detail" id="scroll-verdict-detail">Scroll up, down, then sideways if your wheel tilts.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Notches up / down</span><span class="mini-results__v" data-out="scroll-up">0 / 0</span></div>
-              <div><span class="mini-results__k">Horizontal</span><span class="mini-results__v" data-out="scroll-h">0</span></div>
-              <div><span class="mini-results__k">Pixels per notch</span><span class="mini-results__v" data-out="scroll-delta">—</span></div>
+              <div><span class="mini-results__k">Notches up / down</span><span class="mini-results__v" data-out="scroll-up">0 / 0</span><span class="mini-results__n" data-note="scroll-up">up first, then down</span></div>
+              <div><span class="mini-results__k">Horizontal</span><span class="mini-results__v" data-out="scroll-h">0</span><span class="mini-results__n" data-note="scroll-h">horizontal notches</span></div>
+              <div><span class="mini-results__k">Pixels per notch</span><span class="mini-results__v" data-out="scroll-delta">—</span><span class="mini-results__n" data-note="scroll-delta">the last scroll step</span></div>
             </div>
             <div class="log" id="scroll-log" style="margin-top:.9rem;max-height:110px"></div>
           </div>
@@ -302,9 +313,9 @@
               <div class="verdict__detail" id="motion-verdict-detail">Move the pointer into the box — the dot follows you — then press Start.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Mean interval</span><span class="mini-results__v" data-out="motion-avg">—</span></div>
-              <div><span class="mini-results__k">Jitter</span><span class="mini-results__v" data-out="motion-jitter">—</span></div>
-              <div><span class="mini-results__k">Verdict</span><span class="mini-results__v" data-out="motion-smooth">—</span></div>
+              <div><span class="mini-results__k">Mean interval</span><span class="mini-results__v" data-out="motion-avg">—</span><span class="mini-results__n" data-note="motion-avg">mean gap between pointer events</span></div>
+              <div><span class="mini-results__k">Jitter</span><span class="mini-results__v" data-out="motion-jitter">—</span><span class="mini-results__n" data-note="motion-jitter">standard deviation of those gaps</span></div>
+              <div><span class="mini-results__k">Verdict</span><span class="mini-results__v" data-out="motion-smooth">—</span><span class="mini-results__n" data-note="motion-smooth">based on mean and jitter</span></div>
             </div>
             <div class="log" id="motion-log" style="margin-top:.9rem;max-height:110px"></div>
           </div>
@@ -322,8 +333,8 @@
               <div class="verdict__detail" id="hover-verdict-detail">Move the pointer over the box, then away and back again.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">State</span><span class="mini-results__v" data-out="hover-state">—</span></div>
-              <div><span class="mini-results__k">Hover delay</span><span class="mini-results__v" data-out="hover-latency">—</span></div>
+              <div><span class="mini-results__k">State</span><span class="mini-results__v" data-out="hover-state">—</span><span class="mini-results__n" data-note="hover-state">move the pointer over the pad</span></div>
+              <div><span class="mini-results__k">Hover delay</span><span class="mini-results__v" data-out="hover-latency">—</span><span class="mini-results__n" data-note="hover-latency">awaiting hover</span></div>
             </div>
             <div class="log" id="hover-log" style="margin-top:.9rem;max-height:110px"></div>
           </div>

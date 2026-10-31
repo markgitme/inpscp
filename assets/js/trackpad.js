@@ -352,7 +352,7 @@
       start.disabled = true;
       setOut('ptr-hz', '…', 'sampling for 1.5 seconds', null);
       setOut('ptr-jitter', '…', 'variation in the sample timing', null);
-      setOut('ptr-step', '…', 'pointer travel per report', null);
+      setOut('ptr-step', '…', 'distance moved between samples', null);
       verdict('ptr', 'Keep the pointer moving…', 'Move a finger across the trackpad for a second and a half.', null);
       if (lg) lg.innerHTML = '';
 
@@ -402,7 +402,7 @@
              trackpad thresholds would be measuring the display. */
           setOut('ptr-hz', hz + ' ev/s', 'browser pointermove rate (not raw Hz)', 'warn');
           setOut('ptr-jitter', jitter.toFixed(1) + ' ms', 'variation in the browser event timing', 'warn');
-          setOut('ptr-step', step.toFixed(1) + ' px', 'pointer travel per event, at the speed you moved', null);
+          setOut('ptr-step', step.toFixed(1) + ' px', 'at the speed you moved', null);
           verdict('ptr', 'Your browser will not report the real rate.',
             hz + ' events per second is the browser delivering the pointer, not the trackpad reporting it. Chrome and Edge expose the raw samples; other browsers do not.',
             'warn');
@@ -412,7 +412,7 @@
 
         setOut('ptr-hz', hz + ' Hz', 'raw input samples per second', hz >= 60 ? 'ok' : 'warn');
         setOut('ptr-jitter', jitter.toFixed(1) + ' ms', 'variation in the sample timing', jitter < 4 ? 'ok' : jitter < 8 ? 'warn' : 'bad');
-        setOut('ptr-step', step.toFixed(1) + ' px', 'pointer travel per report, at the speed you moved', null);
+        setOut('ptr-step', step.toFixed(1) + ' px', 'at the speed you moved', null);
 
         var rateLine = hz >= 120 ? 'That is a fast report rate.'
           : hz >= 60 ? 'That is a typical report rate.'
@@ -533,8 +533,8 @@
     start.addEventListener('click', function () {
       var swipe = 0, pinch = 0, ctrlBig = 0;
       start.disabled = true;
-      setOut('gst-swipe', '0', 'horizontal swipes seen', null);
-      setOut('gst-pinch', '0', 'pinch gestures seen', null);
+      setOut('gst-swipe', '0', 'two-finger swipes over the pad', null);
+      setOut('gst-pinch', '0', 'two-finger pinches over the pad', null);
       setOut('gst-state', 'watching', 'try both gestures over the box', null);
       verdict('gst', 'Try both gestures…', 'A two-finger swipe sideways, then a pinch with two fingers.', null);
       if (lg) lg.innerHTML = '';
@@ -547,7 +547,7 @@
                a pinch. Large even ones are a mouse wheel with the
                control key held, which is a different thing entirely. */
             pinch++;
-            setOut('gst-pinch', String(pinch), 'pinch gestures seen', 'ok');
+            setOut('gst-pinch', String(pinch), 'two-finger pinches over the pad', 'ok');
             log(lg, 'pinch — zoom gesture reached the page', 'ok');
           } else {
             ctrlBig++;
@@ -556,7 +556,7 @@
         }
         if (Math.abs(e.deltaX) > 0) {
           swipe++;
-          setOut('gst-swipe', String(swipe), 'horizontal swipes seen', 'ok');
+          setOut('gst-swipe', String(swipe), 'two-finger swipes over the pad', 'ok');
           log(lg, 'horizontal swipe reached the page', 'ok');
         }
         var both = pinch > 0 && swipe > 0;

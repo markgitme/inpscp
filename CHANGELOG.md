@@ -2,6 +2,82 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.17.0 — every reading explains itself, and every page says who wrote it
+
+The measurements were right. What was missing was the line that says what the
+number *is*. All 48 readings on the mouse, keyboard and trackpad panels wrote a
+unit line into a `[data-note]` element — and **not one of those elements
+existed**, so every one of those lines was silently discarded. A panel that
+cannot explain itself can only ever show a dash.
+
+### Fixed
+
+- **All 48 readings now have a real home.** Every reading row carries a unit
+  line under it: what the number measures, or — while it is still empty — why
+  it is empty. `setOut()` was writing into a selector that matched nothing;
+  the element now exists, in the markup, next to the reading it belongs to.
+- **The twelve Quick-summary tiles no longer render an empty note.** The
+  summary already looked for the same missing element. It now finds it, so
+  "Typing speed" reads **words per minute**, and "Input lag" reads **input to
+  next drawable frame**. A tile with nothing to say takes no space at all.
+- **The three lock lamps had no unit line of any kind.** `mod-caps`,
+  `mod-num` and `mod-scroll` were set directly by the modifier reader, never
+  through `setOut()`, so nothing had ever been written for them. They now say
+  what each lock changes: the case of letters, what the number pad types, what
+  the arrow keys do.
+- **The four trackpad counter chips had nowhere to write either.** Clicks,
+  drags, scrolls and the button state now carry their definitions under the
+  pill, so "press and release without moving" sits under the click counter
+  rather than nowhere.
+- **Every reading explains itself the moment the page opens.** The markup
+  declares the starting line for all 48 readings, the same way it already
+  declared their starting values. Nothing on the site is a silent dash.
+- **Redundant notes were rewritten.** Six readings repeated their own label —
+  "Drops measured / drops measured", "Pixels per notch / pixels per notch" —
+  and the scroll row did not say which number was up and which was down. The
+  scroll row now reads "up first, then down", the drop counter reads "every
+  drop, landed or not", and the scroll step reads "the last scroll step".
+- **The rollover panel no longer draws a conclusion from two keys held.** With
+  fewer than two keys down it said "may lack anti-ghosting hardware", which
+  cannot be known until the keys are held. It now says what to do, and at two
+  keys it says what the guide's threshold table says: a two-key board, and the
+  third key in a shortcut is dropped.
+
+### Also
+
+- **The three root pages carry a byline and a schema.** `index`,
+  `mouse-check` and `keyboard-check` now show who wrote them and when, and
+  their JSON-LD carries `author`, `datePublished` and `dateModified` against a
+  `Person` node pointing at the About page.
+- **The keyboard guide contradicted itself.** It said "Updated 28 October
+  2026" while its schema said `dateModified: 2026-10-31`. The byline now
+  reads "Published 28 October 2026 · Updated 31 October 2026", and the dates
+  follow one rule: **the published date is the launch date and never moves;
+  the updated date moves only when the content changes in a way a reader would
+  notice.** A checker enforces it, so the two cannot drift apart again.
+- **26 dead CSS classes are gone.** 259 classes down to 237, none of them
+  unused. They were fossils of the reverted v1.10.0 trackpad page.
+- **The home page stopped claiming something untrue.** The Headset Test card
+  said "In development" while nothing was in development; it now says
+  "Planned", and the Gamepad Test card says "Next up".
+- **The gamepad scope is written down in the repository.** `GAMEPAD.md` holds
+  the locked scope, the build order and the deadzone wedge, so the decision
+  survives the end of a chat.
+
+### Tests
+
+- **223 note checks** — every note has an element to land in, every element is
+  written by something, every reading declares a starting line, and that
+  declared line is one the script can actually write.
+- **59 browser checks** — every reading has a visible unit line at load, the
+  tiles fill, the lamps and the chips explain themselves, the bylines are
+  visible, and no page logs an error.
+- **6 byline checks** — the visible dates and the schema dates agree, on every
+  page that has both.
+- The existing suites still pass: 412 links, 103 browser audit, 40 layout,
+  46 trackpad, 25 maintenance, the FAQ and schema agreement, and the document
+  structure of all three guides.
+
 ## v1.16.3 — the layout test answers when an input method is in the way
 
 Found by the owner, third time on the same panel. With a Japanese input method active,

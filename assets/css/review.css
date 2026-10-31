@@ -76,7 +76,6 @@
 .rv-marker:hover { transform: scale(1.14); }
 .rv-marker.is-active { background: var(--amber); color: #241a00; box-shadow: 0 0 0 3px rgba(251,191,36,.5); }
 .rv-marker.is-anchored { box-shadow: 0 0 0 2px rgba(251,191,36,.6), 0 6px 18px -4px rgba(0,0,0,.9); }
-.rv-marker--ghost { background: #2a3245; color: var(--muted); box-shadow: 0 0 0 2px var(--line-2); }
 
 /* ---- element highlight ---- */
 .rv-highlight {
