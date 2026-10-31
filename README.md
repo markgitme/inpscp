@@ -5,8 +5,10 @@ JavaScript. No build step, no dependencies, no framework.
 
 ## Live
 
-- Preview: `https://m1k82v5yhxugy.space.minimax.io`
-- (This URL is a temporary CDN preview. A real domain is bought later and pointed here.)
+- GitHub Pages: `https://markgitme.github.io/inpscp/` — permanent, rebuilds from
+  `main` on every push.
+- The real domain (`inputscope.app`) is not bought yet and is pointed here when
+  it is.
 
 ## Layout
 
@@ -38,6 +40,14 @@ manifest.webmanifest  PWA manifest
 checks/               The test suite — run ./checks/run_all.sh before every release
   README.md           What each check catches, and why it exists
   run_all.sh          Builds the site, serves it, runs everything
+
+docs/notes/           The working notes — decisions, measurements and traps
+  README.md           Index: what to read before what
+  project-state.md    Current state, naming, roadmap order, domain situation
+  measurement-panels.md  How to build a panel that does not lie
+  publishing.md       Pushing, tokens, GitHub Pages, the Cloudflare cutover
+  sandbox-environment.md  Headless testing and the release loop
+  monetisation.md     AdSense vs Raptive, bylines, dates and the page engine
 ```
 
 ## Checks
@@ -54,6 +64,23 @@ tools for real.
 
 Every check exists because something specific broke. `checks/README.md` lists
 what each one catches. Run it before every release, not after.
+
+## Working notes
+
+`docs/notes/` holds the reasoning behind the code — the decisions made once and
+not to be re-litigated, the numbers that were measured so they do not have to
+be measured again, and the traps that each cost real time.
+
+| File | Read it before |
+|---|---|
+| `docs/notes/project-state.md` | changing anything structural — the current page set, the naming, the placeholders still to change, the roadmap order, the domain situation |
+| `docs/notes/measurement-panels.md` | building or debugging any measurement panel — the verdict block, physical presses vs auto-repeat, lock state, drag geometry, the latency rule |
+| `docs/notes/publishing.md` | pushing, token work, or a hosting change — the PAT recipe, the permission map, the write probe, the Cloudflare cutover order |
+| `docs/notes/sandbox-environment.md` | running a headless browser test or deploying — Playwright paths, what headless Chrome cannot verify, the release loop |
+| `docs/notes/monetisation.md` | touching ads, analytics, bylines, dates or schema — the two approval bars and the byline/date rules |
+
+They live in the repository so they survive a new chat: clone the repo and read
+the file that matches what you are about to do.
 
 ## Credentials
 
@@ -137,7 +164,7 @@ and security headers. It is inert unless the site is served by Cloudflare Pages.
    receive submissions. The key is public by design (an alias to the inbox), so it
    is safe to commit. Then switch hCaptcha on for that form in the Web3Forms
    dashboard — the markup is already in place.
-2. **The contact email.** `hello@inputscope.com` appears in `privacy.html` and
+3. **The contact email.** `hello@inputscope.com` appears in `privacy.html` and
    `terms.html`. Use whichever address you actually want to be reachable at.
 4. **`ads.txt`.** Contains comments only. When the AdSense account is approved, paste
    the real line from the AdSense dashboard in place of the placeholder comment.
@@ -182,7 +209,7 @@ tokens** → Generate new token:
 | Field | Value |
 |---|---|
 | Expiration | 30 days (or 90 — it is revoked manually anyway) |
-| **Repository access** | **Only select repositories** → tick `inputscope` |
+| **Repository access** | **Only select repositories** → tick `inpscp` |
 | **Repository permissions** | **Contents → Read and write** |
 | Account permissions | leave empty |
 
