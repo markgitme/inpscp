@@ -34,7 +34,26 @@ robots.txt            Crawl rules + sitemap pointer
 sitemap.xml           XML sitemap (currently points at the placeholder domain)
 ads.txt               AdSense publisher record — placeholder, see below
 manifest.webmanifest  PWA manifest
+
+checks/               The test suite — run ./checks/run_all.sh before every release
+  README.md           What each check catches, and why it exists
+  run_all.sh          Builds the site, serves it, runs everything
 ```
+
+## Checks
+
+```bash
+./checks/run_all.sh
+```
+
+Builds the site, serves it, and runs the whole suite: links and anchors, the
+visible FAQ against its schema, the document structure of the long guides, the
+unit line on every reading, the byline dates against the schema dates, the
+structural and accessibility audit, and the browser tests that drive the two
+tools for real.
+
+Every check exists because something specific broke. `checks/README.md` lists
+what each one catches. Run it before every release, not after.
 
 ## Publishing
 
