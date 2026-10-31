@@ -228,32 +228,78 @@
       }
     };
 
+    // A character the tool can compare: a single unshifted, non-space
+    // character. Shifted symbols are excluded because they are
+    // layout-specific — Shift+2 is " on QWERTY and é on AZERTY, so counting
+    // it would produce a false mismatch. The unshifted punctuation IS
+    // counted: the semicolon key, the slash key and the backtick key are
+    // exactly where QWERTY and QWERTZ come apart.
+    function isComparable(e) {
+      return !e.shiftKey && e.key.length === 1 && e.key.trim() !== '';
+    }
+
+    // Latin-1 letters (é, ñ, ü) are still Latin. Anything above U+00FF is not:
+    // kana, hangul, CJK, Cyrillic, Greek, and the full-width punctuation a
+    // Japanese or Chinese IME produces.
+    function isNonLatin(ch) {
+      return ch.charCodeAt(0) > 255;
+    }
+
+    function explain(text) {
+      var el = $('#layout-explain');
+      if (el) el.textContent = text || '';
+    }
+
     function analyse() {
       var text = box.value;
+      var codes = box._codes || [];
+      var comparable = [];
+      var nonLatin = false;
+      for (var i = 0; i < codes.length; i++) {
+        if (codes[i].comparable) comparable.push(codes[i]);
+        if (isNonLatin(codes[i].ch)) nonLatin = true;
+      }
+
       if (text.replace(/\s/g, '').length < 12) {
         setOut('layout-result', '—', 'type a little more text', null);
         setOut('layout-score', '—', 'confidence', null);
+        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        explain('Type at least a dozen characters. The tool compares the letters each key produces against the known layouts.');
         return;
       }
-      // rebuild the typed characters from the physical key codes captured while typing
-      var typedChars = [];
-      var codes = box._codes || [];
       if (!codes.length) {
         setOut('layout-result', '—', 'press keys inside the box to record positions', null);
+        setOut('layout-score', '—', 'confidence', null);
+        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        explain('Nothing was recorded. Type inside the box itself, not into another window.');
         return;
       }
-      for (var i = 0; i < codes.length; i++) {
-        var c = codes[i];
-        typedChars.push(c);
+      if (nonLatin) {
+        // The keyboard is producing characters outside the Latin set — a
+        // Japanese, Korean or Chinese layout, or a full-width IME. There is
+        // nothing to compare against, and naming a layout here would be a
+        // guess about the hardware.
+        setOut('layout-result', 'Not a Latin layout', 'the characters typed are outside the Latin set', 'warn');
+        setOut('layout-score', '—', 'nothing to compare', null);
+        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        explain('The characters you typed are not Latin letters, so there is nothing to compare. Switch the keyboard to English, type a sentence, and press Detect layout again.');
+        return;
+      }
+      if (!comparable.length) {
+        setOut('layout-result', '—', 'not enough letter keys typed', null);
+        setOut('layout-score', '—', 'confidence', null);
+        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        explain('Type a sentence with letters in it. The tool compares what each key produces, so punctuation alone will not identify a layout.');
+        return;
       }
 
       var scores = [];
       Object.keys(BASE).forEach(function (name) {
         var map = BASE[name];
         var match = 0, tested = 0;
-        for (var i = 0; i < typedChars.length; i++) {
-          var code = typedChars[i].code;
-          var ch = typedChars[i].ch;
+        for (var i = 0; i < comparable.length; i++) {
+          var code = comparable[i].code;
+          var ch = comparable[i].ch;
           if (!map[code]) continue;
           tested++;
           if (map[code] === ch.toLowerCase()) match++;
@@ -263,6 +309,9 @@
       scores.sort(function (a, b) { return b.pct - a.pct; });
       if (!scores.length) {
         setOut('layout-result', '—', 'not enough letter keys typed', null);
+        setOut('layout-score', '—', 'confidence', null);
+        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        explain('Type a sentence with letters in it. The tool compares what each key produces, so punctuation alone will not identify a layout.');
         return;
       }
       var best = scores[0];
@@ -271,24 +320,43 @@
       var detail = scores.map(function (s) { return s.name + ' ' + s.pct + '%'; }).join(' · ');
       setOut('layout-breakdown', detail, 'all candidate layouts', null);
 
+      if (best.pct === 0) {
+        // nothing matched: say that, rather than calling it ambiguous
+        setOut('layout-result', 'No layout matched', 'no key produced a character from these layouts', 'warn');
+        setOut('layout-score', '0%', 'nothing to compare', null);
+        explain('The characters you typed do not come from any of the known layouts. Type a sentence in English.');
+        return;
+      }
       if (margin < 3) {
         // the letters typed do not separate the candidates — say so rather than guess
         setOut('layout-result', 'Ambiguous', 'the keys typed match several layouts', 'warn');
         setOut('layout-score', best.pct + '%', 'no clear winner from these keys', 'warn');
+        explain('The letters you typed match several layouts equally well, so the tool will not pick one. Type more keys, including the punctuation row, and run it again.');
         return;
       }
       var conf = best.pct >= 90 && margin >= 8 ? 'High' : best.pct >= 70 ? 'Medium' : 'Low';
       setOut('layout-result', best.name, 'confidence: ' + conf, conf === 'High' ? 'ok' : conf === 'Medium' ? 'warn' : 'bad');
       setOut('layout-score', best.pct + '%', 'match against ' + best.tested + ' keys', best.pct >= 90 ? 'ok' : 'warn');
+      explain(conf === 'High'
+        ? 'A clear match against ' + best.tested + ' keys.'
+        : best.pct + '% against ' + best.tested + ' keys, but ' + (runner ? runner.name : 'the next candidate') +
+          ' is close behind, so the tool will not call it with confidence. Type the punctuation row as well — that is where the layouts differ.');
     }
 
     // capture physical codes while typing in the box.
-    // Only unshifted alphanumerics are recorded — shifted symbols are layout-specific
-    // and would otherwise count as false mismatches.
+    // Only unshifted alphanumerics are comparable — shifted symbols are
+    // layout-specific and would otherwise count as false mismatches. Every
+    // other character is still recorded, so the tool can tell "nothing was
+    // typed" from "nothing that can be compared": a Japanese layout produces
+    // kana, and that has to produce an answer rather than silence.
     box.addEventListener('keydown', function (e) {
       if (!box._codes) box._codes = [];
-      if (e.key.length === 1 && /[a-zA-Z0-9]/.test(e.key) && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
-        box._codes.push({ code: e.code, ch: e.key });
+      if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        box._codes.push({
+          code: e.code,
+          ch: e.key,
+          comparable: isComparable(e)
+        });
       }
     });
 
@@ -299,6 +367,7 @@
       setOut('layout-result', '…', 'type a sentence in your normal layout', null);
       setOut('layout-score', '—', 'confidence', null);
       setOut('layout-breakdown', '—', 'all candidate layouts', null);
+      explain('');
     });
 
     var analyzeBtn = $('#layout-analyze');

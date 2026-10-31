@@ -2,6 +2,51 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.16.1 — the layout test answers when the keyboard is not in a Latin layout
+
+Found by the owner: with the keyboard set to Japanese and hiragana typed into the
+Physical layout box, **Detect layout returned nothing at all** — Detected, Match and All
+candidates stayed blank, with no explanation anywhere.
+
+### Fixed
+
+- **The layout test now answers a non-Latin layout instead of going silent.** It reads
+  **"Not a Latin layout"**, in amber, with the reason and the way out: *"The characters you
+  typed are not Latin letters, so there is nothing to compare. Switch the keyboard to
+  English, type a sentence, and press Detect layout again."*
+- **The punctuation row is compared now, and it always should have been.** The capture
+  filter kept only unshifted *alphanumerics*, which quietly discarded the unshifted
+  punctuation — and the semicolon key, the slash key and the backtick key are exactly
+  where QWERTY and QWERTZ come apart. Every layout map carried those entries and none of
+  them could ever be reached. The filter now keeps any single unshifted, non-space
+  character, so a plain English sentence plus its punctuation identifies QWERTY with
+  high confidence instead of Medium.
+- **The panel can explain itself.** The layout panel had no place to show a note, so every
+  explanation the analyser wrote was discarded and the panel could only ever show a dash.
+  It now has one, under the readings.
+- **A layout that matches nothing is not called ambiguous.** A new **"No layout matched"**
+  reading covers it — usually a row of shifted symbols.
+- **A perfect match is no longer described as a weak one.** A 100% match with a close
+  runner-up is now reported as what it is: *"100% against 35 keys, but QWERTZ is close
+  behind, so the tool will not call it with confidence."*
+
+### Changed
+
+- The panel's instruction and the keyboard guide's layout section now say to **type in
+  English**, and explain that a Japanese, Korean or Chinese keyboard has to be switched
+  first — the analyser compares what each key produces against Latin layouts.
+- The guide's threshold table gained a row for each new reading, and the "matches 90% or
+  more" row now also says the next candidate must be 8 points behind, which is what the
+  tool actually requires for a high-confidence answer.
+
+### Verified
+
+`/workspace/test_layout.js` — **24 checks** driving every branch of the analyser: a
+Japanese layout, a Japanese layout that also typed digits (which must not be reported as
+QWERTY), plain English, English with the punctuation row, a French AZERTY board, too short,
+nothing typed in the box, punctuation only, and the Clear button. The existing suites
+still pass: 409 links, FAQ↔schema, doc structure, **46/46**, **20/20**, **25/25**, **104/104**.
+
 ## v1.16.0 — a maintenance pass over the whole site
 
 A full audit of the built site: every page checked for broken links, misspellings,
