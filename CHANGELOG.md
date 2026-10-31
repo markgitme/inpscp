@@ -2,6 +2,40 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.16.2 — the layout test answers a Japanese input method, in English
+
+Found by the owner again, on the same panel: with a Japanese input method active,
+**Detect layout still answered nothing useful**. It said *"Type at least a dozen
+characters"* for a seven-character sentence.
+
+### Fixed
+
+- **The wrong check ran first.** The length rule sat above the input-method rule, so a
+  short sentence in kana was answered with a request for more text instead of an
+  answer. A sentence in kana is a complete answer however long it is, so the
+  input-method check now runs first.
+- **The kana were never visible to the tool.** An input method composes its characters
+  and commits them as an **input event**, not a keydown — the keystrokes that reach the
+  page are the ASCII composition characters. The analyser was reading the keystrokes,
+  so it never saw the kana at all. It now reads **the text in the box** as well, which
+  is where the characters actually land.
+- **"Not a Latin layout" is gone.** It was jargon, and it was also wrong: the physical
+  keyboard is almost always still an English board. What changed is the software on top
+  of it. The reading is now **"Not an English layout"**, and the explanation says so
+  plainly: *"The characters you typed come from a non-English input method, so there is
+  nothing to compare. Switch the input method to English and type a sentence again —
+  that changes nothing about the hardware."*
+- **The panel instruction and the guide use the same words.** Both now say *input
+  method* rather than *layout*, and the guide explains that an input method changes the
+  software on top of the board, not the board itself.
+
+### Tests
+
+- 30 layout checks (up from 24), including a simulated IME that commits kana as an
+  input event — the owner's case, seven characters, hiragana and full-width katakana.
+- The existing suites still pass: 46 trackpad, 20 trackpad shape, 25 maintenance, 104
+  browser checks, 409 links, FAQ against schema, document structure.
+
 ## v1.16.1 — the layout test answers when the keyboard is not in a Latin layout
 
 Found by the owner: with the keyboard set to Japanese and hiragana typed into the

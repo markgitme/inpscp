@@ -240,9 +240,12 @@
 
     // Latin-1 letters (é, ñ, ü) are still Latin. Anything above U+00FF is not:
     // kana, hangul, CJK, Cyrillic, Greek, and the full-width punctuation a
-    // Japanese or Chinese IME produces.
-    function isNonLatin(ch) {
-      return ch.charCodeAt(0) > 255;
+    // Japanese or Chinese input method produces.
+    function isNonLatin(s) {
+      for (var i = 0; i < s.length; i++) {
+        if (s.charCodeAt(i) > 255) return true;
+      }
+      return false;
     }
 
     function explain(text) {
@@ -259,14 +262,12 @@
         if (codes[i].comparable) comparable.push(codes[i]);
         if (isNonLatin(codes[i].ch)) nonLatin = true;
       }
+      // An input method composes its characters and delivers them as an
+      // input event, not a keydown — so the text in the box is the only
+      // reliable place to see them. The keyboard is almost certainly still
+      // an English board; it is the software on top that changed.
+      if (isNonLatin(text)) nonLatin = true;
 
-      if (text.replace(/\s/g, '').length < 12) {
-        setOut('layout-result', '—', 'type a little more text', null);
-        setOut('layout-score', '—', 'confidence', null);
-        setOut('layout-breakdown', '—', 'all candidate layouts', null);
-        explain('Type at least a dozen characters. The tool compares the letters each key produces against the known layouts.');
-        return;
-      }
       if (!codes.length) {
         setOut('layout-result', '—', 'press keys inside the box to record positions', null);
         setOut('layout-score', '—', 'confidence', null);
@@ -275,14 +276,22 @@
         return;
       }
       if (nonLatin) {
-        // The keyboard is producing characters outside the Latin set — a
-        // Japanese, Korean or Chinese layout, or a full-width IME. There is
-        // nothing to compare against, and naming a layout here would be a
-        // guess about the hardware.
-        setOut('layout-result', 'Not a Latin layout', 'the characters typed are outside the Latin set', 'warn');
+        // The input method is producing characters outside the English set —
+        // Japanese, Korean, Chinese, Russian. There is nothing to compare
+        // against, and naming a layout here would be a guess about the
+        // hardware. This is checked before the length rule: a sentence in
+        // kana is a complete answer even when it is seven characters long.
+        setOut('layout-result', 'Not an English layout', 'the characters typed are outside the English set', 'warn');
         setOut('layout-score', '—', 'nothing to compare', null);
         setOut('layout-breakdown', '—', 'all candidate layouts', null);
-        explain('The characters you typed are not Latin letters, so there is nothing to compare. Switch the keyboard to English, type a sentence, and press Detect layout again.');
+        explain('The characters you typed come from a non-English input method, so there is nothing to compare. Switch the input method to English and type a sentence again — that changes nothing about the hardware.');
+        return;
+      }
+      if (text.replace(/\s/g, '').length < 12) {
+        setOut('layout-result', '—', 'type a little more text', null);
+        setOut('layout-score', '—', 'confidence', null);
+        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        explain('Type at least a dozen characters. The tool compares the letters each key produces against the known layouts.');
         return;
       }
       if (!comparable.length) {
