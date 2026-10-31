@@ -60,6 +60,20 @@ In practice:
 5. Trigger creep, chatter, dead motor, rumble.
 6. Browser-observed latency.
 
+## Where it sits in the roadmap
+
+The planned tools are **Gamepad → Headset → Display → Webcam**. The gamepad is
+next because it is the one that needs no permission and the one with the
+thinnest competition.
+
+- **Display does not fit the name.** A monitor is an output device, and
+  "InputScope" is a promise about inputs. That is a brand decision, not a
+  build slot.
+- **Webcam fits the frame** but carries camera-permission optics on a site
+  whose whole pitch is that the tools collect nothing.
+- **The Headset card on the home page says "Planned", not "In development".**
+  Nothing is in development until it is. The Gamepad card says "Next up".
+
 ## Rules that apply from the start
 
 - **Functional first.** A feature still in development gets no page, no guide,
