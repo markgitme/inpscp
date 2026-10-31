@@ -55,6 +55,32 @@ tools for real.
 Every check exists because something specific broke. `checks/README.md` lists
 what each one catches. Run it before every release, not after.
 
+## Credentials
+
+**This site has no API keys.** It is static HTML, CSS and JavaScript — no
+server, no database, no third-party analytics, no cookies. Nothing a visitor
+loads can leak a key, because there is nothing to leak.
+
+Two things are credential-shaped, and neither is in this repository:
+
+- **The GitHub token** used to push. It lives in the agent's encrypted secret
+  store, is injected as `$GH_TOKEN` at command time, and is never written to a
+  file, a commit or the repository. It is fine-grained and scoped to this
+  repository alone — Contents: read and write, nothing else. Revoke it when
+  the working session ends.
+- **The Web3Forms access key** in the contact form. Web3Forms states plainly
+  that this key is public and is meant to sit in client-side HTML: *"No. You
+  do not need to hide access key. Access key is public."* It is an alias for
+  an email address, not a secret. What protects the form is domain
+  restriction and a captcha, both on the go-live list.
+
+**If this project ever needs a key:** put it in the encrypted secret store,
+never in a file. A static page cannot read a `.env` file and `process.env`
+does not exist in a browser — anything the page needs ends up in the served
+HTML where every visitor can read it. `.gitignore` also ignores the usual
+secret file names, and `checks/scan_secrets.py` fails the release if anything
+secret-shaped reaches the tree or the history.
+
 ## Publishing
 
 `build.sh` copies the deployable site into `./build/` and strips the development

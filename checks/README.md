@@ -25,6 +25,7 @@ the browser checks at a different server if you want one.
 | `audit_struct.py` | Duplicate ids, broken heading order, missing alt text and labels, title and description length, canonical consistency, sitemap agreement, form wiring, colour contrast. |
 | `spell_check.py` | A spelling sweep across the shipped site. It reports a list for a human to judge, not a verdict — proper nouns and British spellings are auto-accepted. |
 | `link_map.py` | A link whose anchor text does not say where it goes. A valid href is not the same as a correct one. |
+| `scan_secrets.py` | An API key or token reaching the tree or the history. It prints the location and a masked value, never the secret itself, and exits non-zero on a hit. |
 | `browser_audit.js` | The site audit in a real browser: third-party requests, console errors, the review overlay, the skip link, form behaviour. |
 | `test_maintenance.js` | Heading order, labels, and the maintenance invariants across every page. |
 | `test_notes.js` | Every reading has a visible unit line, the summary tiles fill, the lock lamps and the trackpad chips explain themselves, the bylines are visible. |

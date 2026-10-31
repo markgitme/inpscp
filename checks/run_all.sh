@@ -49,6 +49,9 @@ for _ in $(seq 1 40); do
 done
 
 # --------------------------------------------------------- static checks ---
+banner "secrets"
+run "no exposed keys"            python3 "$HERE/scan_secrets.py"
+
 banner "structure and content"
 run "links, anchors, schema"     python3 "$HERE/check_links.py"
 run "FAQ visible vs schema"       python3 "$HERE/check_faq.py"

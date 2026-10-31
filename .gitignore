@@ -11,3 +11,21 @@ Thumbs.db
 *.swp
 .idea/
 .vscode/
+
+# Secrets. Nothing in this project needs one committed — the site is static
+# and has no server — but a stray key pasted into a file must never reach a
+# public repository. `.env.example` is exempt so a template can still be
+# committed.
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+*.p12
+*.secret
+*.secrets
+credentials*
+secrets.*
+id_rsa*
+id_ed25519*
