@@ -49,8 +49,10 @@ repeat shows "30 × A"; 2 keydowns + 1 keyup → double-fires 1.
 ## Storage durability (verified 2026-10-31)
 
 - **Sandbox filesystem is session-scoped.** The mount path literally contains the
-  session id: `alinas-ap-…:/456725449961619/workspace`. A new chat = new session
-  id = **new empty volume**. A project directory will not exist in a new session.
+  session id: `alinas-ap-…:/457081825542382/workspace` on 2026-10-31, and
+  `/456725449961619/workspace` on 2026-10-27 — **a different id, a different
+  volume.** A new chat = new session id = **new empty volume**. A project
+  directory will not exist in a new session.
 - **The Drive is durable and global.** Every `website_deploy` records
   `"source_retained": true, "project_source_retained": true`. Verified:
   `drive files download` on a zip node returns a working archive containing the
@@ -75,6 +77,54 @@ repeat shows "30 × A"; 2 keydowns + 1 keyup → double-fires 1.
 quote the URL from the *most recent* deploy result — never a remembered one. All
 prior URLs keep resolving, so old links are not broken, just outdated. The source
 upload is a private archive: check it contains no secrets before publishing.
+
+## Adding pages in subdirectories — four ways to break the links
+
+Adding a `guides/mouse/` tree to a flat static site surfaced four bugs that a
+"does it render?" check would have missed. All four were caught by a **link
+checker**, not by the browser.
+
+**1. A relative canonical must be relative to the PAGE, not to the site root.**
+`guides/mouse/foo.html` with `<link rel="canonical" href="guides/mouse/foo.html">`
+resolves to `/guides/mouse/guides/mouse/foo.html` — a 404 that looks fine in the
+source. The site's existing convention (`mouse-check.html` →
+`href="mouse-check.html"`) means **canonical = the page's own filename, relative
+to itself**. Same for `og:url`. `og:image` follows the same rule and needs the
+right number of `../`.
+
+**2. Breadcrumbs break the same way.** `guides/index.html` linking to
+`href="guides/index.html"` for the "Guides" crumb points at
+`/guides/guides/index.html`. Breadcrumb hrefs are page-relative:
+`../index.html`, `index.html`.
+
+**3. An f-string template double-hashes the anchor.** A helper taking
+`anchor="#dbl-start"` and writing `href="../../mouse-check.html#{anchor}"`
+produces `##dbl-start`, which no link checker flags as "dead" unless it strips
+the fragment properly. Normalise with `anchor.lstrip('#')` at the boundary
+instead.
+
+**4. A generator that only patches *some* call sites leaves one stale path.**
+The hardcoded `canonical="guides/mouse/what-the-numbers-mean.html"` survived
+while the f-string siblings were rewritten — a per-occurrence count check
+caught it.
+
+**The link checker that catches all of this** (keep it — it is reusable):
+walk every `.html` in `build/`, resolve every `href`/`src` against the file's own
+directory, check the target exists, and check the fragment against the target's
+`id`s. Also assert: canonical present, `og:url` present, meta description
+present, exactly one `h1`, every JSON-LD block parses, and **no prose sentence
+appears on two pages** (that last one proves a "move" actually moved).
+
+**Two more checks worth keeping:**
+
+- **No-index pages are exempt** from the canonical/description rules — `404.html`
+  has `<meta name="robots" content="noindex">` and legitimately has no
+  canonical. A checker that flags it teaches you to ignore the checker.
+- **Grammar in headings is a copy bug, but read the bytes, not your memory.**
+  Twice in one session I reported a heading as "Why does your keyboard
+  ghosting?" when the file said "Why is your keyboard ghosting?" — which is
+  correct English. `repr()` on the string and an `ord()` dump settles it in one
+  second. **Never report a copy bug from a glance.**
 
 ## Measuring "is it above the fold?" instead of guessing
 

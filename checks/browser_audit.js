@@ -119,31 +119,31 @@ const ok = (name, cond, detail) => {
     await p.goto(BASE + '/keyboard-check.html', { waitUntil: 'networkidle' });
 
     // key map lights on keydown and clears on keyup
+    // Wait for the class rather than for a fixed number of milliseconds: a
+    // fixed wait is a race, and the race loses when the machine is loaded.
     await p.keyboard.down('a');
-    await p.waitForTimeout(120);
-    const lit = await p.evaluate(() => {
+    const lit = await p.waitForFunction(() => {
       const k = document.querySelector('[data-code="KeyA"]');
-      return k ? k.className : null;
-    });
+      return k && /hit/.test(k.className) ? k.className : null;
+    }, null, { timeout: 5000 }).then(h => h.jsonValue()).catch(() => null);
     ok('key map lights KeyA', !!lit && /hit/.test(lit), String(lit));
     await p.keyboard.up('a');
-    await p.waitForTimeout(120);
-    const unlit = await p.evaluate(() => {
+    const unlit = await p.waitForFunction(() => {
       const k = document.querySelector('[data-code="KeyA"]');
-      return k ? k.className : null;
-    });
-    ok('key map clears KeyA on keyup', !/hit/.test(String(unlit)), String(unlit));
+      return k && !/hit/.test(k.className) ? k.className : null;
+    }, null, { timeout: 5000 }).then(h => h.jsonValue()).catch(() => null);
+    ok('key map clears KeyA on keyup', unlit !== null, String(unlit));
 
     // typing speed: type into the box and start the timer
     await p.click('#typing-start');
     await p.click('#typing-box');
     await p.keyboard.type('The quick brown fox jumps over the lazy dog');
-    await p.waitForTimeout(400);
-    const typed = await p.evaluate(() => {
+    const typed = await p.waitForFunction(() => {
       const el = document.querySelector('[data-out="typing-wpm"]');
-      return el ? el.textContent.trim() : null;
-    });
-    ok('typing speed produces a number', typed !== null && typed !== '' && typed !== '—', String(typed));
+      const v = el ? el.textContent.trim() : '';
+      return v && v !== '—' ? v : null;
+    }, null, { timeout: 8000 }).then(h => h.jsonValue()).catch(() => null);
+    ok('typing speed produces a number', typed !== null, String(typed));
 
     // trackpad panel: real right click lights the right strip
     const rightLit = await p.evaluate(() => {

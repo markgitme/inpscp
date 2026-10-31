@@ -40,6 +40,13 @@ InputAudit — all have DNS records.
   once).
 - **Never add an ad unit to a measurement surface** — layout shift corrupts the
   results.
+- **"Copy notes" exports the WHOLE page history, not just the new notes**, so a
+  second export contains the previous batch verbatim and the same fix can get
+  rebuilt twice. **Before acting on a batch, diff it against the previous
+  batch** — two byte-for-byte identical exports mean the work is already done,
+  so check the current build and say so instead of making the changes again.
+  There is a "Clear page" button (`data-rv-clear`) and individual notes can be
+  deleted. Notes are per-page, so a batch is always for one page at a time.
 
 ## Storage durability (verified 2026-10-31)
 
@@ -53,14 +60,18 @@ InputAudit — all have DNS records.
   unblocks Cloudflare Pages.
 - **The test suite lives in the repository, not the sandbox: `checks/`** —
   `./checks/run_all.sh` runs everything. Committed for exactly this reason.
-- **The PAT can write to `markgitme/inpscp` only** — a dry-run push to
-  `markgitme/ursift` is refused (403), so the other four repos are read-only
-  for the agent. `checks/scan_secrets.py` scans the tree and the full git
-  history for keys and fails a release on a hit; it was self-tested against
-  planted canaries, because a scanner that finds nothing because it is broken
-  looks exactly like a clean repo. **This site has no API keys at all** — no
-  server, no analytics, no cookies. The Web3Forms access key is public by the
-  vendor's own design.
+- **Two tokens, two repos.** The token in the `GH_TOKEN` secret is
+  fine-grained and write-scoped to `markgitme/inpscp` only — a dry-run push to
+  `markgitme/ursift` with it is refused (403), so the other four repos are
+  read-only for that token. A **separate `GH_TOKEN_URSIFT` secret** holds a
+  second fine-grained token scoped to `markgitme/ursift`, which is how the
+  ursift notes were pushed. Use the right one for the repo; never echo
+  either.
+  `checks/scan_secrets.py` scans the tree and the full git history for keys
+  and fails a release on a hit; it was self-tested against planted canaries,
+  because a scanner that finds nothing because it is broken looks exactly like
+  a clean repo. **This site has no API keys at all** — no server, no analytics,
+  no cookies. The Web3Forms access key is public by the vendor's own design.
 
 ## Deploys
 
@@ -207,6 +218,23 @@ applies, so the document and the verdict can never disagree.
 - **Group `<table>`s on their row-label tuple and diff the other columns** —
   the same table appeared three times with three different wordings, and no
   checker reported it.
+- **`text-wrap: balance` splits compound nouns across lines.** It split
+  "keyboard test" across two. **Use `balance` only where you want even line
+  lengths (a short hero H1); use `pretty` for body headings.** Both are
+  progressive enhancements, so a mistake here only shows on browsers that
+  support them.
+- **When a heading refuses to fit, check the parent's `max-width` before
+  shrinking the type.** `.section__head { max-width: 62ch; }` was forcing the
+  two-line break, not the font size; `#tools .section__head { max-width: none; }`
+  is what fixed it.
+- **Test a range of viewports, not one — and report the card's bottom edge
+  against the viewport height**, not the card's top. The owner's screenshot
+  showed cards clipping at the bottom of *his* window, and the number that
+  matters is where the last card ends, not where it begins.
+- **A settings path in a troubleshooting guide is a factual claim.** Three
+  macOS paths were wrong until they were checked against Apple's own
+  documentation rather than written from memory. **Read settings paths off the
+  vendor's documentation, every time.**
 
 ## A note on the older notes
 

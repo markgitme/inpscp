@@ -27,6 +27,7 @@ time.
 | [`publishing.md`](publishing.md) | pushing, token work, or a hosting change — the fine-grained PAT recipe, the permission map, the write probe, the GitHub Pages setup, and the Cloudflare cutover order |
 | [`sandbox-environment.md`](sandbox-environment.md) | running a headless browser test or deploying — the Playwright paths, the certificate proxy, what headless Chrome cannot verify, storage durability, the release loop, and the link checker recipe |
 | [`monetisation.md`](monetisation.md) | touching ads, analytics, bylines, dates or schema — the two approval bars (AdSense judges editorial substance, Raptive judges traffic), the traced policy quotes, the byline/date rules, and the one-document-per-device page engine |
+| [`MIGRATION.md`](MIGRATION.md) | once — the record of where every note came from when the memory topics were moved into this folder on 2026-10-31, and what was dropped from them and where it went instead |
 
 ## The one-line rules that come out of them
 

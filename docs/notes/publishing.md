@@ -87,13 +87,21 @@ workspace is session-scoped, so an SSH keypair would not survive and would have
 to be added to the GitHub account by hand. HTTPS + a scoped PAT is the one-step
 path.
 
-## The current token's blast radius
+## The current tokens' blast radius
 
-The token in the secret store is fine-grained and **write-scoped to
-`markgitme/inpscp` only** — a dry-run push to `markgitme/ursift` is refused
-(403 "Resource not accessible by personal access token"), and to `inpscp` it is
-accepted. The other four public repos are readable but not writable. **To push
-to ursift, the token's repository access has to be widened first.**
+There are **two** fine-grained tokens in the secret store, deliberately kept
+apart:
+
+| Secret | Write-scoped to | Used for |
+|---|---|---|
+| `GH_TOKEN` | `markgitme/inpscp` only | this project |
+| `GH_TOKEN_URSIFT` | `markgitme/ursift` only | the side project |
+
+A dry-run push with `GH_TOKEN` to `markgitme/ursift` is refused (403 "Resource
+not accessible by personal access token") and accepted for `inpscp`; the same
+probe with `GH_TOKEN_URSIFT` is accepted for ursift. The other four public
+repos are readable but not writable by either token. **Use the right token for
+the repo, and never echo either one.**
 
 ## Credentials rules
 
@@ -221,3 +229,16 @@ source_path=<repo>` → curl every route on the live URL.
   verification tag and **no ads, no analytics**. The owner has decided to leave
   it alone. Noted so a future session does not treat it as part of this project
   or try to "fix" it.
+
+## Open recommendation — rename `inpscp` → `inputscope`
+
+Not yet actioned. The repo name is invisible to visitors, but the **Pages URL
+is a public URL**, and `…/inpscp/` reads as a typo on a site whose whole
+proposition is trust. A rename changes the Pages URL, so it is cheapest to do
+it before anything indexes.
+
+**Caveats to check first:** a fine-grained PAT scoped to a repository may need
+re-ticking after a rename, and the two doc lines naming the repo need flipping
+back. The Cloudflare Pages **project name** does not have to match the repo
+name — it is assigned to the `*.pages.dev` subdomain and is chosen at project
+creation.
