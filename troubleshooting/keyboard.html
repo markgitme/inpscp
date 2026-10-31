@@ -258,11 +258,11 @@
           <h2>Why does my keyboard type the wrong character?</h2>
           <div class="prose">
 <p>This is nearly always a layout mismatch rather than a broken keyboard. Your keyboard has a physical layout that never changes — the key labelled Z is always in the same position — while your operating system has a layout setting that maps that position to a character. If the system believes it is German but the board is British, the key in that position produces a different symbol and you cannot type an apostrophe or a semicolon properly.</p>
-<p>The <a href="../keyboard-check.html#layout-analyze">physical layout test</a> reads the position of every key you press against the known layouts, so you can compare what the hardware is with what the system has selected and correct the mismatch in the keyboard preferences.</p>
+<p>The <a href="../keyboard-check.html#layout-test">physical layout test</a> reads the position of every key you press against the known layouts, so you can compare what the hardware is with what the system has selected and correct the mismatch in the keyboard preferences.</p>
           </div>
       <div class="callout callout--accent" style="margin-top:1.2rem">
         <h3>The test that settles it</h3>
-        <p>The physical layout test compares the position of every key you press against the known layouts and tells you which one the hardware actually is. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#layout-analyze" style="margin-left:.4rem;vertical-align:middle">Run the layout test</a></p>
+        <p>The physical layout test compares the position of every key you press against the known layouts and tells you which one the hardware actually is. <a class="btn btn--primary btn--sm" href="../keyboard-check.html#layout-test" style="margin-left:.4rem;vertical-align:middle">Run the layout test</a></p>
       </div>
       <div class="table-wrap" style="margin-top:1.4rem">
         <table>
@@ -273,7 +273,7 @@
             <tr><td>A single layout matches 90% or more, and the next candidate is at least 8 points behind</td><td>&ge; 90% match</td><td>The hardware is identified. Compare it with the layout the system has selected</td></tr>
             <tr><td>Confidence reads Medium</td><td>ambiguous</td><td>Type a few more keys, including the punctuation row, and it will resolve</td></tr>
             <tr><td>The result reads Ambiguous</td><td>no clear winner</td><td>Type a full sentence so the analyser has more keys to work with</td></tr>
-            <tr><td>The result reads Not an English layout</td><td>outside the English set</td><td>Your input method is producing characters the analyser cannot compare — Japanese, Korean, Chinese or Russian. It compares what each key produces against English-alphabet layouts, so there is nothing to match a kana against. Switch the input method to English and run it again. The hardware is unaffected</td></tr>
+            <tr><td>The result reads Not an English layout</td><td>outside the English set</td><td>Your input method is producing characters the analyser cannot compare — Japanese, Korean, Chinese or Russian. It compares what each key produces against English-alphabet layouts, so there is nothing to match a kana against. Switch the input method to English and type it again. The hardware is unaffected</td></tr>
             <tr><td>The result reads No layout matched</td><td>0% match</td><td>None of the keys produced a character from any known layout — usually a row of shifted symbols. Type a sentence in English</td></tr>
             <tr><td>The layout matches but symbols are wrong</td><td>hardware is fine</td><td>The operating system has the wrong layout selected</td></tr>
           </tbody>
@@ -282,7 +282,7 @@
       <div class="steps" style="margin-top:1.4rem">
           <div class="step">
             <h3>Run the layout test</h3>
-            <p>Type a sentence in English. The analyser reads the position of every key you press, compares the character it produced against the known layouts, and reports which physical board you have and how confident it is. If your input method is set to Japanese, Korean or Chinese, switch it to English first &mdash; the analyser compares what each key produces against English-alphabet layouts, so there is nothing for it to match a kana against. The physical keyboard is unaffected either way: an input method changes the software on top of the board, not the board itself.</p>
+            <p>Type a sentence in English and click away from the box when you are done &mdash; the reading updates on its own. The analyser reads the position of every key you press, compares the character it produced against the known layouts, and reports which physical board you have and how confident it is. If your input method is set to Japanese, Korean or Chinese, switch it to English first &mdash; the analyser compares what each key produces against English-alphabet layouts, so there is nothing for it to match a kana against. The physical keyboard is unaffected either way: an input method changes the software on top of the board, not the board itself.</p>
           </div>
           <div class="step">
             <h3>Compare with the system setting</h3>

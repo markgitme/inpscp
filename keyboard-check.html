@@ -230,14 +230,14 @@
             </div>
           </div>
 
-          <div class="panel panel--pad check-card">
+          <div class="panel panel--pad check-card" id="layout-test">
             <h3>Physical layout</h3>
-            <p class="check-note">Type a sentence in English &mdash; the tool compares the letters each key produces, so if your input method is set to Japanese, Korean or Chinese, switch it to English first. The physical key positions identify the board, whatever the system thinks it is.</p>
+            <p class="check-note">Type a sentence in English and click away when you are done &mdash; the tool compares the letters each key produces against the known layouts, so if your input method is set to Japanese, Korean or Chinese, switch it to English first. The physical key positions identify the board, whatever the system thinks it is.</p>
             <label class="vh" for="layout-box">Layout test box &mdash; type a sentence here</label>
-          <textarea class="typing-box" id="layout-box" placeholder="Type here, then press Detect layout…" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" style="min-height:96px;margin-top:.9rem"></textarea>
+          <textarea class="typing-box" id="layout-box" placeholder="Type here, then click away…" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" style="min-height:96px;margin-top:.9rem"></textarea>
             <div class="check-actions">
               <button class="btn btn--sm" type="button" id="layout-start">Clear</button>
-              <button class="btn btn--primary btn--sm" type="button" id="layout-analyze">Detect layout</button>
+              <span class="check-actions__hint">The reading updates when you click away from the box.</span>
             </div>
             <div class="mini-results">
               <div><span class="mini-results__k">Detected</span><span class="mini-results__v" data-out="layout-result">—</span></div>

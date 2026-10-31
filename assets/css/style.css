@@ -963,7 +963,8 @@ td code { color: var(--accent); }
 
 .check-card { display: flex; flex-direction: column; }
 .check-card .hitpad { height: 200px; }
-.check-actions { display: flex; gap: .5rem; margin-top: .8rem; flex-wrap: wrap; }
+.check-actions { display: flex; gap: .5rem; margin-top: .8rem; flex-wrap: wrap; align-items: center; }
+.check-actions__hint { font-size: .8rem; color: var(--muted); }
 .check-note { font-size: .8rem; color: var(--muted); margin: .6rem 0 0; }
 
 /* ---------------- Answer first ----------------

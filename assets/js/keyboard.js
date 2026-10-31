@@ -268,23 +268,25 @@
       // an English board; it is the software on top that changed.
       if (isNonLatin(text)) nonLatin = true;
 
+      // The text in the box is checked first, because it is the only place the
+      // characters actually land: an input method delivers them as an input
+      // event, and a pasted phrase arrives with no keystroke at all. Either
+      // way the answer is the same — there is nothing to compare.
+      if (nonLatin) {
+        // The input method is producing characters outside the English set —
+        // Japanese, Korean, Chinese, Russian. Naming a layout here would be a
+        // guess about the hardware, so the reading does not name one.
+        setOut('layout-result', 'Not an English layout', 'the characters typed are outside the English set', 'warn');
+        setOut('layout-score', '—', 'nothing to compare', null);
+        setOut('layout-breakdown', '—', 'all candidate layouts', null);
+        explain('The characters you typed come from a non-English input method, so there is nothing to compare. Switch the input method to English and type a sentence again — that changes nothing about the hardware.');
+        return;
+      }
       if (!codes.length) {
         setOut('layout-result', '—', 'press keys inside the box to record positions', null);
         setOut('layout-score', '—', 'confidence', null);
         setOut('layout-breakdown', '—', 'all candidate layouts', null);
         explain('Nothing was recorded. Type inside the box itself, not into another window.');
-        return;
-      }
-      if (nonLatin) {
-        // The input method is producing characters outside the English set —
-        // Japanese, Korean, Chinese, Russian. There is nothing to compare
-        // against, and naming a layout here would be a guess about the
-        // hardware. This is checked before the length rule: a sentence in
-        // kana is a complete answer even when it is seven characters long.
-        setOut('layout-result', 'Not an English layout', 'the characters typed are outside the English set', 'warn');
-        setOut('layout-score', '—', 'nothing to compare', null);
-        setOut('layout-breakdown', '—', 'all candidate layouts', null);
-        explain('The characters you typed come from a non-English input method, so there is nothing to compare. Switch the input method to English and type a sentence again — that changes nothing about the hardware.');
         return;
       }
       if (text.replace(/\s/g, '').length < 12) {
@@ -340,7 +342,7 @@
         // the letters typed do not separate the candidates — say so rather than guess
         setOut('layout-result', 'Ambiguous', 'the keys typed match several layouts', 'warn');
         setOut('layout-score', best.pct + '%', 'no clear winner from these keys', 'warn');
-        explain('The letters you typed match several layouts equally well, so the tool will not pick one. Type more keys, including the punctuation row, and run it again.');
+        explain('The letters you typed match several layouts equally well, so the tool will not pick one. Type more keys, including the punctuation row, and click away again.');
         return;
       }
       var conf = best.pct >= 90 && margin >= 8 ? 'High' : best.pct >= 70 ? 'Medium' : 'Low';
@@ -355,18 +357,22 @@
     // capture physical codes while typing in the box.
     // Only unshifted alphanumerics are comparable — shifted symbols are
     // layout-specific and would otherwise count as false mismatches. Every
-    // other character is still recorded, so the tool can tell "nothing was
-    // typed" from "nothing that can be compared": a Japanese layout produces
-    // kana, and that has to produce an answer rather than silence.
+    // other key press is still recorded, so the tool can tell "nothing was
+    // typed" from "nothing that can be compared".
+    //
+    // An input method intercepts the keystroke and the browser reports it as
+    // key "Process" with keyCode 229, not as a character — so the keystrokes
+    // that produce kana must be recorded even though they carry no character.
+    // The character itself arrives later, in the box text.
     box.addEventListener('keydown', function (e) {
       if (!box._codes) box._codes = [];
-      if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
-        box._codes.push({
-          code: e.code,
-          ch: e.key,
-          comparable: isComparable(e)
-        });
-      }
+      if (e.ctrlKey || e.altKey || e.metaKey) return;
+      if (!e.code) return;
+      box._codes.push({
+        code: e.code,
+        ch: e.key,
+        comparable: isComparable(e)
+      });
     });
 
     var start = $('#layout-start');
@@ -379,9 +385,8 @@
       explain('');
     });
 
-    var analyzeBtn = $('#layout-analyze');
-    if (analyzeBtn) analyzeBtn.addEventListener('click', analyse);
-
+    // The panel runs itself when the box loses focus — that has been the
+    // behaviour since the first release, so there is no button to press.
     box.addEventListener('blur', analyse);
   })();
 

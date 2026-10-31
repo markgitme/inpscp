@@ -2,6 +2,46 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.16.3 — the layout test answers when an input method is in the way
+
+Found by the owner, third time on the same panel. With a Japanese input method active,
+Detect layout answered **"Nothing was recorded. Type inside the box itself, not into
+another window."** — for typed text, for pasted text, for short text and for long text.
+
+### Fixed
+
+- **Every keystroke the input method intercepted was thrown away.** While an input method
+  is processing, the browser does not report a character: the spec says `key` comes back
+  as **"Process"** with **`keyCode` 229**, and only `code` still names the physical key.
+  The capture rule required a single-character `key`, so every one of those keystrokes
+  was discarded and the panel had nothing to report. The capture now records every key
+  press with a physical key code, whether or not it carries a character.
+- **The text in the box is checked first.** The characters an input method produces arrive
+  as an input event, and a pasted phrase arrives with no keystroke at all, so the text is
+  the only place they can be seen. Checking it before the "nothing was recorded" branch
+  means a pasted Japanese sentence is answered rather than dismissed.
+- **The "Detect layout" button is gone.** The panel has analysed itself when the box
+  loses focus since the first release, so the button was doing nothing the blur handler
+  had not already done. The instruction and the placeholder now say to click away when
+  you are done, and the keyboard guide says the same.
+
+### Also
+
+- The copy that said "run it again" referred to a button that no longer exists. It now
+  says what actually happens: type again, click away.
+- Two links in the keyboard guide pointed at `#layout-analyze`, the button's id. They now
+  point at the panel, which has an id of its own.
+
+### Tests
+
+- **40 layout checks** (up from 30), including the case that started this: an input
+  method that reports `key: "Process"` and `keyCode: 229`, the characters arriving later
+  as an input event. Plus a pasted phrase with no keystroke at all, and twelve identical
+  letters — which the tool correctly refuses to call, because one repeated letter cannot
+  separate US QWERTY from QWERTZ or Dvorak.
+- Everything else still passes: 46 trackpad, 20 trackpad shape, 25 maintenance, 103
+  browser checks, 409 links, FAQ against schema, document structure.
+
 ## v1.16.2 — the layout test answers a Japanese input method, in English
 
 Found by the owner again, on the same panel: with a Japanese input method active,
