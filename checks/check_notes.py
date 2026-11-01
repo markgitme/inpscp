@@ -28,6 +28,7 @@ JS_TO_PAGE = {
     "assets/js/mouse.js": "mouse-check.html",
     "assets/js/keyboard.js": "keyboard-check.html",
     "assets/js/trackpad.js": "keyboard-check.html",
+    "assets/js/headset.js": "headset-check.html",
 }
 
 

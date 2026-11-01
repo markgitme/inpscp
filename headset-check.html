@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Headset Check — Free Headphone Channel Test | InputScope</title>
+<meta name="description" content="Free online headset test. Play the left channel, then the right, and mark what you heard. The headset drawing lights with the channel you play.">
+<meta name="theme-color" content="#0c0c0d">
+<link rel="canonical" href="headset-check.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Headset Check — Free Headphone Channel Test">
+<meta property="og:description" content="Play the left channel, then the right, and mark what you heard. The headset drawing lights with the channel you play.">
+<meta property="og:url" content="headset-check.html">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/og-image.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script>
+/* Set the theme before the stylesheets arrive, so a visitor who picked a
+   theme never sees the default flash past. The attribute is always set, so
+   it always names the theme actually in force. */
+(function () {
+  var t = 'monochrome';
+  try {
+    var s = localStorage.getItem('inputscope-theme');
+    if (s) t = s;
+  } catch (e) { /* private mode */ }
+  if (t === 'monochrome' || t === 'ember' || t === 'daylight') {
+    document.documentElement.setAttribute('data-theme', t);
+  }
+})();
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/review.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <a href="troubleshooting/index.html">Troubleshooting</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="tool-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="index.html">InputScope</a><span>/</span>Headset Check</div>
+      <span class="eyebrow"><span class="pulse"></span>Free · runs in your browser · nothing uploaded</span>
+      <h1>Headset Check</h1>
+      <p>The headphone half of a headset. Play the left channel, then the right, and mark what you heard &mdash; the drawing lights with whichever side is playing, and goes dark when the tone stops.</p>
+    </div>
+  </section>
+
+  <!-- ================= THE HEADSET ================= -->
+  <section class="section section--tight">
+    <div class="wrap">
+
+      <div class="panel panel--pad" id="headset-output">
+        <div class="hs-panel-head">
+          <div>
+            <h2 class="hs-panel-title">Headphones</h2>
+            <p class="hs-panel-copy muted small">A browser cannot hear your headphones, so this half will not pretend to measure them &mdash; it asks you, and it keeps your answers.</p>
+          </div>
+          <span class="hs-badge" id="hs-out-badge">Not marked</span>
+        </div>
+
+        <div class="verdict">
+          <div class="verdict__line" id="hs-out-verdict-line">Nothing marked yet.</div>
+          <div class="verdict__detail" id="hs-out-verdict-detail">Play the left channel, then the right, then mark each one. A tone in the wrong ear means the channels are reversed; both ears hearing the same tone means the signal is mono.</div>
+        </div>
+
+        <div class="hs-display">
+          <div class="hs-diagram" id="hs-diagram">
+            <svg class="hs-diagram__svg" viewBox="0 0 340 220" role="img" aria-label="Diagram of a headset. The ear cup for the channel you play lights up, and the whole drawing loops once both sides have been played.">
+              <!-- the headband and its cushion -->
+              <path class="hs-band" d="M 63 116 C 63 24, 277 24, 277 116"/>
+              <path class="hs-band-pad" d="M 80 111 C 80 45, 260 45, 260 111"/>
+              <!-- the left ear cup -->
+              <g class="hs-cup" data-cup="left">
+                <rect class="hs-cup-body" x="28" y="96" width="68" height="86" rx="31"/>
+                <rect class="hs-cup-light" x="41" y="109" width="42" height="60" rx="20"/>
+              </g>
+              <!-- the right ear cup -->
+              <g class="hs-cup" data-cup="right">
+                <rect class="hs-cup-body" x="244" y="96" width="68" height="86" rx="31"/>
+                <rect class="hs-cup-light" x="257" y="109" width="42" height="60" rx="20"/>
+              </g>
+              <!-- the microphone boom -->
+              <path class="hs-boom" d="M 62 180 C 62 214, 142 226, 178 202"/>
+              <circle class="hs-boom-tip" cx="180" cy="201" r="9"/>
+            </svg>
+          </div>
+
+          <div class="hs-readout">
+            <h3 class="hs-subhead">Channel check</h3>
+            <div class="hs-controls">
+              <button class="btn" type="button" data-hs-play="left">Left</button>
+              <button class="btn" type="button" data-hs-play="right">Right</button>
+              <button class="btn" type="button" data-hs-play="both">Both</button>
+              <button class="btn btn--sm" type="button" data-hs-play="stop">Stop</button>
+            </div>
+
+            <div class="hs-mark">
+              <div class="hs-mark__row">
+                <span class="hs-mark__label">Left ear</span>
+                <button class="hs-mark__btn" type="button" data-hs-mark="left-heard">I heard it</button>
+                <button class="hs-mark__btn" type="button" data-hs-mark="left-silent">Silent</button>
+              </div>
+              <div class="hs-mark__row">
+                <span class="hs-mark__label">Right ear</span>
+                <button class="hs-mark__btn" type="button" data-hs-mark="right-heard">I heard it</button>
+                <button class="hs-mark__btn" type="button" data-hs-mark="right-silent">Silent</button>
+              </div>
+            </div>
+
+            <h3 class="hs-subhead">Tone check</h3>
+            <div class="hs-controls">
+              <span class="hs-field">
+                <label class="hs-field__label" for="hs-freq">Tone</label>
+                <select class="hs-select" id="hs-freq">
+                  <option value="100" selected>100 Hz &mdash; low</option>
+                  <option value="250">250 Hz &mdash; mid</option>
+                  <option value="1000">1 kHz &mdash; High</option>
+                </select>
+              </span>
+              <span class="hs-field">
+                <label class="hs-field__label" for="hs-sound">Sound</label>
+                <select class="hs-select" id="hs-sound">
+                  <option value="tone" selected>Tone &mdash; a steady note</option>
+                  <option value="string">String &mdash; a plucked note</option>
+                </select>
+              </span>
+            </div>
+
+            <div class="mini-results">
+              <div><span class="mini-results__k">Left ear</span><span class="mini-results__v" data-out="hs-left">&mdash;</span><span class="mini-results__n" data-note="hs-left">what you heard in your left ear</span></div>
+              <div><span class="mini-results__k">Right ear</span><span class="mini-results__v" data-out="hs-right">&mdash;</span><span class="mini-results__n" data-note="hs-right">what you heard in your right ear</span></div>
+              <div><span class="mini-results__k">Playing</span><span class="mini-results__v" data-out="hs-freq">&mdash;</span><span class="mini-results__n" data-note="hs-freq">the frequency playing right now</span></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="mouse-hint">The ear cup lights while its channel is playing, and goes dark when the tone stops. Mark a side <strong class="hl">Silent</strong> and it turns red and stays that way, because a side that never played is a different problem from one that played in the wrong ear.</p>
+
+        <p class="mouse-hint">The tone check chooses what the channel check plays. Pick a tone and a sound, then use Left, Right or Both above to hear it &mdash; choosing on its own makes no sound. The string note is generated in the browser rather than recorded, so it is the same note every time and nothing is downloaded.</p>
+
+        <p class="mouse-hint">A tone that is missing at one end is usually the headphones rolling off there rather than a fault &mdash; and it is usually your hearing as well. Start low and work up.</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+      </div>
+      <div class="footer-col">
+        <h2>Tools</h2>
+        <ul>
+          <li><a href="mouse-check.html">Mouse Check</a></li>
+          <li><a href="keyboard-check.html">Keyboard Check</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Troubleshooting</h2>
+        <ul>
+          <li><a href="troubleshooting/index.html">All troubleshooting</a></li>
+          <li><a href="troubleshooting/mouse.html">Mouse</a></li>
+          <li><a href="troubleshooting/keyboard.html">Keyboard</a></li>
+          <li><a href="troubleshooting/trackpad.html">Trackpad</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Information</h2>
+        <ul>
+          <li><a href="about.html">About InputScope</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="ads.txt">ads.txt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> InputScope. All rights reserved.</span>
+      <span>The tools collect nothing. The contact form is the exception.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/review.js"></script>
+<script src="assets/js/headset.js"></script>
+</body>
+</html>

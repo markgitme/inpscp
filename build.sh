@@ -8,13 +8,32 @@
 #   - local deploys:  website_deploy path=<repo>/build
 #   - Cloudflare Pages: build command `./build.sh`, output directory `build`
 #
-#   ./build.sh          stage the site
-#   ./build.sh --clean  wipe ./build/ first
+#   ./build.sh            stage the site
+#   ./build.sh --clean    wipe ./build/ first
+#   ./build.sh --wip      also stage the work-in-progress pages (never published)
+#
+# --wip exists because a tool in development must not reach the published
+# site. A work in progress has no guide, no FAQ entry, no schema block and no
+# byline, so it cannot be published yet — and "we will remember to take it
+# out" is not a mechanism. The published build is what `./build.sh` produces
+# with no flag, and it never contains a work-in-progress page. The --wip build
+# is for the browser checks and for previewing a tool that is still in
+# development.
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUT="$ROOT/build"
+
+CLEAN=0
+WIP=0
+for arg in "$@"; do
+  case "$arg" in
+    --clean) CLEAN=1 ;;
+    --wip)   WIP=1 ;;
+    *) echo "build.sh: unknown option '$arg'" >&2; exit 1 ;;
+  esac
+done
 
 SITE_FILES=(
   "index.html" "mouse-check.html" "keyboard-check.html"
@@ -25,13 +44,25 @@ SITE_FILES=(
   "_headers"
 )
 
-if [[ "${1:-}" == "--clean" ]]; then
+# Work in progress. These pages are built only when --wip is passed, so they
+# cannot be published by accident. Nothing in the published site may link to
+# them either — checks/check_build.py asserts that.
+WIP_FILES=(
+  "headset-check.html"
+)
+
+if [[ "$CLEAN" -eq 1 ]]; then
   rm -rf "$OUT"
 fi
 rm -rf "$OUT"
 mkdir -p "$OUT"
 
-for f in "${SITE_FILES[@]}"; do
+FILES=("${SITE_FILES[@]}")
+if [[ "$WIP" -eq 1 ]]; then
+  FILES+=("${WIP_FILES[@]}")
+fi
+
+for f in "${FILES[@]}"; do
   if [[ -e "$ROOT/$f" ]]; then
     cp -R "$ROOT/$f" "$OUT/"
   else
@@ -41,3 +72,6 @@ for f in "${SITE_FILES[@]}"; do
 done
 
 echo "Staged $(find "$OUT" -type f | wc -l | tr -d ' ') files -> $OUT"
+if [[ "$WIP" -eq 1 ]]; then
+  echo "  (with work in progress: ${WIP_FILES[*]})"
+fi

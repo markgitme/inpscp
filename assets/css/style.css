@@ -66,6 +66,7 @@
   --stage-body:   #1a1a1e;
   --stage-body-stroke: #34363c;
   --stage-fill:   #232428;
+  --pad-face:     #3a3c43;
   --placeholder:  #7c7e84;
 
   /* the same colours as comma triplets, so every tint follows */
@@ -141,6 +142,7 @@ html[data-theme="ember"] {
   --stage-body:   #221d19;
   --stage-body-stroke: #3d372f;
   --stage-fill:   #2a2420;
+  --pad-face:     #4a4239;
   --placeholder:  #8d8279;
 
   /* the same colours as comma triplets, so every tint follows */
@@ -209,6 +211,7 @@ html[data-theme="daylight"] {
   --stage-body:   #ece9e1;
   --stage-body-stroke: #cfc9bb;
   --stage-fill:   #e3dfd5;
+  --pad-face:     #cbc5b6;
   --placeholder:  #8b8f97;
 
   /* the same colours as comma triplets, so every tint follows */
@@ -1385,3 +1388,106 @@ td code { color: var(--accent); }
    page's content changes in a way a reader would notice. */
 p.byline { font-size: .8rem; color: var(--muted); margin: 1rem 0 0; max-width: none; }
 p.byline a { color: var(--muted); }
+
+/* ---------------- Headset tester ----------------
+   The headphone half of a headset is a guided panel where the reader
+   marks what they heard. Every colour comes from a token, like everything
+   else on this site — a hardcoded colour here would fail
+   checks/check_themeable.py. */
+.hs-panel-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem;
+}
+.hs-panel-title { font-size: 1.25rem; margin: 0 0 .3rem; }
+.hs-panel-copy { margin: 0; max-width: 58ch; }
+
+.hs-badge {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--muted);
+  border: 1px solid var(--line-2); border-radius: 999px;
+  padding: .25rem .65rem; white-space: nowrap;
+}
+.hs-badge--live { color: var(--ok); border-color: rgba(var(--ok-rgb), .45); }
+
+.hs-controls { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: 1.1rem 0; }
+
+.hs-subhead { font-size: .95rem; margin: 1.7rem 0 .1rem; color: var(--text-2); }
+
+.hs-field { display: inline-flex; align-items: center; gap: .5rem; }
+.hs-field__label { font-size: .8rem; color: var(--muted); }
+.hs-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--card-2);
+  color: var(--text);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  padding: .4rem .7rem;
+  font: inherit;
+  font-size: .86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s;
+}
+.hs-select:hover { border-color: var(--accent); background: var(--card-3); }
+.hs-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.hs-mark { display: grid; gap: .5rem; margin: 1rem 0 1.3rem; }
+.hs-mark__row { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.hs-mark__label { font-size: .82rem; color: var(--muted); min-width: 5.2rem; }
+.hs-mark__btn {
+  font: inherit; font-size: .8rem; color: var(--text-2);
+  background: var(--card-2); border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm); padding: .34rem .72rem; cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.hs-mark__btn:hover { border-color: var(--edge-hi); color: var(--text); }
+.hs-mark__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hs-mark__btn.is-on { color: var(--ok); border-color: rgba(var(--ok-rgb), .55); }
+
+/* ---------------- The headset drawing ----------------
+   The ear cups carry the live state: the cup for the channel being
+   played lights and pulses, and every other cup goes dark when the tone
+   stops. A side the reader marked silent stays red, because that is
+   their answer rather than a live reading. Every colour comes from a
+   token, like everything else on this site — a hardcoded colour here
+   would fail checks/check_themeable.py. */
+.hs-display {
+  display: grid; gap: 1.4rem 1.8rem; grid-template-columns: minmax(280px, 440px) 1fr;
+  align-items: start; margin: 1.3rem 0;
+}
+@media (max-width: 780px) {
+  .hs-display { grid-template-columns: 1fr; }
+}
+.hs-readout { justify-self: stretch; }
+
+.hs-diagram {
+  display: grid; place-items: center;
+  padding: .9rem; border-radius: var(--radius);
+  background: radial-gradient(420px 320px at 50% 32%, rgba(var(--accent-rgb), .06), transparent 70%), var(--bg-2);
+  border: 1px solid var(--line);
+  transition: border-color .15s;
+}
+.hs-diagram__svg { width: 100%; max-width: 400px; height: auto; overflow: visible; }
+
+.hs-band { fill: none; stroke: var(--stage-body-stroke); stroke-width: 13; stroke-linecap: round; }
+.hs-band-pad { fill: none; stroke: var(--edge-hi); stroke-width: 4; stroke-linecap: round; }
+
+.hs-cup-body {
+  fill: var(--stage-body); stroke: var(--stage-body-stroke); stroke-width: 2;
+  transition: stroke .15s;
+}
+.hs-cup-light { fill: var(--pad-face); transition: fill .15s; }
+.hs-cup.is-lit .hs-cup-light {
+  fill: var(--ok-lite);
+  filter: drop-shadow(0 0 10px rgba(var(--ok-rgb), .80));
+  /* The cup that is playing pulses, and only that one. The pulse
+     keyframe is the one the site already uses. */
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.hs-cup.is-lit .hs-cup-body { stroke: var(--ok-lite); }
+.hs-cup.is-silent .hs-cup-light { fill: var(--red); }
+.hs-cup.is-silent .hs-cup-body { stroke: var(--red-hi); }
+
+.hs-boom { fill: none; stroke: var(--stage-body-stroke); stroke-width: 5; stroke-linecap: round; }
+.hs-boom-tip { fill: var(--pad-face); transition: fill .15s; }

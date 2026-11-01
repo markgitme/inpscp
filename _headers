@@ -19,7 +19,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Permissions-Policy: geolocation=(), microphone=(self), camera=(), interest-cohort=()
   X-XSS-Protection: 0
 
 # Long-lived, cheap-to-serve files

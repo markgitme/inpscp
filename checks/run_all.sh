@@ -32,7 +32,10 @@ run()    { printf '\033[36m-- %s\033[0m\n' "$1"; shift; "$@"; local rc=$?; [[ $r
 
 # ---------------------------------------------------------------- the site ---
 banner "build"
-./build.sh --clean || { echo "build failed"; exit 1; }
+# --wip so the browser checks can reach the pages that are still in
+# development. The published build never contains them; the tree is put back
+# into the published state at the end of this run.
+./build.sh --wip --clean || { echo "build failed"; exit 1; }
 
 if [[ -z "${CHROME_PATH:-}" ]]; then
   CHROME_PATH="$(ls -d /root/.cache/ms-playwright/chromium-*/chrome-linux/chrome 2>/dev/null | tail -1)"
@@ -69,7 +72,16 @@ run "unit lines"                  node "$HERE/test_notes.js"
 run "layout detector"             node "$HERE/test_layout.js"
 run "trackpad"                    node "$HERE/test_trackpad.js"
 run "the theme picker"             node "$HERE/test_theme.js"
+run "the headset tester"           node "$HERE/test_headset.js"
 run "overflow at every width"     node "$HERE/test_overflow.js"
+
+# ------------------------------------------------- the published build ---
+banner "the published build"
+# Put the tree back into the published state and prove that the build that
+# gets deployed carries no work in progress, and that nothing published links
+# to a page that is still in development.
+./build.sh --clean || { echo "published build failed"; exit 1; }
+run "no work in progress is published" python3 "$HERE/check_build.py" "$ROOT/build"
 
 # ------------------------------------------------------------------ done ---
 banner "result"
