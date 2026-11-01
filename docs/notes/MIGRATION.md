@@ -25,7 +25,7 @@
 | `ursift-project` | 30,129 | `markgitme/ursift` → `docs/notes/project-state.md` |
 | `feedwatch-data-sources` | 22,587 | `markgitme/ursift` → `docs/notes/data-sources.md` |
 | `ursift-worker-live` | 13,535 | `markgitme/ursift` → `docs/notes/worker.md` |
-| `ursift-pinned` | 3,649 | **private** → `markgitme/ursift` side of the owner's notes repository (`product.md`) |
+| `ursift-pinned` | 3,649 | **private** → `markgitme/projectnotes` → `ursift/docs/notes/product.md` |
 
 **150 KB of notes → 9 files in 2 repositories, plus the release narrative that
 already lived in `CHANGELOG.md`.** The memory topics that remain hold only the
@@ -169,7 +169,8 @@ were divided by what they actually are.
 | `markgitme/inpscp` → `docs/notes/` | `README.md`, `project-state.md`, `measurement-panels.md`, `publishing.md`, `sandbox-environment.md` |
 | `markgitme/ursift` → `docs/notes/` | `README.md`, `project-state.md`, `worker.md`, `data-sources.md` |
 
-**Private, in the owner's notes repository, one folder per project:**
+**Private, in the owner's notes repository — `markgitme/projectnotes` — one
+folder per project:**
 
 | Path | What |
 |---|---|

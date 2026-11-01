@@ -83,8 +83,8 @@ the file that matches what you are about to do. **These notes are public and
 need no credentials.** The parts that are about the owner rather than the code
 — the feedback log, the domain decision, the AI-disclosure choice, the go-live
 placeholders and their reasoning, and the monetisation strategy — are kept in a
-separate private repository so they are not on a public URL; this repository
-points there rather than duplicating them.
+separate private repository — `markgitme/projectnotes` — so they are not on a
+public URL; this repository points there rather than duplicating them.
 
 ## Credentials
 
