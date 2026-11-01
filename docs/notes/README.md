@@ -6,6 +6,13 @@
 > **How to use this folder:** clone the repo and read the file that matches what
 > you are about to do. Nothing here is needed to *serve* the site — it is the
 > reasoning, the measurements and the traps behind the code.
+>
+> **These notes are public and readable without any credentials.** The parts
+> that are about the owner rather than the code — the feedback log, the domain
+> decision, the AI-disclosure choice, the go-live placeholders and their
+> reasoning, and the monetisation strategy — live in the owner's **private**
+> notes repository, under `inpscp/docs/notes/`. This repository is the
+> engineering half; that one is the rest.
 
 ## Why these are in the repo
 
@@ -26,7 +33,7 @@ time.
 | [`measurement-panels.md`](measurement-panels.md) | building or debugging any measurement panel — the answer-first verdict block, physical presses vs auto-repeat, modifier/lock state, drag-and-drop geometry, the latency rule (`event.timeStamp`, not `performance.now()`), and the CSS/JS traps that silently break a panel |
 | [`publishing.md`](publishing.md) | pushing, token work, or a hosting change — the fine-grained PAT recipe, the permission map, the write probe, the GitHub Pages setup, and the Cloudflare cutover order |
 | [`sandbox-environment.md`](sandbox-environment.md) | running a headless browser test or deploying — the Playwright paths, the certificate proxy, what headless Chrome cannot verify, storage durability, the release loop, and the link checker recipe |
-| [`monetisation.md`](monetisation.md) | touching ads, analytics, bylines, dates or schema — the two approval bars (AdSense judges editorial substance, Raptive judges traffic), the traced policy quotes, the byline/date rules, and the one-document-per-device page engine |
+| `monetisation.md` *(private)* | touching ads, analytics, bylines, dates or schema — the two approval bars (AdSense judges editorial substance, Raptive judges traffic), the traced policy quotes, the byline/date rules, and the one-document-per-device page engine — **private, in the owner's notes repository** |
 | [`MIGRATION.md`](MIGRATION.md) | once — the record of where every note came from when the memory topics were moved into this folder on 2026-10-31, and what was dropped from them and where it went instead |
 
 ## The one-line rules that come out of them

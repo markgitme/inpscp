@@ -80,37 +80,21 @@ zips in `/workspace/output/` are the durable artefact. Always quote the URL from
 the most recent deploy result; never reuse a remembered one. The current live
 preview is in the newest release section of `CHANGELOG.md`.
 
-## Owner-feedback log (from the owner's own ?review=1 notes)
+## The owner's own notes (private)
 
-- 2026-10-27 — "Start testing" header CTA: removed from every page. Nav + brand
-  only in the header now.
-- 2026-10-27 — mouse page: "a straight up answer like 'Your double-click is/was
-  slightly slow' followed by the number 280ms" → the answer-first `.verdict`
-  pattern (see `measurement-panels.md`).
-- 2026-10-27 — keyboard page: the key-press counter counted OS auto-repeat as
-  separate presses → the auto-repeat rule.
-- 2026-10-28 — "every page, including the home page, is too many scroll screens
-  long" → the home page rebuild.
+**The owner-feedback log, the placeholders still to change, the domain
+decision, and the AI-disclosure decision are not in this file.** They are in
+the owner's private notes repository, under
+`inpscp/docs/notes/owner-notes.md` — the owner's words, the money, and the
+decisions only he can make. Everything here is about the code.
 
-## Placeholders still to change
+## The owner's own notes (private)
 
-- Web3Forms `YOUR_ACCESS_KEY_HERE` in contact.html (1 spot).
-- `hello@inputscope.com` — privacy ×3, terms ×1. Point it at the same inbox as
-  the Web3Forms account. **This domain is not the owner's** — a privacy policy
-  pointing at a stranger's mailbox is a compliance risk.
-- Domain in `sitemap.xml` + `robots.txt` (8 replacements in 2 files: 7 `<loc>` in
-  sitemap.xml + 1 `Sitemap:` line in robots.txt). Canonical and `og:url` are
-  relative and self-adapt.
-- `ads.txt` is comments-only pending a real AdSense publisher ID.
-- The owner name is **Mark** (about.html H1, 1 spot) — no longer a placeholder.
-
-**Standing rule (owner, 2026-10-27):** the contact form must be able to FAIL —
-never a green success that didn't deliver. **Both fixes are built (v1.16.0)** —
-the form is gated behind a "not switched on yet" notice, the Web3Forms script is
-only injected when a real key exists, and a refusal can never read as success.
-Paste the access key BEFORE the domain goes live; the form comes back on its
-own. hCaptcha also needs a dashboard toggle for it to be enforced. The form ID
-and the access key are the same UUID — one thing to copy, not two.
+**The owner-feedback log, the placeholders still to change, the domain
+decision, and the AI-disclosure decision are not in this file.** They are in
+the owner's private notes repository, under
+`inpscp/docs/notes/owner-notes.md` — the owner's words, the money, and the
+decisions only he can make. Everything here is about the code.
 
 ## Roadmap priority order (updated 2026-10-31)
 
@@ -124,38 +108,21 @@ this repository: a drawn gamepad whose buttons light when pressed, simplified
 troubleshooting on the page itself, no guide, no FAQ, no other tests yet, built
 one piece at a time with a browser check after each.
 
-## Domain
+## The owner's own notes (private)
 
-`inputscope.app` — to be bought at Cloudflare Registrar when funds allow: $8.20,
-renews $14.20/yr, Google Registry, HTTPS mandatory (HSTS). Cloudflare Registrar
-is at-cost with no markup and keeps the domain on Cloudflare DNS, where Pages
-lives.
+**The owner-feedback log, the placeholders still to change, the domain
+decision, and the AI-disclosure decision are not in this file.** They are in
+the owner's private notes repository, under
+`inpscp/docs/notes/owner-notes.md` — the owner's words, the money, and the
+decisions only he can make. Everything here is about the code.
 
-`inputscope.com` is **not ours and never was** — registered 2026-05-23 at Alibaba
-Cloud (HiChina), NS DNS15/DNS16.HICHINA.COM, no A/AAAA/MX records, no website,
-expires 2027-05-23, registrant privacy-protected. Verified via RDAP
-(`https://rdap.verisign.com/com/v1/domain/inputscope.com`) and confirmed
-independently by Cloudflare showing it "Unavailable".
+## The owner's own notes (private)
 
-ccTLDs rejected: Google treats `.uk` `.ca` `.cc` `.us` `.co.uk` as country-targeted,
-which caps the US/UK/CA/AU/NZ audience both AdSense and Raptive need; and
-"inputscope.cc" in a SERP reads as spammy. `.ai` rejected on price ($160, 2-year
-minimum) and because a site that discloses AI assistance should not put ".ai" in
-its address.
-
-**Ordering:** buy the domain before the site goes live, and paste the Web3Forms
-access key in the same step. Raptive's 6-month clock starts on the domain
-purchase date, not on launch.
-
-## AI disclosure on the About page
-
-Kept, on merit, not compliance — no rule requires it (Google's AI labelling rules
-apply to ad creatives, not site content; Google removed the AdSense in-content
-disclosure clause in Feb 2025). It stays because a site whose product is *trust*
-costs more when caught hiding how it was made. Copy opens flat ("The code was
-written with AI assistance.") and names the human work, instead of a confession
-framing. Options offered and NOT built: a one-line footer disclosure on every
-page, and an AI Honesty Badge in the footer.
+**The owner-feedback log, the placeholders still to change, the domain
+decision, and the AI-disclosure decision are not in this file.** They are in
+the owner's private notes repository, under
+`inpscp/docs/notes/owner-notes.md` — the owner's words, the money, and the
+decisions only he can make. Everything here is about the code.
 
 ## Competitive reality (verified by web search 2026-10-27)
 

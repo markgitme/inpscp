@@ -41,13 +41,12 @@ checks/               The test suite — run ./checks/run_all.sh before every re
   README.md           What each check catches, and why it exists
   run_all.sh          Builds the site, serves it, runs everything
 
-docs/notes/           The working notes — decisions, measurements and traps
+docs/notes/           The working notes — the public, engineering half
   README.md           Index: what to read before what
-  project-state.md    Current state, naming, roadmap order, domain situation
+  project-state.md    Current state, naming, roadmap order
   measurement-panels.md  How to build a panel that does not lie
   publishing.md       Pushing, tokens, GitHub Pages, the Cloudflare cutover
   sandbox-environment.md  Headless testing and the release loop
-  monetisation.md     AdSense vs Raptive, bylines, dates and the page engine
 ```
 
 ## Checks
@@ -77,10 +76,15 @@ be measured again, and the traps that each cost real time.
 | `docs/notes/measurement-panels.md` | building or debugging any measurement panel — the verdict block, physical presses vs auto-repeat, lock state, drag geometry, the latency rule |
 | `docs/notes/publishing.md` | pushing, token work, or a hosting change — the PAT recipe, the permission map, the write probe, the Cloudflare cutover order |
 | `docs/notes/sandbox-environment.md` | running a headless browser test or deploying — Playwright paths, what headless Chrome cannot verify, the release loop |
-| `docs/notes/monetisation.md` | touching ads, analytics, bylines, dates or schema — the two approval bars and the byline/date rules |
+| `docs/notes/monetisation.md` | touching ads, analytics, bylines, dates or schema — **private, in the owner's notes repository** |
 
 They live in the repository so they survive a new chat: clone the repo and read
-the file that matches what you are about to do.
+the file that matches what you are about to do. **These notes are public and
+need no credentials.** The parts that are about the owner rather than the code
+— the feedback log, the domain decision, the AI-disclosure choice, the go-live
+placeholders and their reasoning, and the monetisation strategy — are kept in a
+separate private repository so they are not on a public URL; this repository
+points there rather than duplicating them.
 
 ## Credentials
 
@@ -92,9 +96,13 @@ Two things are credential-shaped, and neither is in this repository:
 
 - **The GitHub token** used to push. It lives in the agent's encrypted secret
   store, is injected as `$GH_TOKEN` at command time, and is never written to a
-  file, a commit or the repository. It is fine-grained and scoped to this
-  repository alone — Contents: read and write, nothing else. Revoke it when
-  the working session ends.
+  file, a commit or the repository. It is fine-grained and scoped to the
+  repositories it needs and nothing else — this repository for the site, a
+  separate token for the side project, and a third for the private notes
+  repository. Revoke them when the working session ends.
+  - **Editing a token's repository access does not change its token string**, so
+    a token that is already in the secret store starts working the moment a
+    repository is ticked — no new paste, no new token.
 - **The Web3Forms access key** in the contact form. Web3Forms states plainly
   that this key is public and is meant to sit in client-side HTML: *"No. You
   do not need to hide access key. Access key is public."* It is an alias for

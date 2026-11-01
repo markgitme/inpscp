@@ -7,6 +7,11 @@
 > silently: each fact is either in a note file, in the repository's
 > `CHANGELOG.md` / `README.md` / `GAMEPAD.md`, in the agent's cross-project
 > memory, or in the Drive evidence brief.
+>
+> **Then, on 2026-11-01, the notes were split in two.** The engineering notes
+> stayed here, public and readable without any credentials. The notes that are
+> about the owner rather than the code moved to a **private** repository. See
+> *The split* at the end of this file.
 
 ## What moved where
 
@@ -16,11 +21,11 @@
 | `measurement-panel-engineering` | 25,623 | `docs/notes/measurement-panels.md` |
 | `github-publishing` | 17,784 | `docs/notes/publishing.md`, `README.md` |
 | `sandbox-browser-testing` | 9,164 | `docs/notes/sandbox-environment.md` |
-| `site-monetisation` | 4,759 | `docs/notes/monetisation.md` (+ the Drive brief, unchanged) |
+| `site-monetisation` | 4,759 | **private** → `monetisation.md` in the owner's notes repository (+ the Drive brief, unchanged) |
 | `ursift-project` | 30,129 | `markgitme/ursift` → `docs/notes/project-state.md` |
 | `feedwatch-data-sources` | 22,587 | `markgitme/ursift` → `docs/notes/data-sources.md` |
 | `ursift-worker-live` | 13,535 | `markgitme/ursift` → `docs/notes/worker.md` |
-| `ursift-pinned` | 3,649 | `markgitme/ursift` → `docs/notes/product.md` |
+| `ursift-pinned` | 3,649 | **private** → `markgitme/ursift` side of the owner's notes repository (`product.md`) |
 
 **150 KB of notes → 9 files in 2 repositories, plus the release narrative that
 already lived in `CHANGELOG.md`.** The memory topics that remain hold only the
@@ -35,12 +40,12 @@ cross-project rules — the ones that apply to any project, not just these two.
 | The review loop: localStorage keys, Alt+R, the Copy-notes export, the owner-only button | `project-state.md` → *Review / annotation loop* |
 | "Copy notes exports the whole page history — diff it against the previous batch" | `project-state.md` → *Review / annotation loop* |
 | Every deploy mints a new URL; quote the most recent one | `project-state.md` → *Deploys* |
-| The owner's ?review=1 feedback log | `project-state.md` → *Owner-feedback log* |
+| The owner's ?review=1 feedback log | **private** → `owner-notes.md` in the owner's notes repository |
 | The four placeholders still to change, and the contact-form standing rule | `project-state.md` → *Placeholders still to change* |
 | The roadmap order and why Display is rejected | `project-state.md` → *Roadmap priority order*; `GAMEPAD.md` |
-| `inputscope.app` pricing, the `inputscope.com` RDAP finding, the ccTLD rejections, the Raptive clock | `project-state.md` → *Domain* |
+| `inputscope.app` pricing, the `inputscope.com` RDAP finding, the ccTLD rejections, the Raptive clock | **private** → `owner-notes.md` in the owner's notes repository |
 | Storage durability: session-scoped sandbox, durable Drive, GitHub, the token's scope | `project-state.md` → *Storage durability` |
-| Why the AI disclosure stays, and the options not built | `project-state.md` → *AI disclosure on the About page* |
+| Why the AI disclosure stays, and the options not built | **private** → `owner-notes.md` |
 | The competitive reality, including the gamepad and mic fields | `project-state.md` → *Competitive reality`; `GAMEPAD.md` |
 | The one-document-per-device model, in Mark's words | `project-state.md` → *The one-document-per-device model* |
 | The eight traps: relative canonical, generator clobbers its output, doc-section escaping (+ the parent-chain smoking gun), verify by measurement, never key logic off the canonical path, grammar from the bytes, proofreading ≠ grammar, group tables by row label | `project-state.md` → *The traps that cost time` |
@@ -100,12 +105,14 @@ topic had them; the note had only the first), and the session-id evidence
 
 ## Fact-by-fact: `site-monetisation` (4,759 bytes)
 
-It became `docs/notes/monetisation.md` verbatim — the two bars, the two traced
+It became `monetisation.md` verbatim — the two bars, the two traced
 quotes with their attributions (and the correction that the earlier
 attribution was wrong), the official policy links, the competitor ad-stack
 teardown, the byline/date/schema rules, the page engine, and the timing rules.
-The Drive brief `adsense-evidence-brief-2026-10-27.md` (node `456853571461264`)
-is unchanged and still the full evidence.
+**It moved to the owner's private notes repository** on 2026-11-01: it carries
+the sponsorship rates and the exit multiples, which are his business and not
+the project's documentation. The Drive brief `adsense-evidence-brief-2026-10-27.md`
+(node `456853571461264`) is unchanged and still the full evidence.
 
 ## Fact-by-fact: the four ursift topics
 
@@ -145,3 +152,42 @@ the ursift repository could not be pushed to because the token was scoped to
 first had ever been probed. The notes now say which token to use, and the
 ursift notes were pushed immediately rather than waiting for a change to a
 token that did not need changing.
+
+
+---
+
+## The split — 2026-11-01
+
+The notes were public, and the monetisation file carried the sponsorship rates
+and the exit multiples. Rather than move everything behind a token, the notes
+were divided by what they actually are.
+
+**Public, in each project repository, readable with no credentials at all:**
+
+| Project | Files |
+|---|---|
+| `markgitme/inpscp` → `docs/notes/` | `README.md`, `project-state.md`, `measurement-panels.md`, `publishing.md`, `sandbox-environment.md` |
+| `markgitme/ursift` → `docs/notes/` | `README.md`, `project-state.md`, `worker.md`, `data-sources.md` |
+
+**Private, in the owner's notes repository, one folder per project:**
+
+| Path | What |
+|---|---|
+| `inpscp/docs/notes/monetisation.md` | the revenue strategy, the approval bars, the traced evidence |
+| `inpscp/docs/notes/owner-notes.md` | the feedback log, the domain decision, the AI-disclosure choice, the go-live placeholders and their reasoning |
+| `ursift/docs/notes/product.md` | the product he actually wants, and the scope drift, in his words |
+| `ursift/docs/notes/owner-notes.md` | the open decisions and the domain position |
+
+**The rule:** *his words, his decisions, his money* go private; *how the code
+works* stays with the code.
+
+**No duplication.** The private repository holds the only copy of anything
+marked private, and the public repositories point there rather than repeating
+it.
+
+**Why not move everything?** Because a private repository needs a token on
+every read, and a token that has expired must not become a **silent** failure:
+a session that cannot read the notes would otherwise carry on with a summary
+of them and produce a half-informed answer without ever saying so. With the
+split, the worst case is that the business notes go dark, and everything that
+describes the code is still readable.
