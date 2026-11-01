@@ -41,12 +41,8 @@ checks/               The test suite — run ./checks/run_all.sh before every re
   README.md           What each check catches, and why it exists
   run_all.sh          Builds the site, serves it, runs everything
 
-docs/notes/           The working notes — the public, engineering half
-  README.md           Index: what to read before what
-  project-state.md    Current state, naming, roadmap order
-  measurement-panels.md  How to build a panel that does not lie
-  publishing.md       Pushing, tokens, GitHub Pages, the Cloudflare cutover
-  sandbox-environment.md  Headless testing and the release loop
+docs/notes/           A pointer to the working notes, which live in a private repo
+  README.md           Where the notes are, how to read them, what is in them
 ```
 
 ## Checks
@@ -66,25 +62,22 @@ what each one catches. Run it before every release, not after.
 
 ## Working notes
 
-`docs/notes/` holds the reasoning behind the code — the decisions made once and
-not to be re-litigated, the numbers that were measured so they do not have to
-be measured again, and the traps that each cost real time.
+The notes that used to live in a chat assistant's memory now live in a
+**private repository**, `markgitme/projectnotes`, under `inpscp/docs/notes/` —
+the same paths they occupy here, so the mapping is one to one.
 
-| File | Read it before |
-|---|---|
-| `docs/notes/project-state.md` | changing anything structural — the current page set, the naming, the placeholders still to change, the roadmap order, the domain situation |
-| `docs/notes/measurement-panels.md` | building or debugging any measurement panel — the verdict block, physical presses vs auto-repeat, lock state, drag geometry, the latency rule |
-| `docs/notes/publishing.md` | pushing, token work, or a hosting change — the PAT recipe, the permission map, the write probe, the Cloudflare cutover order |
-| `docs/notes/sandbox-environment.md` | running a headless browser test or deploying — Playwright paths, what headless Chrome cannot verify, the release loop |
-| `docs/notes/monetisation.md` | touching ads, analytics, bylines, dates or schema — **private, in the owner's notes repository** |
+```bash
+AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN_NOTES" | base64 -w0)
+git -c "http.https://github.com/.extraheader=Authorization: Basic $AUTH" \
+    clone https://github.com/markgitme/projectnotes.git
+```
 
-They live in the repository so they survive a new chat: clone the repo and read
-the file that matches what you are about to do. **These notes are public and
-need no credentials.** The parts that are about the owner rather than the code
-— the feedback log, the domain decision, the AI-disclosure choice, the go-live
-placeholders and their reasoning, and the monetisation strategy — are kept in a
-separate private repository — `markgitme/projectnotes` — so they are not on a
-public URL; this repository points there rather than duplicating them.
+They cover the current state and the naming, how to build a measurement panel
+that does not lie, how to publish and deploy, how to run the headless tests,
+the monetisation research, and a ledger of where every note came from.
+
+**`docs/notes/README.md` here is a pointer, not a copy.** If the clone fails,
+say so and stop — do not carry on from a summary as if the notes had been read.
 
 ## Credentials
 
