@@ -41,7 +41,15 @@ PREFIXES = [
     ("Firebase key",              r"AAAA[A-Za-z0-9_-]{7}:[A-Za-z0-9_-]{140}"),
     ("JSON web token",            r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}"),
     ("Private key block",         r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
-    ("Basic auth in URL",         r"https?://[^\s/:@]+:[^\s/@]+@[^\s/]+"),
+    # A basic-auth URL is only a finding when the credential is not a literal
+    # placeholder. The documentation of this scanner quotes the pattern it
+    # hunts for - "https://user:pass@host" - and that example must not make
+    # the scanner fail on the file that lists it. BOTH halves have to be
+    # placeholder words, so a real password behind a generic username is
+    # still caught.
+    ("Basic auth in URL",         r"https?://(?!(?:user|username|your|example|demo|test|dummy):"
+                                 r"(?:pass|passwd|password|secret|your|example|demo|test|dummy)@)"
+                                 r"[^\s/:@]+:[^\s/@]+@[^\s/]+"),
 ]
 
 # --- key=value style, where the NAME suggests a secret ---------------------
