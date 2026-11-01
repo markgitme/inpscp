@@ -68,6 +68,7 @@ run "maintenance"                 node "$HERE/test_maintenance.js"
 run "unit lines"                  node "$HERE/test_notes.js"
 run "layout detector"             node "$HERE/test_layout.js"
 run "trackpad"                    node "$HERE/test_trackpad.js"
+run "the theme picker"             node "$HERE/test_theme.js"
 run "overflow at every width"     node "$HERE/test_overflow.js"
 
 # ------------------------------------------------------------------ done ---

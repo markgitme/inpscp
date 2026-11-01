@@ -97,13 +97,67 @@ for name in css_files:
           f"{len(hits)} found, e.g. {hits[:3]}")
 
 # the three themes must exist. Monochrome is the DEFAULT, so it is the :root
-# block; the other two are attribute blocks.
+# block; the other two are attribute blocks. These are the internal names —
+# the picker shows the reader "Dark", "Ember" and "Light".
 style = open(os.path.join(CSS_DIR, 'style.css'), encoding='utf-8').read()
 check(re.search(r'^:root \s*\{', style, re.M) is not None,
-      "style.css defines the default theme (Monochrome) as :root")
+      "style.css defines the default theme (Monochrome, shown as Dark) as :root")
 for theme in ('ember', 'daylight'):
     check(f'html[data-theme="{theme}"]' in style,
           f"style.css defines the {theme} theme")
+
+# ---------------------------------------------------------------------------
+# 1b. a transparent text colour must be clipped to its text
+# ---------------------------------------------------------------------------
+# The highlighted word on the home page is painted with a transparent colour
+# and a background clipped to the text. A theme that set the background with
+# the `background` shorthand resets `background-clip` to `border-box`, and the
+# word then vanishes into a grey block. That really happened, so it is a rule
+# now: any rule that makes the text transparent must clip the background to
+# the text, in the same rule.
+TRANSPARENT_TEXT = re.compile(r'(?<![\w-])color\s*:\s*transparent\b', re.I)
+CLIPPED_TO_TEXT = re.compile(r'(?<![\w-])background-clip\s*:\s*text\b', re.I)
+
+
+def rule_bodies(css):
+    """Return the declarations of every rule, at any nesting depth.
+
+    A rule's own declarations only: any nested rule is stripped out, so a
+    block is never judged on the declarations of a rule inside it. Every rule
+    is collected at every depth, because the rule this guards against is a
+    theme override nested inside html[data-theme="…"].
+    """
+    bodies, stack = [], []
+    for i, ch in enumerate(css):
+        if ch == '{':
+            stack.append(i)
+        elif ch == '}' and stack:
+            open_at = stack.pop()
+            body = css[open_at + 1:i]
+            while '{' in body:
+                body = re.sub(r'\{[^{}]*\}', ' ', body)
+            bodies.append(body)
+    return bodies
+
+
+transparent_rules = 0
+for name in sorted(os.listdir(CSS_DIR)):
+    if not name.endswith('.css'):
+        continue
+    css = open(os.path.join(CSS_DIR, name), encoding='utf-8').read()
+    for body in rule_bodies(css):
+        if not TRANSPARENT_TEXT.search(body):
+            continue
+        transparent_rules += 1
+        check(CLIPPED_TO_TEXT.search(body) is not None,
+              f"{name}: a transparent text colour is clipped to its text",
+              body.strip()[:70])
+
+# the rule above must not go vacuous: if nothing uses a transparent text
+# colour, the guard would sit there green while proving nothing
+check(transparent_rules > 0,
+      "the transparent-text rule is not vacuous",
+      f"{transparent_rules} rule(s) use a transparent text colour")
 
 # ---------------------------------------------------------------------------
 # 2. every page carries the picker
@@ -159,6 +213,13 @@ for path in sorted(pages):
     opts = re.findall(r'<option value="([a-z]+)">', html)
     check(opts == ['monochrome', 'ember', 'daylight'],
           f"{where}: offers exactly the three themes", f"({opts})")
+
+    # the words on screen, in order. The values are the internal names; these
+    # labels are what the reader reads, and they are pinned here so that a
+    # rename cannot slip through unnoticed.
+    labels = re.findall(r'<option value="[a-z]+">([^<]+)</option>', html)
+    check(labels == ['Dark', 'Ember', 'Light'],
+          f"{where}: shows the themes as Dark, Ember and Light", f"({labels})")
 
 print()
 if fails:
