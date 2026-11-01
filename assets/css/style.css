@@ -13,6 +13,14 @@
 
      The other two themes are html[data-theme="ember"] and
      html[data-theme="daylight"], further down this file.
+
+     THE NAMES IN HERE ARE INTERNAL. A theme is named for its palette:
+     Monochrome, Ember, Daylight. The picker shows the reader different
+     words — Dark, Ember, Light — because a palette name says nothing
+     about whether it is light or dark. The two names do not have to
+     match: the <option value="..."> attributes are what the code reads,
+     and they keep the internal names. Renaming a label in the picker
+     changes nothing behind the scenes.
      ========================================================================== */
 
   color-scheme: dark;
