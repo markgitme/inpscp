@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About — the person behind InputScope</title>
 <meta name="description" content="Who runs InputScope, why it was made, how it is built, and how to get in touch. A small independent project, run by one person, with AI assistance on the code.">
-<meta name="theme-color" content="#0a0b10">
+<meta name="theme-color" content="#0c0c0d">
 <link rel="canonical" href="about.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="About InputScope — the person behind it">
@@ -21,6 +21,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script>
+/* Set the theme before the stylesheets arrive, so a visitor who picked a
+   theme never sees the default flash past. */
+(function () {
+  try {
+    var t = localStorage.getItem('inputscope-theme');
+    if (t === 'monochrome' || t === 'ember' || t === 'daylight') {
+      document.documentElement.setAttribute('data-theme', t);
+    }
+  } catch (e) { /* private mode */ }
+})();
+</script>
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/review.css">
 <script type="application/ld+json">
@@ -45,6 +57,14 @@
       <a href="troubleshooting/index.html">Troubleshooting</a>
       <a href="about.html" aria-current="page">About</a>
       <a href="contact.html">Contact</a>
+      <span class="theme-picker">
+        <label class="theme-label" for="theme-select">Theme</label>
+        <select class="theme-select" id="theme-select" data-theme-select>
+          <option value="monochrome">Monochrome</option>
+          <option value="ember">Ember</option>
+          <option value="daylight">Daylight</option>
+        </select>
+      </span>
     </nav>
     <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
   </div>
@@ -153,6 +173,7 @@
   </div>
 </footer>
 
+<script src="assets/js/theme.js"></script>
 <script src="assets/js/site.js"></script>
 <script src="assets/js/review.js"></script>
 </body>

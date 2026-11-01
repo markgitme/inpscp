@@ -58,6 +58,7 @@ run "FAQ visible vs schema"       python3 "$HERE/check_faq.py"
 run "document structure"          python3 "$HERE/check_doc_structure.py"
 run "unit lines (data-note)"      python3 "$HERE/check_notes.py"
 run "byline dates vs schema"      python3 "$HERE/check_bylines.py"
+run "the site is themeable"       python3 "$HERE/check_themeable.py"
 run "structural / a11y / SEO"     python3 "$HERE/audit_struct.py"
 
 # --------------------------------------------------------- browser checks ---

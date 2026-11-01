@@ -22,6 +22,7 @@ the browser checks at a different server if you want one.
 | `check_doc_structure.py` | A section or block escaping the `.doc` wrapper in the long troubleshooting documents — the browser then re-nests it and the prose loses its width. |
 | `check_notes.py` | A reading with nowhere to write its unit line. `setOut()` writes into `[data-note="key"]`; if the page has no such element the line is silently discarded and the reading can only ever show a dash. Also asserts that the starting line the markup declares is one the script can actually write. |
 | `check_bylines.py` | The visible byline and the schema dates disagreeing. The published date is the launch date and never moves; the updated date moves only on a substantive content change. |
+| `check_themeable.py` | A colour literal outside a `:root` block. Every colour in every stylesheet must live inside `:root` or `html[data-theme="…"]`, so a theme stays a set of variable values instead of a pile of overrides. Also asserts that every page carries the picker, its visible "Theme" label, the pre-paint script and `theme.js`. |
 | `audit_struct.py` | Duplicate ids, broken heading order, missing alt text and labels, title and description length, canonical consistency, sitemap agreement, form wiring, colour contrast. |
 | `spell_check.py` | A spelling sweep across the shipped site. It reports a list for a human to judge, not a verdict — proper nouns and British spellings are auto-accepted. |
 | `link_map.py` | A link whose anchor text does not say where it goes. A valid href is not the same as a correct one. |

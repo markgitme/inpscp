@@ -14,13 +14,25 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="assets/og-image.png">
-<meta name="theme-color" content="#0a0b10">
+<meta name="theme-color" content="#0c0c0d">
 <link rel="canonical" href="privacy.html">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script>
+/* Set the theme before the stylesheets arrive, so a visitor who picked a
+   theme never sees the default flash past. */
+(function () {
+  try {
+    var t = localStorage.getItem('inputscope-theme');
+    if (t === 'monochrome' || t === 'ember' || t === 'daylight') {
+      document.documentElement.setAttribute('data-theme', t);
+    }
+  } catch (e) { /* private mode */ }
+})();
+</script>
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/review.css">
 </head>
@@ -34,6 +46,14 @@
       <a href="troubleshooting/index.html">Troubleshooting</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
+      <span class="theme-picker">
+        <label class="theme-label" for="theme-select">Theme</label>
+        <select class="theme-select" id="theme-select" data-theme-select>
+          <option value="monochrome">Monochrome</option>
+          <option value="ember">Ember</option>
+          <option value="daylight">Daylight</option>
+        </select>
+      </span>
     </nav>
     <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
   </div>
@@ -165,6 +185,7 @@
   </div>
 </footer>
 
+<script src="assets/js/theme.js"></script>
 <script src="assets/js/site.js"></script>
 <script src="assets/js/review.js"></script>
 </body>
