@@ -23,14 +23,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 <script>
 /* Set the theme before the stylesheets arrive, so a visitor who picked a
-   theme never sees the default flash past. */
+   theme never sees the default flash past. The attribute is always set, so
+   it always names the theme actually in force. */
 (function () {
+  var t = 'monochrome';
   try {
-    var t = localStorage.getItem('inputscope-theme');
-    if (t === 'monochrome' || t === 'ember' || t === 'daylight') {
-      document.documentElement.setAttribute('data-theme', t);
-    }
+    var s = localStorage.getItem('inputscope-theme');
+    if (s) t = s;
   } catch (e) { /* private mode */ }
+  if (t === 'monochrome' || t === 'ember' || t === 'daylight') {
+    document.documentElement.setAttribute('data-theme', t);
+  }
 })();
 </script>
 <link rel="stylesheet" href="assets/css/style.css">
@@ -46,14 +49,6 @@
       <a href="troubleshooting/index.html">Troubleshooting</a>
       <a href="about.html">About</a>
       <a href="contact.html" aria-current="page">Contact</a>
-      <span class="theme-picker">
-        <label class="theme-label" for="theme-select">Theme</label>
-        <select class="theme-select" id="theme-select" data-theme-select>
-          <option value="monochrome">Monochrome</option>
-          <option value="ember">Ember</option>
-          <option value="daylight">Daylight</option>
-        </select>
-      </span>
     </nav>
     <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
   </div>

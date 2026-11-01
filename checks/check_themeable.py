@@ -115,19 +115,33 @@ for dirpath, dirnames, filenames in os.walk(ROOT):
         if fn.endswith('.html'):
             pages.append(os.path.join(dirpath, fn))
 
+# The picker lives on the home page only. Every other page still honours the
+# choice — it reads the same stored value — but does not offer the control.
+HOME = 'index.html'
+
 print(f"\n--- the picker: {len(pages)} page(s) ---")
 for path in sorted(pages):
     rel = os.path.relpath(path, ROOT)
     html = open(path, encoding='utf-8').read()
     where = rel.replace(os.sep, '/')
+    is_home = where == HOME
 
-    check('data-theme-select' in html, f"{where}: has the theme picker")
-    check('<label class="theme-label" for="theme-select">Theme</label>' in html,
-          f"{where}: the picker has its visible 'Theme' label")
+    # every page honours the choice
     check('assets/js/theme.js' in html, f"{where}: loads theme.js")
     check("setAttribute('data-theme'" in html or "setAttribute(\"data-theme\"" in html,
           f"{where}: sets the theme before the stylesheets arrive")
     check('name="theme-color"' in html, f"{where}: declares the browser chrome colour")
+
+    if not is_home:
+        check('data-theme-select' not in html,
+              f"{where}: carries no theme picker")
+        check('class="theme-picker"' not in html,
+              f"{where}: carries no theme picker control")
+        continue
+
+    check('data-theme-select' in html, f"{where}: has the theme picker")
+    check('<label class="theme-label" for="theme-select">Theme</label>' in html,
+          f"{where}: the picker has its visible 'Theme' label")
 
     # the picker must come after the Contact link and before the nav closes
     nav = re.search(r'<nav class="nav" id="site-nav"[^>]*>(.*?)</nav>', html, re.S)
