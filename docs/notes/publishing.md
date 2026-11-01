@@ -103,6 +103,47 @@ probe with `GH_TOKEN_URSIFT` is accepted for ursift. The other four public
 repos are readable but not writable by either token. **Use the right token for
 the repo, and never echo either one.**
 
+## Commit identity — never use a real no-reply address
+
+**The commit email is the linking key.** GitHub attaches a commit to a GitHub
+account when the author or committer email matches that account — including its
+`username@users.noreply.github.com` address. Use an address that belongs to
+no account and the commit renders with a generated avatar and no profile card.
+
+| Identity | Linked to a real account? |
+|---|---|
+| `InputScope Dev <dev@inputscope.local>` | no — generated avatar |
+| `ursift Dev <dev@ursift.local>` | no — generated avatar |
+| `Project Notes Dev <notes@projectnotes.local>` | no — generated avatar |
+| `Mark <mark@users.noreply.github.com>` | **yes — a long-standing account, not the owner's** |
+
+That last one happened. A single commit in the private notes repository was
+authored with what looked like a harmless generic address, and it turned out to
+be the no-reply address of a real, unrelated account. The commit therefore
+carried that account's name, location, photo and organisation to the repository
+page for as long as it stood.
+
+**It was not a collaborator.** Being the author of a commit grants no access to
+a repository — only collaborators have that. But the attribution itself is
+wrong, and a stranger's identity on your own commit history is not a thing to
+leave there.
+
+**The fix, once it exists:** re-author the commit and force-push.
+
+```bash
+git -c user.name="Project Notes Dev" -c user.email="notes@projectnotes.local" \
+    commit --amend --reset-author --no-edit
+git push --force-with-lease origin main
+```
+
+`--force-with-lease` rather than `--force`: it refuses the push if anyone else
+has pushed in the meantime.
+
+**The rule:** every commit in these projects uses a project identity with a
+non-account email, so no commit is ever attributed to a person. The owner
+appears as the *publisher* of the site — in the byline and the schema — which is
+where that belongs.
+
 ## Credentials rules
 
 - **Never store the raw token in memory.** Use the `secret` tool: `secret create
