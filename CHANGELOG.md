@@ -2,6 +2,77 @@
 
 All notable changes to InputScope. Versions are tagged in git and archived as zips.
 
+## v1.18.0 — the whole site is themeable, and the reader picks the theme
+
+The site had three palettes' worth of colour decisions and no way to reach
+them. Every colour literal in every stylesheet now lives inside a `:root`
+block, so a theme is a set of values rather than a pile of overrides, and
+switching is one attribute on `<html>` — no second stylesheet, and no flash
+of the wrong colours.
+
+### Added
+
+- **Three palettes.** Monochrome, Ember and Daylight, each a complete set of
+  variables. The default is Monochrome: a near-black background, near-white
+  chrome and a muted green for a passing reading.
+- **A picker on the home page.** A native `<select>` with a real `<label>`,
+  in the header after the Contact link. Native means the keyboard, the screen
+  reader and the phone picker all work without a line of JavaScript.
+- **The choice is remembered, and it travels.** The theme is stored in
+  `localStorage` and set before the page paints, so it applies to every page
+  of the site and never flashes the wrong colours on the way in.
+- **A browser check for the theme.** `checks/test_theme.js` drives the picker
+  in a real browser: the labels, the internal names, each palette painting
+  itself, the stored value and the carry-over to a page that has no picker.
+
+### Changed
+
+- **Every colour literal moved inside a `:root` block.** There were 103 of
+  them outside one — the sticky header, the logo gradient, the roadmap panel,
+  the mouse diagram, the LED lamps, the placeholder. There are none now.
+- **`--accent` and `--ok` are two variables.** `--accent` was doing two jobs:
+  the brand chrome *and* the passing/live/pressed reading. A theme cannot be
+  neutral in its chrome and green in its state without the two being
+  separate, so they are separate now.
+- **The picker shows the themes the way a reader thinks about them.** Dark,
+  Ember and Light — a palette name says nothing about whether it is light or
+  dark. The names inside the code are unchanged: the `<option value>`
+  attributes are still `monochrome`, `ember` and `daylight`, and the stored
+  preference is still the value, so the two sets of names do not have to
+  match. That is now written down, in the stylesheet and in the checker.
+- **The secret scanner ignores a literal placeholder credential.** It quoted
+  the pattern it hunts for, and the example it used to explain itself was
+  failing the scan on the file that lists it. Both halves have to be
+  placeholder words now, so a real password behind a generic username is
+  still caught.
+
+### Fixed
+
+- **The highlighted word on the home page was invisible in three of the
+  palettes.** The gradient text is painted with a transparent colour and a
+  background clipped to the text, and a theme that set the background with
+  the `background` shorthand reset that clip — leaving a grey block where
+  the word should be. The clip is declared with the background now, and
+  both a static rule and a browser check stand guard over it.
+
+### Verified
+
+- **The refactor changed nothing.** Every element on every page — 4,381 of
+  them across twelve pages — was snapshotted with its resolved style before
+  any change and diffed afterwards. The variable refactor produced zero
+  differences. The accent split produced zero differences. Only the palette
+  change moved.
+- **72 themeable checks** — no colour literal outside a `:root` block, the
+  picker and its three reader-facing names on the home page, no picker on any
+  other page, the pre-paint script and `theme.js` everywhere, and the
+  highlighted word clipped to its text.
+- **26 browser checks** — each theme paints its own palette, stores the value
+  rather than the label, and carries to a page that offers no picker.
+- The existing suites still pass: 424 links, 103 browser audit, 40 layout,
+  46 trackpad, 25 maintenance, 61 unit lines, 223 note checks, 6 byline
+  checks, the FAQ and schema agreement, and the document structure of all
+  three guides.
+
 ## v1.17.0 — every reading explains itself, and every page says who wrote it
 
 The measurements were right. What was missing was the line that says what the
