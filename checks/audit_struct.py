@@ -208,10 +208,17 @@ for p in pages:
         P("%s: no canonical link" % r)
     else:
         cu = canon[0].get("href", "")
-        expected = os.path.basename(p) if os.path.dirname(p) == BUILD else \
-            "troubleshooting/" + os.path.basename(p)
-        if expected not in cu:
-            P("%s: canonical %r does not contain %r" % (r, cu, expected))
+        # The canonical is usually written relative to the page's own
+        # directory — troubleshooting/mouse.html declares "mouse.html" —
+        # so it has to be resolved the way a browser would resolve it
+        # before it can be compared with the path of the page itself.
+        if cu.startswith(("http://", "https://", "/")):
+            resolved = cu
+        else:
+            resolved = os.path.normpath(os.path.join(os.path.dirname(p), cu))
+        expected = os.path.normpath(p)
+        if not resolved.endswith(expected) and not expected.endswith(resolved):
+            P("%s: canonical %r resolves to %r, not %r" % (r, cu, resolved, expected))
 
     # og / twitter
     for prop in ("og:title", "og:description", "og:url", "og:type"):

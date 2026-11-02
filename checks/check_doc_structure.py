@@ -68,6 +68,7 @@ files = sys.argv[1:] or [
     os.path.join(_root, "troubleshooting", "mouse.html"),
     os.path.join(_root, "troubleshooting", "keyboard.html"),
     os.path.join(_root, "troubleshooting", "trackpad.html"),
+    os.path.join(_root, "troubleshooting", "headset.html"),
 ]
 for f in files:
     check(f)

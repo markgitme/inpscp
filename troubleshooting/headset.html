@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Headphone Troubleshooting — One Long Guide, Every Fault | InputScope</title>
+<meta name="description" content="Everything about misbehaving headphones in one page: how to run a left and right audio test, why one ear is quieter, why both ears hear the same sound, why a driver can be wired backwards, and what to do about a silent side, crackle and a Bluetooth headset that drops one earbud.">
+<meta name="theme-color" content="#0c0c0d">
+<link rel="canonical" href="headset.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Headphone Troubleshooting — One Long Guide, Every Fault | InputScope">
+<meta property="og:description" content="Everything about misbehaving headphones in one page: how to run a left and right audio test, why one ear is quieter, why both ears hear the same sound, why a driver can be wired backwards, and what to do about a silent side, crackle and a Bluetooth headset that drops one earbud.">
+<meta property="og:url" content="headset.html">
+<meta property="og:image" content="../assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="../assets/og-image.png">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script>
+/* Set the theme before the stylesheets arrive, so a visitor who picked a
+   theme never sees the default flash past. The attribute is always set, so
+   it always names the theme actually in force. */
+(function () {
+  var t = 'monochrome';
+  try {
+    var s = localStorage.getItem('inputscope-theme');
+    if (s) t = s;
+  } catch (e) { /* private mode */ }
+  if (t === 'monochrome' || t === 'ember' || t === 'daylight') {
+    document.documentElement.setAttribute('data-theme', t);
+  }
+})();
+</script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/review.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "../index.html",
+          "item": "InputScope"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "index.html",
+          "item": "Troubleshooting"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "headset.html",
+          "item": "Headphones"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Troubleshooting</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+    <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="tool-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="../index.html">InputScope</a><span>/</span><a href="index.html">Troubleshooting</a><span>/</span><a href="headset.html">Headphones</a></div>
+      <span class="eyebrow eyebrow--amber">Troubleshooting</span>
+      <h1>Headphone troubleshooting</h1>
+      <p class="hero__lead">The same treatment the mouse and the keyboard get: every common headphone fault in one place, the check that settles it, what to listen for, and the fix to try first &mdash; in the order you should try it.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow eyebrow--blue">In this guide</span>
+        <h2>What this page covers</h2>
+        <p>Everything in one place, in the order you would work through it. Each section names the check that settles the question, what to listen for, and what to do next.</p>
+      </div>
+      <ol class="doc-toc">
+          <li><span class="doc-toc__n">01</span><a href="#honesty">What this page can and cannot tell you</a></li>
+          <li><span class="doc-toc__n">02</span><a href="#wrong-ear">Why is the sound in the wrong ear?</a></li>
+          <li><span class="doc-toc__n">03</span><a href="#one-side">Why does only one side play?</a></li>
+          <li><span class="doc-toc__n">04</span><a href="#quieter">Why is one side quieter than the other?</a></li>
+          <li><span class="doc-toc__n">05</span><a href="#mono">Why do I hear the same sound in both ears?</a></li>
+          <li><span class="doc-toc__n">06</span><a href="#polarity">Why does one ear sound thin, hollow or wider than the other?</a></li>
+          <li><span class="doc-toc__n">07</span><a href="#no-sound">Why is there no sound at all?</a></li>
+          <li><span class="doc-toc__n">08</span><a href="#crackle">Why does one side crackle, buzz or distort?</a></li>
+          <li><span class="doc-toc__n">09</span><a href="#bluetooth">Why does a Bluetooth headset keep dropping a side?</a></li>
+          <li><span class="doc-toc__n">10</span><a href="#rolloff">Why is a tone missing at one end of the range?</a></li>
+          <li><span class="doc-toc__n">11</span><a href="#settings">Headphone settings that change your test results</a></li>
+          <li><span class="doc-toc__n">12</span><a href="#triage">Symptom, cause, and where to look</a></li>
+          <li><span class="doc-toc__n">13</span><a href="#questions">Headphone test questions</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--lead">
+    <div class="wrap">
+      <article class="doc">
+
+        <section class="doc-section" id="honesty">
+          <h2>What this page can and cannot tell you</h2>
+          <div class="prose">
+<p>Start with the honest limit, because it shapes everything else. <strong>A browser can send a tone down a channel. It cannot hear what arrives.</strong> That single fact decides which faults a web page can settle and which ones it can only help you investigate.</p>
+<p>The <a href="../headset-check.html">Headset Check page</a> generates every sound itself, in your browser, and it can do three useful things. It can send a tone to the left channel only, or the right channel only, or both. It can put the same tone on one channel with its phase flipped, which is how a reversed driver is found. And it can sweep a pitch across the range so you can hear where your pair gives up.</p>
+<p>What it cannot do is measure. It has no microphone, so it cannot capture what came out of the headphone and compare it against what went in. Every judgement about your headphones is therefore one you make by listening and then reporting back. The page records what you report and turns it into a verdict, and the verdict is only ever as good as the answer behind it. That is a different kind of tool from the mouse test or the keyboard test, which read the device directly and compare it against a threshold.</p>
+<p>So the honest way to use it is as a <em>comparison instrument</em> rather than a measurement. It gives you a steady tone, a clean way to isolate one channel, and a record of what you marked. When two readings disagree &mdash; one side silent on one machine, fine on another &mdash; the fault is in the chain, and this page helps you find which part of it.</p>
+<p>One more thing worth knowing before you start. <strong>A test tone is not music.</strong> A sine wave carries far more energy at the same volume setting than a track does, because music spends most of its time at low levels and a tone does not. Start with the system volume at about a third, keep the page in front of you rather than in a background tab, and raise it only once you know what you are listening to.</p>
+          </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <p class="muted small">What each check on the page can and cannot settle, in one table.</p>
+        <table>
+          <thead>
+            <tr><th>Check</th><th>What it settles</th><th>What it cannot settle</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Left, Right, Both</td><td>Whether each channel reaches the ear you expect, and whether the two are crossed</td><td>Whether either channel is <em>quieter</em> than the other. It cannot measure level</td></tr>
+            <tr><td>Marking each side</td><td>What you heard, kept as a record so you can compare two runs</td><td>Anything about the hardware on its own</td></tr>
+            <tr><td>Three fixed pitches</td><td>Whether a driver breaks up at a particular frequency rather than everywhere</td><td>The actual frequency response of the pair</td></tr>
+            <tr><td>Polarity</td><td>Whether one driver is arriving with its phase flipped</td><td>Which driver, or why it is flipped</td></tr>
+            <tr><td>Frequency sweep</td><td>Where the sound stops being there for you</td><td>Whether the note you could not hear is a fault or your hearing. Your ears are in the measurement</td></tr>
+          </tbody>
+        </table>
+      </div>
+        </section>
+
+        <section class="doc-section" id="wrong-ear">
+          <h2>Why is the sound in the wrong ear?</h2>
+          <div class="prose">
+<p>Your two channels have crossed. The most common cause is not a fault at all: <strong>the headphones are on the wrong way round.</strong> Look inside the headband or on the inner face of each earcup for an L and an R. On many pairs the letter is on the side that faces your head, so a pair put on back to front still plays, and still sounds normal in music, because most music does not put much in one channel alone.</p>
+<p>The second most common cause is a cable, adapter or splitter with the wiring reversed. A replacement cable fitted by a repair shop can be wired correctly for the microphone and incorrectly for the channels. A detachable cable is the easiest thing to get wrong, because the two ends are not interchangeable: the side with the microphone goes to the headset, and the other side goes to the device. On many pairs they will physically fit either way.</p>
+<p>A third cause, and the one people check last, is a headphone jack that is wired as a headset rather than as headphones. A four-pole jack carries a microphone and a ground shared between the two channels. A three-pole plug in a four-pole socket can leave one channel grounded, and the result is a headphone that plays in one ear only.</p>
+<p>There is one more possibility that is not a fault in the headphones at all: the operating system or the application is sending the channels the wrong way round. It is rare, but it does happen with a badly configured surround or virtual surround mode, and with some audio routing software.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h3>The test that settles it</h3>
+        <p>Play <strong>Left</strong>, then <strong>Right</strong>, and mark what you heard on each press. If each tone arrives in the opposite ear, the channels are crossed. If a tone arrives in both ears, that is a different fault &mdash; see <a href="#mono">why you hear the same sound in both ears</a>. <a class="btn btn--primary btn--sm" href="../headset-check.html#channel" style="margin-left:.4rem;vertical-align:middle">Run the channel check</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>What you hear</th><th>What it means</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Left plays in the right ear, and right plays in the left</td><td>The channels are crossed</td><td>The L and R marks inside the earcups; a detachable cable fitted the wrong way round; a reversed adapter</td></tr>
+            <tr><td>Left plays in the right ear, and right plays in both</td><td>One channel is grounded by a mismatched plug, or a mono source is being sent to one side</td><td>The jack: a three-pole plug in a four-pole socket, or a jack labelled EARPHONE rather than HEADPHONE</td></tr>
+            <tr><td>Both channels play correctly, but the two are swapped in a recording</td><td>Almost certainly not the headphones. The channel swap is in the source</td><td>Look for a surround or virtual surround setting, and try the same track on another device</td></tr>
+            <tr><td>Left plays in the left ear but is quieter</td><td>Not a swap. That is a level fault</td><td>See <a href="#quieter">why one side is quieter</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Look for the letters</h3>
+            <p>Inside the headband, on the inner face of each earcup, or printed on the cable near the plug. If the L and R are on the outside, the pair goes on the other way round from what the letters suggest.</p>
+          </div>
+          <div class="step">
+            <h3>Turn the headphones round</h3>
+            <p>Take them off and put them on the other way round, then play Left again. If the tone now arrives in the left ear, that was the whole fault.</p>
+          </div>
+          <div class="step">
+            <h3>Check the detachable cable</h3>
+            <p>The end with the microphone and volume control goes to the headset. The plain end goes to the device. They are not interchangeable on most pairs, and they will often fit anyway.</p>
+          </div>
+          <div class="step">
+            <h3>Remove everything in the chain</h3>
+            <p>Plug the headphones directly into the device. Extension cables, splitters, monitor hubs and inline remotes each add a place for the wiring to be wrong. Test with the remote disconnected.</p>
+          </div>
+          <div class="step">
+            <h3>Try another device</h3>
+            <p>The same headphones on a phone and a different pair on the same machine. If the swap follows the headphones, the fault is in the headphones; if it stays with the machine, the fault is in the machine.</p>
+          </div>
+      </div>
+        </section>
+
+        <section class="doc-section" id="one-side">
+          <h2>Why does only one side play?</h2>
+          <div class="prose">
+<p>Four things to check, in this order, and stop as soon as the sound comes back.</p>
+<p><strong>First, the balance slider.</strong> Every phone and computer has one, and it is the most common cause of headphones that play in one ear only. It costs nothing to check and it is the one people miss. On a phone it usually lives under Accessibility rather than Sound.</p>
+<p><strong>Second, the plug.</strong> Push it fully home until it clicks, and look at the tip. A plug that is half in may connect the sleeve and one channel only. Clean the tip if it is dirty or oxidised, and look inside the socket for lint, which collects at the bottom and holds the plug up.</p>
+<p><strong>Third, the output device.</strong> Make sure the headphones are the selected output, that the tab is not muted, and that the volume is not on a different slider. On a machine with several outputs &mdash; built-in speakers, a monitor, a headset &mdash; the default can change when a device is plugged in or removed.</p>
+<p><strong>Fourth, the cable.</strong> The failure point is above the split or at the plug, where the cable gets bent. A wire inside can break completely, or part way, and a half-broken wire is the more annoying version because it cuts in and out as you move it.</p>
+<p>Then find out whose fault it is. Try another pair of headphones on the same machine, and the same headphones on another machine. If the second pair also plays on one side, the fault is in the device or its settings. If the same headphones fail everywhere, the fault is in the headphones.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h3>The test that settles it</h3>
+        <p>Play <strong>Left</strong> and then <strong>Right</strong>, and mark each side. A side that is silent on both presses is the side to work on. Then play a tone and flex the cable gently where it leaves the plug, and near the split: if the sound cuts in and out as you move it, the fault is in the cable. <a class="btn btn--primary btn--sm" href="../headset-check.html#channel" style="margin-left:.4rem;vertical-align:middle">Run the channel check</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>What you hear</th><th>What it means</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>One side silent on every press</td><td>That channel is not reaching the ear</td><td>Balance slider, then the plug, then the output device, then the cable</td></tr>
+            <tr><td>One side cuts in and out when the cable moves</td><td>A conductor inside the cable is broken or half broken</td><td>Where the cable bends: at the plug, at the split, at the connector</td></tr>
+            <tr><td>Both sides silent</td><td>The signal never left the page, or it is not going where you think</td><td>Volume, mute, output device, the tab</td></tr>
+            <tr><td>One side silent only on one machine</td><td>The fault is in the machine</td><td>Its balance setting, its output routing, or its jack</td></tr>
+            <tr><td>One side silent only on one pair</td><td>The fault is in the headphones</td><td>The driver, the cable, or the connector on that side</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Centre the balance slider</h3>
+            <p>iPhone and iPad: Settings &rarr; Accessibility &rarr; Audio &amp; Visual. Android: Settings &rarr; Accessibility &rarr; Hearing enhancements &rarr; Audio. Windows: Settings &rarr; System &rarr; Sound &rarr; your output device &rarr; Properties, or the Volume mixer &rarr; Levels &rarr; Balance. macOS: System Settings &rarr; Accessibility &rarr; Audio.</p>
+          </div>
+          <div class="step">
+            <h3>Seat the plug properly</h3>
+            <p>Push until it clicks and the sleeve is flush. Look into the socket for lint. Wiggling the plug while a tone is playing tells you a great deal: if the sound changes as you move it, the fault is at the connection, not inside the headphone.</p>
+          </div>
+          <div class="step">
+            <h3>Check the output device and the mixer</h3>
+            <p>On Windows, the Volume mixer has a per-application slider and a mute checkbox that are easy to leave in the wrong state. On macOS, the output device picker is in Sound &rarr; Output, and the balance slider sits in Sound settings.</p>
+          </div>
+          <div class="step">
+            <h3>Flex the cable while it plays</h3>
+            <p>Work along the cable in short sections, at the plug and at the split. If the tone drops out anywhere, that is the section to replace.</p>
+          </div>
+          <div class="step">
+            <h3>Swap both ways</h3>
+            <p>Another pair on this machine, and this pair on another machine. This is the only test that separates the two, and it takes ten seconds.</p>
+          </div>
+      </div>
+        </section>
+
+        <section class="doc-section" id="quieter">
+          <h2>Why is one side quieter than the other?</h2>
+          <div class="prose">
+<p>Start with the balance slider, because it is the cause far more often than the hardware. Every phone and computer has one, and on a phone it usually lives under Accessibility rather than Sound, which is why it can go unnoticed for years. A single channel turned down a little is enough to make one side sound quieter, and it does the same to every app on the device.</p>
+<p>If the balance is centred and one side is still quieter, the next test is the <strong>swap test</strong>: put the headphones on the other way round, or if they are earbuds, swap them between ears, and listen again. If the quiet side moves with the headphones, they are the cause. If it stays in the same ear, the cause is the fit or your hearing, not the equipment.</p>
+<p>That distinction matters more than it looks, because the two causes have nothing in common. A headphone fault is fixed by a repair or a replacement. A fit or hearing cause is fixed by a different ear tip, a different size, or nothing at all.</p>
+<p>For earbuds, the fit does more than comfort. A tip that is too small, or not seated deeply, lets low frequencies and overall loudness leak out around the edges, and that reads as quieter rather than as a fault. For over-ear headphones, the same thing happens when the cups do not seal evenly against your head.</p>
+<p>Where the fault really sits, when it is in the headphones, is usually the cable or the driver rather than the earcup. A worn spot in a cable can attenuate one channel without killing it outright, which is why the quiet side often fades in and out as you move.</p>
+<p>And a word on when to stop. If the balance is centred, the swap test has traced the fault to the earcup, the cable is clean, and the gap is still there, the honest conclusion is a driver that has degraded on that side. It does not happen suddenly, it is a gradual decline, and it does not recover.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h3>The test that settles it</h3>
+        <p>Play the same tone on both sides and compare them, then do the swap test. The tone check gives you three fixed pitches to compare the two sides against, which is far easier than comparing two pieces of music. <a class="btn btn--primary btn--sm" href="../headset-check.html#tone" style="margin-left:.4rem;vertical-align:middle">Run the tone check</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>What you hear</th><th>What it means</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>The quiet side is the same side on every device</td><td>The balance is off, or the source is unbalanced</td><td>The balance slider on each device in turn</td></tr>
+            <tr><td>The quiet side follows the headphones when you swap them</td><td>The fault is in that earcup, its cable, or its driver</td><td>The cable first, then the driver</td></tr>
+            <tr><td>The quiet side stays in the same ear after the swap</td><td>The cause is fit or hearing, not the equipment</td><td>Another ear tip size, a better seal, or a hearing check</td></tr>
+            <tr><td>The quiet side fades in and out as you move</td><td>A conductor in the cable is partly broken</td><td>The cable, at the plug and the split</td></tr>
+            <tr><td>The quiet side is also the side that runs flat</td><td>On wireless earbuds, the battery or the pairing has desynchronised</td><td>Charge both, then forget and re-pair</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Centre the balance slider</h3>
+            <p>Every device has one and most people have never looked. On a phone it is under Accessibility, not Sound.</p>
+          </div>
+          <div class="step">
+            <h3>Do the swap test</h3>
+            <p>Put the headphones on the other way round, or swap the earbuds between ears. The quiet side following the headphones means the headphones are at fault. The quiet side staying put means it is not.</p>
+          </div>
+          <div class="step">
+            <h3>Change one thing at a time</h3>
+            <p>Try a different ear tip size, or reseat the current one. Then try the same track in a different app, to rule out the source.</p>
+          </div>
+          <div class="step">
+            <h3>Look at the cable</h3>
+            <p>Wiggle it at the plug and at the split while a tone is playing. A level that changes as you move is a cable fault.</p>
+          </div>
+          <div class="step">
+            <h3>Charge and re-pair</h3>
+            <p>On wireless earbuds, a low battery on one side and a desynchronised pairing both present as one side being quieter.</p>
+          </div>
+          <div class="step">
+            <h3>Accept the verdict</h3>
+            <p>If the balance is centred, the swap test points at the earcup and nothing else has changed it, a degraded driver is the likely cause. That is a warranty or replacement question, not a setting.</p>
+          </div>
+      </div>
+        </section>
+
+        <section class="doc-section" id="mono">
+          <h2>Why do I hear the same sound in both ears?</h2>
+          <div class="prose">
+<p>The signal reaching the headphones has been reduced to a single channel, so there is nothing left to tell left from right. A mono adapter, a three-pole plug in a four-pole socket, and a mono audio setting in the operating system will each do it. The operating system setting is the one that catches people, because it applies to every app on the device and nothing about it looks wrong.</p>
+<p>A mono signal cannot tell left from right, so every stereo cue collapses into the middle: where a voice sits in a film, which side a car is coming from, which side a gunshot came from in a game. Music is the least noticeable case, because most stereo music mixes are not strongly directional. Films and games are where it becomes obvious.</p>
+<p>There is a second cause with the same symptom, and it is worth separating. Some single-driver Bluetooth speakers and some cheap earbuds genuinely have one driver, and on those the two channels are physically the same speaker. If your Left and Right presses sound identical because the hardware only has one driver, the test is telling you the truth and there is nothing to fix.</p>
+<p>And a third: if you are testing with the speakers rather than headphones, each speaker's sound reaches both ears. That is why a left and right audio test needs headphones to mean anything.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h3>The test that settles it</h3>
+        <p>Play <strong>Left</strong>. If the tone sounds identical in both ears, the signal is mono. Then play <strong>Both</strong>: a correct pair sounds like one source in the middle of your head. <a class="btn btn--primary btn--sm" href="../headset-check.html#channel" style="margin-left:.4rem;vertical-align:middle">Run the channel check</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>What you hear</th><th>What it means</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Left and Right sound identical</td><td>The signal is mono</td><td>Mono audio in the system settings, a mono adapter, or a three-pole plug in a four-pole socket</td></tr>
+            <tr><td>Left and Right sound identical, and Both sounds centred</td><td>That is a mono signal, and mono is the only signal that can sound like that</td><td>The same three places, in that order</td></tr>
+            <tr><td>Left and Right sound identical on speakers only</td><td>Each speaker is reaching both ears. The test needs headphones</td><td>Put headphones on and run it again</td></tr>
+            <tr><td>Left and Right sound identical on a single-earpiece device</td><td>There is only one driver, so there is only one channel</td><td>Nothing. The hardware cannot do stereo</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Turn mono audio off</h3>
+            <p>iOS and iPadOS: Settings &rarr; Accessibility &rarr; Audio &amp; Visual &rarr; Mono Audio. Android: Settings &rarr; Accessibility &rarr; Hearing enhancements, or Accessibility &rarr; Sound &rarr; Mono audio. Windows: Settings &rarr; Accessibility &rarr; Audio &rarr; Mono audio. macOS: System Settings &rarr; Accessibility &rarr; Audio.</p>
+          </div>
+          <div class="step">
+            <h3>Remove mono adapters and splitters</h3>
+            <p>A single-earphone adapter with one socket in and two out is a mono splitter. So is a Y-cable sold as a headphone splitter. A proper stereo splitter has a separate left and right cable and is labelled as one.</p>
+          </div>
+          <div class="step">
+            <h3>Count the pins</h3>
+            <p>A three-pole plug carries two channels and a ground. A four-pole jack carries two channels, a microphone and a shared ground. A three-pole plug in a four-pole socket may ground one channel, which sounds like one side playing faintly rather than not at all.</p>
+          </div>
+          <div class="step">
+            <h3>Check for a mono source</h3>
+            <p>Some content is genuinely mono, and some applications mix to mono deliberately. Test with a film trailer or a game, not with an album you know well.</p>
+          </div>
+      </div>
+        </section>
+
+        <section class="doc-section" id="polarity">
+          <h2>Why does one ear sound thin, hollow or wider than the other?</h2>
+          <div class="prose">
+<p>This is the fault the channel test cannot see, and it is worth a section of its own. It happens when one driver is playing with its phase flipped, so the two sides partly cancel instead of summing. The sound spreads to the sides of your head rather than sitting in the middle, and it can feel thin or hollow, or as though the sound is coming from outside rather than inside.</p>
+<p>It is a wiring fault, not a driver fault. The driver still works, and it still arrives in the correct ear, which is exactly why the channel check passes and the fault survives it. A repair, a replacement cable, or a plug pushed in upside down can all leave a pair like this.</p>
+<p>Here is what makes it confusing. <strong>With a correctly wired pair, the two versions of the tone sound different</strong> &mdash; and with a reversed driver they also sound different, but the order is swapped. The inverted version arrives in phase and becomes the centred one. So the useful question is not whether the two sounded the same or different, but <em>which one was centred</em>.</p>
+<p>And the answer is a thing you can feel rather than a thing you can measure. A tone sent to both channels with nothing distinguishing the two ears has no direction at all: it is heard inside your head, on the midline. The same tone with one channel inverted cancels in the middle and spreads out to both sides. You do not need to be able to hear frequencies accurately to tell those two apart.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h3>The test that settles it</h3>
+        <p>Open the advanced diagnostics on the Headset Check page and use the polarity check. It plays the tone in both channels, then again with the right channel inverted, then the first version again, and asks which version was centred. The first version centred means the wiring is correct. The second version centred means one driver is arriving with its phase flipped. <a class="btn btn--primary btn--sm" href="../headset-check.html#advanced" style="margin-left:.4rem;vertical-align:middle">Run the polarity check</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>What you hear</th><th>What it means</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>The first version is centred, the second spreads out</td><td>The wiring is correct</td><td>Nothing. This is the healthy result</td></tr>
+            <tr><td>The second version is centred</td><td>One driver is arriving with its phase flipped</td><td>The cable, the connector, and any repair that has been done to the pair</td></tr>
+            <tr><td>Both versions sound the same</td><td>The signal is not reaching your headphones as stereo</td><td>Mono audio, a mono adapter, or a mono source &mdash; see <a href="#mono">why you hear the same sound in both ears</a></td></tr>
+            <tr><td>You cannot tell which was centred</td><td>The difference is too small for you to place, which is a real answer</td><td>Check mono audio, then try a pair of headphones you know are wired correctly</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Rule out mono audio first</h3>
+            <p>Mono audio produces a very similar symptom, and it is a setting rather than a fault. Turn it off and run the polarity check again before you conclude anything about the wiring.</p>
+          </div>
+          <div class="step">
+            <h3>Test with a pair you know is right</h3>
+            <p>Run the same check on a different pair of headphones. If that one centres the first version and this one does not, the fault is in this pair.</p>
+          </div>
+          <div class="step">
+            <h3>Look at the cable and the connector</h3>
+            <p>A reversed driver means a reversed wire somewhere in the chain. A detachable cable fitted to the wrong end, a repaired plug, or a jack wired as a headset rather than as headphones will all do it.</p>
+          </div>
+      </div>
+        </section>
+
+        <section class="doc-section" id="no-sound">
+          <h2>Why is there no sound at all?</h2>
+          <div class="prose">
+<p>If the tone is generated in your browser and you can hear nothing at all, the sound never left the page. That is useful news: the fault is in the output chain rather than in the headphones, and you have not lost a driver.</p>
+<p>Check the tab first. Browsers mute individual tabs, and the little speaker icon in the address bar is easy to miss. Then check the system volume, and check that the headphones are the selected output device rather than the built-in speakers &mdash; a machine with a monitor and a headset can switch its default when one is plugged in or removed.</p>
+<p>Keep the page in front of you. Browsers throttle audio in a background tab, so a tab you have switched away from may be playing quietly or not at all. If you have to check something else while the tone runs, come back to the tab.</p>
+<p>On a Bluetooth headset, the connection itself is the usual culprit. The pair may be connected to something else, or half-paired to two devices at once. Remove it from the Bluetooth menu and pair it again.</p>
+<p>One more cause that catches people out on a desktop: an audio application that has taken exclusive control of the output device. A DAW, a virtual audio device, a screen recorder with audio monitoring, or a conference app with a virtual microphone can hold the device and leave the browser unable to open an output stream. Closing the app is the fix.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h3>The test that settles it</h3>
+        <p>Play <strong>Both</strong> and check the drawing of the headphones: the panel shows which side is playing, so you can tell a silent page from a silent headphone. Then play a sound from a different application. If the other application is also silent, the fault is in the machine. <a class="btn btn--primary btn--sm" href="../headset-check.html#channel" style="margin-left:.4rem;vertical-align:middle">Run the channel check</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>What you see</th><th>What it means</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>The page shows a channel playing, but you hear nothing</td><td>The signal left the page and did not arrive</td><td>The volume, the output device, the mute state of the tab</td></tr>
+            <tr><td>The page shows nothing playing</td><td>The page never started, usually because the browser blocked the audio until you interacted</td><td>Click a play button once and try again</td></tr>
+            <tr><td>Every application is silent</td><td>The fault is in the machine</td><td>The output device, the system volume, the device manager</td></tr>
+            <tr><td>Only this page is silent</td><td>The fault is in the page or the browser</td><td>A background tab, a blocked context, an audio application holding the device</td></tr>
+            <tr><td>It works on another machine</td><td>The fault is in the first machine</td><td>Its output routing, or an application holding the device exclusively</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Unmute the tab</h3>
+            <p>Look for the speaker icon in the address bar. Right-click it and unmute, and check that the site is allowed to play sound.</p>
+          </div>
+          <div class="step">
+            <h3>Bring the page to the front</h3>
+            <p>Background tabs get their audio throttled. Keep the tab visible while a tone is playing.</p>
+          </div>
+          <div class="step">
+            <h3>Pick the output device</h3>
+            <p>Windows: Settings &rarr; System &rarr; Sound &rarr; Output. macOS: System Settings &rarr; Sound &rarr; Output. On a phone, the output picker is usually in Control Centre or the notification shade, and a Bluetooth device may still be listed while the built-in speaker is actually in use.</p>
+          </div>
+          <div class="step">
+            <h3>Close what is holding the device</h3>
+            <p>Quit or disable any recording, conferencing or virtual audio application and try again. Applications that own the device exclusively are the reason a browser page can be silent while every other app works.</p>
+          </div>
+          <div class="step">
+            <h3>Re-pair the Bluetooth</h3>
+            <p>Remove the headset from the Bluetooth menu, turn Bluetooth off and on, and pair it again. Make sure it is not connected to a second device.</p>
+          </div>
+      </div>
+        </section>
+
+        <section class="doc-section" id="crackle">
+          <h2>Why does one side crackle, buzz or distort?</h2>
+          <div class="prose">
+<p>A driver that has started to fail usually breaks up at one frequency rather than everywhere, which is why the tone check is worth running through its three pitches in turn. Listen for the pitch that does not survive. A buzz that is there on every tone is more likely the operating system's own processing than the headphones.</p>
+<p>That processing is worth taking seriously, because it is common and it is free to turn off. Spatial audio, mono audio, virtual surround modes, sound effects and equalisation presets all process the signal before it reaches the driver, and a virtual surround mode in particular will push the channels around. On Windows, spatial sound is in Settings &rarr; System &rarr; Sound &rarr; Spatial sound, and on Apple platforms it is in Accessibility &rarr; Audio &amp; Visual.</p>
+<p>On the hardware side, three causes cover most of it. A cable with a broken conductor produces crackle that comes and goes as you move it, and it usually has a location you can find by flexing the section by section. A driver with a loose or damaged voice coil produces distortion that grows with volume and with bass, because the cone is being asked to move further than it can. And a blocked earbud mesh produces a quieter, duller sound that people often report as reduced quality rather than as a fault.</p>
+<p>Bluetooth adds its own: a compressed codec will make a wireless pair sound different from a wired one, and some of that difference is normal rather than a fault. Do not read the timbre of a wireless pair as damage.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h3>The test that settles it</h3>
+        <p>Play the three pitches in turn and note which one breaks up. If the buzz is present on all three, turn off the operating system's spatial and effects processing and try again. <a class="btn btn--primary btn--sm" href="../headset-check.html#tone" style="margin-left:.4rem;vertical-align:middle">Run the tone check</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>What you hear</th><th>What it means</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Crackle on one pitch only</td><td>The driver breaks up at that frequency</td><td>The driver, or the wiring to it</td></tr>
+            <tr><td>Buzz on every pitch</td><td>Processing, or a fault that is not frequency-dependent</td><td>Spatial sound, virtual surround, effects and equalisation</td></tr>
+            <tr><td>Crackle that comes and goes as you move</td><td>A conductor in the cable</td><td>The cable, at the plug and the split</td></tr>
+            <tr><td>Distortion that grows with volume</td><td>The driver is being asked to move further than it can</td><td>The driver, or the pairing of a wireless pair</td></tr>
+            <tr><td>A dull, quiet, muffled side</td><td>Something is blocking the sound outlet</td><td>The ear tip, the mesh, and the ear canal</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Turn the processing off</h3>
+            <p>Windows: Settings &rarr; System &rarr; Sound &rarr; Spatial sound, set to off. Apple platforms: Accessibility &rarr; Audio &amp; Visual. Also check the equalisation and effects in whatever application you were using.</p>
+          </div>
+          <div class="step">
+            <h3>Run the three pitches</h3>
+            <p>A fault that only shows on one pitch is a driver fault. A fault on all three is not, and turning the processing off should clear it.</p>
+          </div>
+          <div class="step">
+            <h3>Flex the cable</h3>
+            <p>Work along the cable in sections with a tone playing. Crackle that appears and disappears as you move is in the cable.</p>
+          </div>
+          <div class="step">
+            <h3>Clear the outlet</h3>
+            <p>For earbuds, remove the tip and clean the mesh gently with a dry, soft brush. Do not push anything into the mesh.</p>
+          </div>
+          <div class="step">
+            <h3>Compare wired and wireless</h3>
+            <p>On a Bluetooth pair, the codec changes the sound. Compare against the same source on a wired pair before deciding that the wireless one is faulty.</p>
+          </div>
+      </div>
+        </section>
+
+        <section class="doc-section" id="bluetooth">
+          <h2>Why does a Bluetooth headset keep dropping a side?</h2>
+          <div class="prose">
+<p>Almost always the link rather than the headphones. An earbud that is not seated in the case, or not charged, will refuse to play while the other carries on, and a pair can end up half-paired to two devices at once.</p>
+<p>There are three separate Bluetooth faults that all present as one side dropping, and they are worth telling apart. The first is <strong>a bud that is not making contact in the case</strong>: the charging contacts are dirty, or the bud is not seated, so one side never charges and dies first. The second is <strong>a desynchronised pairing</strong>: the two buds are still paired with each other but the phone has lost one of them, and only one reconnects. The third is <strong>a device competing for the connection</strong>, usually a laptop that reconnects the headset every few seconds while the phone is also holding it.</p>
+<p>Wireless is also where the battery fault shows up most clearly. A pair that reports one bud at 10% and the other at 60% will sound unbalanced before it sounds silent, and a fully charged pair is a surprisingly common fix.</p>
+<p>And a last one that has nothing to do with the headphones: the phone's own battery saving will turn Bluetooth off, or a headset profile off, when it thinks you are not using it. On Android, that shows up as audio switching to the phone speaker mid-song.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h3>The test that settles it</h3>
+        <p>Play <strong>Left</strong> and <strong>Right</strong> while the fault is happening. If one side drops out while the other continues, the audio is not the problem &mdash; the connection is. <a class="btn btn--primary btn--sm" href="../headset-check.html#channel" style="margin-left:.4rem;vertical-align:middle">Run the channel check</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>What you see</th><th>What it means</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>One bud never charges</td><td>A dirty or misaligned charging contact</td><td>The case contacts and the bud&rsquo;s pins</td></tr>
+            <tr><td>One bud dies much sooner than the other</td><td>It is not charging properly</td><td>The case, and the charging pins</td></tr>
+            <tr><td>The headset keeps reconnecting on its own</td><td>A second device is competing for it</td><td>The paired devices list on the phone and on the computer</td></tr>
+            <tr><td>Audio switches to the phone speaker mid-song</td><td>The phone dropped the Bluetooth profile to save power</td><td>Battery saving settings on the phone</td></tr>
+            <tr><td>Only one side plays, and it stays that way</td><td>That side is not connected, or not charged</td><td>Forget the device and pair it again</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Put both buds back in the case</h3>
+            <p>Close the lid and open it again. On most pairs this restarts the buds and resynchronises them, and it costs nothing.</p>
+          </div>
+          <div class="step">
+            <h3>Clean the charging contacts</h3>
+            <p>A dry, soft cloth on the case contacts and the pins on the buds. A bud that charges only when you press it down is a contact problem.</p>
+          </div>
+          <div class="step">
+            <h3>Forget and re-pair</h3>
+            <p>Remove the headset from the Bluetooth list on the phone, turn Bluetooth off and on, and pair it as a new device. This clears a desynchronised pairing.</p>
+          </div>
+          <div class="step">
+            <h3>Check what else is connected</h3>
+            <p>A computer that holds the headset will reconnect it every few seconds. Disconnect it there before you test on the phone.</p>
+          </div>
+          <div class="step">
+            <h3>Rule out battery saving</h3>
+            <p>On Android, turn off any setting that restricts Bluetooth or the audio profile. This is the cause when the audio switches to the phone speaker mid-song.</p>
+          </div>
+      </div>
+        </section>
+
+        <section class="doc-section" id="rolloff">
+          <h2>Why is a tone missing at one end of the range?</h2>
+          <div class="prose">
+<p>Two reasons, and both are ordinary. <strong>Headphones roll off at the bottom.</strong> The 100&nbsp;Hz tone is the one most pairs play quietest, because the ear hears it less well and because most headphones give up their deepest bass first. Some of that is the headphone and some of it is your hearing, and the two are indistinguishable from inside.</p>
+<p>And the roll-off is not even between sides. A note that sounds full in one ear can sound hollow in the other, because the two drivers are not matched exactly. A pair that is a little uneven at 100&nbsp;Hz is normal; a pair that is a little uneven at 1&nbsp;kHz is not.</p>
+<p>Here is the part that matters for the sweep. <strong>Your own hearing is in the measurement.</strong> A tone you cannot hear is not proof of a fault. Adults lose the highest frequencies first, and the top of the range is often simply gone before the headphones are. So the sweep is a comparison against yourself as much as against the headphones, and the honest reading of it is where the sound stopped being there <em>for you</em>.</p>
+<p>What the sweep can do is find a sudden loss. A driver that fails at one frequency produces a hole &mdash; the tone vanishes and comes back &mdash; and that is very different from a gradual roll-off at the bottom or a fading top end. A hole is a fault. A fade is a characteristic.</p>
+<p>And if you want the honest limit said plainly: this page sweeps 20&nbsp;Hz to 1&nbsp;kHz, not 20&nbsp;kHz. The upper limit is a choice, not a limitation of the browser &mdash; a tone at 12&nbsp;kHz is unpleasant to sit through and tells most people nothing they did not already know. If you want the top of the range, a dedicated measurement with a reference sweep played back and captured will do it properly, and that needs a microphone.</p>
+          </div>
+      <div class="callout callout--accent" style="margin-top:1.2rem">
+        <h3>The test that settles it</h3>
+        <p>Run the frequency sweep in the advanced diagnostics. It climbs from 20&nbsp;Hz to 1&nbsp;kHz over eight seconds with a live readout, so you can see the pitch at the moment it stops. Listen for a sudden hole rather than a gradual fade. <a class="btn btn--primary btn--sm" href="../headset-check.html#advanced" style="margin-left:.4rem;vertical-align:middle">Run the sweep</a></p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>What you hear</th><th>What it means</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>100&nbsp;Hz is quiet on both sides</td><td>Ordinary. Most pairs roll off at the bottom</td><td>Nothing. Compare it against a pair you know</td></tr>
+            <tr><td>100&nbsp;Hz is hollow in one ear</td><td>The two drivers are not matched at the bottom</td><td>Common, and not worth a repair</td></tr>
+            <tr><td>The tone disappears for a moment and comes back</td><td>A hole in the response: a driver failing at that frequency</td><td>The driver</td></tr>
+            <tr><td>The sound fades away near the top and never comes back</td><td>Your hearing, or the pair&rsquo;s roll-off, or both</td><td>Try a younger ear before you blame the headphones</td></tr>
+            <tr><td>A missing tone is missing on another device too</td><td>The pair, not the machine</td><td>The driver</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="steps" style="margin-top:1.4rem">
+          <div class="step">
+            <h3>Turn the volume down first</h3>
+            <p>A sweep at the level you would use for music is genuinely unpleasant by the end. Start at about a third and raise it only if you need to.</p>
+          </div>
+          <div class="step">
+            <h3>Listen for a hole, not a fade</h3>
+            <p>A hole appears and disappears. A fade goes away and stays away. Only the first is a fault.</p>
+          </div>
+          <div class="step">
+            <h3>Compare the two sides</h3>
+            <p>A difference between the ears at the bottom of the range is normal. A difference in the middle of the range is not.</p>
+          </div>
+          <div class="step">
+            <h3>Try the same pair on another device</h3>
+            <p>That separates a fault in the pair from a fault in the machine&rsquo;s processing.</p>
+          </div>
+      </div>
+        </section>
+
+        <section class="doc-section" id="settings">
+          <h2>Headphone settings that change your test results</h2>
+          <div class="prose">
+<p>Six switches. Each of them changes what you hear, and each of them is somewhere the fault is usually not. Read this list before you conclude that a pair is faulty.</p>
+<p>The checks on the page are of the headphones and the operating system together, not of the headphones alone. A balance slider nudged one way makes one side quieter while every test still passes. Mono audio makes both channels identical while both still work perfectly. Neither is a fault in the hardware, and neither can be seen from the headphones alone.</p>
+          </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Setting</th><th>Where it lives</th><th>What it changes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Left and right balance</td><td>iOS and Android: Accessibility &rarr; Audio. Windows: Sound &rarr; Volume mixer &rarr; Levels &rarr; Balance. macOS: Accessibility &rarr; Audio</td><td>The level of each channel. It makes one side quieter without breaking anything</td></tr>
+            <tr><td>Mono audio</td><td>iOS: Accessibility &rarr; Audio &amp; Visual &rarr; Mono Audio. Android: Accessibility &rarr; Sound. Windows: Accessibility &rarr; Audio</td><td>Both channels become the same signal. Every stereo cue collapses into the middle</td></tr>
+            <tr><td>Spatial sound and virtual surround</td><td>Windows: Sound &rarr; Spatial sound. Apple platforms: Accessibility &rarr; Audio &amp; Visual</td><td>The channels are processed before they reach the driver. It can move sound between the ears and add processing noise</td></tr>
+            <tr><td>Equalisation and sound effects</td><td>In the application, or in the operating system&rsquo;s audio effects panel</td><td>The tone of the sound. It does not break a channel, but it can make one side sound thinner</td></tr>
+            <tr><td>Exclusive mode</td><td>Windows: Sound &rarr; your device &rarr; Properties &rarr; Advanced &rarr; Allow applications to take exclusive control</td><td>Whether another application can hold the device. A browser can be left silent while every other app works</td></tr>
+            <tr><td>Sample rate</td><td>The same Properties panel, and the operating system&rsquo;s audio settings</td><td>The rate the device resamples to. It does not change whether a channel works, and it is rarely the cause of a fault</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="prose" style="margin-top:1.4rem">
+<p><strong>The one-setting experiment.</strong> If something sounds wrong, change exactly one thing &mdash; the balance slider, or the mono audio switch &mdash; and run the check again. If the result is the same, the problem is not that setting, and you can stop looking at it.</p>
+          </div>
+        </section>
+
+        <section class="doc-section" id="triage">
+          <h2>Symptom, cause, and where to look</h2>
+          <div class="prose">
+<p>Triage. The short version, for when you already know what is wrong and just want the setting that fixes it.</p>
+          </div>
+      <div class="table-wrap" style="margin-top:1.4rem">
+        <table>
+          <thead>
+            <tr><th>Symptom</th><th>Likely cause</th><th>Where to look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Sound is in the wrong ear</td><td>Headphones on backwards, or a cable fitted the wrong way round</td><td>The L and R marks inside the earcups; a detachable cable</td></tr>
+            <tr><td>Only one side plays</td><td>Balance slider, a half-seated plug, the wrong output device, or a broken cable</td><td>Balance, then the plug, then the output device, then the cable</td></tr>
+            <tr><td>One side is quieter</td><td>Balance slider, fit, or a degraded driver</td><td>Balance first, then the swap test</td></tr>
+            <tr><td>Both ears hear the same sound</td><td>Mono audio, a mono adapter, or a three-pole plug in a four-pole socket</td><td>Accessibility &rarr; Audio &rarr; Mono audio</td></tr>
+            <tr><td>One ear sounds thin or wider</td><td>One driver is wired backwards</td><td>The polarity check in the advanced diagnostics</td></tr>
+            <tr><td>No sound at all</td><td>A muted tab, a background tab, the wrong output device, or an app holding the device</td><td>The tab, then the output device, then exclusive mode</td></tr>
+            <tr><td>Crackle on one pitch</td><td>A driver failing at that frequency</td><td>The driver</td></tr>
+            <tr><td>Buzz on every pitch</td><td>Processing rather than hardware</td><td>Spatial sound and virtual surround</td></tr>
+            <tr><td>One earbud keeps dropping out</td><td>A charging contact, a desynchronised pairing, or a second device competing for it</td><td>The case contacts; forget and re-pair; the paired devices list</td></tr>
+            <tr><td>A tone is missing at one end of the range</td><td>Ordinary roll-off, or your hearing</td><td>Compare against a pair you know; listen for a hole rather than a fade</td></tr>
+          </tbody>
+        </table>
+      </div>
+        </section>
+
+        <section class="doc-section" id="questions">
+          <h2>Headphone test questions</h2>
+          <div class="prose">
+<p>The questions people actually ask about headphones, with the short answers. If yours is not here, the contact page is at the bottom of the site.</p>
+          </div>
+      <div class="faq prose" style="margin-top:1.4rem">
+        <details>
+          <summary>How do I test my headphones?</summary>
+          <div class="faq__a"><p>Put them on, turn the volume down to about a third, and open the Headset Check page. Play <strong>Left</strong>, then <strong>Right</strong>, then <strong>Both</strong>. The left tone should arrive in your left ear only, the right tone in your right ear only, and Both should sit in the middle of your head. Mark each side as you go and the page keeps your answers and tells you what that combination of marks means. It takes about ten seconds and nothing has to be installed.</p></div>
+        </details>
+        <details>
+          <summary>How do I do a left and right audio test?</summary>
+          <div class="faq__a"><p>Play the left channel on its own and mark which ear you heard it in. Then do the same for the right. If each tone arrives in the opposite ear, your channels are crossed: the headphones are on the wrong way round, or a cable, adapter or splitter has the wiring reversed. If both tones sound identical in both ears, the signal is mono instead &mdash; a mono adapter, a three-pole plug in a four-pole socket, or mono audio switched on in the operating system. The page cannot tell those two apart for you, because it is a listening test and the answer is what you report back to it.</p></div>
+        </details>
+        <details>
+          <summary>How do I know if my headphones are faulty?</summary>
+          <div class="faq__a"><p>Work through the list in this order, and stop when the fault disappears. Centre the balance slider. Push the plug fully home and look for lint in the socket. Confirm the headphones are the selected output device. Turn off mono audio, spatial sound and virtual surround. Flex the cable at the plug and at the split while a tone is playing. Then swap: another pair on this machine, and this pair on another machine. If the fault follows the headphones to a second machine, the pair is at fault. If it follows the machine to a second pair, the machine is. A fault that survives both swaps is a hardware fault, and the tone check tells you whether it is one driver failing at one frequency or the pair failing generally.</p></div>
+        </details>
+        <details>
+          <summary>Why is one ear quieter than the other?</summary>
+          <div class="faq__a"><p>Check the left and right balance slider in your device's sound settings first. On a phone it is usually under Accessibility rather than Sound. If the balance is centred and one side is still quieter, put the headphones on the other way round: if the quiet side follows the headphones, they are the cause; if it stays in the same ear, it is the fit or your hearing. The tone check gives you three fixed pitches to compare the two sides against.</p></div>
+        </details>
+        <details>
+          <summary>Why does only one side of my headphones play?</summary>
+          <div class="faq__a"><p>The balance slider, a plug that is not fully in, an output device that is not your headphones, or a broken cable. Work down that list in order &mdash; the slider is the most common and the least obvious of the four. If you have already swapped to another pair and the new one also plays on one side, the fault is in the device or its settings rather than in the headphones.</p></div>
+        </details>
+        <details>
+          <summary>What does it mean if I hear the same sound in both ears?</summary>
+          <div class="faq__a"><p>It means the signal is mono. A mono adapter, a three-pole plug in a four-pole socket and a mono audio setting in the operating system will each do it. A mono signal cannot tell left from right, so every stereo cue &mdash; where a voice sits in a film, which side a car is coming from &mdash; collapses into the middle. Press Left in the channel check: if the tone sounds identical in both ears, that is what has happened.</p></div>
+        </details>
+        <details>
+          <summary>How do I check whether one of my headphone drivers is wired backwards?</summary>
+          <div class="faq__a"><p>Use the polarity check in the advanced diagnostics. It plays a tone in both channels, then the same tone with one channel inverted, then the first version again, and asks which version was centred. With a correctly wired pair the first version sums and sits in the middle of your head and the second spreads out to both sides, because the two channels cancel. If the second version is the centred one, one driver is arriving with its phase flipped &mdash; a reversed driver still reaches the right ear, so the channel check cannot see it. If both versions sound the same, the signal is not reaching your headphones as stereo at all, which is a different fault: check that mono audio is off in your system settings.</p></div>
+        </details>
+        <details>
+          <summary>Why does one ear sound thin, hollow or wider than the other?</summary>
+          <div class="faq__a"><p>Because the two drivers are not summing. One side is playing with its phase flipped, so it partly cancels the other instead of adding to it, and the sound spreads to the sides of your head rather than sitting in the middle. It is a wiring fault rather than a failed driver, so the tone still reaches the correct ear and the channel check passes. A repair, a replacement cable, or a plug pushed in upside down can leave a pair like this. The polarity check in the advanced diagnostics settles it by asking which of two versions was centred.</p></div>
+        </details>
+        <details>
+          <summary>Can this test measure my headphone frequency response or sound quality?</summary>
+          <div class="faq__a"><p>No, and it does not pretend to. A browser can generate a tone; it cannot hear what comes back. The tone check gives you three fixed pitches to listen to, which is enough to spot a driver that has failed or a cable that is breaking up, and to hear the roll-off at the bottom of the range that most headphones have. Measuring a frequency response properly needs a reference signal played back and captured, and capturing it needs a microphone &mdash; a different kind of tool.</p></div>
+        </details>
+        <details>
+          <summary>Why is a tone missing at one end of the range?</summary>
+          <div class="faq__a"><p>Two reasons, and both are ordinary. Headphones roll off at the bottom: the 100 Hz tone is the one most pairs play quietest, because the ear hears it less well and because most headphones give up their deepest bass first. And the roll-off is not even between sides, so a note that sounds full in one ear can sound hollow in the other if the two drivers are not matched. If a tone is missing rather than quiet, and the same happens on another device, then a driver has failed.</p></div>
+        </details>
+        <details>
+          <summary>Does it work with earbuds and Bluetooth headphones?</summary>
+          <div class="faq__a"><p>Yes, with one caveat. The tone is generated in the browser and sent through whatever the operating system has chosen as the output, so Bluetooth is included &mdash; and a Bluetooth pair has faults of its own, such as an earbud not seated in the case or a device paired to two things at once. The caveat is that Bluetooth codecs compress the signal, so do not read the timbre of a wireless pair as a fault.</p></div>
+        </details>
+        <details>
+          <summary>Why does my Bluetooth headset keep dropping one side?</summary>
+          <div class="faq__a"><p>Almost always the link rather than the headphones. An earbud that is not seated in the case, or not charged, will refuse to play while the other carries on, and a pair can end up half-paired to two devices at once. Put both buds back in the case, close the lid, open it again, and clean the charging contacts. Then forget the device on your phone and pair it again. If the headset keeps reconnecting on its own, something else &mdash; usually a computer &mdash; is holding it.</p></div>
+        </details>
+        <details>
+          <summary>Why is there no sound at all?</summary>
+          <div class="faq__a"><p>The tone is generated in your browser, so if you can hear nothing at all, the sound never left the page. Check that the tab is not muted, that the system volume is up, and that the headphones are the selected output device rather than the built-in speakers. Browsers also throttle audio in a background tab, so keep the page in front of you. On a Bluetooth headset the connection itself is the usual culprit: remove the device from the Bluetooth menu and pair it again, and make sure it is not connected to something else at the same time.</p></div>
+        </details>
+        <details>
+          <summary>Can this test my headset microphone?</summary>
+          <div class="faq__a"><p>No. This guide covers the headphone half of a headset. The microphone half can be measured rather than guessed at, because the browser can read the signal it asks for and report the processing it was given &mdash; but that is a separate test, and it is not here yet.</p></div>
+        </details>
+        <details>
+          <summary>Do I need to install anything or give the page any permission?</summary>
+          <div class="faq__a"><p>No. Playing sound needs no permission, and there is nothing to install, no account and no download. The tones are generated in your browser with the Web Audio API, so nothing is fetched and nothing is uploaded. The page works offline once it has loaded.</p></div>
+        </details>
+        <details>
+          <summary>What volume should I use for a headphone test?</summary>
+          <div class="faq__a"><p>About a third of your normal listening volume to begin with. A test tone carries far more energy than music at the same setting, because music spends most of its time at low levels and a tone does not. It is also continuous, so it is more tiring than music at the same volume. Start quiet, and raise it only once you know what you are listening to.</p></div>
+        </details>
+        <details>
+          <summary>Can I use speakers instead of headphones?</summary>
+          <div class="faq__a"><p>You can, but the channel check stops meaning much. Sound from a speaker on your left reaches your right ear as well, so Left and Right will sound similar, and the test cannot tell a working pair from a mono one. Put headphones on for the channel check and the polarity check. The frequency sweep is fine on speakers.</p></div>
+        </details>
+      </div>
+        </section>
+
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
+        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+      </div>
+      <div class="footer-col">
+        <h2>Tools</h2>
+        <ul>
+          <li><a href="../mouse-check.html">Mouse Check</a></li>
+          <li><a href="../keyboard-check.html">Keyboard Check</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Troubleshooting</h2>
+        <ul>
+          <li><a href="index.html">All troubleshooting</a></li>
+          <li><a href="mouse.html">Mouse</a></li>
+          <li><a href="keyboard.html">Keyboard</a></li>
+          <li><a href="trackpad.html">Trackpad</a></li>
+          <li><a href="headset.html">Headphones</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Information</h2>
+        <ul>
+          <li><a href="../about.html">About InputScope</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Use</a></li>
+          <li><a href="../ads.txt">ads.txt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> InputScope. All rights reserved.</span>
+      <span>The tools collect nothing. The contact form is the exception.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/theme.js"></script>
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/review.js"></script>
+</body>
+</html>

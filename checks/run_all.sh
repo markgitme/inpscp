@@ -28,7 +28,7 @@ cleanup() {
 trap cleanup EXIT
 
 banner() { printf '\n\033[1m== %s\033[0m\n' "$1"; }
-run()    { printf '\033[36m-- %s\033[0m\n' "$1"; shift; "$@"; local rc=$?; [[ $rc -ne 0 ]] && FAILED=1; return 0; }
+run()    { printf '\033[36m-- %s\033[0m\n' "$1"; shift; "$@"; local rc=$?; if [[ $rc -ne 0 ]]; then printf '\033[31m   FAILED (exit %d)\033[0m\n' "$rc"; FAILED=1; fi; return 0; }
 
 # ---------------------------------------------------------------- the site ---
 banner "build"

@@ -6,7 +6,8 @@ const EXEC = process.env.CHROME_PATH ||
 const PAGES = ['/index.html', '/mouse-check.html', '/keyboard-check.html', '/about.html',
   '/contact.html', '/privacy.html', '/terms.html', '/404.html',
   '/troubleshooting/index.html', '/troubleshooting/mouse.html',
-  '/troubleshooting/keyboard.html', '/troubleshooting/trackpad.html'];
+  '/troubleshooting/keyboard.html', '/troubleshooting/trackpad.html',
+  '/headset-check.html', '/troubleshooting/headset.html'];
 
 let fails = 0, passes = 0;
 const ok = (name, cond, detail) => {
