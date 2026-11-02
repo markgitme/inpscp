@@ -38,6 +38,145 @@
 </script>
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/review.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "InputScope Headset Check",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any modern browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A free browser-based headphone test that plays the left channel, the right channel and both, asks what you heard, and finds swapped channels, a silent ear, a mono signal, an unbalanced pair and a driver that is wired backwards.",
+      "featureList": [
+        "Left, right and both channel test",
+        "Per-side marking with a verdict",
+        "Three fixed test tones",
+        "Polarity check for a reversed driver",
+        "Frequency sweep from 20 Hz to 1 kHz"
+      ],
+      "author": {
+        "@id": "#author"
+      },
+      "datePublished": "2026-11-02",
+      "dateModified": "2026-11-02"
+    },
+    {
+      "@type": "Person",
+      "@id": "#author",
+      "name": "Mark",
+      "url": "about.html",
+      "jobTitle": "Creator of InputScope"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I test if my headphones are working?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Put them on, turn the volume down to about a third, then press Left, Right and Both in turn. The left tone should arrive in your left ear only, the right tone in your right ear only, and Both should sit in the middle of your head. Mark each side and the page tells you what your answers mean. Nothing has to be installed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I check whether my left and right are swapped?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Play Left and then Right, and mark what you heard. If each tone arrived in the opposite ear, your channels are crossed: the headphones are on the wrong way round, or a cable or adapter has the wiring reversed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is one ear quieter than the other?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Check the left and right balance slider first. On Windows 11 it is in Settings → System → Sound → More sound settings → your device → Properties → Levels → Balance; on macOS it is in System Settings → Sound → Output. If the balance is centred, put the headphones on the other way round: if the quiet side follows the headphones, they are the cause; if it stays in the same ear, it is the fit or your hearing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does only one side of my headphones play?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The balance slider, a plug that is not fully in, an output device that is not your headphones, or a broken cable. Work down that list in order — the slider is the most common and the least obvious of the four."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does it mean if I hear the same sound in both ears?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It means the signal is mono. A mono adapter, a three-pole plug in a four-pole socket, and a mono audio setting in the operating system will each do it. Press Left in the channel check: if the tone sounds identical in both ears, that is what has happened."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I check whether one of my headphone drivers is wired backwards?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the polarity check in the advanced diagnostics. It plays a tone in both channels, then again with one channel inverted, and asks which version was centred. The first version centred means the wiring is correct; the second version centred means one driver is arriving with its phase flipped."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does one ear sound thin, hollow or wider than the other?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the two drivers are not summing: one side is playing with its phase flipped and partly cancels the other. It is a wiring fault rather than a failed driver, so the tone still reaches the correct ear and the channel check passes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can this test measure my headphone frequency response or sound quality?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, and it does not pretend to. A browser can generate a tone; it cannot hear what comes back. Measuring a frequency response properly needs a reference signal played back and captured, and capturing it needs a microphone — a different kind of tool."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work with earbuds and Bluetooth headphones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The tone is generated in the browser and sent through whatever the operating system has chosen as the output, so Bluetooth is included. The one caveat is that Bluetooth codecs compress the signal, so do not read the timbre of a wireless pair as a fault."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is a tone missing at one end of the range?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Usually ordinary. Headphones roll off at the bottom, and the 100 Hz tone is the one most pairs play quietest, because the ear hears it less well and most headphones give up their deepest bass first. If a tone is missing rather than quiet, and the same happens on another device, a driver has failed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does my Bluetooth headset keep dropping one side?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Almost always the link rather than the headphones: an earbud not seated in the case, a low charge, or a second device competing for the connection. Put both buds back in the case, close the lid, and pair the device again."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can this test my headset microphone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. This page covers the headphone half of a headset. The microphone half can be measured rather than guessed at, but that is a separate test and it is not here yet."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -49,6 +188,14 @@
       <a href="troubleshooting/index.html">Troubleshooting</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
+      <span class="theme-picker">
+        <label class="theme-label" for="theme-select">Theme</label>
+        <select class="theme-select" id="theme-select" data-theme-select>
+          <option value="monochrome">Dark</option>
+          <option value="ember">Ember</option>
+          <option value="daylight">Light</option>
+        </select>
+      </span>
     </nav>
     <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
   </div>
@@ -62,6 +209,7 @@
       <span class="eyebrow"><span class="pulse"></span>Free · runs in your browser · nothing uploaded</span>
       <h1>Headset Check</h1>
       <p>The headphone half of a headset. Play the left channel, then the right, and mark what you heard &mdash; the drawing lights with whichever side is playing. Turn your system volume down first and raise it slowly: a test tone is denser than music and feels quieter than it is.</p>
+      <p class="byline">Written by <a href="about.html">Mark</a> &middot; Published 2 November 2026</p>
     </div>
   </section>
 
@@ -323,13 +471,14 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
-        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+        <p>Free, browser-based diagnostics for the devices you use most. Built to be a baseline you can come back to.</p>
       </div>
       <div class="footer-col">
         <h2>Tools</h2>
         <ul>
           <li><a href="mouse-check.html">Mouse Check</a></li>
           <li><a href="keyboard-check.html">Keyboard Check</a></li>
+          <li><a href="headset-check.html">Headset Check</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -339,6 +488,7 @@
           <li><a href="troubleshooting/mouse.html">Mouse</a></li>
           <li><a href="troubleshooting/keyboard.html">Keyboard</a></li>
           <li><a href="troubleshooting/trackpad.html">Trackpad</a></li>
+          <li><a href="troubleshooting/headset.html">Headphones</a></li>
         </ul>
       </div>
       <div class="footer-col">

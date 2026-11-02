@@ -278,13 +278,14 @@ const noteText = (page, key) => page.evaluate(k => {
     });
     ok('no card claims to be in development', !cards.some(c => /development/i.test(c)), cards.join(' | '));
     ok('the gamepad card says next up', cards.some(c => /^Gamepad Test: Next up$/.test(c)), cards.join(' | '));
-    ok('the headset card is only planned', cards.some(c => /^Headset Test: Planned$/.test(c)), cards.join(' | '));
+    ok('the mic card is only planned', cards.some(c => /^Mic Test: Planned$/.test(c)), cards.join(' | '));
+    ok('the headset is not on the planned list any more', !cards.some(c => /^Headset Test/.test(c)), cards.join(' | '));
     ok('home page has no console errors', errs.length === 0, errs.join(' ; '));
     await page.close();
   }
 
   // ------------------------------------------------------- guide bylines ---
-  for (const p of ['/troubleshooting/mouse.html', '/troubleshooting/keyboard.html', '/troubleshooting/trackpad.html']) {
+  for (const p of ['/troubleshooting/mouse.html', '/troubleshooting/keyboard.html', '/troubleshooting/trackpad.html', '/troubleshooting/headset.html']) {
     const page = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
     await page.goto(BASE + p, { waitUntil: 'networkidle' });
     const b = await page.evaluate(() => {

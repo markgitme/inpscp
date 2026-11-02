@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>InputScope — Free Mouse Test &amp; Keyboard Test You Can Run in Your Browser</title>
-<meta name="description" content="Free mouse test and keyboard test in your browser. Check pointer precision, polling rate, double-click speed, key rollover, typing speed and more. Nothing is uploaded — every test runs locally.">
+<title>InputScope — Free Mouse, Keyboard &amp; Headset Tests You Can Run in Your Browser</title>
+<meta name="description" content="Free mouse test, keyboard test and headset test in your browser. Check pointer precision, polling rate, double-click speed, key rollover, typing speed and more. Nothing is uploaded — every test runs locally.">
 <meta name="theme-color" content="#0c0c0d">
 <link rel="canonical" href="index.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="InputScope — Free Mouse Test &amp; Keyboard Test, and More">
-<meta property="og:description" content="Find out what your hardware is really doing. A free mouse button test and a free keyboard tester today, both running locally in your browser.">
+<meta property="og:title" content="InputScope — Free Mouse, Keyboard &amp; Headset Tests, and More">
+<meta property="og:description" content="Find out what your hardware is really doing. A free mouse button test, a free keyboard tester and a free left and right audio test, all running locally in your browser.">
 <meta property="og:image" content="assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -46,9 +46,11 @@
       "@type": "WebSite",
       "@id": "#website",
       "name": "InputScope",
-      "description": "Free browser-based mouse and keyboard diagnostic tests.",
+      "description": "Free browser-based mouse, keyboard and headset diagnostic tests.",
       "inLanguage": "en",
-      "author": { "@id": "#author" },
+      "author": {
+        "@id": "#author"
+      },
       "datePublished": "2026-10-27",
       "dateModified": "2026-10-31"
     },
@@ -75,7 +77,7 @@
           "name": "Do these tests upload my data?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs. There is no server call, no telemetry, and no account to create. Results stay in memory until you close the tab. The one thing on this site that does send anything is the contact form, and it only sends what you choose to type into it — the privacy policy has the details."
+            "text": "No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs, and the headset test generates its own tones in the browser — no microphone is used, and nothing is recorded. There is no server call, no telemetry, and no account to create. Results stay in memory until you close the tab. The one thing on this site that does send anything is the contact form, and it only sends what you choose to type into it — the privacy policy has the details."
           }
         },
         {
@@ -146,7 +148,7 @@
     <div class="wrap">
         <span class="eyebrow"><span class="pulse"></span>Free &middot; No signup &middot; Nothing uploaded</span>
         <h1>Find out what your <span class="grad">hardware</span> is really doing.</h1>
-        <p class="hero__lead">InputScope measures the things you can actually feel but never quite diagnose: a cursor that drifts, a double-click that needs trying three times, a key that fires twice, a scroll wheel that skips. A free mouse test and a free keyboard test, running entirely inside your browser tab.</p>
+        <p class="hero__lead">InputScope measures the things you can actually feel but never quite diagnose: a cursor that drifts, a double-click that needs trying three times, a key that fires twice, a scroll wheel that skips, a headphone that only plays on one side. A free mouse test, a free keyboard test and a free headset test, running entirely inside your browser tab.</p>
         <div class="hero__meta">
           <span><span class="dot-ok"></span> No server calls</span>
           <span><span class="dot-ok"></span> Works on Chrome, Firefox, Safari, Edge</span>
@@ -160,7 +162,7 @@
     <div class="wrap">
       <div class="section__head" style="margin-bottom:.9rem">
         <span class="eyebrow">The tools</span>
-        <h2>A mouse test and a keyboard test, one tab, zero downloads</h2>
+        <h2>A mouse test, a keyboard test and a headset test, one tab, zero downloads</h2>
       </div>
 
       <div class="card-grid">
@@ -189,6 +191,19 @@
             <span class="tag">rollover</span>
           </div>
         </a>
+
+        <a class="tool-card tool-card--violet" href="headset-check.html">
+          <span class="tool-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="13" width="4" height="7" rx="1.6"/><rect x="18" y="13" width="4" height="7" rx="1.6"/></svg>
+          </span>
+          <h3>Headset Check</h3>
+          <p>A free left and right audio test. Play one channel at a time and mark what you heard &mdash; then check the tone, the polarity and how far up the range your pair still reaches.</p>
+          <div class="tool-card__tags">
+            <span class="tag">headphone test</span>
+            <span class="tag">left right test</span>
+            <span class="tag">frequency sweep</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -201,7 +216,7 @@
           <div>
             <span class="eyebrow eyebrow--violet">More coming soon</span>
             <h2>The lab is expanding</h2>
-            <p>InputScope started with a mouse and a keyboard because those are the two devices people actually get stuck with. The bench is filling up &mdash; these are the diagnostics being built next, and each one only goes live once there is a real device on the desk to test it against.</p>
+            <p>InputScope started with a mouse and a keyboard because those are the devices people actually get stuck with, and the headset test joined them after that. The bench is filling up &mdash; these are the diagnostics being built next, and each one only goes live once there is a real device on the desk to test it against.</p>
           </div>
           <span class="soon-badge">Planned</span>
         </div>
@@ -209,10 +224,10 @@
         <div class="soon-grid">
           <div class="soon-card">
             <div class="soon-card__top">
-              <span class="soon-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="13" width="4" height="7" rx="1.6"/><rect x="18" y="13" width="4" height="7" rx="1.6"/></svg></span>
-              <h3>Headset Test</h3>
+              <span class="soon-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg></span>
+              <h3>Mic Test</h3>
             </div>
-            <p>Microphone level, noise floor and channel separation for a headset or microphone.</p>
+            <p>Microphone level, noise floor and the processing your system applies to it &mdash; measured rather than guessed at.</p>
             <span class="soon-card__tag">Planned</span>
           </div>
 
@@ -278,6 +293,14 @@
           <h3>Why is my scroll wheel skipping or jittering?</h3>
           <p>A worn scroll encoder, which is usually the first part of a mouse to fail. How to clean it, and how to tell it apart from a bad surface.</p>
         </a>
+        <a class="tool-card" href="troubleshooting/headset.html#wrong-ear">
+          <h3>Why is the sound in the wrong ear?</h3>
+          <p>Your two channels have crossed, which is usually the headphones being on the wrong way round or a cable fitted the wrong way. The guide has the order to check it in.</p>
+        </a>
+        <a class="tool-card" href="troubleshooting/headset.html#quieter">
+          <h3>Why is one ear quieter than the other?</h3>
+          <p>A balance slider nudged one way, a fit problem, or a driver that has begun to go. The swap test tells the first two apart from the third.</p>
+        </a>
       </div>
       <p class="muted small" style="margin-top:1.1rem"><a href="troubleshooting/index.html">Browse all troubleshooting &rarr;</a></p>
     </div>
@@ -326,7 +349,7 @@
       <div class="faq prose">
         <details>
           <summary>Do these tests upload my data?</summary>
-          <div class="faq__a"><p>No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs. There is no server call, no telemetry, and no account to create. Results stay in memory until you close the tab. The one thing on this site that does send anything is the contact form, and it only sends what you choose to type into it &mdash; the <a href="privacy.html">privacy policy</a> has the details.</p></div>
+          <div class="faq__a"><p>No. Every test measures raw pointer and keyboard events inside your browser tab using the standard Pointer Events and Keyboard Events APIs, and the headset test generates its own tones in the browser &mdash; no microphone is used, and nothing is recorded. There is no server call, no telemetry, and no account to create. Results stay in memory until you close the tab. The one thing on this site that does send anything is the contact form, and it only sends what you choose to type into it &mdash; the <a href="privacy.html">privacy policy</a> has the details.</p></div>
         </details>
         <details>
           <summary>Can I really measure my mouse's true DPI in a browser?</summary>
@@ -354,13 +377,14 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
-        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+        <p>Free, browser-based diagnostics for the devices you use most. Built to be a baseline you can come back to.</p>
       </div>
       <div class="footer-col">
         <h2>Tools</h2>
         <ul>
           <li><a href="mouse-check.html">Mouse Check</a></li>
           <li><a href="keyboard-check.html">Keyboard Check</a></li>
+          <li><a href="headset-check.html">Headset Check</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -370,6 +394,7 @@
           <li><a href="troubleshooting/mouse.html">Mouse</a></li>
           <li><a href="troubleshooting/keyboard.html">Keyboard</a></li>
           <li><a href="troubleshooting/trackpad.html">Trackpad</a></li>
+          <li><a href="troubleshooting/headset.html">Headphones</a></li>
         </ul>
       </div>
       <div class="footer-col">

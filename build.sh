@@ -36,12 +36,13 @@ for arg in "$@"; do
 done
 
 SITE_FILES=(
-  "index.html" "mouse-check.html" "keyboard-check.html"
+  "index.html" "mouse-check.html" "keyboard-check.html" "headset-check.html"
   "about.html" "contact.html" "privacy.html" "terms.html" "404.html"
   "assets/css/style.css"
   "assets/css/review.css"
   "assets/favicon.svg"
   "assets/og-image.png"
+  "assets/js/headset.js"
   "assets/js/keyboard.js"
   "assets/js/mouse.js"
   "assets/js/review.js"
@@ -53,6 +54,7 @@ SITE_FILES=(
   "troubleshooting/mouse.html"
   "troubleshooting/keyboard.html"
   "troubleshooting/trackpad.html"
+  "troubleshooting/headset.html"
   "_headers"
 )
 
@@ -60,17 +62,17 @@ SITE_FILES=(
 # cannot be published by accident. Nothing in the published site may link to
 # them either — checks/check_build.py asserts that.
 #
+# It is empty at the moment: the headset tool and its guide are published.
+# The microphone test is built, but it is parked in the private notes
+# repository until its thresholds are sourced, so it is not here at all.
+#
 # The troubleshooting directory and the assets directory are listed file by
-# file rather than as directories, because one guide and one script belong
-# to a tool that is still in development and must not be published with the
-# others. The guard at the bottom of this file fails the build if a file is
-# added to either directory and not listed, so a new asset cannot be
-# published by accident either.
-WIP_FILES=(
-  "headset-check.html"
-  "assets/js/headset.js"
-  "troubleshooting/headset.html"
-)
+# file rather than as directories, so that a page belonging to a tool that is
+# still in development can be kept out of the published build. The guard at
+# the bottom of this file fails the build if a file is added to either
+# directory and not listed, so a new asset cannot be published by accident
+# either.
+WIP_FILES=()
 
 if [[ "$CLEAN" -eq 1 ]]; then
   rm -rf "$OUT"

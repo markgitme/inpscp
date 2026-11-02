@@ -102,6 +102,29 @@ function ok(cond, name, detail) {
   const pickers = await page.$$eval('[data-theme-select]', e => e.length);
   ok(pickers === 0, 'no picker on the mouse page', String(pickers));
 
+  // the headset pages do carry the picker, and choosing on one of them works
+  await page.goto(BASE + '/headset-check.html', { waitUntil: 'load' });
+  const hsPickers = await page.$$eval('[data-theme-select]', e => e.length);
+  ok(hsPickers === 1, 'the headset page carries the picker', String(hsPickers));
+  await page.selectOption('[data-theme-select]', 'ember');
+  await page.waitForTimeout(150);
+  const onHeadset = await page.evaluate(() => ({
+    attr: document.documentElement.getAttribute('data-theme'),
+    bg: getComputedStyle(document.body).backgroundColor,
+    stored: localStorage.getItem('inputscope-theme')
+  }));
+  ok(onHeadset.attr === 'ember', 'choosing on the headset page changes the theme', onHeadset.attr);
+  ok(onHeadset.bg === THEMES.ember.bg, 'and the headset page paints the chosen palette', onHeadset.bg);
+  ok(onHeadset.stored === 'ember', 'and the choice is stored for the next page', String(onHeadset.stored));
+
+  await page.goto(BASE + '/troubleshooting/headset.html', { waitUntil: 'load' });
+  const onGuide = await page.evaluate(() => ({
+    attr: document.documentElement.getAttribute('data-theme'),
+    pickers: document.querySelectorAll('[data-theme-select]').length
+  }));
+  ok(onGuide.attr === 'ember', 'the choice carries to the headphone guide', onGuide.attr);
+  ok(onGuide.pickers === 1, 'the guide carries the picker too', String(onGuide.pickers));
+
   ok(errors.length === 0, 'no console errors', errors.slice(0, 3).join(' | '));
 
   await browser.close();

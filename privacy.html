@@ -72,12 +72,12 @@
         <p>InputScope is an independent project. Questions about this policy can be sent to <a href="mailto:hello@inputscope.com">hello@inputscope.com</a> or through the <a href="contact.html">contact form</a>.</p>
 
         <h2>2. The diagnostic tools</h2>
-        <p>The mouse and keyboard tests work by listening to events inside your browser tab — pointer movements, key presses, wheel scrolls — and calculating the results on your own device. Specifically:</p>
+        <p>The mouse and keyboard tests work by listening to events inside your browser tab — pointer movements, key presses, wheel scrolls — and calculating the results on your own device. The headset test works the same way round: it generates its own tones with the Web Audio API and asks you what you heard, and it never listens to anything. Specifically:</p>
         <ul>
           <li>No measurement result is transmitted to a server. There is no upload, no submission, no telemetry, and no API call that carries a result.</li>
           <li>Results are held in the memory of the page and are discarded when the tab is closed or reloaded.</li>
           <li>No test result, keystroke or pointer coordinate is ever read by the site operator.</li>
-          <li>The tools do not request access to the microphone, camera, clipboard, files or location, and they do not use any advertising or tracking technology on the measurement pages.</li>
+          <li>The tools do not request access to the microphone, camera, clipboard, files or location, and they do not use any advertising or tracking technology on the measurement pages. The headset test uses no microphone at all: every sound it makes is synthesised in the browser, and nothing is recorded.</li>
         </ul>
         <p>The only exception worth naming is the browser's own copy-and-paste button on each tool, which puts the result text on your clipboard so you can paste it somewhere. That is done by your browser, under your control, and the clipboard content is not sent to this site.</p>
 
@@ -138,7 +138,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
-        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+        <p>Free, browser-based diagnostics for the devices you use most. Built to be a baseline you can come back to.</p>
       </div>
       <div class="footer-col">
         <h2>Tools</h2>

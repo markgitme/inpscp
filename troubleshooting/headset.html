@@ -43,6 +43,24 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Article",
+      "headline": "Headphone troubleshooting",
+      "description": "Everything about misbehaving headphones in one page: how to run a left and right audio test, why one ear is quieter, why both ears hear the same sound, why a driver can be wired backwards, and what to do about a silent side, crackle and a Bluetooth headset that drops one earbud.",
+      "datePublished": "2026-11-02",
+      "dateModified": "2026-11-02",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "name": "Mark",
+        "url": "../about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "InputScope",
+        "url": "../index.html"
+      }
+    },
+    {
       "@type": "BreadcrumbList",
       "itemListElement": [
         {
@@ -79,6 +97,14 @@
       <a href="index.html" aria-current="page">Troubleshooting</a>
       <a href="../about.html">About</a>
       <a href="../contact.html">Contact</a>
+      <span class="theme-picker">
+        <label class="theme-label" for="theme-select">Theme</label>
+        <select class="theme-select" id="theme-select" data-theme-select>
+          <option value="monochrome">Dark</option>
+          <option value="ember">Ember</option>
+          <option value="daylight">Light</option>
+        </select>
+      </span>
     </nav>
     <button class="btn btn--sm nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
   </div>
@@ -92,6 +118,7 @@
       <span class="eyebrow eyebrow--amber">Troubleshooting</span>
       <h1>Headphone troubleshooting</h1>
       <p class="hero__lead">The same treatment the mouse and the keyboard get: every common headphone fault in one place, the check that settles it, what to listen for, and the fix to try first &mdash; in the order you should try it.</p>
+      <p class="byline">Written by <a href="../about.html">Mark</a> &middot; Published 2 November 2026</p>
     </div>
   </section>
 
@@ -450,7 +477,7 @@
           <h2>Why does one side crackle, buzz or distort?</h2>
           <div class="prose">
 <p>A driver that has started to fail usually breaks up at one frequency rather than everywhere, which is why the tone check is worth running through its three pitches in turn. Listen for the pitch that does not survive. A buzz that is there on every tone is more likely the operating system's own processing than the headphones.</p>
-<p>That processing is worth taking seriously, because it is common and it is free to turn off. Spatial audio, mono audio, virtual surround modes, sound effects and equalisation presets all process the signal before it reaches the driver, and a virtual surround mode in particular will push the channels around. On Windows it is the <strong>Spatial sound</strong> dropdown on the Sound page; on Apple platforms it is in Accessibility &rarr; Audio &amp; Visual.</p>
+<p>That processing is worth taking seriously, because it is common and it is free to turn off. Spatial audio, mono audio, virtual surround modes, sound effects and equalisation presets all process the signal before it reaches the driver, and a virtual surround mode in particular will push the channels around. On Windows it is in the device properties, under Advanced settings; on Apple platforms it is in Accessibility &rarr; Audio &amp; Visual.</p>
 <p>On the hardware side, three causes cover most of it. A cable with a broken conductor produces crackle that comes and goes as you move it, and it usually has a location you can find by flexing the section by section. A driver with a loose or damaged voice coil produces distortion that grows with volume and with bass, because the cone is being asked to move further than it can. And a blocked earbud mesh produces a quieter, duller sound that people often report as reduced quality rather than as a fault.</p>
 <p>Bluetooth adds its own: a compressed codec will make a wireless pair sound different from a wired one, and some of that difference is normal rather than a fault. Do not read the timbre of a wireless pair as damage.</p>
           </div>
@@ -475,7 +502,7 @@
       <div class="steps" style="margin-top:1.4rem">
           <div class="step">
             <h3>Turn the processing off</h3>
-            <p>Windows: <strong>Settings &rarr; System &rarr; Sound</strong>, and the <strong>Spatial sound</strong> dropdown is near the bottom of the Output section. Apple platforms: Accessibility &rarr; Audio &amp; Visual. Also check the equalisation and effects in whatever application you were using.</p>
+            <p>Windows: <strong>Settings &rarr; System &rarr; Sound</strong>, click your device in the Output section, then <strong>Properties</strong>, and <strong>Spatial sound</strong> is under Advanced settings, near the bottom of that window. It is off by default. Apple platforms: Accessibility &rarr; Audio &amp; Visual. Also check the equalisation and effects in whatever application you were using.</p>
           </div>
           <div class="step">
             <h3>Run the three pitches</h3>
@@ -608,7 +635,7 @@
           <tbody>
             <tr><td>Left and right balance</td><td>Windows: Settings &rarr; System &rarr; Sound &rarr; More sound settings &rarr; your device &rarr; Properties &rarr; Levels &rarr; Balance. macOS: System Settings &rarr; Sound &rarr; Output &rarr; your device &rarr; Balance. On a phone: called balance, in the sound or accessibility settings, and not present on every phone</td><td>The level of each channel. It makes one side quieter without breaking anything</td></tr>
             <tr><td>Mono audio</td><td>Windows: Settings &rarr; System &rarr; Sound &rarr; Mono audio. macOS: System Settings &rarr; Accessibility &rarr; Audio &rarr; Play stereo as mono. On a phone: Accessibility &rarr; Audio &amp; Visual on an iPhone, and not present on every Android phone</td><td>Both channels become the same signal. Every stereo cue collapses into the middle</td></tr>
-            <tr><td>Spatial sound and virtual surround</td><td>Windows: the Spatial sound dropdown on the Sound page. Apple platforms: Accessibility &rarr; Audio &amp; Visual</td><td>The channels are processed before they reach the driver. It can move sound between the ears and add processing noise</td></tr>
+            <tr><td>Spatial sound and virtual surround</td><td>Windows: Settings &rarr; System &rarr; Sound &rarr; your device &rarr; Properties &rarr; Advanced settings &rarr; Spatial sound. Apple platforms: Accessibility &rarr; Audio &amp; Visual</td><td>The channels are processed before they reach the driver. It can move sound between the ears and add processing noise</td></tr>
             <tr><td>Equalisation and sound effects</td><td>In the application, or in the operating system&rsquo;s audio effects panel</td><td>The tone of the sound. It does not break a channel, but it can make one side sound thinner</td></tr>
             <tr><td>Exclusive mode</td><td>Windows: Sound &rarr; More sound settings &rarr; your device &rarr; Properties &rarr; the Advanced tab</td><td>Whether another application can hold the device. A browser can be left silent while every other app works</td></tr>
             <tr><td>Sample rate</td><td>The same Properties dialog, on the Advanced tab</td><td>The rate the device resamples to. It does not change whether a channel works, and it is rarely the cause of a fault</td></tr>
@@ -734,13 +761,14 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a class="brand" href="../index.html"><span class="brand__mark" aria-hidden="true"></span>InputScope<span class="brand__dot">.</span></a>
-        <p>Free, browser-based diagnostics for the two devices you use most. Built to be a baseline you can come back to.</p>
+        <p>Free, browser-based diagnostics for the devices you use most. Built to be a baseline you can come back to.</p>
       </div>
       <div class="footer-col">
         <h2>Tools</h2>
         <ul>
           <li><a href="../mouse-check.html">Mouse Check</a></li>
           <li><a href="../keyboard-check.html">Keyboard Check</a></li>
+          <li><a href="../headset-check.html">Headset Check</a></li>
         </ul>
       </div>
       <div class="footer-col">

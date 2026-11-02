@@ -68,6 +68,7 @@ _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 files = sys.argv[1:] or [
     os.path.join(_root, "mouse-check.html"),
     os.path.join(_root, "keyboard-check.html"),
+    os.path.join(_root, "headset-check.html"),
     os.path.join(_root, "index.html"),
 ]
 allok = True
