@@ -16,9 +16,9 @@ const EXEC = process.env.CHROME_PATH ||
   '/root/.cache/ms-playwright/chromium-1243/chrome-linux/chrome';
 
 const THEMES = {
-  monochrome: { bg: 'rgb(12, 12, 13)',    chrome: '#0c0c0d' },
-  ember:     { bg: 'rgb(16, 14, 12)',    chrome: '#100e0c' },
-  daylight:  { bg: 'rgb(246, 244, 239)', chrome: '#f6f4ef' }
+  monochrome: { bg: 'rgb(12, 12, 13)',    color: 'rgb(241, 241, 242)', chrome: '#0c0c0d' },
+  ember:     { bg: 'rgb(16, 14, 12)',    color: 'rgb(242, 236, 228)', chrome: '#100e0c' },
+  daylight:  { bg: 'rgb(246, 244, 239)', color: 'rgb(23, 25, 28)',    chrome: '#f6f4ef' }
 };
 const LABELS = ['Dark', 'Ember', 'Light'];
 const VALUES = ['monochrome', 'ember', 'daylight'];
@@ -102,28 +102,57 @@ function ok(cond, name, detail) {
   const pickers = await page.$$eval('[data-theme-select]', e => e.length);
   ok(pickers === 0, 'no picker on the mouse page', String(pickers));
 
-  // the headset pages do carry the picker, and choosing on one of them works
+  // the pages added later carry no control, but the themes still reach them
   await page.goto(BASE + '/headset-check.html', { waitUntil: 'load' });
   const hsPickers = await page.$$eval('[data-theme-select]', e => e.length);
-  ok(hsPickers === 1, 'the headset page carries the picker', String(hsPickers));
-  await page.selectOption('[data-theme-select]', 'ember');
-  await page.waitForTimeout(150);
+  ok(hsPickers === 0, 'the headset page carries no picker', String(hsPickers));
   const onHeadset = await page.evaluate(() => ({
     attr: document.documentElement.getAttribute('data-theme'),
-    bg: getComputedStyle(document.body).backgroundColor,
-    stored: localStorage.getItem('inputscope-theme')
+    bg: getComputedStyle(document.body).backgroundColor
   }));
-  ok(onHeadset.attr === 'ember', 'choosing on the headset page changes the theme', onHeadset.attr);
-  ok(onHeadset.bg === THEMES.ember.bg, 'and the headset page paints the chosen palette', onHeadset.bg);
-  ok(onHeadset.stored === 'ember', 'and the choice is stored for the next page', String(onHeadset.stored));
+  ok(onHeadset.attr === 'daylight', 'the theme reaches the headset page', onHeadset.attr);
+  ok(onHeadset.bg === THEMES.daylight.bg, 'and the headset page paints the chosen palette', onHeadset.bg);
 
   await page.goto(BASE + '/troubleshooting/headset.html', { waitUntil: 'load' });
   const onGuide = await page.evaluate(() => ({
     attr: document.documentElement.getAttribute('data-theme'),
+    bg: getComputedStyle(document.body).backgroundColor,
     pickers: document.querySelectorAll('[data-theme-select]').length
   }));
-  ok(onGuide.attr === 'ember', 'the choice carries to the headphone guide', onGuide.attr);
-  ok(onGuide.pickers === 1, 'the guide carries the picker too', String(onGuide.pickers));
+  ok(onGuide.attr === 'daylight', 'the theme reaches the headphone guide', onGuide.attr);
+  ok(onGuide.bg === THEMES.daylight.bg, 'and the guide paints the chosen palette', onGuide.bg);
+  ok(onGuide.pickers === 0, 'the guide carries no picker either', String(onGuide.pickers));
+
+  // every theme reaches every page: the panels, the text and the accents
+  // have to move with the palette, not just the body behind them
+  for (const value of VALUES) {
+    await page.goto(BASE + '/index.html', { waitUntil: 'load' });
+    await page.selectOption('[data-theme-select]', value);
+    await page.waitForTimeout(120);
+    for (const p of ['/headset-check.html', '/troubleshooting/headset.html']) {
+      await page.goto(BASE + p, { waitUntil: 'load' });
+      const got = await page.evaluate(() => {
+        const cs = getComputedStyle;
+        const body = cs(document.body);
+        const panel = document.querySelector('.panel, .doc-section');
+        const h1 = document.querySelector('h1');
+        return {
+          attr: document.documentElement.getAttribute('data-theme'),
+          bg: body.backgroundColor,
+          color: body.color,
+          panel: panel ? cs(panel).backgroundColor : null,
+          border: panel ? cs(panel).borderColor : null,
+          h1: h1 ? cs(h1).color : null
+        };
+      });
+      const label = value + ' on ' + p;
+      ok(got.attr === value, label + ': the palette is applied', got.attr);
+      ok(got.bg === THEMES[value].bg, label + ': the background follows it', got.bg);
+      ok(got.color === THEMES[value].color, label + ': the text colour follows it', got.color);
+      ok(got.panel !== null && got.panel !== got.bg, label + ': the panel is painted from the palette', String(got.panel));
+      ok(got.h1 === THEMES[value].color, label + ': the heading is painted from the palette', String(got.h1));
+    }
+  }
 
   ok(errors.length === 0, 'no console errors', errors.slice(0, 3).join(' | '));
 

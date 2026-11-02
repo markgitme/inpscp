@@ -169,13 +169,11 @@ for dirpath, dirnames, filenames in os.walk(ROOT):
         if fn.endswith('.html'):
             pages.append(os.path.join(dirpath, fn))
 
-# The picker started on the home page only. The headset tool and its guide
-# carry it as well, so a reader who lands on one of them from a search can
-# change the theme without going back to the front page. Every page still
-# honours the choice — it reads the same stored value — and a page that
-# carries the control has to carry it properly.
+# The picker lives on the home page only. Every other page still honours the
+# choice — it reads the same stored value — but does not offer the control.
+# The pages added later follow the same rule: the themes apply to them, the
+# control does not move.
 HOME = 'index.html'
-MUST_CARRY = ('index.html', 'headset-check.html', 'troubleshooting/headset.html')
 
 print(f"\n--- the picker: {len(pages)} page(s) ---")
 for path in sorted(pages):
@@ -190,10 +188,9 @@ for path in sorted(pages):
           f"{where}: sets the theme before the stylesheets arrive")
     check('name="theme-color"' in html, f"{where}: declares the browser chrome colour")
 
-    carries = 'data-theme-select' in html
-    if where in MUST_CARRY:
-        check(carries, f"{where}: has the theme picker")
-    elif not carries:
+    if not is_home:
+        check('data-theme-select' not in html,
+              f"{where}: carries no theme picker")
         check('class="theme-picker"' not in html,
               f"{where}: carries no theme picker control")
         continue
