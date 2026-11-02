@@ -56,7 +56,12 @@ const FAKE = `
     var origConnect = AudioNode.prototype.connect;
     AudioNode.prototype.connect = function (dest, out, inp) {
       if (dest instanceof ChannelMergerNode && typeof inp === 'number') {
-        hs.merges.push({ out: out, in: inp });
+        /* the gain of the node doing the connecting matters: the polarity
+           check is the one that inverts a channel with a gain of -1 */
+        hs.merges.push({
+          out: out, in: inp,
+          gain: (this.gain && typeof this.gain.value === 'number') ? this.gain.value : null
+        });
       }
       return origConnect.apply(this, arguments);
     };
@@ -393,7 +398,88 @@ const measure = (page, ms) => page.evaluate(d => new Promise(resolve => {
   ok(order.indexOf('Channel check') < order.indexOf('Tone check'),
      'the tone check comes after the channel check', order.join(' | '));
 
-  /* ---------- 14. every reading declares a starting line ---------- */
+  /* ---------- 14. the advanced diagnostics ---------- */
+  /* the section is collapsed to start with, so open it the way a reader
+     would — by clicking the summary */
+  ok(await page.$eval('details.advanced-wrap', e => !e.open),
+     'the advanced diagnostics section starts collapsed');
+  await page.click('details.advanced-wrap > summary');
+  await page.waitForTimeout(200);
+  ok(await page.$eval('details.advanced-wrap', e => e.open),
+     'the advanced diagnostics section opens');
+
+  const advanced = await page.evaluate(() => ({
+    open: !!document.querySelector('details.advanced-wrap'),
+    panels: Array.prototype.slice.call(document.querySelectorAll('.advanced-grid .panel h3')).map(h => h.textContent.trim())
+  }));
+  ok(advanced.open, 'the advanced diagnostics section is there', JSON.stringify(advanced));
+  ok(advanced.panels.indexOf('Polarity') !== -1 && advanced.panels.indexOf('Frequency sweep') !== -1,
+     'the advanced section holds the polarity check and the frequency sweep', advanced.panels.join(' | '));
+
+  /* the sweep: it starts low, climbs, and never leaves the range */
+  await page.evaluate(() => { window.__hs.oscillators.length = 0; });
+  await page.click('[data-hs-sweep="play"]');
+  await page.waitForTimeout(250);
+  const sweepStart = await out(page, 'hs-sweep');
+  await page.waitForTimeout(3500);
+  const sweepMid = await out(page, 'hs-sweep');
+  const sweepFreq = await page.evaluate(() => window.__hs.oscillators[0].frequency.value);
+  ok(/^\d+ Hz$/.test(sweepStart), 'the sweep reports the frequency it is on', sweepStart);
+  ok(parseFloat(sweepStart) <= 60, 'the sweep starts at the bottom of the range', sweepStart);
+  ok(parseFloat(sweepMid) > parseFloat(sweepStart), 'the sweep climbs', sweepStart + ' -> ' + sweepMid);
+  ok(sweepFreq <= 1000, 'the sweep never goes above 1 kHz', String(sweepFreq));
+  const sweepFill = await page.$eval('#hs-sweep-fill', e => e.style.width);
+  ok(parseFloat(sweepFill) > 0, 'the sweep bar moves', sweepFill);
+
+  await page.click('[data-hs-sweep="stop"]');
+  await page.waitForTimeout(200);
+  ok((await out(page, 'hs-sweep')) === '—', 'the sweep readout clears when it is stopped', await out(page, 'hs-sweep'));
+
+  /* the polarity comparison: three notes, and the middle one has the
+     right channel inverted */
+  await page.evaluate(() => { window.__hs.merges.length = 0; window.__hs.oscillators.length = 0; });
+  await page.click('[data-hs-polar="play"]');
+  await page.waitForTimeout(300);
+  const polarMerges = await page.evaluate(() => window.__hs.merges);
+  const polarNotes = await page.evaluate(() => window.__hs.oscillators.length);
+  ok(polarNotes === 3, 'the comparison plays three notes', String(polarNotes));
+  ok(polarMerges.length === 6, 'each note goes to both channels', JSON.stringify(polarMerges.map(m => m.in)));
+  const inverted = polarMerges.filter(m => m.gain !== null && m.gain < 0);
+  ok(inverted.length === 1 && inverted[0].in === 1,
+     'one note inverts the right channel only', JSON.stringify(inverted));
+
+  /* the comparison runs for its full length — the first note ending must
+     not silence the two behind it. The three notes are two seconds each
+     with a six-hundred-millisecond gap between them, so the last one ends
+     at about seven and a quarter seconds. */
+  await page.waitForTimeout(2100);
+  ok((await out(page, 'hs-freq')) !== '—',
+     'the comparison is still sounding after its first note has ended', await out(page, 'hs-freq'));
+  await page.waitForTimeout(6500);
+  ok((await out(page, 'hs-freq')) === '—',
+     'the comparison finishes and clears the reading', await out(page, 'hs-freq'));
+
+  await page.click('[data-hs-polar="same"]');
+  const sameVerdict = await page.$eval('#hs-polar-verdict-line', e => e.textContent.trim());
+  ok(/wired backwards/i.test(sameVerdict), 'the same verdict names a reversed driver', sameVerdict);
+  const polarState = await page.evaluate(() => ({
+    same: document.querySelector('[data-hs-polar="same"]').classList.contains('is-on'),
+    different: document.querySelector('[data-hs-polar="different"]').classList.contains('is-on'),
+    reading: document.querySelector('[data-out="hs-polar"]').textContent.trim()
+  }));
+  ok(polarState.same && !polarState.different, 'the chosen answer is painted and the other one cleared', JSON.stringify(polarState));
+  ok(/same/i.test(polarState.reading), 'the comparison reading records the answer', polarState.reading);
+
+  await page.click('[data-hs-polar="different"]');
+  const diffVerdict = await page.$eval('#hs-polar-verdict-line', e => e.textContent.trim());
+  ok(/wiring is correct/i.test(diffVerdict), 'the different verdict says the wiring is correct', diffVerdict);
+  const polarState2 = await page.evaluate(() => ({
+    same: document.querySelector('[data-hs-polar="same"]').classList.contains('is-on'),
+    different: document.querySelector('[data-hs-polar="different"]').classList.contains('is-on')
+  }));
+  ok(!polarState2.same && polarState2.different, 'the previous answer is cleared when the other is chosen', JSON.stringify(polarState2));
+
+  /* ---------- 15. every reading declares a starting line ---------- */
   const notes = await page.$$eval('[data-note]', els => els.map(e => ({
     key: e.getAttribute('data-note'), text: e.textContent.trim()
   })));

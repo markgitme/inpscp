@@ -161,6 +161,53 @@
         <p class="mouse-hint">A tone that is missing at one end is usually the headphones rolling off there rather than a fault &mdash; and it is usually your hearing as well. Start low and work up.</p>
       </div>
 
+      <!-- ================= ADVANCED ================= -->
+      <details class="advanced-wrap">
+        <summary>
+          <span>Advanced diagnostics</span>
+          <span class="advanced-wrap__label">2 deeper checks for when the basics all pass</span>
+        </summary>
+        <div class="advanced-grid">
+
+          <div class="panel panel--pad">
+            <h3>Polarity</h3>
+            <p class="check-note">Plays the same tone in both channels, then again with one of them inverted. The two should sound different: solid and centred the first time, thin and spread out the second. If they sound the same, one driver is wired backwards &mdash; and the left and right test cannot see that, because a reversed driver still arrives in the right ear.</p>
+            <div class="check-actions">
+              <button class="btn btn--sm" type="button" data-hs-polar="play">Play the comparison</button>
+            </div>
+            <div class="check-actions">
+              <button class="btn btn--sm" type="button" data-hs-polar="same">They sound the same</button>
+              <button class="btn btn--sm" type="button" data-hs-polar="different">They sound different</button>
+            </div>
+            <div class="verdict">
+              <div class="verdict__line" id="hs-polar-verdict-line">Ready when you are.</div>
+              <div class="verdict__detail" id="hs-polar-verdict-detail">Play the comparison first, then say which it was.</div>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Comparison</span><span class="mini-results__v" data-out="hs-polar">&mdash;</span><span class="mini-results__n" data-note="hs-polar">what you heard when the two versions were played</span></div>
+            </div>
+          </div>
+
+          <div class="panel panel--pad">
+            <h3>Frequency sweep</h3>
+            <p class="check-note">Sweeps a tone from 20 Hz up to 1 kHz over eight seconds, in both channels at once. Listen for where the sound stops being there: headphones roll off at the bottom, and the low notes are the first thing you stop hearing. Your own hearing is in the measurement too, so a tone you cannot hear is not proof of a fault.</p>
+            <div class="check-actions">
+              <button class="btn btn--sm" type="button" data-hs-sweep="play">Play the sweep</button>
+              <button class="btn btn--sm" type="button" data-hs-sweep="stop">Stop</button>
+            </div>
+            <div class="check-actions__hint" style="margin-top:.5rem">Turn the volume down first. The sweep ends at 1&nbsp;kHz, which is where a test tone starts to bite.</div>
+            <div class="hs-sweep">
+              <div class="hs-sweep__track"><div class="hs-sweep__fill" id="hs-sweep-fill"></div></div>
+              <div class="hs-sweep__scale"><span>20 Hz</span><span>1 kHz</span></div>
+            </div>
+            <div class="mini-results">
+              <div><span class="mini-results__k">Frequency</span><span class="mini-results__v" data-out="hs-sweep">&mdash;</span><span class="mini-results__n" data-note="hs-sweep">the frequency sounding right now</span></div>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
     </div>
   </section>
 

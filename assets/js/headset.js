@@ -52,6 +52,7 @@
   var freqSelect = $('#hs-freq');
   var soundSelect = $('#hs-sound');
   var diagram = $('#hs-diagram');
+  var sweepFill = $('#hs-sweep-fill');
 
   var outCtx = null;
   var osc = null;
@@ -255,6 +256,167 @@
     paintDiagram();
   }
 
+  /* =========================================================
+     THE SWEEP
+
+     A logarithmic sweep from 20 Hz to 1 kHz. The frequency is automated
+     on the audio clock rather than stepped in a timer, so the sweep does
+     not drift and the readout can be computed from the same curve.
+     ========================================================= */
+  var SWEEP_FROM = 20;
+  var SWEEP_TO = 1000;
+  var SWEEP_SECONDS = 8;
+  var sweepTimer = null;
+
+  function sweepFrequencyAt(elapsed) {
+    if (elapsed <= 0) return SWEEP_FROM;
+    if (elapsed >= SWEEP_SECONDS) return SWEEP_TO;
+    var ratio = Math.log(SWEEP_TO / SWEEP_FROM);
+    return SWEEP_FROM * Math.exp(ratio * (elapsed / SWEEP_SECONDS));
+  }
+
+  function sweepPosition(freq) {
+    var ratio = Math.log(SWEEP_TO / SWEEP_FROM);
+    if (ratio <= 0) return 0;
+    return Math.max(0, Math.min(1, Math.log(freq / SWEEP_FROM) / ratio));
+  }
+
+  function stopSweep() {
+    if (sweepTimer) { clearInterval(sweepTimer); sweepTimer = null; }
+    stopTone();
+    setOut('hs-sweep', '—', 'the frequency sounding right now');
+    if (sweepFill) sweepFill.style.width = '0%';
+  }
+
+  function playSweep() {
+    var ctx = outContext();
+    stopSweep();
+
+    var merger = ctx.createChannelMerger(2);
+    merger.connect(ctx.destination);
+
+    var o = ctx.createOscillator();
+    o.type = 'sine';
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0, ctx.currentTime);
+    g.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 0.04);
+
+    var when = ctx.currentTime + 0.05;
+    o.frequency.setValueAtTime(SWEEP_FROM, when);
+    o.frequency.exponentialRampToValueAtTime(SWEEP_TO, when + SWEEP_SECONDS);
+
+    o.connect(g);
+    g.connect(merger, 0, 0); g.connect(merger, 0, 1);
+    o.start(when);
+    o.stop(when + SWEEP_SECONDS + 0.05);
+
+    osc = o;
+    oscGain = g;
+    sources = [{ src: o, gain: g }];
+    playing = 'both';
+    paintDiagram();
+
+    var startedAt = when;
+    sweepTimer = setInterval(function () {
+      var elapsed = ctx.currentTime - startedAt;
+      var freq = sweepFrequencyAt(elapsed);
+      setOut('hs-sweep', (freq >= 1000 ? '1 kHz' : Math.round(freq) + ' Hz'), 'the frequency sounding right now');
+      if (sweepFill) sweepFill.style.width = (sweepPosition(freq) * 100).toFixed(1) + '%';
+      if (elapsed >= SWEEP_SECONDS) stopSweep();
+    }, 60);
+  }
+
+  /* =========================================================
+     THE POLARITY COMPARISON
+
+     The same tone in both channels, then the same tone with one channel
+     inverted. A correctly wired pair sounds solid and centred with the
+     two in phase, and thin and spread out with one inverted. A driver
+     that is wired backwards cancels against the other one and the two
+     sound the same — a fault the left and right test cannot see.
+     ========================================================= */
+  var POLARITY_FREQ = 250;
+  var POLARITY_NOTE = 2;
+  var POLARITY_GAP = 0.6;
+
+  function playPolarity() {
+    var ctx = outContext();
+    stopTone();
+
+    var merger = ctx.createChannelMerger(2);
+    merger.connect(ctx.destination);
+
+    var made = [];
+    var lastOsc = null;
+    var when = ctx.currentTime + 0.05;
+    var plan = [
+      { invert: false, label: 'in phase' },
+      { invert: true, label: 'one channel inverted' },
+      { invert: false, label: 'in phase again' }
+    ];
+
+    plan.forEach(function (step) {
+      var o = ctx.createOscillator();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(POLARITY_FREQ, when);
+      var g = ctx.createGain();
+      g.gain.setValueAtTime(0, when);
+      g.gain.linearRampToValueAtTime(0.18, when + 0.04);
+      o.connect(g);
+
+      if (step.invert) {
+        /* the left channel carries the signal unchanged and the right
+           channel carries it with its phase flipped */
+        var inv = ctx.createGain();
+        inv.gain.value = -1;
+        g.connect(merger, 0, 0);
+        g.connect(inv);
+        inv.connect(merger, 0, 1);
+        made.push({ src: o, gain: g });
+        made.push({ src: inv, gain: inv });
+      } else {
+        g.connect(merger, 0, 0);
+        g.connect(merger, 0, 1);
+        made.push({ src: o, gain: g });
+      }
+
+      o.start(when);
+      o.stop(when + POLARITY_NOTE);
+      lastOsc = o;
+      when += POLARITY_NOTE + POLARITY_GAP;
+    });
+
+    osc = made[0].src;
+    oscGain = made[0].gain;
+    sources = made;
+    setOut('hs-freq', POLARITY_FREQ + ' Hz', 'the frequency playing right now');
+    playing = 'both';
+    paintDiagram();
+
+    /* The handler belongs on the LAST note. Attaching it to the first one
+       stopped the whole comparison after two seconds, because that note's
+       ended event fired and cleared everything still queued behind it. */
+    lastOsc.onended = function () { if (osc === made[0].src) stopTone(); };
+  }
+
+  function reportPolarity(answer) {
+    var line = $('#hs-polar-verdict-line');
+    var detail = $('#hs-polar-verdict-detail');
+    if (answer === 'same') {
+      setOut('hs-polar', 'Sounded the same', 'what you heard when the two versions were played', 'bad');
+      setVerdict(line, detail,
+        'One driver is probably wired backwards.',
+        'A driver wired the wrong way round still arrives in the right ear, so the channel test cannot catch it. Check that mono audio is switched off in your system settings first, because that would do the same thing.',
+        'bad');
+    } else if (answer === 'different') {
+      setOut('hs-polar', 'Sounded different', 'what you heard when the two versions were played', 'ok');
+      setVerdict(line, detail,
+        'The wiring is correct.',
+        'The two versions sounded different, which is what a correctly wired pair does. A solid, centred sound in phase and a thin, spread out sound with one channel inverted.',
+        'ok');
+    }
+  }
+
   function reportMarks() {
     setOut('hs-left', marks.left === 'heard' ? 'Heard it' : marks.left === 'silent' ? 'Silent' : '—',
       'what you heard in your left ear',
@@ -326,6 +488,29 @@
      and would play when the reader only meant to look at the list. The
      value is read when the sound is played, so the two dropdowns need no
      listener of their own. */
+
+  $$('[data-hs-sweep]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var what = btn.getAttribute('data-hs-sweep');
+      if (what === 'stop') { stopSweep(); return; }
+      playSweep();
+    });
+  });
+
+  $$('[data-hs-polar]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var what = btn.getAttribute('data-hs-polar');
+      if (what === 'play') { playPolarity(); return; }
+      /* The two answers are mutually exclusive, so both buttons are
+         repainted together — otherwise the one that was not chosen keeps
+         looking pressed. */
+      $$('[data-hs-polar]').forEach(function (b) {
+        var key = b.getAttribute('data-hs-polar');
+        b.classList.toggle('is-on', key !== 'play' && key === what);
+      });
+      reportPolarity(what);
+    });
+  });
 
   $$('[data-hs-mark]').forEach(function (btn) {
     btn.addEventListener('click', function () {
