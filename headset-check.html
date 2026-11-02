@@ -171,20 +171,22 @@
 
           <div class="panel panel--pad">
             <h3>Polarity</h3>
-            <p class="check-note">Plays the same tone in both channels, then again with one of them inverted. The two should sound different: solid and centred the first time, thin and spread out the second. If they sound the same, one driver is wired backwards &mdash; and the left and right test cannot see that, because a reversed driver still arrives in the right ear.</p>
+            <p class="check-note">Plays the same tone in both channels, then again with the right channel inverted, then the first version again. With a correctly wired pair the first version sums and sits in the middle of your head, and the second spreads out to both sides because the two channels cancel. If the <strong>second</strong> version is the one that feels centred, one driver is wired backwards &mdash; and the left and right test cannot see that, because a reversed driver still arrives in the right ear. If both versions sound the same, the signal is not reaching your headphones as stereo.</p>
             <div class="check-actions">
               <button class="btn btn--sm" type="button" data-hs-polar="play">Play the comparison</button>
             </div>
             <div class="check-actions">
+              <button class="btn btn--sm" type="button" data-hs-polar="first">The first is centred</button>
+              <button class="btn btn--sm" type="button" data-hs-polar="second">The second is centred</button>
               <button class="btn btn--sm" type="button" data-hs-polar="same">They sound the same</button>
-              <button class="btn btn--sm" type="button" data-hs-polar="different">They sound different</button>
             </div>
             <div class="verdict">
               <div class="verdict__line" id="hs-polar-verdict-line">Ready when you are.</div>
-              <div class="verdict__detail" id="hs-polar-verdict-detail">Play the comparison first, then say which it was.</div>
+              <div class="verdict__detail" id="hs-polar-verdict-detail">Play the comparison first, then say which version was centred.</div>
             </div>
             <div class="mini-results">
-              <div><span class="mini-results__k">Comparison</span><span class="mini-results__v" data-out="hs-polar">&mdash;</span><span class="mini-results__n" data-note="hs-polar">what you heard when the two versions were played</span></div>
+              <div><span class="mini-results__k">Comparison</span><span class="mini-results__v" data-out="hs-polar">&mdash;</span><span class="mini-results__n" data-note="hs-polar">which version was centred</span></div>
+              <div><span class="mini-results__k">Playing now</span><span class="mini-results__v" data-out="hs-polar-now">&mdash;</span><span class="mini-results__n" data-note="hs-polar-now">which version is playing right now</span></div>
             </div>
           </div>
 
@@ -217,13 +219,17 @@
       <div class="section__head">
         <span class="eyebrow eyebrow--amber">Troubleshooting</span>
         <h2>Headphones not behaving?</h2>
-        <p>Seven faults account for almost every headphone complaint. Each one below says what causes it, what this page can settle for you, and what to try first &mdash; in the order you should try it.</p>
+        <p>Eight faults account for almost every headphone complaint. Each one below says what causes it, what this page can settle for you, and what to try first &mdash; in the order you should try it.</p>
       </div>
 
       <div class="prose">
         <h3>Why is the sound in the wrong ear?</h3>
         <p>Your two channels have crossed. The usual cause is the headphones being on the wrong way round &mdash; look for the L and R marks inside the earcups &mdash; and the next most common is a cable, adapter or splitter with the wiring reversed. A repair or a replacement cable can leave a pair wired backwards without anything looking wrong.</p>
         <p>Play <strong>Left</strong>, then <strong>Right</strong>. If each tone arrives in the opposite ear, that is what has happened.</p>
+
+        <h3>Why does one ear sound thin, hollow or wider than the other?</h3>
+        <p>Because one driver is playing with its phase flipped, so the two sides partly cancel instead of summing. It is a wiring fault, not a driver fault: the driver still works, and it still arrives in the correct ear, which is why the channel check passes and the fault survives it. A repair, a replacement cable or a plug that has been pushed in upside down can all leave a pair like this.</p>
+        <p>The polarity check in the advanced diagnostics finds it. It plays the same tone in both channels, then again with one channel inverted, and asks which version was centred. A correctly wired pair centres the first version and spreads the second out to both sides. If the <em>second</em> version is the one that sits in the middle, one driver is wired backwards. Check that mono audio is switched off in your system settings first, because that produces a similar symptom.</p>
 
         <h3>Why does only one side play?</h3>
         <p>Four things to check, in this order, and stop as soon as the sound comes back. First, the left and right balance slider in your system or device sound settings: a slider nudged one way is the most common cause of headphones that play in one ear only, and it costs nothing to check. Second, the plug &mdash; push it fully home, and clean the tip if it is dirty or oxidised. Third, the output device: make sure the headphones are the selected output and the tab is not muted. Fourth, the cable, above the split or at the plug, where it gets bent.</p>
@@ -250,7 +256,7 @@
 
       <div class="callout callout--amber" style="margin-top:1.6rem">
         <h3>What this page cannot tell you</h3>
-        <p>It cannot measure anything about your headphones. A browser can send a tone down a channel, but it cannot hear what arrives, so the channel check, the balance and the frequency response all come down to what you tell it. What it does give you is a quiet way to make the comparison: a tone in one channel at a time, a drawing that shows which side is playing, and a record of what you marked. A measurement rather than a comparison is a different kind of tool.</p>
+        <p>It cannot measure anything about your headphones. A browser can send a tone down a channel, but it cannot hear what arrives, so the channel check, the balance, the polarity and the sweep all come down to what you tell it. What it does give you is a quiet way to make the comparison: a tone in one channel at a time, a drawing that shows which side is playing, and a record of what you marked. A measurement rather than a comparison is a different kind of tool.</p>
       </div>
     </div>
   </section>
@@ -294,6 +300,14 @@
         <details>
           <summary>Why is a tone missing at one end of the range?</summary>
           <div class="faq__a"><p>Two reasons, and both are ordinary. Headphones roll off at the bottom: the 100 Hz tone is the one most pairs play quietest, because the ear hears it less well and because most headphones give up their deepest bass first. And the roll-off is not even between sides, so a note that sounds full in one ear can sound hollow in the other if the two drivers are not matched. If a tone is missing rather than quiet, and the same happens on another device, then a driver has failed.</p></div>
+        </details>
+        <details>
+          <summary>How do I check whether one of my headphone drivers is wired backwards?</summary>
+          <div class="faq__a"><p>Open the advanced diagnostics and use the polarity check. It plays a tone in both channels, then the same tone with one channel inverted, then the first version again, and asks which version was centred. With a correctly wired pair the first version sums and sits in the middle of your head and the second spreads out to both sides, because the two channels cancel. If the <em>second</em> version is the centred one, one driver is arriving with its phase flipped &mdash; a reversed driver still reaches the right ear, so the channel check cannot see it. If both versions sound the same, the signal is not reaching your headphones as stereo at all, which is a different fault: check that mono audio is off in your system settings.</p></div>
+        </details>
+        <details>
+          <summary>Why does one ear sound thin, hollow or wider than the other?</summary>
+          <div class="faq__a"><p>Because the two drivers are not summing. One side is playing with its phase flipped, so it partly cancels the other instead of adding to it, and the sound spreads to the sides of your head rather than sitting in the middle. It is a wiring fault rather than a failed driver, so the tone still reaches the correct ear and the channel check passes. A repair, a replacement cable, or a plug pushed in upside down can leave a pair like this. The polarity check in the advanced diagnostics settles it by asking which of two versions was centred.</p></div>
         </details>
         <details>
           <summary>Can this test my headset microphone?</summary>

@@ -119,7 +119,9 @@
       });
     }
     dying.forEach(function (s) { try { s.src.stop(); } catch (e) {} });
+    if (polarTimer) { clearInterval(polarTimer); polarTimer = null; }
     setOut('hs-freq', '—', 'the frequency playing right now');
+    setOut('hs-polar-now', '—', 'which version is playing right now');
     playing = null;
     paintDiagram();
   }
@@ -267,6 +269,7 @@
   var SWEEP_TO = 1000;
   var SWEEP_SECONDS = 8;
   var sweepTimer = null;
+  var polarTimer = null;
 
   function sweepFrequencyAt(elapsed) {
     if (elapsed <= 0) return SWEEP_FROM;
@@ -332,8 +335,9 @@
      The same tone in both channels, then the same tone with one channel
      inverted. A correctly wired pair sounds solid and centred with the
      two in phase, and thin and spread out with one inverted. A driver
-     that is wired backwards cancels against the other one and the two
-     sound the same — a fault the left and right test cannot see.
+     that is wired backwards swaps the two: the inverted version arrives
+     in phase and becomes the centred one. A fault the left and right
+     test cannot see.
      ========================================================= */
   var POLARITY_FREQ = 250;
   var POLARITY_NOTE = 2;
@@ -348,11 +352,12 @@
 
     var made = [];
     var lastOsc = null;
-    var when = ctx.currentTime + 0.05;
+    var startedAt = ctx.currentTime + 0.05;
+    var when = startedAt;
     var plan = [
-      { invert: false, label: 'in phase' },
-      { invert: true, label: 'one channel inverted' },
-      { invert: false, label: 'in phase again' }
+      { invert: false, label: 'In phase' },
+      { invert: true, label: 'One channel inverted' },
+      { invert: false, label: 'In phase again' }
     ];
 
     plan.forEach(function (step) {
@@ -393,27 +398,51 @@
     playing = 'both';
     paintDiagram();
 
+    /* The reader has to know which version is sounding, or the answer
+       "the first one" means nothing. The position is read from the audio
+       clock, the same way the sweep reads its frequency. */
+    polarTimer = setInterval(function () {
+      var elapsed = ctx.currentTime - startedAt;
+      var t = 0, step = null;
+      for (var i = 0; i < plan.length; i++) {
+        if (elapsed >= t && elapsed < t + POLARITY_NOTE) { step = plan[i]; break; }
+        t += POLARITY_NOTE + POLARITY_GAP;
+      }
+      setOut('hs-polar-now', step ? step.label : '—', 'which version is playing right now');
+    }, 80);
+
     /* The handler belongs on the LAST note. Attaching it to the first one
        stopped the whole comparison after two seconds, because that note's
        ended event fired and cleared everything still queued behind it. */
     lastOsc.onended = function () { if (osc === made[0].src) stopTone(); };
   }
 
+  /* Which of the two versions was centred? A correctly wired pair sums on
+     the first version and spreads on the second. A driver that is wired
+     backwards swaps the two: the inverted version arrives in phase and
+     becomes the centred one. Asking whether they sounded the same or
+     different cannot tell those apart, so the question is which one. */
   function reportPolarity(answer) {
     var line = $('#hs-polar-verdict-line');
     var detail = $('#hs-polar-verdict-detail');
-    if (answer === 'same') {
-      setOut('hs-polar', 'Sounded the same', 'what you heard when the two versions were played', 'bad');
-      setVerdict(line, detail,
-        'One driver is probably wired backwards.',
-        'A driver wired the wrong way round still arrives in the right ear, so the channel test cannot catch it. Check that mono audio is switched off in your system settings first, because that would do the same thing.',
-        'bad');
-    } else if (answer === 'different') {
-      setOut('hs-polar', 'Sounded different', 'what you heard when the two versions were played', 'ok');
+    if (answer === 'first') {
+      setOut('hs-polar', 'The first was centred', 'which version was centred', 'ok');
       setVerdict(line, detail,
         'The wiring is correct.',
-        'The two versions sounded different, which is what a correctly wired pair does. A solid, centred sound in phase and a thin, spread out sound with one channel inverted.',
+        'The first version sums and sits in the middle of your head, and the second spreads out because the two channels cancel. That is what a correctly wired pair does.',
         'ok');
+    } else if (answer === 'second') {
+      setOut('hs-polar', 'The second was centred', 'which version was centred', 'bad');
+      setVerdict(line, detail,
+        'One driver is probably wired backwards.',
+        'The inverted version was the centred one, which means one driver is arriving with its phase flipped. A reversed driver still arrives in the right ear, so the channel test cannot catch it. Check that mono audio is switched off in your system settings first, because that would do the same thing.',
+        'bad');
+    } else if (answer === 'same') {
+      setOut('hs-polar', 'Sounded the same', 'which version was centred', 'warn');
+      setVerdict(line, detail,
+        'The two versions sound the same.',
+        'The signal is not reaching your headphones as stereo, so the two channels are not being told apart by the time the sound arrives. Check that mono audio is off in your system settings, and that a mono adapter or a three-pole plug in a four-pole socket is not in the chain. If you are simply not sure which was centred, that is an answer too — play it again.',
+        'warn');
     }
   }
 

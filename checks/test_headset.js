@@ -448,6 +448,11 @@ const measure = (page, ms) => page.evaluate(d => new Promise(resolve => {
   ok(inverted.length === 1 && inverted[0].in === 1,
      'one note inverts the right channel only', JSON.stringify(inverted));
 
+  /* the reader has to be able to tell the versions apart, so the panel
+     says which one is sounding */
+  const polarNow1 = await out(page, 'hs-polar-now');
+  ok(polarNow1 === 'In phase', 'the readout says which version is playing', polarNow1);
+
   /* the comparison runs for its full length — the first note ending must
      not silence the two behind it. The three notes are two seconds each
      with a six-hundred-millisecond gap between them, so the last one ends
@@ -455,29 +460,48 @@ const measure = (page, ms) => page.evaluate(d => new Promise(resolve => {
   await page.waitForTimeout(2100);
   ok((await out(page, 'hs-freq')) !== '—',
      'the comparison is still sounding after its first note has ended', await out(page, 'hs-freq'));
+  await page.waitForTimeout(600);
+  const polarNow2 = await out(page, 'hs-polar-now');
+  ok(/inverted/i.test(polarNow2), 'the readout follows the comparison to the inverted version', polarNow2);
   await page.waitForTimeout(6500);
   ok((await out(page, 'hs-freq')) === '—',
      'the comparison finishes and clears the reading', await out(page, 'hs-freq'));
+  ok((await out(page, 'hs-polar-now')) === '—',
+     'the readout clears when the comparison ends', await out(page, 'hs-polar-now'));
+
+  /* The question is which version was centred, not whether the two
+     sounded the same. A reversed driver swaps the two, so a verdict that
+     only asked "same or different" would report a reversed pair as
+     correct. Three answers, and each one must reach its own verdict. */
+  await page.click('[data-hs-polar="first"]');
+  const firstVerdict = await page.$eval('#hs-polar-verdict-line', e => e.textContent.trim());
+  ok(/wiring is correct/i.test(firstVerdict), 'the first-centred verdict says the wiring is correct', firstVerdict);
+  const polarState = await page.evaluate(() => ({
+    first: document.querySelector('[data-hs-polar="first"]').classList.contains('is-on'),
+    second: document.querySelector('[data-hs-polar="second"]').classList.contains('is-on'),
+    same: document.querySelector('[data-hs-polar="same"]').classList.contains('is-on'),
+    reading: document.querySelector('[data-out="hs-polar"]').textContent.trim()
+  }));
+  ok(polarState.first && !polarState.second && !polarState.same,
+     'the chosen answer is painted and the other two cleared', JSON.stringify(polarState));
+  ok(/first/i.test(polarState.reading), 'the comparison reading records the answer', polarState.reading);
+
+  await page.click('[data-hs-polar="second"]');
+  const secondVerdict = await page.$eval('#hs-polar-verdict-line', e => e.textContent.trim());
+  ok(/wired backwards/i.test(secondVerdict), 'the second-centred verdict names a reversed driver', secondVerdict);
+  const polarState2 = await page.evaluate(() => ({
+    first: document.querySelector('[data-hs-polar="first"]').classList.contains('is-on'),
+    second: document.querySelector('[data-hs-polar="second"]').classList.contains('is-on'),
+    same: document.querySelector('[data-hs-polar="same"]').classList.contains('is-on')
+  }));
+  ok(polarState2.second && !polarState2.first && !polarState2.same,
+     'the previous answer is cleared when another is chosen', JSON.stringify(polarState2));
 
   await page.click('[data-hs-polar="same"]');
   const sameVerdict = await page.$eval('#hs-polar-verdict-line', e => e.textContent.trim());
-  ok(/wired backwards/i.test(sameVerdict), 'the same verdict names a reversed driver', sameVerdict);
-  const polarState = await page.evaluate(() => ({
-    same: document.querySelector('[data-hs-polar="same"]').classList.contains('is-on'),
-    different: document.querySelector('[data-hs-polar="different"]').classList.contains('is-on'),
-    reading: document.querySelector('[data-out="hs-polar"]').textContent.trim()
-  }));
-  ok(polarState.same && !polarState.different, 'the chosen answer is painted and the other one cleared', JSON.stringify(polarState));
-  ok(/same/i.test(polarState.reading), 'the comparison reading records the answer', polarState.reading);
-
-  await page.click('[data-hs-polar="different"]');
-  const diffVerdict = await page.$eval('#hs-polar-verdict-line', e => e.textContent.trim());
-  ok(/wiring is correct/i.test(diffVerdict), 'the different verdict says the wiring is correct', diffVerdict);
-  const polarState2 = await page.evaluate(() => ({
-    same: document.querySelector('[data-hs-polar="same"]').classList.contains('is-on'),
-    different: document.querySelector('[data-hs-polar="different"]').classList.contains('is-on')
-  }));
-  ok(!polarState2.same && polarState2.different, 'the previous answer is cleared when the other is chosen', JSON.stringify(polarState2));
+  ok(/sound the same/i.test(sameVerdict), 'the same verdict says the two versions sound the same', sameVerdict);
+  ok(!/wired backwards/i.test(sameVerdict),
+     'the same verdict does not claim a reversed driver', sameVerdict);
 
   /* ---------- 15. every reading declares a starting line ---------- */
   const notes = await page.$$eval('[data-note]', els => els.map(e => ({
